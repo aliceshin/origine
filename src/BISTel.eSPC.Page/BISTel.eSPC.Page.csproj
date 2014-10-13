@@ -1,0 +1,1455 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5168DE00-5740-42C8-9A73-C0D9CCFECBF1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BISTel.eSPC.Page</RootNamespace>
+    <AssemblyName>BISTel.eSPC.Page</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BISTel.PeakPerformance.Client.ActiveMQ, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\lib\eescommon\2.x\BISTel.PeakPerformance.Client.ActiveMQ.dll</HintPath>
+    </Reference>
+    <Reference Include="BISTel.PeakPerformance.Client.BaseUserCtrl, Version=1.6.0.100, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\lib\eescommon\2.x\BISTel.PeakPerformance.Client.BaseUserCtrl.dll</HintPath>
+    </Reference>
+    <Reference Include="BISTel.PeakPerformance.Client.BISTelControl, Version=1.6.1.127, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\lib\eescommon\2.x\BISTel.PeakPerformance.Client.BISTelControl.dll</HintPath>
+    </Reference>
+    <Reference Include="BISTel.PeakPerformance.Client.CommonLibrary, Version=1.6.0.62, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\lib\eescommon\2.x\BISTel.PeakPerformance.Client.CommonLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="BISTel.PeakPerformance.Client.CommonUtil, Version=1.5.0.12, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\lib\eescommon\2.x\BISTel.PeakPerformance.Client.CommonUtil.dll</HintPath>
+    </Reference>
+    <Reference Include="BISTel.PeakPerformance.Client.DataAsyncHandler, Version=1.6.1.31, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\lib\eescommon\2.x\BISTel.PeakPerformance.Client.DataAsyncHandler.dll</HintPath>
+    </Reference>
+    <Reference Include="BISTel.PeakPerformance.Client.DataHandler">
+      <HintPath>..\..\..\..\..\lib\eescommon\2.x\BISTel.PeakPerformance.Client.DataHandler.dll</HintPath>
+    </Reference>
+    <Reference Include="BISTel.PeakPerformance.Client.DBHandler, Version=1.6.0.5, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\lib\eescommon\2.x\BISTel.PeakPerformance.Client.DBHandler.dll</HintPath>
+    </Reference>
+    <Reference Include="BISTel.PeakPerformance.Client.EESInterface, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\lib\eescommon\2.x\BISTel.PeakPerformance.Client.EESInterface.dll</HintPath>
+    </Reference>
+    <Reference Include="BISTel.PeakPerformance.Client.UserAuthorityHandler, Version=1.6.0.23, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\lib\eescommon\2.x\BISTel.PeakPerformance.Client.UserAuthorityHandler.dll</HintPath>
+    </Reference>
+    <Reference Include="BISTel.PeakPerformance.Statistics.Algorithm, Version=1.2.0.0, Culture=neutral, PublicKeyToken=c6fff673858b3bd8, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\lib\eescommon\2.x\BISTel.PeakPerformance.Statistics.Algorithm.dll</HintPath>
+    </Reference>
+    <Reference Include="BISTel.PeakPerformance.Statistics.Application, Version=1.2.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\lib\eescommon\2.x\BISTel.PeakPerformance.Statistics.Application.dll</HintPath>
+    </Reference>
+    <Reference Include="BISTel.PeakPerformance.UI.Statistics.Chart, Version=1.0.919.16, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\lib\eescommon\2.x\BISTel.PeakPerformance.UI.Statistics.Chart.dll</HintPath>
+    </Reference>
+    <Reference Include="FarPoint.CalcEngine, Version=5.0.3518.2008, Culture=neutral, PublicKeyToken=327c3516b1b18457, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\lib\eescommon\2.x\FarPoint.CalcEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="FarPoint.Excel, Version=5.0.3518.2008, Culture=neutral, PublicKeyToken=327c3516b1b18457, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\lib\eescommon\2.x\FarPoint.Excel.dll</HintPath>
+    </Reference>
+    <Reference Include="FarPoint.Win, Version=5.0.3518.2008, Culture=neutral, PublicKeyToken=327c3516b1b18457, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\lib\eescommon\2.x\FarPoint.Win.dll</HintPath>
+    </Reference>
+    <Reference Include="FarPoint.Win.Spread, Version=5.0.3518.2008, Culture=neutral, PublicKeyToken=327c3516b1b18457, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\lib\eescommon\2.x\FarPoint.Win.Spread.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TeeChart, Version=4.0.2009.62332, Culture=neutral, PublicKeyToken=9c8126276c77bdb7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\lib\eescommon\2.x\TeeChart.dll</HintPath>
+    </Reference>
+    <Reference Include="TIBCO.Rendezvous">
+      <HintPath>..\..\..\..\..\lib\eescommon\2.x\TIBCO.Rendezvous.dll</HintPath>
+    </Reference>
+    <Reference Include="vjslib">
+      <HintPath>..\..\..\..\..\lib\eescommon\2.x\vjslib.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Analysis\SPCAnalysisUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Analysis\SPCAnalysisUC.designer.cs">
+      <DependentUpon>SPCAnalysisUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AppInitialize.cs" />
+    <Compile Include="ATT\Common\BaseCalcChart.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ATT\Common\BaseCalcChart.designer.cs">
+      <DependentUpon>BaseCalcChart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ATT\Common\BaseChart.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ATT\Common\BaseChart.designer.cs">
+      <DependentUpon>BaseChart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ATT\Common\ChartInformation.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ATT\Common\ChartInformation.designer.cs">
+      <DependentUpon>ChartInformation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ATT\Common\Class\ChartInterface.cs" />
+    <Compile Include="ATT\Common\Class\CommonChart.cs" />
+    <Compile Include="ATT\Common\Class\CommonPageUtil.cs" />
+    <Compile Include="ATT\Common\Class\CommonSPCStat.cs" />
+    <Compile Include="ATT\Common\Class\CreateChartDataTable.cs" />
+    <Compile Include="ATT\Common\Class\ExcelWriter.cs" />
+    <Compile Include="ATT\Common\DefaultCalcChart.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ATT\Common\DefaultCalcChart.designer.cs">
+      <DependentUpon>DefaultCalcChart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ATT\Common\DefaultChart.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ATT\Common\DefaultChart.designer.cs">
+      <DependentUpon>DefaultChart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ATT\Common\Popup\ChartCalculationPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ATT\Common\Popup\ChartCalculationPopup.designer.cs">
+      <DependentUpon>ChartCalculationPopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ATT\Common\Popup\ChartDataPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ATT\Common\Popup\ChartDataPopup.designer.cs">
+      <DependentUpon>ChartDataPopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ATT\Common\Popup\ChartFilteredDataPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ATT\Common\Popup\ChartFilteredDataPopup.designer.cs">
+      <DependentUpon>ChartFilteredDataPopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ATT\Common\Popup\ChartViewPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ATT\Common\Popup\ChartViewPopup.designer.cs">
+      <DependentUpon>ChartViewPopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ATT\Common\Popup\MultiCalculationPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ATT\Common\Popup\MultiCalculationPopup.designer.cs">
+      <DependentUpon>MultiCalculationPopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ATT\Common\Popup\ZoomPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ATT\Common\Popup\ZoomPopup.designer.cs">
+      <DependentUpon>ZoomPopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ATT\Common\SPCModelUC2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ATT\Common\SPCModelUC2.designer.cs">
+      <DependentUpon>SPCModelUC2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ATT\Common\SPCModelUCController.cs" />
+    <Compile Include="ATT\Compare\ColumnFiltering.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ATT\Compare\ColumnFiltering.designer.cs">
+      <DependentUpon>ColumnFiltering.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ATT\Compare\ICompareResultController.cs" />
+    <Compile Include="ATT\Compare\SPCModelCompareResultController.cs" />
+    <Compile Include="ATT\Compare\SPCModelCompareResultUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ATT\Compare\SPCModelCompareResultUC.designer.cs">
+      <DependentUpon>SPCModelCompareResultUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ATT\Compare\SPCModelCompareUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ATT\Compare\SPCModelCompareUC.designer.cs">
+      <DependentUpon>SPCModelCompareUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ATT\Compare\SPCModelListController.cs" />
+    <Compile Include="ATT\Compare\SPCModelListUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ATT\Compare\SPCModelListUC.designer.cs">
+      <DependentUpon>SPCModelListUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ATT\Compare\SpreadFilteringPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ATT\Compare\SpreadFilteringPopup.designer.cs">
+      <DependentUpon>SpreadFilteringPopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ATT\History\SPCModelHistoryUC2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ATT\History\SPCModelHistoryUC2.designer.cs">
+      <DependentUpon>SPCModelHistoryUC2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ATT\History\SPCModelUCControllerForHistory.cs" />
+    <Compile Include="ATT\History\SPCModelUCForHistory3.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ATT\History\SPCModelUCForHistory3.designer.cs">
+      <DependentUpon>SPCModelUCForHistory3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ATT\History\SPCModelVersionCompareResultController.cs" />
+    <Compile Include="ATT\History\SPCModelVersionHistory.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ATT\History\SPCModelVersionHistory.designer.cs">
+      <DependentUpon>SPCModelVersionHistory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ATT\History\SPCModelVersionHistoryController.cs" />
+    <Compile Include="ATT\Modeling\AutoCalcConfigurationUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ATT\Modeling\AutoCalcConfigurationUC.designer.cs">
+      <DependentUpon>AutoCalcConfigurationUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ATT\Modeling\ContextConfigurationUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ATT\Modeling\ContextConfigurationUC.designer.cs">
+      <DependentUpon>ContextConfigurationUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ATT\Modeling\OptionalConfigurationUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ATT\Modeling\OptionalConfigurationUC.designer.cs">
+      <DependentUpon>OptionalConfigurationUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ATT\Modeling\RuleConfigurationUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ATT\Modeling\RuleConfigurationUC.designer.cs">
+      <DependentUpon>RuleConfigurationUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ATT\Modeling\SearchModelByArea.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ATT\Modeling\SearchModelByArea.designer.cs">
+      <DependentUpon>SearchModelByArea.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ATT\Modeling\SelectContextValuePopup_New.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ATT\Modeling\SelectContextValuePopup_New.designer.cs">
+      <DependentUpon>SelectContextValuePopup_New.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ATT\Modeling\SelectEQPModel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ATT\Modeling\SelectEQPModel.designer.cs">
+      <DependentUpon>SelectEQPModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ATT\Modeling\SelectParamPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ATT\Modeling\SelectParamPopup.designer.cs">
+      <DependentUpon>SelectParamPopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ATT\Modeling\SPCATTModelingUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ATT\Modeling\SPCATTModelingUC.designer.cs">
+      <DependentUpon>SPCATTModelingUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ATT\Modeling\SPCCalculationUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ATT\Modeling\SPCCalculationUC.designer.cs">
+      <DependentUpon>SPCCalculationUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ATT\Modeling\SPCConfigurationPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ATT\Modeling\SPCConfigurationPopup.designer.cs">
+      <DependentUpon>SPCConfigurationPopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ATT\Modeling\SPCConfigurationUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ATT\Modeling\SPCConfigurationUC.designer.cs">
+      <DependentUpon>SPCConfigurationUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ATT\Modeling\SPCCopySpec.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ATT\Modeling\SPCCopySpec.designer.cs">
+      <DependentUpon>SPCCopySpec.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ATT\Modeling\SPCModelGroupPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ATT\Modeling\SPCModelGroupPopup.Designer.cs">
+      <DependentUpon>SPCModelGroupPopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ATT\Modeling\SPCModelHistoryPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ATT\Modeling\SPCModelHistoryPopup.designer.cs">
+      <DependentUpon>SPCModelHistoryPopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ATT\Modeling\SPCMultiCalculationUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ATT\Modeling\SPCMultiCalculationUC.designer.cs">
+      <DependentUpon>SPCMultiCalculationUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ATT\Modeling\SPCRuleMasterPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ATT\Modeling\SPCRuleMasterPopup.designer.cs">
+      <DependentUpon>SPCRuleMasterPopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ATT\OCAP\OCAPDetailsPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ATT\OCAP\OCAPDetailsPopup.designer.cs">
+      <DependentUpon>OCAPDetailsPopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ATT\OCAP\OCAPListUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ATT\OCAP\OCAPListUC.designer.cs">
+      <DependentUpon>OCAPListUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ATT\Report\ProcessCapabilityUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ATT\Report\ProcessCapabilityUC.designer.cs">
+      <DependentUpon>ProcessCapabilityUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ATT\Report\SPCChartUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ATT\Report\SPCChartUC.designer.cs">
+      <DependentUpon>SPCChartUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\AnalysisChart.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Common\AnalysisChart.Designer.cs">
+      <DependentUpon>AnalysisChart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\BaseAnalysisChart.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Common\BaseAnalysisChart.designer.cs">
+      <DependentUpon>BaseAnalysisChart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\BaseChart.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Common\BaseChart.designer.cs">
+      <DependentUpon>BaseChart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\ChartInformation.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Common\ChartInformation.designer.cs">
+      <DependentUpon>ChartInformation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\CheckComboControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Common\CheckComboControl.Designer.cs">
+      <DependentUpon>CheckComboControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\Class\ChartInterface.cs" />
+    <Compile Include="Common\Class\CommonChart.cs" />
+    <Compile Include="Common\Class\CommonCodeData.cs" />
+    <Compile Include="Common\Class\CommonPageUtil.cs" />
+    <Compile Include="Common\Class\CommonSPCStat.cs" />
+    <Compile Include="Common\Class\CreateChartDataTable.cs" />
+    <Compile Include="Common\Class\MessageBuilder.cs" />
+    <Compile Include="Common\Class\MessageParser.cs" />
+    <Compile Include="Common\Class\TibInterface.cs" />
+    <Compile Include="Common\Class\TibManager.cs" />
+    <Compile Include="Common\ColumnVisibilityControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Common\ColumnVisibilityControl.Designer.cs">
+      <DependentUpon>ColumnVisibilityControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\ComboBoxControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Common\ComboBoxControl.Designer.cs">
+      <DependentUpon>ComboBoxControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\BaseRawChart.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Common\BaseRawChart.designer.cs">
+      <DependentUpon>BaseRawChart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\BaseRawChartView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Common\BaseRawChartView.designer.cs">
+      <DependentUpon>BaseRawChartView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\BaseCalcChart.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Common\BaseCalcChart.designer.cs">
+      <DependentUpon>BaseCalcChart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\DataQuery\eSPCWebService.cs" />
+    <Compile Include="Common\DefaultCalcChart.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Common\DefaultCalcChart.designer.cs">
+      <DependentUpon>DefaultCalcChart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\DefaultRawChartView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Common\DefaultRawChartView.designer.cs">
+      <DependentUpon>DefaultRawChartView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\DefaultRawChart.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Common\DefaultRawChart.designer.cs">
+      <DependentUpon>DefaultRawChart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\DefaultChart.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Common\DefaultChart.designer.cs">
+      <DependentUpon>DefaultChart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\Popup\ChangeXAxisPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\Popup\ChangeXAxisPopup.designer.cs">
+      <DependentUpon>ChangeXAxisPopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\Popup\ChangeXAxisPopup2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\Popup\ChangeXAxisPopup2.designer.cs">
+      <DependentUpon>ChangeXAxisPopup2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\Popup\ChartDataPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\Popup\ChartDataPopup.designer.cs">
+      <DependentUpon>ChartDataPopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\Popup\ChartFilteredDataPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\Popup\ChartFilteredDataPopup.Designer.cs">
+      <DependentUpon>ChartFilteredDataPopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\Popup\ChartViewPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\Popup\ChartViewPopup.designer.cs">
+      <DependentUpon>ChartViewPopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\Popup\ChartViewSelectedPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\Popup\ChartViewSelectedPopup.designer.cs">
+      <DependentUpon>ChartViewSelectedPopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\Popup\ChartCalculationPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\Popup\ChartCalculationPopup.designer.cs">
+      <DependentUpon>ChartCalculationPopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\Popup\NormalDistributionPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\Popup\NormalDistributionPopup.designer.cs">
+      <DependentUpon>NormalDistributionPopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\Popup\MultiCalculationPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\Popup\MultiCalculationPopup.designer.cs">
+      <DependentUpon>MultiCalculationPopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\Popup\SelectSeriesPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\Popup\SelectSeriesPopup.designer.cs">
+      <DependentUpon>SelectSeriesPopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\Popup\SelectSPCModelListPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\Popup\SelectSPCModelListPopup.Designer.cs">
+      <DependentUpon>SelectSPCModelListPopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\Popup\SeriesDetailAnalysisPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\Popup\SeriesDetailAnalysisPopup.designer.cs">
+      <DependentUpon>SeriesDetailAnalysisPopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\Popup\ZoomPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\Popup\ZoomPopup.designer.cs">
+      <DependentUpon>ZoomPopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\SPCModelUC2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Common\SPCModelUC2.Designer.cs">
+      <DependentUpon>SPCModelUC2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\SPCModelUCController.cs" />
+    <Compile Include="Compare\ColumnFiltering.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Compare\ColumnFiltering.Designer.cs">
+      <DependentUpon>ColumnFiltering.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Compare\ICompareResultController.cs" />
+    <Compile Include="Compare\MET\ColumnFiltering.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Compare\MET\ColumnFiltering.designer.cs">
+      <DependentUpon>ColumnFiltering.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Compare\MET\SPCModelCompareResultController.cs" />
+    <Compile Include="Compare\MET\SPCModelCompareResultUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Compare\MET\SPCModelCompareResultUC.designer.cs">
+      <DependentUpon>SPCModelCompareResultUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Compare\MET\SPCModelCompareUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Compare\MET\SPCModelCompareUC.designer.cs">
+      <DependentUpon>SPCModelCompareUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Compare\MET\SPCModelListController.cs" />
+    <Compile Include="Compare\MET\SPCModelListUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Compare\MET\SPCModelListUC.designer.cs">
+      <DependentUpon>SPCModelListUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Compare\MET\SpreadFilteringPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Compare\MET\SpreadFilteringPopup.designer.cs">
+      <DependentUpon>SpreadFilteringPopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Compare\SPCModelCompareResultController.cs" />
+    <Compile Include="Compare\SPCModelCompareResultUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Compare\SPCModelCompareResultUC.Designer.cs">
+      <DependentUpon>SPCModelCompareResultUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Compare\SPCModelCompareUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Compare\SPCModelComparePUC.Designer.cs">
+      <DependentUpon>SPCModelCompareUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Compare\SPCModelListController.cs" />
+    <Compile Include="Compare\SPCModelListUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Compare\SPCModelListUC.Designer.cs">
+      <DependentUpon>SPCModelListUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Compare\SpreadFilteringPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Compare\SpreadFilteringPopup.Designer.cs">
+      <DependentUpon>SpreadFilteringPopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DummyPUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DummyPUC.Designer.cs">
+      <DependentUpon>DummyPUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\DataQuery\eSPCWebServiceAsync.cs" />
+    <Compile Include="History\MET\SPCModelHistoryUC2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="History\MET\SPCModelHistoryUC2.designer.cs">
+      <DependentUpon>SPCModelHistoryUC2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="History\MET\SPCModelUCControllerForHistory.cs" />
+    <Compile Include="History\MET\SPCModelUCForHistory3.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="History\MET\SPCModelUCForHistory3.designer.cs">
+      <DependentUpon>SPCModelUCForHistory3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="History\MET\SPCModelVersionCompareResultController.cs" />
+    <Compile Include="History\MET\SPCModelVersionHistory.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="History\MET\SPCModelVersionHistory.designer.cs">
+      <DependentUpon>SPCModelVersionHistory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="History\MET\SPCModelVersionHistoryController.cs" />
+    <Compile Include="History\SPCModelHistoryUC2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="History\SPCModelHistoryUC2.Designer.cs">
+      <DependentUpon>SPCModelHistoryUC2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="History\SPCModelUCControllerForHistory.cs" />
+    <Compile Include="History\SPCModelUCForHistory3.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="History\SPCModelUCForHistory3.Designer.cs">
+      <DependentUpon>SPCModelUCForHistory3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="History\SPCModelVersionCompareResultController.cs" />
+    <Compile Include="History\SPCModelVersionHistory.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="History\SPCModelVersionHistory.Designer.cs">
+      <DependentUpon>SPCModelVersionHistory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="History\SPCModelVersionHistoryController.cs" />
+    <Compile Include="Modeling\MET\Modeling\SPCCalculationUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Modeling\MET\Modeling\SPCCalculationUC.designer.cs">
+      <DependentUpon>SPCCalculationUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modeling\MET\Modeling\SPCModelingUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Modeling\MET\Modeling\SPCModelingUC.designer.cs">
+      <DependentUpon>SPCModelingUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modeling\ContextConfigurationUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Modeling\ContextConfigurationUC.Designer.cs">
+      <DependentUpon>ContextConfigurationUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modeling\SelectEQPModel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modeling\SelectEQPModel.Designer.cs">
+      <DependentUpon>SelectEQPModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modeling\SPCCalculationUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Modeling\SPCCalculationUC.Designer.cs">
+      <DependentUpon>SPCCalculationUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modeling\SearchModelByArea.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modeling\SearchModelByArea.designer.cs">
+      <DependentUpon>SearchModelByArea.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modeling\SelectContextValuePopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modeling\SelectContextValuePopup.Designer.cs">
+      <DependentUpon>SelectContextValuePopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modeling\MailingGroupConfigurationUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Modeling\MailingGroupConfigurationUC.Designer.cs">
+      <DependentUpon>MailingGroupConfigurationUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modeling\OptionalConfigurationUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Modeling\OptionalConfigurationUC.Designer.cs">
+      <DependentUpon>OptionalConfigurationUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modeling\RuleConfigurationUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Modeling\RuleConfigurationUC.Designer.cs">
+      <DependentUpon>RuleConfigurationUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modeling\SelectContextValuePopup_New.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modeling\SelectContextValuePopup_New.Designer.cs">
+      <DependentUpon>SelectContextValuePopup_New.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modeling\SelectParamPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modeling\SelectParamPopup.Designer.cs">
+      <DependentUpon>SelectParamPopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modeling\SPCConfigurationPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modeling\SPCConfigurationPopup.Designer.cs">
+      <DependentUpon>SPCConfigurationPopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modeling\SPCConfigurationUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Modeling\SPCConfigurationUC.Designer.cs">
+      <DependentUpon>SPCConfigurationUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modeling\SPCCopySpec.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modeling\SPCCopySpec.Designer.cs">
+      <DependentUpon>SPCCopySpec.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modeling\SPCModelGroupPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modeling\SPCModelGroupPopup.Designer.cs">
+      <DependentUpon>SPCModelGroupPopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modeling\SPCModelHistoryPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modeling\SPCModelHistoryPopup.Designer.cs">
+      <DependentUpon>SPCModelHistoryPopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modeling\SPCModelingUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Modeling\SPCModelingUC.Designer.cs">
+      <DependentUpon>SPCModelingUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modeling\SPCModelSavePopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modeling\SPCModelSavePopup.Designer.cs">
+      <DependentUpon>SPCModelSavePopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modeling\SPCMultiCalculationUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Modeling\SPCMultiCalculationUC.Designer.cs">
+      <DependentUpon>SPCMultiCalculationUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modeling\SPCRuleMasterPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modeling\SPCRuleMasterPopup.Designer.cs">
+      <DependentUpon>SPCRuleMasterPopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modeling\AutoCalcConfigurationUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Modeling\AutoCalcConfigurationUC.Designer.cs">
+      <DependentUpon>AutoCalcConfigurationUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OCAP\OCAPDetailsPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OCAP\OCAPDetailsPopup.Designer.cs">
+      <DependentUpon>OCAPDetailsPopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OCAP\OCAPListUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="OCAP\OCAPListUC.Designer.cs">
+      <DependentUpon>OCAPListUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources2.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Report\MET\ProcessCapabilityUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Report\MET\ProcessCapabilityUC.designer.cs">
+      <DependentUpon>ProcessCapabilityUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Report\MET\SPCChartUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Report\MET\SPCChartUC.designer.cs">
+      <DependentUpon>SPCChartUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Report\Popup\ContextGroupingAndFiltering.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Report\Popup\ContextGroupingAndFiltering.Designer.cs">
+      <DependentUpon>ContextGroupingAndFiltering.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Report\Popup\SeriesGroupingAndFilteringPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Report\Popup\SeriesGroupingAndFilteringPopup.Designer.cs">
+      <DependentUpon>SeriesGroupingAndFilteringPopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Report\SPCChartViewUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Report\SPCChartViewUC.Designer.cs">
+      <DependentUpon>SPCChartViewUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Report\Popup\SPCTimeBaseRawPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Report\Popup\SPCTimeBaseRawPopup.Designer.cs">
+      <DependentUpon>SPCTimeBaseRawPopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Report\ProcessCapabilityUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Report\ProcessCapabilityUC.Designer.cs">
+      <DependentUpon>ProcessCapabilityUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Report\SPCChartUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Report\SPCChartUC.Designer.cs">
+      <DependentUpon>SPCChartUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Report\PpkUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Report\PpkUC.Designer.cs">
+      <DependentUpon>PpkUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tool\DataExportController.cs" />
+    <Compile Include="Common\Class\ExcelWriter.cs" />
+    <Compile Include="Tool\ExportCompletedEventHandlerArgs.cs" />
+    <Compile Include="Tool\ExportResultUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tool\ExportResultUC.Designer.cs">
+      <DependentUpon>ExportResultUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tool\DataExportUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tool\DataExportUC.Designer.cs">
+      <DependentUpon>DataExportUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tool\ExportStartedEventHandlerArgs.cs" />
+    <Compile Include="Tool\MET\SPCDataExportUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tool\MET\SPCDataExportUC.designer.cs">
+      <DependentUpon>SPCDataExportUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tool\ModelExportCompletedEventHandlerArgs.cs" />
+    <Compile Include="Tool\ModelExportStartedEventHandlerArgs.cs" />
+    <Compile Include="Tool\SPCDataExportUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tool\SPCDataExportUC.Designer.cs">
+      <DependentUpon>SPCDataExportUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tool\SPCMigrationUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tool\SPCMigrationUC.Designer.cs">
+      <DependentUpon>SPCMigrationUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\SPCModel.cs" />
+    <Compile Include="Tool\SPCModelDataExport.cs" />
+    <Compile Include="Tool\SpcModelUcForModelExport.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tool\SpcModelUcForModelExport.Designer.cs">
+      <DependentUpon>SpcModelUcForModelExport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tool\SubModelExportCompletedEventHandlerArgs.cs" />
+    <Compile Include="Web References\eSPCWebService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="ClassDiagram1.cd" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\eSPCWebService\eSPCWebService.wsdl">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BISTel.eSPC.Common\BISTel.eSPC.Common.csproj">
+      <Project>{4C482D11-59DF-461C-BC30-6C462DB19C0B}</Project>
+      <Name>BISTel.eSPC.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BISTel.eSPC.Condition\BISTel.eSPC.Condition.csproj">
+      <Project>{88394189-108B-4B0A-94B8-F2F85AA2CEEB}</Project>
+      <Name>BISTel.eSPC.Condition</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://localhost/eSPCWebService/eSPCWebService.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\eSPCWebService\</RelPath>
+      <UpdateFromURL>http://localhost/eSPCWebService/eSPCWebService.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>BISTel_eSPC_Page_eSPCWebService_eSPCWebService</CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web References\eSPCWebService\eSPCWebService.disco" />
+    <None Include="Web References\eSPCWebService\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Analysis\SPCAnalysisUC.resx">
+      <DependentUpon>SPCAnalysisUC.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ATT\Common\BaseCalcChart.resx">
+      <DependentUpon>BaseCalcChart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ATT\Common\BaseChart.resx">
+      <DependentUpon>BaseChart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ATT\Common\ChartInformation.resx">
+      <DependentUpon>ChartInformation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ATT\Common\DefaultCalcChart.resx">
+      <DependentUpon>DefaultCalcChart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ATT\Common\DefaultChart.resx">
+      <DependentUpon>DefaultChart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ATT\Common\Popup\ChartCalculationPopup.resx">
+      <DependentUpon>ChartCalculationPopup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ATT\Common\Popup\ChartDataPopup.resx">
+      <DependentUpon>ChartDataPopup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ATT\Common\Popup\ChartViewPopup.resx">
+      <DependentUpon>ChartViewPopup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ATT\Common\Popup\MultiCalculationPopup.resx">
+      <DependentUpon>MultiCalculationPopup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ATT\Common\Popup\ZoomPopup.resx">
+      <DependentUpon>ZoomPopup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ATT\Common\SPCModelUC2.resx">
+      <DependentUpon>SPCModelUC2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ATT\Compare\ColumnFiltering.resx">
+      <DependentUpon>ColumnFiltering.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ATT\Compare\SPCModelCompareResultUC.resx">
+      <DependentUpon>SPCModelCompareResultUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ATT\Compare\SPCModelCompareUC.resx">
+      <DependentUpon>SPCModelCompareUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ATT\Compare\SPCModelListUC.resx">
+      <DependentUpon>SPCModelListUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ATT\Compare\SpreadFilteringPopup.resx">
+      <DependentUpon>SpreadFilteringPopup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ATT\History\SPCModelHistoryUC2.resx">
+      <DependentUpon>SPCModelHistoryUC2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ATT\History\SPCModelVersionHistory.resx">
+      <DependentUpon>SPCModelVersionHistory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ATT\Modeling\AutoCalcConfigurationUC.resx">
+      <DependentUpon>AutoCalcConfigurationUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ATT\Modeling\ContextConfigurationUC.resx">
+      <DependentUpon>ContextConfigurationUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ATT\Modeling\OptionalConfigurationUC.resx">
+      <DependentUpon>OptionalConfigurationUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ATT\Modeling\RuleConfigurationUC.resx">
+      <DependentUpon>RuleConfigurationUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ATT\Modeling\SearchModelByArea.resx">
+      <DependentUpon>SearchModelByArea.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ATT\Modeling\SelectContextValuePopup_New.resx">
+      <DependentUpon>SelectContextValuePopup_New.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ATT\Modeling\SelectEQPModel.resx">
+      <DependentUpon>SelectEQPModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ATT\Modeling\SelectParamPopup.resx">
+      <DependentUpon>SelectParamPopup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ATT\Modeling\SPCATTModelingUC.resx">
+      <DependentUpon>SPCATTModelingUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ATT\Modeling\SPCCalculationUC.resx">
+      <DependentUpon>SPCCalculationUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ATT\Modeling\SPCConfigurationPopup.resx">
+      <DependentUpon>SPCConfigurationPopup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ATT\Modeling\SPCConfigurationUC.resx">
+      <DependentUpon>SPCConfigurationUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ATT\Modeling\SPCCopySpec.resx">
+      <DependentUpon>SPCCopySpec.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ATT\Modeling\SPCModelGroupPopup.resx">
+      <DependentUpon>SPCModelGroupPopup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ATT\Modeling\SPCModelHistoryPopup.resx">
+      <DependentUpon>SPCModelHistoryPopup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ATT\Modeling\SPCMultiCalculationUC.resx">
+      <DependentUpon>SPCMultiCalculationUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ATT\Modeling\SPCRuleMasterPopup.resx">
+      <DependentUpon>SPCRuleMasterPopup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ATT\OCAP\OCAPDetailsPopup.resx">
+      <DependentUpon>OCAPDetailsPopup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ATT\OCAP\OCAPListUC.resx">
+      <DependentUpon>OCAPListUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ATT\Report\ProcessCapabilityUC.resx">
+      <DependentUpon>ProcessCapabilityUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ATT\Report\SPCChartUC.resx">
+      <DependentUpon>SPCChartUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\AnalysisChart.resx">
+      <DependentUpon>AnalysisChart.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\BaseAnalysisChart.resx">
+      <DependentUpon>BaseAnalysisChart.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\BaseChart.resx">
+      <DependentUpon>BaseChart.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\ChartInformation.resx">
+      <DependentUpon>ChartInformation.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\CheckComboControl.resx">
+      <DependentUpon>CheckComboControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\ColumnVisibilityControl.resx">
+      <DependentUpon>ColumnVisibilityControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\ComboBoxControl.resx">
+      <DependentUpon>ComboBoxControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\BaseRawChart.resx">
+      <DependentUpon>BaseRawChart.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\BaseRawChartView.resx">
+      <DependentUpon>BaseRawChartView.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\BaseCalcChart.resx">
+      <DependentUpon>BaseCalcChart.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\DefaultCalcChart.resx">
+      <DependentUpon>DefaultCalcChart.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\DefaultRawChartView.resx">
+      <DependentUpon>DefaultRawChartView.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\DefaultRawChart.resx">
+      <DependentUpon>DefaultRawChart.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\DefaultChart.resx">
+      <DependentUpon>DefaultChart.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\Popup\ChangeXAxisPopup.resx">
+      <DependentUpon>ChangeXAxisPopup.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\Popup\ChangeXAxisPopup2.resx">
+      <DependentUpon>ChangeXAxisPopup2.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\Popup\ChartDataPopup.resx">
+      <DependentUpon>ChartDataPopup.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\Popup\ChartViewPopup.resx">
+      <DependentUpon>ChartViewPopup.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\Popup\ChartViewSelectedPopup.resx">
+      <DependentUpon>ChartViewSelectedPopup.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\Popup\ChartCalculationPopup.resx">
+      <DependentUpon>ChartCalculationPopup.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\Popup\NormalDistributionPopup.resx">
+      <DependentUpon>NormalDistributionPopup.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\Popup\MultiCalculationPopup.resx">
+      <DependentUpon>MultiCalculationPopup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\Popup\SelectSeriesPopup.resx">
+      <DependentUpon>SelectSeriesPopup.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\Popup\SelectSPCModelListPopup.resx">
+      <DependentUpon>SelectSPCModelListPopup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\Popup\SeriesDetailAnalysisPopup.resx">
+      <DependentUpon>SeriesDetailAnalysisPopup.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\Popup\ZoomPopup.resx">
+      <DependentUpon>ZoomPopup.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\SPCModelUC2.resx">
+      <DependentUpon>SPCModelUC2.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Compare\ColumnFiltering.resx">
+      <DependentUpon>ColumnFiltering.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Compare\MET\ColumnFiltering.resx">
+      <DependentUpon>ColumnFiltering.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Compare\MET\SPCModelCompareResultUC.resx">
+      <DependentUpon>SPCModelCompareResultUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Compare\MET\SPCModelCompareUC.resx">
+      <DependentUpon>SPCModelCompareUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Compare\MET\SPCModelListUC.resx">
+      <DependentUpon>SPCModelListUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Compare\MET\SpreadFilteringPopup.resx">
+      <DependentUpon>SpreadFilteringPopup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Compare\SPCModelCompareResultUC.resx">
+      <DependentUpon>SPCModelCompareResultUC.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Compare\SPCModelCompareUC.resx">
+      <DependentUpon>SPCModelCompareUC.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Compare\SPCModelListUC.resx">
+      <DependentUpon>SPCModelListUC.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Compare\SpreadFilteringPopup.resx">
+      <DependentUpon>SpreadFilteringPopup.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DummyPUC.resx">
+      <DependentUpon>DummyPUC.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="History\MET\SPCModelHistoryUC2.resx">
+      <DependentUpon>SPCModelHistoryUC2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="History\MET\SPCModelVersionHistory.resx">
+      <DependentUpon>SPCModelVersionHistory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="History\SPCModelHistoryUC2.resx">
+      <DependentUpon>SPCModelHistoryUC2.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="History\SPCModelVersionHistory.resx">
+      <DependentUpon>SPCModelVersionHistory.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modeling\MET\Modeling\SPCCalculationUC.resx">
+      <DependentUpon>SPCCalculationUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modeling\MET\Modeling\SPCModelingUC.resx">
+      <DependentUpon>SPCModelingUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modeling\ContextConfigurationUC.resx">
+      <DependentUpon>ContextConfigurationUC.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modeling\SelectEQPModel.resx">
+      <DependentUpon>SelectEQPModel.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modeling\SPCCalculationUC.resx">
+      <DependentUpon>SPCCalculationUC.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modeling\SearchModelByArea.resx">
+      <DependentUpon>SearchModelByArea.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modeling\SelectContextValuePopup.resx">
+      <DependentUpon>SelectContextValuePopup.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modeling\MailingGroupConfigurationUC.resx">
+      <DependentUpon>MailingGroupConfigurationUC.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modeling\OptionalConfigurationUC.resx">
+      <DependentUpon>OptionalConfigurationUC.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modeling\RuleConfigurationUC.resx">
+      <DependentUpon>RuleConfigurationUC.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modeling\SelectContextValuePopup_New.resx">
+      <DependentUpon>SelectContextValuePopup_New.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modeling\SelectParamPopup.resx">
+      <DependentUpon>SelectParamPopup.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modeling\SPCConfigurationPopup.resx">
+      <DependentUpon>SPCConfigurationPopup.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modeling\SPCConfigurationUC.resx">
+      <DependentUpon>SPCConfigurationUC.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modeling\SPCCopySpec.resx">
+      <DependentUpon>SPCCopySpec.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modeling\SPCModelGroupPopup.resx">
+      <DependentUpon>SPCModelGroupPopup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modeling\SPCModelHistoryPopup.resx">
+      <DependentUpon>SPCModelHistoryPopup.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modeling\SPCModelingUC.resx">
+      <DependentUpon>SPCModelingUC.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modeling\SPCModelSavePopup.resx">
+      <DependentUpon>SPCModelSavePopup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modeling\SPCMultiCalculationUC.resx">
+      <DependentUpon>SPCMultiCalculationUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modeling\SPCRuleMasterPopup.resx">
+      <DependentUpon>SPCRuleMasterPopup.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modeling\AutoCalcConfigurationUC.resx">
+      <DependentUpon>AutoCalcConfigurationUC.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OCAP\OCAPDetailsPopup.resx">
+      <DependentUpon>OCAPDetailsPopup.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OCAP\OCAPListUC.resx">
+      <DependentUpon>OCAPListUC.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources2.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\MET\ProcessCapabilityUC.resx">
+      <DependentUpon>ProcessCapabilityUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\MET\SPCChartUC.resx">
+      <DependentUpon>SPCChartUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\Popup\ContextGroupingAndFiltering.resx">
+      <DependentUpon>ContextGroupingAndFiltering.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\Popup\SeriesGroupingAndFilteringPopup.resx">
+      <DependentUpon>SeriesGroupingAndFilteringPopup.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\SPCChartViewUC.resx">
+      <DependentUpon>SPCChartViewUC.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\Popup\SPCTimeBaseRawPopup.resx">
+      <DependentUpon>SPCTimeBaseRawPopup.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\ProcessCapabilityUC.resx">
+      <DependentUpon>ProcessCapabilityUC.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\SPCChartUC.resx">
+      <DependentUpon>SPCChartUC.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\PpkUC.resx">
+      <DependentUpon>PpkUC.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tool\DataExportUC.resx">
+      <DependentUpon>DataExportUC.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tool\ExportResultUC.resx">
+      <DependentUpon>ExportResultUC.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tool\MET\SPCDataExportUC.resx">
+      <DependentUpon>SPCDataExportUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tool\SPCDataExportUC.resx">
+      <DependentUpon>SPCDataExportUC.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tool\SPCMigrationUC.resx">
+      <DependentUpon>SPCMigrationUC.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\bullet_01.gif" />
+    <Content Include="Resources\FNC_MoveLeft.gif" />
+    <Content Include="Resources\FNC_MoveRight.gif" />
+    <Content Include="Resources\icn_disable.png" />
+    <Content Include="Resources\icn_fault.png" />
+    <Content Include="Resources\icn_idle.png" />
+    <Content Include="Resources\icn_nodata.png" />
+    <Content Include="Resources\icn_nomodel.png" />
+    <Content Include="Resources\icn_offline.png" />
+    <Content Include="Resources\icn_safe.png" />
+    <Content Include="Resources\icn_unknown.png" />
+    <Content Include="Resources\icn_warning.png" />
+    <Content Include="Resources\r_nst.gif" />
+    <Content Include="Resources\r_prd.gif" />
+    <Content Include="Resources\r_sby.gif" />
+    <Content Include="Resources\r_sdt.gif" />
+    <Content Include="Resources\r_udt.gif" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>copy "$(TargetDir)*.*"  "..\..\..\..\..\..\..\common\eesclient\2.x\Web\src\EESWeb\DLLS\eSPC"
+    </PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>mkdir "..\..\..\..\..\..\..\common\eesclient\2.x\Web\src\EESWeb\DLLS\eSPC"
+del /f /s /q "..\..\..\..\..\..\..\common\eesclient\2.x\Web\src\EESWeb\DLLS\eSPC\*.*"</PreBuildEvent>
+  </PropertyGroup>
+</Project>

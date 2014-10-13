@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{99C5E958-4B5E-4E23-A0D5-25D935B9B6D0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BISTel.eSPC.Business.Server</RootNamespace>
+    <AssemblyName>BISTel.eSPC.Business.Server</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BISTel.PeakPerformance.Client.ActiveMQ, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\lib\eescommon\2.x\BISTel.PeakPerformance.Client.ActiveMQ.dll</HintPath>
+    </Reference>
+    <Reference Include="BISTel.PeakPerformance.Client.CommonLibrary, Version=1.6.0.61, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\lib\eescommon\2.x\BISTel.PeakPerformance.Client.CommonLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="BISTel.PeakPerformance.Client.CommonUtil, Version=1.5.0.12, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\lib\eescommon\2.x\BISTel.PeakPerformance.Client.CommonUtil.dll</HintPath>
+    </Reference>
+    <Reference Include="BISTel.PeakPerformance.Client.SQLHandler, Version=1.6.0.16, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\lib\eescommon\2.x\BISTel.PeakPerformance.Client.SQLHandler.dll</HintPath>
+    </Reference>
+    <Reference Include="BISTel.PeakPerformance.DAS2, Version=1.0.1.21, Culture=neutral, PublicKeyToken=8e0d83f57a5ed04d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\lib\eescommon\2.x\BISTel.PeakPerformance.DAS2.dll</HintPath>
+    </Reference>
+    <Reference Include="BISTel.PeakPerformance.DAS2.MSSQL">
+      <HintPath>..\..\..\..\..\lib\eescommon\2.x\BISTel.PeakPerformance.DAS2.MSSQL.dll</HintPath>
+    </Reference>
+    <Reference Include="BISTel.PeakPerformance.DAS2.Oracle10g">
+      <HintPath>..\..\..\..\..\lib\eescommon\2.x\BISTel.PeakPerformance.DAS2.Oracle10g.dll</HintPath>
+    </Reference>
+    <Reference Include="BISTel.PeakPerformance.DAS2.Oracle11g">
+      <HintPath>..\..\..\..\..\lib\eescommon\2.x\BISTel.PeakPerformance.DAS2.Oracle11g.dll</HintPath>
+    </Reference>
+    <Reference Include="BISTel.PeakPerformance.DAS2.OracleADO">
+      <HintPath>..\..\..\..\..\lib\eescommon\2.x\BISTel.PeakPerformance.DAS2.OracleADO.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TIBCO.Rendezvous, Version=1.0.2091.26390, Culture=neutral, PublicKeyToken=1a696d1f90f6158a">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\lib\eescommon\2.x\TIBCO.Rendezvous.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ATT\Interface\ActiveMQInterface.cs" />
+    <Compile Include="ATT\Interface\MsgInterfaceBusiness.cs" />
+    <Compile Include="ATT\Interface\TIBInterface.cs" />
+    <Compile Include="ATT\Modeling\SPCModelBusiness.cs" />
+    <Compile Include="ATT\OCAP\OCAPBiz.cs" />
+    <Compile Include="ATT\Report\ProcessCapabilityBiz.cs" />
+    <Compile Include="ATT\Report\SPCControlChartBiz.cs" />
+    <Compile Include="Interface\ActiveMQInterface.cs" />
+    <Compile Include="Interface\MsgInterfaceBusiness.cs" />
+    <Compile Include="Interface\TIBInterface.cs" />
+    <Compile Include="Modeling\SPCModelBusiness.cs" />
+    <Compile Include="OCAP\OCAPBiz.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Report\ProcessCapabilityBiz.cs" />
+    <Compile Include="Report\SPCControlChartBiz.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BISTel.eSPC.Common\BISTel.eSPC.Common.csproj">
+      <Project>{4C482D11-59DF-461C-BC30-6C462DB19C0B}</Project>
+      <Name>BISTel.eSPC.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BISTel.eSPC.Data.Server\BISTel.eSPC.Data.Server.csproj">
+      <Project>{9649658F-1C5E-4D43-9944-9DBACC11F3D7}</Project>
+      <Name>BISTel.eSPC.Data.Server</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Common\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,720 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="bspr_SeriesGrouping.AccessibleDescription" xml:space="preserve">
+    <value />
+  </data>
+  <data name="bspr_SeriesGrouping.AddtionalCodeList" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAEAQAAAB1TeXN0ZW0uQ29sbGVjdGlvbnMuU29ydGVkTGlzdAcAAAAEa2V5
+        cwZ2YWx1ZXMFX3NpemUHdmVyc2lvbghjb21wYXJlcgdrZXlMaXN0CXZhbHVlTGlzdAUFAAADAwMICBtT
+        eXN0ZW0uQ29sbGVjdGlvbnMuQ29tcGFyZXIlU3lzdGVtLkNvbGxlY3Rpb25zLlNvcnRlZExpc3QrS2V5
+        TGlzdCdTeXN0ZW0uQ29sbGVjdGlvbnMuU29ydGVkTGlzdCtWYWx1ZUxpc3QJAgAAAAkCAAAAAAAAAAAA
+        AAAJAwAAAAoKEAIAAAAAAAAABAMAAAAbU3lzdGVtLkNvbGxlY3Rpb25zLkNvbXBhcmVyAQAAAAtDb21w
+        YXJlSW5mbwMgU3lzdGVtLkdsb2JhbGl6YXRpb24uQ29tcGFyZUluZm8JBAAAAAQEAAAAIFN5c3RlbS5H
+        bG9iYWxpemF0aW9uLkNvbXBhcmVJbmZvAwAAAAl3aW4zMkxDSUQHY3VsdHVyZQZtX25hbWUAAAEICBIE
+        AAASBAAABgUAAAAFa28tS1IL
+</value>
+  </data>
+  <data name="columnInfo1.KeyFields" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAEAQAAABxTeXN0ZW0uQ29sbGVjdGlvbnMuQXJyYXlMaXN0AwAAAAZfaXRl
+        bXMFX3NpemUIX3ZlcnNpb24FAAAICAkCAAAAAAAAAAAAAAAQAgAAAAAAAAAL
+</value>
+  </data>
+  <data name="columnInfo1.MandatoryFields" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAEAQAAABxTeXN0ZW0uQ29sbGVjdGlvbnMuQXJyYXlMaXN0AwAAAAZfaXRl
+        bXMFX3NpemUIX3ZlcnNpb24FAAAICAkCAAAAAAAAAAAAAAAQAgAAAAAAAAAL
+</value>
+  </data>
+  <data name="columnInfo1.UniqueFields" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAEAQAAABxTeXN0ZW0uQ29sbGVjdGlvbnMuQXJyYXlMaXN0AwAAAAZfaXRl
+        bXMFX3NpemUIX3ZlcnNpb24FAAAICAkCAAAAAAAAAAAAAAAQAgAAAAAAAAAL
+</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="bspr_SeriesGrouping.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="bspr_SeriesGrouping.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 30</value>
+  </data>
+  <metadata name="bSpread1_Sheet1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <data name="bspr_SeriesGrouping.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1150, 295</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="bspr_SeriesGrouping.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;bspr_SeriesGrouping.Name" xml:space="preserve">
+    <value>bspr_SeriesGrouping</value>
+  </data>
+  <data name="&gt;&gt;bspr_SeriesGrouping.Type" xml:space="preserve">
+    <value>BISTel.PeakPerformance.Client.BISTelControl.BSpread, BISTel.PeakPerformance.Client.BISTelControl, Version=1.6.0.22, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;bspr_SeriesGrouping.Parent" xml:space="preserve">
+    <value>pnl_Spread</value>
+  </data>
+  <data name="&gt;&gt;bspr_SeriesGrouping.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="cb_STEP_ID.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cb_STEP_ID.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="cb_STEP_ID.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="cb_STEP_ID.Location" type="System.Drawing.Point, System.Drawing">
+    <value>471, 0</value>
+  </data>
+  <data name="cb_STEP_ID.Size" type="System.Drawing.Size, System.Drawing">
+    <value>62, 30</value>
+  </data>
+  <data name="cb_STEP_ID.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="cb_STEP_ID.Text" xml:space="preserve">
+    <value>Step ID</value>
+  </data>
+  <data name="&gt;&gt;cb_STEP_ID.Name" xml:space="preserve">
+    <value>cb_STEP_ID</value>
+  </data>
+  <data name="&gt;&gt;cb_STEP_ID.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cb_STEP_ID.Parent" xml:space="preserve">
+    <value>pnl_Sort</value>
+  </data>
+  <data name="&gt;&gt;cb_STEP_ID.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="panel5.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="panel5.Location" type="System.Drawing.Point, System.Drawing">
+    <value>444, 0</value>
+  </data>
+  <data name="panel5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>27, 30</value>
+  </data>
+  <data name="panel5.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;panel5.Name" xml:space="preserve">
+    <value>panel5</value>
+  </data>
+  <data name="&gt;&gt;panel5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel5.Parent" xml:space="preserve">
+    <value>pnl_Sort</value>
+  </data>
+  <data name="&gt;&gt;panel5.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="cb_Param_Name.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cb_Param_Name.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="cb_Param_Name.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="cb_Param_Name.Location" type="System.Drawing.Point, System.Drawing">
+    <value>370, 0</value>
+  </data>
+  <data name="cb_Param_Name.Size" type="System.Drawing.Size, System.Drawing">
+    <value>74, 30</value>
+  </data>
+  <data name="cb_Param_Name.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="cb_Param_Name.Text" xml:space="preserve">
+    <value>Parameter</value>
+  </data>
+  <data name="&gt;&gt;cb_Param_Name.Name" xml:space="preserve">
+    <value>cb_Param_Name</value>
+  </data>
+  <data name="&gt;&gt;cb_Param_Name.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cb_Param_Name.Parent" xml:space="preserve">
+    <value>pnl_Sort</value>
+  </data>
+  <data name="&gt;&gt;cb_Param_Name.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="panel4.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="panel4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>343, 0</value>
+  </data>
+  <data name="panel4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>27, 30</value>
+  </data>
+  <data name="panel4.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;panel4.Name" xml:space="preserve">
+    <value>panel4</value>
+  </data>
+  <data name="&gt;&gt;panel4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel4.Parent" xml:space="preserve">
+    <value>pnl_Sort</value>
+  </data>
+  <data name="&gt;&gt;panel4.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="cb_SLOT_ID.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cb_SLOT_ID.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="cb_SLOT_ID.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="cb_SLOT_ID.Location" type="System.Drawing.Point, System.Drawing">
+    <value>285, 0</value>
+  </data>
+  <data name="cb_SLOT_ID.Size" type="System.Drawing.Size, System.Drawing">
+    <value>58, 30</value>
+  </data>
+  <data name="cb_SLOT_ID.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="cb_SLOT_ID.Text" xml:space="preserve">
+    <value>Slot ID</value>
+  </data>
+  <data name="&gt;&gt;cb_SLOT_ID.Name" xml:space="preserve">
+    <value>cb_SLOT_ID</value>
+  </data>
+  <data name="&gt;&gt;cb_SLOT_ID.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cb_SLOT_ID.Parent" xml:space="preserve">
+    <value>pnl_Sort</value>
+  </data>
+  <data name="&gt;&gt;cb_SLOT_ID.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="panel3.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="panel3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>258, 0</value>
+  </data>
+  <data name="panel3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>27, 30</value>
+  </data>
+  <data name="panel3.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;panel3.Name" xml:space="preserve">
+    <value>panel3</value>
+  </data>
+  <data name="&gt;&gt;panel3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel3.Parent" xml:space="preserve">
+    <value>pnl_Sort</value>
+  </data>
+  <data name="&gt;&gt;panel3.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="cb_LOT_ID.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cb_LOT_ID.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="cb_LOT_ID.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="cb_LOT_ID.Location" type="System.Drawing.Point, System.Drawing">
+    <value>203, 0</value>
+  </data>
+  <data name="cb_LOT_ID.Size" type="System.Drawing.Size, System.Drawing">
+    <value>55, 30</value>
+  </data>
+  <data name="cb_LOT_ID.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="cb_LOT_ID.Text" xml:space="preserve">
+    <value>Lot ID</value>
+  </data>
+  <data name="&gt;&gt;cb_LOT_ID.Name" xml:space="preserve">
+    <value>cb_LOT_ID</value>
+  </data>
+  <data name="&gt;&gt;cb_LOT_ID.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cb_LOT_ID.Parent" xml:space="preserve">
+    <value>pnl_Sort</value>
+  </data>
+  <data name="&gt;&gt;cb_LOT_ID.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="panel2.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="panel2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>176, 0</value>
+  </data>
+  <data name="panel2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>27, 30</value>
+  </data>
+  <data name="panel2.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;panel2.Name" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;panel2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel2.Parent" xml:space="preserve">
+    <value>pnl_Sort</value>
+  </data>
+  <data name="&gt;&gt;panel2.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="cb_RECIPE_ID.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cb_RECIPE_ID.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="cb_RECIPE_ID.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="cb_RECIPE_ID.Location" type="System.Drawing.Point, System.Drawing">
+    <value>102, 0</value>
+  </data>
+  <data name="cb_RECIPE_ID.Size" type="System.Drawing.Size, System.Drawing">
+    <value>74, 30</value>
+  </data>
+  <data name="cb_RECIPE_ID.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="cb_RECIPE_ID.Text" xml:space="preserve">
+    <value>Recipe ID</value>
+  </data>
+  <data name="&gt;&gt;cb_RECIPE_ID.Name" xml:space="preserve">
+    <value>cb_RECIPE_ID</value>
+  </data>
+  <data name="&gt;&gt;cb_RECIPE_ID.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cb_RECIPE_ID.Parent" xml:space="preserve">
+    <value>pnl_Sort</value>
+  </data>
+  <data name="&gt;&gt;cb_RECIPE_ID.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="panel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>75, 0</value>
+  </data>
+  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>27, 30</value>
+  </data>
+  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
+    <value>pnl_Sort</value>
+  </data>
+  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="cb_MODULE_ID.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cb_MODULE_ID.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="cb_MODULE_ID.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="cb_MODULE_ID.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="cb_MODULE_ID.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 30</value>
+  </data>
+  <data name="cb_MODULE_ID.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="cb_MODULE_ID.Text" xml:space="preserve">
+    <value>Module ID</value>
+  </data>
+  <data name="&gt;&gt;cb_MODULE_ID.Name" xml:space="preserve">
+    <value>cb_MODULE_ID</value>
+  </data>
+  <data name="&gt;&gt;cb_MODULE_ID.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cb_MODULE_ID.Parent" xml:space="preserve">
+    <value>pnl_Sort</value>
+  </data>
+  <data name="&gt;&gt;cb_MODULE_ID.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="pnl_Sort.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="pnl_Sort.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="pnl_Sort.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1150, 30</value>
+  </data>
+  <data name="pnl_Sort.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;pnl_Sort.Name" xml:space="preserve">
+    <value>pnl_Sort</value>
+  </data>
+  <data name="&gt;&gt;pnl_Sort.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pnl_Sort.Parent" xml:space="preserve">
+    <value>pnl_Spread</value>
+  </data>
+  <data name="&gt;&gt;pnl_Sort.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="pnl_Spread.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="pnl_Spread.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="pnl_Spread.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1150, 325</value>
+  </data>
+  <data name="pnl_Spread.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;pnl_Spread.Name" xml:space="preserve">
+    <value>pnl_Spread</value>
+  </data>
+  <data name="&gt;&gt;pnl_Spread.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pnl_Spread.Parent" xml:space="preserve">
+    <value>pnlContentsArea</value>
+  </data>
+  <data name="&gt;&gt;pnl_Spread.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="btn_Draw.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        R0lGODlhNwASAPQAAP/elP/KVP/biv/jpv/hnf/HSv/ptv/Zg/+/MP/FQ//fmP/COf/qu//EP//nsf/c
+        jf/ANAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACwAAAAANwASAAAF
+        oiAjjmRpnmiqGmzrvnAsz7Rj33iu73zvD8CgcEgsGo9IgnLJbDqf0KhUQa1ar9isdst9eL/gsHhMLpsF
+        6LR6zW673/CDfE6v2+/4vB7B7/v/gIGCg4QQhoeIiYqLjI2Oj5CRkokLlZaXmJmam5ydDZ+goaKjpKWm
+        pwmpqqusra6vsLEFs7S1tre4ubq7Ab2+v8DBwsPExQDHyMnKy8zNzs4PIQA7
+</value>
+  </data>
+  <data name="btn_Draw.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Popup</value>
+  </data>
+  <data name="btn_Draw.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 11px</value>
+  </data>
+  <data name="btn_Draw.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 5</value>
+  </data>
+  <data name="btn_Draw.Size" type="System.Drawing.Size, System.Drawing">
+    <value>80, 25</value>
+  </data>
+  <data name="btn_Draw.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="btn_Draw.Text" xml:space="preserve">
+    <value>Draw</value>
+  </data>
+  <data name="&gt;&gt;btn_Draw.Name" xml:space="preserve">
+    <value>btn_Draw</value>
+  </data>
+  <data name="&gt;&gt;btn_Draw.Type" xml:space="preserve">
+    <value>BISTel.PeakPerformance.Client.BISTelControl.BButton, BISTel.PeakPerformance.Client.BISTelControl, Version=1.6.0.22, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;btn_Draw.Parent" xml:space="preserve">
+    <value>panel6</value>
+  </data>
+  <data name="&gt;&gt;btn_Draw.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="bnt_Cancel.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        R0lGODlhNwASAPQAAP/elP/KVP/biv/jpv/hnf/HSv/ptv/Zg/+/MP/FQ//fmP/COf/qu//EP//nsf/c
+        jf/ANAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACwAAAAANwASAAAF
+        oiAjjmRpnmiqGmzrvnAsz7Rj33iu73zvD8CgcEgsGo9IgnLJbDqf0KhUQa1ar9isdst9eL/gsHhMLpsF
+        6LR6zW673/CDfE6v2+/4vB7B7/v/gIGCg4QQhoeIiYqLjI2Oj5CRkokLlZaXmJmam5ydDZ+goaKjpKWm
+        pwmpqqusra6vsLEFs7S1tre4ubq7Ab2+v8DBwsPExQDHyMnKy8zNzs4PIQA7
+</value>
+  </data>
+  <data name="bnt_Cancel.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Popup</value>
+  </data>
+  <data name="bnt_Cancel.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Tahoma, 11px</value>
+  </data>
+  <data name="bnt_Cancel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="bnt_Cancel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>88, 5</value>
+  </data>
+  <data name="bnt_Cancel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>80, 25</value>
+  </data>
+  <data name="bnt_Cancel.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="bnt_Cancel.Text" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="&gt;&gt;bnt_Cancel.Name" xml:space="preserve">
+    <value>bnt_Cancel</value>
+  </data>
+  <data name="&gt;&gt;bnt_Cancel.Type" xml:space="preserve">
+    <value>BISTel.PeakPerformance.Client.BISTelControl.BButton, BISTel.PeakPerformance.Client.BISTelControl, Version=1.6.0.22, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;bnt_Cancel.Parent" xml:space="preserve">
+    <value>panel6</value>
+  </data>
+  <data name="&gt;&gt;bnt_Cancel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="panel6.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Right</value>
+  </data>
+  <data name="panel6.Location" type="System.Drawing.Point, System.Drawing">
+    <value>979, 0</value>
+  </data>
+  <data name="panel6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>171, 35</value>
+  </data>
+  <data name="panel6.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;panel6.Name" xml:space="preserve">
+    <value>panel6</value>
+  </data>
+  <data name="&gt;&gt;panel6.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel6.Parent" xml:space="preserve">
+    <value>pnl_Button</value>
+  </data>
+  <data name="&gt;&gt;panel6.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="pnl_Button.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <data name="pnl_Button.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 328</value>
+  </data>
+  <data name="pnl_Button.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1150, 35</value>
+  </data>
+  <data name="pnl_Button.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;pnl_Button.Name" xml:space="preserve">
+    <value>pnl_Button</value>
+  </data>
+  <data name="&gt;&gt;pnl_Button.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pnl_Button.Parent" xml:space="preserve">
+    <value>pnlContentsArea</value>
+  </data>
+  <data name="&gt;&gt;pnl_Button.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="pnlContentsArea.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1156, 366</value>
+  </data>
+  <data name="&gt;&gt;pnlContentsArea.Name" xml:space="preserve">
+    <value>pnlContentsArea</value>
+  </data>
+  <data name="&gt;&gt;pnlContentsArea.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pnlContentsArea.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;pnlContentsArea.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 13</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>1168, 399</value>
+  </data>
+  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt</value>
+  </data>
+  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
+    <value>WindowsDefaultLocation</value>
+  </data>
+  <data name="&gt;&gt;bSpread1_Sheet1.Name" xml:space="preserve">
+    <value>bSpread1_Sheet1</value>
+  </data>
+  <data name="&gt;&gt;bSpread1_Sheet1.Type" xml:space="preserve">
+    <value>FarPoint.Win.Spread.SheetView, FarPoint.Win.Spread, Version=3.0.2005.2005, Culture=neutral, PublicKeyToken=327c3516b1b18457</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>SeriesGroupingPopup</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>BISTel.PeakPerformance.Client.BaseUserCtrl.BasePopupFrm, BISTel.PeakPerformance.Client.BaseUserCtrl, Version=1.6.0.19, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+</root>

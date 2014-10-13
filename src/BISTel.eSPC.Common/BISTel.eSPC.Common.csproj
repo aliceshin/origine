@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4C482D11-59DF-461C-BC30-6C462DB19C0B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BISTel.eSPC.Common</RootNamespace>
+    <AssemblyName>BISTel.eSPC.Common</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BISTel.PeakPerformance.Client.BaseUserCtrl, Version=1.6.0.100, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\lib\eescommon\2.x\BISTel.PeakPerformance.Client.BaseUserCtrl.dll</HintPath>
+    </Reference>
+    <Reference Include="BISTel.PeakPerformance.Client.BISTelControl, Version=1.6.1.127, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\lib\eescommon\2.x\BISTel.PeakPerformance.Client.BISTelControl.dll</HintPath>
+    </Reference>
+    <Reference Include="BISTel.PeakPerformance.Client.CommonLibrary, Version=1.6.0.61, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\lib\eescommon\2.x\BISTel.PeakPerformance.Client.CommonLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="BISTel.PeakPerformance.Client.CommonUtil, Version=1.5.0.12, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\lib\eescommon\2.x\BISTel.PeakPerformance.Client.CommonUtil.dll</HintPath>
+    </Reference>
+    <Reference Include="BISTel.PeakPerformance.Client.SQLHandler, Version=1.6.0.16, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\lib\eescommon\2.x\BISTel.PeakPerformance.Client.SQLHandler.dll</HintPath>
+    </Reference>
+    <Reference Include="BISTel.PeakPerformance.Client.UserAuthorityHandler, Version=1.6.0.23, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\lib\eescommon\2.x\BISTel.PeakPerformance.Client.UserAuthorityHandler.dll</HintPath>
+    </Reference>
+    <Reference Include="BISTel.PeakPerformance.DAS2, Version=1.0.1.21, Culture=neutral, PublicKeyToken=8e0d83f57a5ed04d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\lib\eescommon\2.x\BISTel.PeakPerformance.DAS2.dll</HintPath>
+    </Reference>
+    <Reference Include="BISTel.PeakPerformance.DAS2.MSSQL">
+      <HintPath>..\..\..\..\..\lib\eescommon\2.x\BISTel.PeakPerformance.DAS2.MSSQL.dll</HintPath>
+    </Reference>
+    <Reference Include="BISTel.PeakPerformance.DAS2.Oracle10g">
+      <HintPath>..\..\..\..\..\lib\eescommon\2.x\BISTel.PeakPerformance.DAS2.Oracle10g.dll</HintPath>
+    </Reference>
+    <Reference Include="BISTel.PeakPerformance.DAS2.Oracle11g">
+      <HintPath>..\..\..\..\..\lib\eescommon\2.x\BISTel.PeakPerformance.DAS2.Oracle11g.dll</HintPath>
+    </Reference>
+    <Reference Include="BISTel.PeakPerformance.DAS2.OracleADO">
+      <HintPath>..\..\..\..\..\lib\eescommon\2.x\BISTel.PeakPerformance.DAS2.OracleADO.dll</HintPath>
+    </Reference>
+    <Reference Include="FarPoint.CalcEngine, Version=5.0.3518.2008, Culture=neutral, PublicKeyToken=327c3516b1b18457, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\lib\eescommon\2.x\FarPoint.CalcEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="FarPoint.Excel, Version=5.0.3518.2008, Culture=neutral, PublicKeyToken=327c3516b1b18457, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\lib\eescommon\2.x\FarPoint.Excel.dll</HintPath>
+    </Reference>
+    <Reference Include="FarPoint.Win, Version=5.0.3518.2008, Culture=neutral, PublicKeyToken=327c3516b1b18457, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\lib\eescommon\2.x\FarPoint.Win.dll</HintPath>
+    </Reference>
+    <Reference Include="FarPoint.Win.Spread, Version=5.0.3518.2008, Culture=neutral, PublicKeyToken=327c3516b1b18457, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\lib\eescommon\2.x\FarPoint.Win.Spread.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TeeChart, Version=4.0.2009.62332, Culture=neutral, PublicKeyToken=9c8126276c77bdb7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\lib\eescommon\2.x\TeeChart.dll</HintPath>
+    </Reference>
+    <Reference Include="TIBCO.Rendezvous">
+      <HintPath>..\..\..\..\..\lib\eescommon\2.x\TIBCO.Rendezvous.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ATT\BSpreadUtility.cs" />
+    <Compile Include="ATT\ChartUtility.cs" />
+    <Compile Include="ATT\CommonUtility.cs" />
+    <Compile Include="ATT\DataBase.cs" />
+    <Compile Include="ATT\DataTableGroupBy.cs" />
+    <Compile Include="ATT\DataUtil.cs" />
+    <Compile Include="ATT\Definition.cs" />
+    <Compile Include="ATT\DynamicCodeGenerator.cs" />
+    <Compile Include="ATT\EESMessage.cs" />
+    <Compile Include="ATT\GrouperAndFilter.cs" />
+    <Compile Include="ATT\Initialization.cs" />
+    <Compile Include="ATT\ParseBLOB.cs" />
+    <Compile Include="ATT\ParseCLOB.cs" />
+    <Compile Include="ATT\SourceDataManager.cs" />
+    <Compile Include="ATT\SPCStruct.cs" />
+    <Compile Include="BSpreadUtility.cs" />
+    <Compile Include="ChartDesign.cs" />
+    <Compile Include="ChartUtility.cs" />
+    <Compile Include="Common.cs" />
+    <Compile Include="CommonUtility.cs" />
+    <Compile Include="Condition.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="DataBase.cs" />
+    <Compile Include="DataTableGroupBy.cs" />
+    <Compile Include="DataUtil.cs" />
+    <Compile Include="Definition.cs" />
+    <Compile Include="DynamicCodeGenerator.cs" />
+    <Compile Include="EESMessage.cs" />
+    <Compile Include="EnumTypes.cs" />
+    <Compile Include="GrouperAndFilter.cs" />
+    <Compile Include="Initialization.cs" />
+    <Compile Include="Message.cs" />
+    <Compile Include="ParseBLOB.cs" />
+    <Compile Include="ParseCLOB.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SourceDataManager.cs" />
+    <Compile Include="SPCStruct.cs" />
+    <Compile Include="SpecValidation.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

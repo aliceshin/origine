@@ -1,0 +1,1 @@
+%SYSTEMROOT%\Microsoft.NET\Framework\v4.0.30319\MSBuild build.sln /flp1:logfile=errors.txt;errorsonly /flp2:logfile=warnings.txt;warningsonly; %*

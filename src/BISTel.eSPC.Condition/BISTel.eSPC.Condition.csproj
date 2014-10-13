@@ -1,0 +1,666 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{88394189-108B-4B0A-94B8-F2F85AA2CEEB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BISTel.eSPC.Condition</RootNamespace>
+    <AssemblyName>BISTel.eSPC.Condition</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BISTel.PeakPerformance.Client.BaseUserCtrl, Version=1.6.0.100, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\lib\eescommon\2.x\BISTel.PeakPerformance.Client.BaseUserCtrl.dll</HintPath>
+    </Reference>
+    <Reference Include="BISTel.PeakPerformance.Client.BISTelControl, Version=1.6.1.127, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\lib\eescommon\2.x\BISTel.PeakPerformance.Client.BISTelControl.dll</HintPath>
+    </Reference>
+    <Reference Include="BISTel.PeakPerformance.Client.CommonLibrary, Version=1.6.0.61, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\lib\eescommon\2.x\BISTel.PeakPerformance.Client.CommonLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="BISTel.PeakPerformance.Client.DataHandler">
+      <HintPath>..\..\..\..\..\lib\eescommon\2.x\BISTel.PeakPerformance.Client.DataHandler.dll</HintPath>
+    </Reference>
+    <Reference Include="FarPoint.CalcEngine, Version=5.0.3518.2008, Culture=neutral, PublicKeyToken=327c3516b1b18457, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\lib\eescommon\2.x\FarPoint.CalcEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="FarPoint.Excel, Version=5.0.3518.2008, Culture=neutral, PublicKeyToken=327c3516b1b18457, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\lib\eescommon\2.x\FarPoint.Excel.dll</HintPath>
+    </Reference>
+    <Reference Include="FarPoint.Win, Version=3.0.2005.2005, Culture=neutral, PublicKeyToken=327c3516b1b18457, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\lib\eescommon\2.x\FarPoint.Win.dll</HintPath>
+    </Reference>
+    <Reference Include="FarPoint.Win.Spread, Version=5.0.3518.2008, Culture=neutral, PublicKeyToken=327c3516b1b18457, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\lib\eescommon\2.x\FarPoint.Win.Spread.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TeeChart, Version=4.0.2009.62332, Culture=neutral, PublicKeyToken=9c8126276c77bdb7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\lib\eescommon\2.x\TeeChart.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Analysis\MultiDataCondition.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Analysis\MultiDataCondition.Designer.cs">
+      <DependentUpon>MultiDataCondition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Analysis\MultiDataConditionPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Analysis\MultiDataConditionPopup.Designer.cs">
+      <DependentUpon>MultiDataConditionPopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Analysis\SPCAnalysisCondition.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Analysis\SPCAnalysisCondition.Designer.cs">
+      <DependentUpon>SPCAnalysisCondition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Analysis\SPCAnalysisConditionOld.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Analysis\SPCAnalysisConditionOld.Designer.cs">
+      <DependentUpon>SPCAnalysisConditionOld.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ATT\Compare\SPCModelCompareCondition.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ATT\Compare\SPCModelCompareCondition.designer.cs">
+      <DependentUpon>SPCModelCompareCondition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ATT\Compare\SPCModelCompareConditionTree.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ATT\Compare\SPCModelCompareConditionTree.designer.cs">
+      <DependentUpon>SPCModelCompareConditionTree.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ATT\Controls\ComboTree\AreaComboTreeControl.cs" />
+    <Compile Include="ATT\Controls\ComboTree\AreasComboTreeControl.cs" />
+    <Compile Include="ATT\Controls\ComboTree\AreasComboTreeControlForOCAPList.cs" />
+    <Compile Include="ATT\Controls\ComboTree\ConditionComboTree.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ATT\Controls\ComboTree\ConditionComboTree.designer.cs">
+      <DependentUpon>ConditionComboTree.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ATT\Controls\ComboTree\XSPCModelTreeControl.cs" />
+    <Compile Include="ATT\Controls\ConditionContainer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ATT\Controls\ConditionContainer.designer.cs">
+      <DependentUpon>ConditionContainer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ATT\Controls\Fiter\FilterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ATT\Controls\Fiter\FilterControl.designer.cs">
+      <DependentUpon>FilterControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ATT\Controls\ImageLoader.cs" />
+    <Compile Include="ATT\Controls\ImageLoaderHandler.cs" />
+    <Compile Include="ATT\Controls\Tree\ConditionTree.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ATT\Controls\Tree\ConditionTree.designer.cs">
+      <DependentUpon>ConditionTree.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ATT\Controls\Tree\ConditionTreeWithFilter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ATT\Controls\Tree\TreeInterface.cs" />
+    <Compile Include="ATT\Controls\Tree\XEQPModelTree.cs" />
+    <Compile Include="ATT\Controls\Tree\XModuleTree.cs" />
+    <Compile Include="ATT\Controls\Tree\XProductTree.cs" />
+    <Compile Include="ATT\Controls\Tree\XRecipeTree.cs" />
+    <Compile Include="ATT\Controls\Tree\XSPCModelTree.cs" />
+    <Compile Include="ATT\Controls\Tree\XSPCProductTree.cs" />
+    <Compile Include="ATT\Controls\Tree\XStepTree.cs" />
+    <Compile Include="ATT\Controls\Tree\XSummaryParamTree.cs" />
+    <Compile Include="ATT\Controls\Tree\XTraceParamTree.cs" />
+    <Compile Include="ATT\Report\SPCChartCondition.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ATT\Report\SPCChartCondition.designer.cs">
+      <DependentUpon>SPCChartCondition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ATT\Report\SPCChartConditionPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ATT\Report\SPCChartConditionPopup.designer.cs">
+      <DependentUpon>SPCChartConditionPopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ATT\Tool\SPCDataExportCondition.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ATT\Tool\SPCDataExportCondition.designer.cs">
+      <DependentUpon>SPCDataExportCondition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ATT\Tool\SPCDataExportConditionTree.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ATT\Tool\SPCDataExportConditionTree.designer.cs">
+      <DependentUpon>SPCDataExportConditionTree.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Compare\MET\SPCModelCompareCondition.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Compare\MET\SPCModelCompareCondition.designer.cs">
+      <DependentUpon>SPCModelCompareCondition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Compare\MET\SPCModelCompareConditionTree.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Compare\MET\SPCModelCompareConditionTree.designer.cs">
+      <DependentUpon>SPCModelCompareConditionTree.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Compare\SPCModelCompareCondition.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Compare\SPCModelCompareCondition.Designer.cs">
+      <DependentUpon>SPCModelCompareCondition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Compare\SPCModelCompareConditionTree.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Compare\SPCModelCompareConditionTree.Designer.cs">
+      <DependentUpon>SPCModelCompareConditionTree.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Button\ButtonControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Button\ButtonControl.Designer.cs">
+      <DependentUpon>ButtonControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ComboTree\AreaComboTreeControl.cs" />
+    <Compile Include="Controls\ComboTree\AreasComboTreeControl.cs" />
+    <Compile Include="Controls\ComboTree\AreasComboTreeControlForOCAPList.cs" />
+    <Compile Include="Controls\ComboTree\ComboTreeControl.cs" />
+    <Compile Include="Controls\ComboTree\ConditionComboTree.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ComboTree\ConditionComboTree.Designer.cs">
+      <DependentUpon>ConditionComboTree.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MET\Control\ComboTree\AreaComboTreeControl.cs" />
+    <Compile Include="Controls\ComboTree\XSPCChartComboTreeControl.cs" />
+    <Compile Include="Controls\ComboTree\XSPCModelsTreeControl.cs" />
+    <Compile Include="Controls\ComboTree\XSPCModelTreeControl.cs" />
+    <Compile Include="Controls\ComboTree\XSPCModelTreeToChartUIControl.cs" />
+    <Compile Include="Controls\ConditionContainer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ConditionContainer.Designer.cs">
+      <DependentUpon>ConditionContainer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Date\DateCondition.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Date\DateCondition.Designer.cs">
+      <DependentUpon>DateCondition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Date\PpkDateCondition.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Date\PpkDateCondition.Designer.cs">
+      <DependentUpon>PpkDateCondition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Default\CheckComboControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Default\CheckComboControl.Designer.cs">
+      <DependentUpon>CheckComboControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Default\ComboControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Default\ComboControl.Designer.cs">
+      <DependentUpon>ComboControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Default\DefaultCondition.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Default\DefaultCondition.Designer.cs">
+      <DependentUpon>DefaultCondition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Default\SortingKey.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Default\SortingKey.Designer.cs">
+      <DependentUpon>SortingKey.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Filter\FilterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Filter\FilterControl.Designer.cs">
+      <DependentUpon>FilterControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ImageLoader.cs" />
+    <Compile Include="Controls\ImageLoaderHandler.cs" />
+    <Compile Include="Controls\Interface\ComboInterface.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Interface\ComboInterface.Designer.cs">
+      <DependentUpon>ComboInterface.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Interface\ConditionInfo.cs" />
+    <Compile Include="Controls\Interface\ControlInterface.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Interface\ControlInterface.Designer.cs">
+      <DependentUpon>ControlInterface.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Interface\SearchConditionInterface.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Interface\SearchConditionInterface.Designer.cs">
+      <DependentUpon>SearchConditionInterface.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Lot\LotSearchControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Lot\LotSearchControl.Designer.cs">
+      <DependentUpon>LotSearchControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Spread\ModelCondition.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Spread\ModelCondition.Designer.cs">
+      <DependentUpon>ModelCondition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Spread\StepCondition.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Spread\StepCondition.Designer.cs">
+      <DependentUpon>StepCondition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Tree\ConditionTree.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Tree\ConditionTree.Designer.cs">
+      <DependentUpon>ConditionTree.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Tree\ConditionTreeWithFilter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Tree\TreeInterface.cs" />
+    <Compile Include="Controls\Tree\XDcpTree.cs" />
+    <Compile Include="Controls\Tree\XEQPModelsTree.cs" />
+    <Compile Include="Controls\Tree\XEQPModelTree.cs" />
+    <Compile Include="Controls\Tree\XEQPTree.cs" />
+    <Compile Include="Controls\Tree\XModuleTree.cs" />
+    <Compile Include="Controls\Tree\XProductTree.cs" />
+    <Compile Include="Controls\Tree\XRecipeTree.cs" />
+    <Compile Include="Controls\Tree\XSearchTypeTree.cs" />
+    <Compile Include="Controls\Tree\XSPCModelContextTree.cs" />
+    <Compile Include="Controls\Tree\XSPCModelTree.cs" />
+    <Compile Include="Controls\Tree\XSPCOperationTree.cs" />
+    <Compile Include="Controls\Tree\XSPCParamNameTree.cs" />
+    <Compile Include="Controls\Tree\XSPCParamTypeTree.cs" />
+    <Compile Include="Controls\Tree\XSPCProductTree.cs" />
+    <Compile Include="Controls\Tree\XSpecGroupTree.cs" />
+    <Compile Include="Controls\Tree\XStepTree.cs" />
+    <Compile Include="Controls\Tree\XSubstrateTree.cs" />
+    <Compile Include="Controls\Tree\XSummaryParamTree.cs" />
+    <Compile Include="Controls\Tree\XTraceParamTree.cs" />
+    <Compile Include="Controls\XTraceParamControl.cs" />
+    <Compile Include="MET\Control\ComboTree\XSPCModelTreeControl.cs" />
+    <Compile Include="MET\Control\Tree\XSPCModelTree.cs" />
+    <Compile Include="Modeling\ContextCondition.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Modeling\ContextCondition.Designer.cs">
+      <DependentUpon>ContextCondition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Report\SPCChartCondition.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Report\SPCChartCondition.designer.cs">
+      <DependentUpon>SPCChartCondition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Report\SPCChartConditionPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Report\SPCChartConditionPopup.Designer.cs">
+      <DependentUpon>SPCChartConditionPopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Report\SPCChartCondition_LED.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Report\SPCChartCondition_LED.designer.cs">
+      <DependentUpon>SPCChartCondition_LED.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Report\SPCControlChartCondition.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Report\SPCControlChartCondition.Designer.cs">
+      <DependentUpon>SPCControlChartCondition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Report\PpkCondition.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Report\PpkCondition.Designer.cs">
+      <DependentUpon>PpkCondition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Report\PpkConditionSPCModel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Report\PpkConditionSPCModel.Designer.cs">
+      <DependentUpon>PpkConditionSPCModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs" />
+    <Compile Include="Tool\MET\SPCDataExportCondition.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tool\MET\SPCDataExportCondition.designer.cs">
+      <DependentUpon>SPCDataExportCondition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tool\MET\SPCDataExportConditionTree.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tool\MET\SPCDataExportConditionTree.designer.cs">
+      <DependentUpon>SPCDataExportConditionTree.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tool\SPCDataExportCondition.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tool\SPCDataExportCondition.Designer.cs">
+      <DependentUpon>SPCDataExportCondition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tool\SPCDataExportConditionTree.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tool\SPCDataExportConditionTree.Designer.cs">
+      <DependentUpon>SPCDataExportConditionTree.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\eSPCWebService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\eSPCWebService\eSPCWebService.wsdl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BISTel.eSPC.Common\BISTel.eSPC.Common.csproj">
+      <Project>{4C482D11-59DF-461C-BC30-6C462DB19C0B}</Project>
+      <Name>BISTel.eSPC.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://localhost/eSPCWebService/eSPCWebService.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\eSPCWebService\</RelPath>
+      <UpdateFromURL>http://localhost/eSPCWebService/eSPCWebService.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>BISTel_eSPC_Condition_eSPCWebService_eSPCWebService</CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web References\eSPCWebService\eSPCWebService.disco" />
+    <None Include="Web References\eSPCWebService\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Analysis\MultiDataCondition.resx">
+      <DependentUpon>MultiDataCondition.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Analysis\MultiDataConditionPopup.resx">
+      <DependentUpon>MultiDataConditionPopup.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Analysis\SPCAnalysisCondition.resx">
+      <DependentUpon>SPCAnalysisCondition.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Analysis\SPCAnalysisConditionOld.resx">
+      <DependentUpon>SPCAnalysisConditionOld.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ATT\Compare\SPCModelCompareCondition.resx">
+      <DependentUpon>SPCModelCompareCondition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ATT\Compare\SPCModelCompareConditionTree.resx">
+      <DependentUpon>SPCModelCompareConditionTree.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ATT\Controls\ComboTree\ConditionComboTree.resx">
+      <DependentUpon>ConditionComboTree.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ATT\Controls\ConditionContainer.resx">
+      <DependentUpon>ConditionContainer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ATT\Controls\Fiter\FilterControl.resx">
+      <DependentUpon>FilterControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ATT\Controls\Tree\ConditionTree.resx">
+      <DependentUpon>ConditionTree.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ATT\Controls\Tree\ConditionTreeWithFilter.resx">
+      <DependentUpon>ConditionTreeWithFilter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ATT\Report\SPCChartCondition.resx">
+      <DependentUpon>SPCChartCondition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ATT\Report\SPCChartConditionPopup.resx">
+      <DependentUpon>SPCChartConditionPopup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ATT\Tool\SPCDataExportCondition.resx">
+      <DependentUpon>SPCDataExportCondition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ATT\Tool\SPCDataExportConditionTree.resx">
+      <DependentUpon>SPCDataExportConditionTree.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Compare\MET\SPCModelCompareCondition.resx">
+      <DependentUpon>SPCModelCompareCondition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Compare\MET\SPCModelCompareConditionTree.resx">
+      <DependentUpon>SPCModelCompareConditionTree.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Compare\SPCModelCompareCondition.resx">
+      <DependentUpon>SPCModelCompareCondition.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Compare\SPCModelCompareConditionTree.resx">
+      <DependentUpon>SPCModelCompareConditionTree.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Button\ButtonControl.resx">
+      <DependentUpon>ButtonControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ComboTree\ConditionComboTree.resx">
+      <DependentUpon>ConditionComboTree.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ConditionContainer.resx">
+      <DependentUpon>ConditionContainer.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Date\DateCondition.resx">
+      <DependentUpon>DateCondition.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Date\PpkDateCondition.resx">
+      <DependentUpon>PpkDateCondition.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Default\CheckComboControl.resx">
+      <DependentUpon>CheckComboControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Default\ComboControl.resx">
+      <DependentUpon>ComboControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Default\DefaultCondition.resx">
+      <DependentUpon>DefaultCondition.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Default\SortingKey.resx">
+      <DependentUpon>SortingKey.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Filter\FilterControl.resx">
+      <DependentUpon>FilterControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Interface\ComboInterface.resx">
+      <DependentUpon>ComboInterface.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Interface\ControlInterface.resx">
+      <DependentUpon>ControlInterface.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Interface\SearchConditionInterface.resx">
+      <DependentUpon>SearchConditionInterface.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Lot\LotSearchControl.resx">
+      <DependentUpon>LotSearchControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Spread\ModelCondition.resx">
+      <DependentUpon>ModelCondition.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Spread\StepCondition.resx">
+      <DependentUpon>StepCondition.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Tree\ConditionTree.resx">
+      <DependentUpon>ConditionTree.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Tree\ConditionTreeWithFilter.resx">
+      <DependentUpon>ConditionTreeWithFilter.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modeling\ContextCondition.resx">
+      <DependentUpon>ContextCondition.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\SPCChartCondition.resx">
+      <DependentUpon>SPCChartCondition.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\SPCChartConditionPopup.resx">
+      <DependentUpon>SPCChartConditionPopup.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\SPCChartCondition_LED.resx">
+      <DependentUpon>SPCChartCondition_LED.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\SPCControlChartCondition.resx">
+      <DependentUpon>SPCControlChartCondition.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\PpkCondition.resx">
+      <DependentUpon>PpkCondition.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\PpkConditionSPCModel.resx">
+      <DependentUpon>PpkConditionSPCModel.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources1.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tool\MET\SPCDataExportCondition.resx">
+      <DependentUpon>SPCDataExportCondition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tool\MET\SPCDataExportConditionTree.resx">
+      <DependentUpon>SPCDataExportConditionTree.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tool\SPCDataExportCondition.resx">
+      <DependentUpon>SPCDataExportCondition.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tool\SPCDataExportConditionTree.resx">
+      <DependentUpon>SPCDataExportConditionTree.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\btnSelect.gif" />
+    <Content Include="Resources\btnSelect2.gif" />
+    <Content Include="Resources\btnUnSelect.gif" />
+    <Content Include="Resources\btnUnSelect1.gif" />
+    <Content Include="Resources\bullet_01.gif" />
+    <Content Include="Resources\bullet_011.gif" />
+    <Content Include="Resources\minus.bmp" />
+    <Content Include="Resources\plus.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ATT\Controls\Default\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

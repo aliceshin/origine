@@ -87,7 +87,9 @@ namespace BISTel.eSPC.Condition.Controls.ComboTree
         {
             #region Condition Table 구조 Setting
 
-            if (llParentValue.Count == 0 && ComponentCondition.GetInstance().Count > 0)
+            bool bUseComponent = Configuration.GetConfig("configuration/general/componentcondition").GetAttribute("isuse", false);
+
+            if (llParentValue.Count == 0 && ComponentCondition.GetInstance().Count > 0 && bUseComponent)
             {
                 DataTable dtTemp = new DataTable();
                 dtTemp.Columns.Add(Definition.CONDITION_SEARCH_KEY_VALUEDATA);

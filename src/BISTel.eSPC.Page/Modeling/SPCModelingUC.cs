@@ -304,19 +304,19 @@ namespace BISTel.eSPC.Page.Modeling
                     _llstSearchCondition.Add(Definition.CONDITION_KEY_FILTER, _dtFilter);
                 }
 
-                if (ComponentCondition.GetInstance().Contain(Definition.CONDITION_SEARCH_KEY_SPC_MODEL_LIST))
-                {
+                //if (ComponentCondition.GetInstance().Contain(Definition.CONDITION_SEARCH_KEY_SPC_MODEL_LIST))
+                //{
                     DataTable dtSPCModelList = dtTemp.Clone();
 
-                    DataRow dr = dtSPCModelList.NewRow();
-                    dr[Definition.CONDITION_SEARCH_KEY_VALUEDATA] = "SPC MODEL LIST";
-                    dr[Definition.CONDITION_SEARCH_KEY_DISPLAYDATA] = "SPC MODEL LIST";
-                    dr[Definition.CONDITION_SEARCH_KEY_CHECKED] = "F";
+                    DataRow row = dtSPCModelList.NewRow();
+                    row[Definition.CONDITION_SEARCH_KEY_VALUEDATA] = "SPC MODEL LIST";
+                    row[Definition.CONDITION_SEARCH_KEY_DISPLAYDATA] = "SPC MODEL LIST";
+                    row[Definition.CONDITION_SEARCH_KEY_CHECKED] = "F";
 
-                    dtSPCModelList.Rows.Add(dr);
+                    dtSPCModelList.Rows.Add(row);
 
                     _llstSearchCondition.Add("SPC MODEL LIST", dtSPCModelList);
-                }
+                //}
 
                 if (ComponentCondition.GetInstance().Contain(Definition.CONDITION_SEARCH_KEY_GROUP_NAME))
                 {
@@ -366,7 +366,7 @@ namespace BISTel.eSPC.Page.Modeling
             //초기화
             this.InitializePageData();
             llstDynamicCondition = llCondition;
-            ComponentCondition.GetInstance().Clear();
+            //ComponentCondition.GetInstance().Clear();
 
             DataTable dtSite = (DataTable)llstDynamicCondition[Definition.CONDITION_SEARCH_KEY_SITE];
             string site = string.Empty;
@@ -432,11 +432,15 @@ namespace BISTel.eSPC.Page.Modeling
                 ComponentCondition.GetInstance().Set(Definition.CONDITION_SEARCH_KEY_GROUP_NAME, _sSPCGroupName);
             }
 
-            if (llCondition.Contains("FILTER"))
+            if (llCondition.Contains(Definition.CONDITION_KEY_FILTER))
             {
                 DataTable dtFilter = (DataTable)llCondition[Definition.CONDITION_KEY_FILTER];
                 this._sConditionFilter = dtFilter.Rows[0][DCUtil.VALUE_FIELD].ToString();
                 ComponentCondition.GetInstance().Set(Definition.CONDITION_SEARCH_KEY_FILTER, _sConditionFilter);
+            }
+            else
+            {
+                ComponentCondition.GetInstance().Set(Definition.CONDITION_SEARCH_KEY_FILTER, "");
             }
 
             if (llCondition.Contains(Definition.CONDITION_SEARCH_KEY_EQPMODEL))

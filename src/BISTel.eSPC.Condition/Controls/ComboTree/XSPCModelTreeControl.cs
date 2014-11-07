@@ -94,39 +94,39 @@ namespace BISTel.eSPC.Condition.Controls.ComboTree
                 dtTemp.Columns.Add(Definition.CONDITION_SEARCH_KEY_DISPLAYDATA);
                 dtTemp.Columns.Add(Definition.CONDITION_SEARCH_KEY_CHECKED);
 
-                if (ComponentCondition.GetInstance().Contain(Definition.CONDITION_KEY_SITE))
+                if (ComponentCondition.GetInstance().Contain(Definition.CONDITION_SEARCH_KEY_SITE))
                 {
                     DataTable dtSite = dtTemp.Clone();
                     dtSite.Columns.Add(Definition.CONDITION_KEY_SITE);
 
                     DataRow dr = dtSite.NewRow();
-                    dr[Definition.CONDITION_SEARCH_KEY_VALUEDATA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_KEY_SITE);
-                    dr[Definition.CONDITION_SEARCH_KEY_DISPLAYDATA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_KEY_SITE);
+                    dr[Definition.CONDITION_SEARCH_KEY_VALUEDATA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_SITE);
+                    dr[Definition.CONDITION_SEARCH_KEY_DISPLAYDATA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_SITE);
                     dr[Definition.CONDITION_SEARCH_KEY_CHECKED] = "F";
-                    dr[Definition.CONDITION_KEY_SITE] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_KEY_SITE);
+                    dr[Definition.CONDITION_KEY_SITE] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_SITE);
                     dtSite.Rows.Add(dr);
 
                     llParentValue.Add(Definition.DynamicCondition_Search_key.SITE, dtSite);
                 }
 
-                if (ComponentCondition.GetInstance().Contain(Definition.CONDITION_KEY_FAB))
+                if (ComponentCondition.GetInstance().Contain(Definition.CONDITION_SEARCH_KEY_FAB))
                 {
                     DataTable dtFab = dtTemp.Clone();
                     dtFab.Columns.Add(Definition.CONDITION_KEY_FAB);
                     dtFab.Columns.Add(Definition.CONDITION_SEARCH_KEY_SITE);
 
                     DataRow dr = dtFab.NewRow();
-                    dr[Definition.CONDITION_SEARCH_KEY_VALUEDATA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_KEY_FAB);
-                    dr[Definition.CONDITION_SEARCH_KEY_DISPLAYDATA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_KEY_FAB);
+                    dr[Definition.CONDITION_SEARCH_KEY_VALUEDATA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_FAB);
+                    dr[Definition.CONDITION_SEARCH_KEY_DISPLAYDATA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_FAB);
                     dr[Definition.CONDITION_SEARCH_KEY_CHECKED] = "F";
-                    dr[Definition.CONDITION_KEY_FAB] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_KEY_FAB);
-                    dr[Definition.CONDITION_SEARCH_KEY_SITE] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_KEY_SITE);
+                    dr[Definition.CONDITION_KEY_FAB] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_FAB);
+                    dr[Definition.CONDITION_SEARCH_KEY_SITE] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_SITE);
                     dtFab.Rows.Add(dr);
 
                     llParentValue.Add(Definition.DynamicCondition_Search_key.FAB, dtFab);
                 }
 
-                if (ComponentCondition.GetInstance().Contain(Definition.CONDITION_KEY_LINE))
+                if (ComponentCondition.GetInstance().Contain(Definition.CONDITION_SEARCH_KEY_LINE))
                 {
                     DataTable dtLine = dtTemp.Clone();
                     dtLine.Columns.Add(Definition.CONDITION_KEY_LINE);
@@ -134,18 +134,18 @@ namespace BISTel.eSPC.Condition.Controls.ComboTree
                     dtLine.Columns.Add(Definition.CONDITION_SEARCH_KEY_SITE);
 
                     DataRow dr = dtLine.NewRow();
-                    dr[Definition.CONDITION_SEARCH_KEY_VALUEDATA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_KEY_LINE_RAWID);
-                    dr[Definition.CONDITION_SEARCH_KEY_DISPLAYDATA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_KEY_LINE);
+                    dr[Definition.CONDITION_SEARCH_KEY_VALUEDATA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_LINE_RAWID);
+                    dr[Definition.CONDITION_SEARCH_KEY_DISPLAYDATA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_LINE);
                     dr[Definition.CONDITION_SEARCH_KEY_CHECKED] = "F";
-                    dr[Definition.CONDITION_KEY_LINE] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_KEY_LINE);
-                    dr[Definition.CONDITION_SEARCH_KEY_FAB] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_KEY_FAB);
-                    dr[Definition.CONDITION_SEARCH_KEY_SITE] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_KEY_SITE);
+                    dr[Definition.CONDITION_KEY_LINE] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_LINE);
+                    dr[Definition.CONDITION_SEARCH_KEY_FAB] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_FAB);
+                    dr[Definition.CONDITION_SEARCH_KEY_SITE] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_SITE);
                     dtLine.Rows.Add(dr);
 
                     llParentValue.Add(Definition.DynamicCondition_Search_key.LINE, dtLine);
                 }
 
-                if (ComponentCondition.GetInstance().Contain(Definition.CONDITION_KEY_AREA))
+                if (ComponentCondition.GetInstance().Contain(Definition.CONDITION_SEARCH_KEY_AREA))
                 {
                     DataTable _dtArea = dtTemp.Clone();
                     _dtArea.Columns.Add(Definition.CONDITION_KEY_AREA);
@@ -154,13 +154,13 @@ namespace BISTel.eSPC.Condition.Controls.ComboTree
                     _dtArea.Columns.Add(Definition.CONDITION_SEARCH_KEY_SITE);
 
                     DataRow dr = _dtArea.NewRow();
-                    dr[Definition.CONDITION_SEARCH_KEY_VALUEDATA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_KEY_AREA_RAWID);
-                    dr[Definition.CONDITION_SEARCH_KEY_DISPLAYDATA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_KEY_AREA);
+                    dr[Definition.CONDITION_SEARCH_KEY_VALUEDATA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_AREA_RAWID);
+                    dr[Definition.CONDITION_SEARCH_KEY_DISPLAYDATA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_AREA);
                     dr[Definition.CONDITION_SEARCH_KEY_CHECKED] = "T";
-                    dr[Definition.CONDITION_KEY_AREA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_KEY_AREA);
-                    dr[Definition.CONDITION_SEARCH_KEY_LINE] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_KEY_LINE_RAWID);
-                    dr[Definition.CONDITION_SEARCH_KEY_FAB] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_KEY_FAB);
-                    dr[Definition.CONDITION_SEARCH_KEY_SITE] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_KEY_SITE);
+                    dr[Definition.CONDITION_KEY_AREA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_AREA);
+                    dr[Definition.CONDITION_SEARCH_KEY_LINE] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_LINE_RAWID);
+                    dr[Definition.CONDITION_SEARCH_KEY_FAB] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_FAB);
+                    dr[Definition.CONDITION_SEARCH_KEY_SITE] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_SITE);
                     _dtArea.Rows.Add(dr);
 
                     llParentValue.Add(Definition.DynamicCondition_Search_key.AREA, _dtArea);
@@ -180,10 +180,10 @@ namespace BISTel.eSPC.Condition.Controls.ComboTree
                     dr[Definition.CONDITION_SEARCH_KEY_DISPLAYDATA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_EQPMODEL);
                     dr[Definition.CONDITION_SEARCH_KEY_CHECKED] = "T";
                     dr[Definition.CONDITION_KEY_EQPMODEL] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_EQPMODEL);
-                    dr[Definition.CONDITION_SEARCH_KEY_AREA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_KEY_AREA_RAWID);
-                    dr[Definition.CONDITION_SEARCH_KEY_LINE] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_KEY_LINE_RAWID);
-                    dr[Definition.CONDITION_SEARCH_KEY_FAB] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_KEY_FAB);
-                    dr[Definition.CONDITION_SEARCH_KEY_SITE] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_KEY_SITE);
+                    dr[Definition.CONDITION_SEARCH_KEY_AREA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_AREA_RAWID);
+                    dr[Definition.CONDITION_SEARCH_KEY_LINE] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_LINE_RAWID);
+                    dr[Definition.CONDITION_SEARCH_KEY_FAB] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_FAB);
+                    dr[Definition.CONDITION_SEARCH_KEY_SITE] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_SITE);
                     dtEQPModel.Rows.Add(dr);
 
                     llParentValue.Add(Definition.CONDITION_SEARCH_KEY_EQPMODEL, dtEQPModel);
@@ -200,7 +200,7 @@ namespace BISTel.eSPC.Condition.Controls.ComboTree
                     dr[Definition.CONDITION_SEARCH_KEY_DISPLAYDATA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_FILTER);
                     _dtFilter.Rows.Add(dr);
 
-                    llParentValue.Add(Definition.CONDITION_SEARCH_KEY_FILTER, _dtFilter);
+                    llParentValue.Add(Definition.CONDITION_KEY_FILTER, _dtFilter);
                 }
 
                 if (ComponentCondition.GetInstance().Contain(Definition.CONDITION_SEARCH_KEY_SPC_MODEL_LIST))
@@ -242,11 +242,11 @@ namespace BISTel.eSPC.Condition.Controls.ComboTree
                     dtSPCModel.Columns.Add("SPC MODEL LIST");
 
                     DataRow dr = dtSPCModel.NewRow();
-                    dr[Definition.CONDITION_SEARCH_KEY_VALUEDATA] = ComponentCondition.GetInstance().GetValue("ESPC_" + Definition.CONDITION_KEY_MODEL_CONFIG_RAWID);
+                    dr[Definition.CONDITION_SEARCH_KEY_VALUEDATA] = ComponentCondition.GetInstance().GetValue("ESPC_" + Definition.CONDITION_SEARCH_KEY_MODEL_CONFIG_RAWID);
                     dr[Definition.CONDITION_SEARCH_KEY_DISPLAYDATA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_SPCMODEL);
                     dr[Definition.CONDITION_SEARCH_KEY_CHECKED] = "T";
-                    dr[Definition.CONDITION_KEY_LOCATION_RAWID] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_KEY_LINE_RAWID);
-                    dr[Definition.CONDITION_KEY_AREA_RAWID] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_KEY_AREA_RAWID);
+                    dr[Definition.CONDITION_KEY_LOCATION_RAWID] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_LINE_RAWID);
+                    dr[Definition.CONDITION_KEY_AREA_RAWID] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_AREA_RAWID);
                     dr[Definition.CONDITION_KEY_GROUP_NAME] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_GROUP_NAME);
                     dr["SPC MODEL LIST"] = "SPC MODEL LIST";
 
@@ -279,9 +279,9 @@ namespace BISTel.eSPC.Condition.Controls.ComboTree
 
             DataTable dtFilter = null;
             this._sFilter = "";
-            if (_llstParent.Contains("FILTER"))
+            if (_llstParent.Contains(Definition.CONDITION_KEY_FILTER))
             {
-                dtFilter = (DataTable)_llstParent["FILTER"];
+                dtFilter = (DataTable)_llstParent[Definition.CONDITION_KEY_FILTER];
                 this._sFilter = DataUtil.GetConditionKeyDataList(dtFilter, DCUtil.VALUE_FIELD);
             }
 

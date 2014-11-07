@@ -216,12 +216,16 @@ namespace BISTel.eSPC.Page.ATT.Compare
         //SPC-629
         public string PasteModel(LinkedList pasteModelList)
         {
-            DataSet dsResult = _ws.CopyModelInfo(pasteModelList.GetSerialData());
+            DataSet dsResult = _ws.ATTCopyModelInfo(pasteModelList.GetSerialData());
 
             if (dsResult == null)
+            {
                 return Definition.MSG_KEY_NO_PASTE_ITEM;
+            }
             if (DSUtil.GetResultSucceed(dsResult) == 0)
+            {
                 return "FAIL";
+            }
 
             return "SUCCESS";
         }
@@ -230,8 +234,11 @@ namespace BISTel.eSPC.Page.ATT.Compare
         public LinkedList Paste(SPCCopySpec popup, string targetChartID, string mainYN, string userRawID)
         {
             bool hasSubConfigs = false;
-            if(this._ws.GetTheNumberOfSubConfigOfModel(targetChartID) > 0)
+
+            if (this._ws.GetTheNumberOfSubConfigOfModel(targetChartID) > 0)
+            {
                 hasSubConfigs = true;
+            }
 
             LinkedList llstConfigurationInfo = new LinkedList();
             llstConfigurationInfo.Add(Definition.DynamicCondition_Condition_key.USER_ID, userRawID);
@@ -257,25 +264,17 @@ namespace BISTel.eSPC.Page.ATT.Compare
             llstConfigurationInfo.Add(Definition.COPY_MODEL.CONTEXT_INHERIT_THE_SPEC_OF_MAIN, popup.CONTEXT_INHERIT_THE_SPEC_OF_MAIN);
             llstConfigurationInfo.Add(Definition.COPY_MODEL.CONTEXT_MODE, popup.CONTEXT_MODE);
             llstConfigurationInfo.Add(Definition.COPY_MODEL.CONTEXT_CHART_DESCRIPTION, popup.CONTEXT_CHART_DESCRIPTION);
+            llstConfigurationInfo.Add(Definition.COPY_MODEL.CONTEXT_CONTEXT_INFORMATION, popup.CONTEXT_CONTEXT_INFORMATION); //SPC-1218, KBLEE
 
-
-            //llstConfigurationInfo.Add(Definition.COPY_MODEL.RULE_MASTER_SPEC_LIMIT, popup.RULE_MASTER_SPEC_LIMIT);
-            //llstConfigurationInfo.Add(Definition.COPY_MODEL.RULE_RAW, popup.RULE_RAW);
-            //llstConfigurationInfo.Add(Definition.COPY_MODEL.RULE_MEAN, popup.RULE_MEAN);
-            //llstConfigurationInfo.Add(Definition.COPY_MODEL.RULE_STD, popup.RULE_STD);
-            //llstConfigurationInfo.Add(Definition.COPY_MODEL.RULE_RANGE, popup.RULE_RANGE);
-            //llstConfigurationInfo.Add(Definition.COPY_MODEL.RULE_EWMA_MEAN, popup.RULE_EWMA_MEAN);
-            //llstConfigurationInfo.Add(Definition.COPY_MODEL.RULE_EWMA_STD, popup.RULE_EWMA_STD);
-            //llstConfigurationInfo.Add(Definition.COPY_MODEL.RULE_EWMA_RANGE, popup.RULE_EWMA_RANGE);
-            //llstConfigurationInfo.Add(Definition.COPY_MODEL.RULE_MA, popup.RULE_MA);
-            //llstConfigurationInfo.Add(Definition.COPY_MODEL.RULE_MS, popup.RULE_MS);
-            //llstConfigurationInfo.Add(Definition.COPY_MODEL.RULE_TECHNICAL_LIMIT, popup.RULE_TECHNICAL_LIMIT);
-            //llstConfigurationInfo.Add(Definition.COPY_MODEL.RULE_MOVING_OPTIONS, popup.RULE_MOVING_OPTIONS);
-            //llstConfigurationInfo.Add(Definition.COPY_MODEL.RULE_MEAN_OPTIONS, popup.RULE_MEAN_OPTIONS);
-            //llstConfigurationInfo.Add(Definition.COPY_MODEL.RULE_ZONE_A, popup.RULE_ZONE_A);
-            //llstConfigurationInfo.Add(Definition.COPY_MODEL.RULE_ZONE_B, popup.RULE_ZONE_B);
-            //llstConfigurationInfo.Add(Definition.COPY_MODEL.RULE_ZONE_C, popup.RULE_ZONE_C);
+            //SPC-1218, KBLEE, START
+            llstConfigurationInfo.Add(Definition.COPY_MODEL.RULE_PN_SPEC_LIMIT, popup.RULE_PN_SPEC_LIMIT);
+            llstConfigurationInfo.Add(Definition.COPY_MODEL.RULE_C_SPEC_LIMIT, popup.RULE_C_SPEC_LIMIT);
+            llstConfigurationInfo.Add(Definition.COPY_MODEL.RULE_PN_CONTROL, popup.RULE_PN_CONTROL);
+            llstConfigurationInfo.Add(Definition.COPY_MODEL.RULE_C_CONTROL, popup.RULE_C_CONTROL);
+            llstConfigurationInfo.Add(Definition.COPY_MODEL.RULE_P_CONTROL, popup.RULE_P_CONTROL);
+            llstConfigurationInfo.Add(Definition.COPY_MODEL.RULE_U_CONTROL, popup.RULE_U_CONTROL);
             llstConfigurationInfo.Add(Definition.COPY_MODEL.RULE_RULE_SELECTION, popup.RULE_RULE_SELECTION);
+            //SPC-1218, KBLEE, END
 
             llstConfigurationInfo.Add(Definition.COPY_MODEL.OPTION_PARAMETER_CATEGORY, popup.OPTION_PARAMETER_CATEGORY);
             llstConfigurationInfo.Add(Definition.COPY_MODEL.OPTION_CALCULATE_PPK, popup.OPTION_CALCULATE_PPK);
@@ -284,6 +283,7 @@ namespace BISTel.eSPC.Page.ATT.Compare
             llstConfigurationInfo.Add(Definition.COPY_MODEL.OPTION_DAYS, popup.OPTION_DAYS);
             llstConfigurationInfo.Add(Definition.COPY_MODEL.OPTION_DEFAULT_CHART_TO_SHOW, popup.OPTION_DEFAULT_CHART_TO_SHOW);
 
+
             llstConfigurationInfo.Add(Definition.COPY_MODEL.AUTO_AUTO_CALCULATION_PERIOD, popup.AUTO_AUTO_CALCULATION_PERIOD);
             llstConfigurationInfo.Add(Definition.COPY_MODEL.AUTO_AUTO_CALCULATION_COUNT, popup.AUTO_AUTO_CALCULATION_COUNT);
             llstConfigurationInfo.Add(Definition.COPY_MODEL.AUTO_MINIMUM_SAMPLES_TO_USE, popup.AUTO_MINIMUM_SAMPLES_TO_USE);
@@ -291,23 +291,19 @@ namespace BISTel.eSPC.Page.ATT.Compare
             llstConfigurationInfo.Add(Definition.COPY_MODEL.AUTO_MAXIMUM_PERIOD_TO_USE, popup.AUTO_MAXIMUM_PERIOD_TO_USE);
             llstConfigurationInfo.Add(Definition.COPY_MODEL.AUTO_CONTROL_LIMIT_TO_USE, popup.AUTO_CONTROL_LIMIT_TO_USE);
             llstConfigurationInfo.Add(Definition.COPY_MODEL.AUTO_CONTROL_LIMIT_THREASHOLD, popup.AUTO_CONTROL_LIMIT_THREASHOLD);
+            //SPC-1218, KBLEE, START
+            llstConfigurationInfo.Add(Definition.COPY_MODEL.AUTO_PN_CONTROL_LIMIT, popup.AUTO_PN_CONTROL_LIMIT);
+            llstConfigurationInfo.Add(Definition.COPY_MODEL.AUTO_P_CONTROL_LIMIT, popup.AUTO_P_CONTROL_LIMIT);
+            llstConfigurationInfo.Add(Definition.COPY_MODEL.AUTO_C_CONTROL_LIMIT, popup.AUTO_C_CONTROL_LIMIT);
+            llstConfigurationInfo.Add(Definition.COPY_MODEL.AUTO_U_CONTROL_LIMIT, popup.AUTO_U_CONTROL_LIMIT);
+            //SPC-1218, KBLEE, END
             llstConfigurationInfo.Add(Definition.COPY_MODEL.AUTO_CALCULATION_WITH_SHIFT_COMPENSATION, 
                 popup.AUTO_CALCULATION_WITH_SHIFT_COMPENSATION);
             llstConfigurationInfo.Add(Definition.COPY_MODEL.AUTO_CALCULATION_WITHOUT_IQR_FILTER, popup.AUTO_CALCULATION_WITHOUT_IQR_FILTER);
-            //llstConfigurationInfo.Add(Definition.COPY_MODEL.AUTO_RAW_CONTROL_LIMIT, popup.AUTO_RAW_CONTROL_LIMIT);
-            //llstConfigurationInfo.Add(Definition.COPY_MODEL.AUTO_MEAN_CONTROL_LIMIT, popup.AUTO_MEAN_CONTROL_LIMIT);
-            //llstConfigurationInfo.Add(Definition.COPY_MODEL.AUTO_STD_CONTROL_LIMIT, popup.AUTO_STD_CONTROL_LIMIT);
-            //llstConfigurationInfo.Add(Definition.COPY_MODEL.AUTO_RANGE_CONTROL_LIMIT, popup.AUTO_RANGE_CONTROL_LIMIT);
-            //llstConfigurationInfo.Add(Definition.COPY_MODEL.AUTO_EWMA_MEAN_CONTROL_LIMIT, popup.AUTO_EWMA_MEAN_CONTROL_LIMIT);
-            //llstConfigurationInfo.Add(Definition.COPY_MODEL.AUTO_EWMA_STD_CONTROL_LIMIT, popup.AUTO_EWMA_STD_CONTROL_LIMIT);
-            //llstConfigurationInfo.Add(Definition.COPY_MODEL.AUTO_EWMA_RANGE_CONTROL_LIMIT, popup.AUTO_EWMA_RANGE_CONTROL_LIMIT);
-            //llstConfigurationInfo.Add(Definition.COPY_MODEL.AUTO_MA_CONTROL_LIMIT, popup.AUTO_MA_CONTROL_LIMIT);
-            //llstConfigurationInfo.Add(Definition.COPY_MODEL.AUTO_MS_CONTROL_LIMIT, popup.AUTO_MS_CONTROL_LIMIT);
-            //llstConfigurationInfo.Add(Definition.COPY_MODEL.AUTO_STD_CALCULATION, popup.AUTO_STD_CALCULATION);
-            //llstConfigurationInfo.Add(Definition.COPY_MODEL.AUTO_ZONE_CALCULATION, popup.AUTO_ZONE_CALCULATION);
+
 
             llstConfigurationInfo.Add(Definition.COPY_MODEL.AUTO_CALCULATION_THRESHOLD_OFF_YN, popup.AUTO_THRESHOLD_FUNTION);
-            //llstConfigurationInfo.Add(Definition.COPY_MODEL.AUTO_AUTO_CALCULATION_INITIAL_COUNT, popup.auto_a
+            //llstConfigurationInfo.Add(Definition.COPY_MODEL.AUTO_AUTO_CALCULATION_INITIAL_COUNT, popup.auto_);
 
             return llstConfigurationInfo;
 

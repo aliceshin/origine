@@ -405,7 +405,7 @@ namespace BISTel.eSPC.Page.Compare
             _arrColConfig.Add(Definition.COPY_MODEL.CONTEXT_INHERIT_THE_SPEC_OF_MAIN);
             _arrColConfig.Add(Definition.COPY_MODEL.CONTEXT_MODE);
 
-            //_arrColContext.Add(Definition.COPY_MODEL.CONTEXT_CHART_DESCRIPTION);
+            _arrColContext.Add(Definition.COPY_MODEL.CONTEXT_CONTEXT_INFORMATION); //SPC-1218, KBLEE
 
             _arrColLimit.Add(Definition.COPY_MODEL.RULE_MASTER_SPEC_LIMIT);
             _arrColLimit.Add(Definition.COPY_MODEL.RULE_RAW);
@@ -478,6 +478,19 @@ namespace BISTel.eSPC.Page.Compare
                     break;
                 }
             }
+
+            //SPC-1218, KBLEE, START
+            for (int i = 0; i < llstConfigurationInfo.Count; i++)
+            {
+                key = llstConfigurationInfo.GetKey(i).ToString();
+
+                if (_arrColContext.Contains(key) && llstConfigurationInfo[key].ToString() == Definition.YES)
+                {
+                    changedItems += "Context,";
+                    break;
+                }
+            }
+            //SPC-1218, KBLEE, END
 
             for (int i = 0; i < llstConfigurationInfo.Count; i++)
             {
@@ -573,6 +586,7 @@ namespace BISTel.eSPC.Page.Compare
             llstConfigurationInfo.Add(Definition.COPY_MODEL.CONTEXT_INHERIT_THE_SPEC_OF_MAIN, popup.CONTEXT_INHERIT_THE_SPEC_OF_MAIN);
             llstConfigurationInfo.Add(Definition.COPY_MODEL.CONTEXT_MODE, popup.CONTEXT_MODE);
             llstConfigurationInfo.Add(Definition.COPY_MODEL.CONTEXT_CHART_DESCRIPTION, popup.CONTEXT_CHART_DESCRIPTION);
+            llstConfigurationInfo.Add(Definition.COPY_MODEL.CONTEXT_CONTEXT_INFORMATION, popup.CONTEXT_CONTEXT_INFORMATION); //SPC-1218, KBLEE
 
 
             llstConfigurationInfo.Add(Definition.COPY_MODEL.RULE_MASTER_SPEC_LIMIT, popup.RULE_MASTER_SPEC_LIMIT);

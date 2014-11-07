@@ -29,6 +29,15 @@ namespace BISTel.eSPC.Page.Common
         //SPC-812
         public bool _sCalculation = true;
 
+        //SPC-929, KBLEE, START
+        private string _sFab;
+        private string _sLine;
+        private string _sLineRawId;
+        private string _sArea;
+        private string _sAreaRawId;
+        private string _sEQPModel;
+        //SPC-929, KBLEE, END
+
         #endregion
 
         #region : Constructor
@@ -63,6 +72,18 @@ namespace BISTel.eSPC.Page.Common
             this.spcCalcUC.SModelConfigRawID = this._sModelConfigRawID;
             this.spcCalcUC.SessionData = this._SessionData;
             this.spcCalcUC.URL = this.URL;
+
+            //SPC-929, KBLEE, START
+            this.spcCalcUC.SFAB = _sFab;
+            this.spcCalcUC.SLINE = _sLine;
+            this.spcCalcUC.SAREA = _sArea;
+            this.spcCalcUC.SLINE_RAWID = _sLineRawId;
+            this.spcCalcUC.SAREA_RAWID = _sAreaRawId;
+            this.spcCalcUC.SEQP_MODEL = _sEQPModel;
+            
+            this.spcCalcUC.SParamAlias = _sParamAlias;
+            //SPC-929, KBLEE, END
+
             //SPC-812
             this.spcCalcUC._sCalculation = false;
             //
@@ -106,6 +127,39 @@ namespace BISTel.eSPC.Page.Common
             get { return this._sParamAlias; }
             set { this._sParamAlias = value; }
         }
+
+        //SPC-929, KBLEE, START
+        public string SFab
+        {
+            get { return this._sFab; }
+            set { this._sFab = value; }
+        }
+        public string SLine
+        {
+            get { return this._sLine; }
+            set { this._sLine = value; }
+        }
+        public string SArea
+        {
+            get { return this._sArea; }
+            set { this._sArea = value; }
+        }
+        public string SLineRawId
+        {
+            get { return this._sLineRawId; }
+            set { this._sLineRawId = value; }
+        }
+        public string SAreaRawId
+        {
+            get { return this._sAreaRawId; }
+            set { this._sAreaRawId = value; }
+        }
+        public string SEQPModel
+        {
+            get { return this._sEQPModel; }
+            set { this._sEQPModel = value; }
+        }
+        //SPC-929, KBLEE, END
         #endregion
 
 

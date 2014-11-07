@@ -34,8 +34,13 @@ namespace BISTel.eSPC.Common
 
         public static string[] ChartDataList = new string[] { "_USL", "_UCL", "_TARGET", "_LCL", "_LSL", "_RULE" };
         public static string INITIAL_DISPLAY_CHART = "X-BAR;STDDEV;RAW";
-   
+
         public const string LOADING_DATA = "SPC_INFO_LOADING_DATA";
+        public const string VALIDATING_RULE = "SPC_INFO_VALIDATING_RULE"; // SPC-930, KBLEE
+
+        public const string NONE = "NONE"; //SPC-930, KBLEE
+        public const string DESCRIPTION = "DESCRIPTION"; //SPC-930, KBLEE
+        public const string RSD = "RSD"; //SPC-929, KBLEE
         /// <summary>
         /// 2009-11-12 추가 
         /// Use Page : MutiDataUC
@@ -78,6 +83,9 @@ namespace BISTel.eSPC.Common
             public static string MODEL_CONFIG_OPT_ATT_MST_SPC = "MODEL_CONFIG_OPT_ATT_MST_SPC";
             public static string MODEL_AUTOCALC_ATT_MST_SPC = "MODEL_AUTOCALC_ATT_MST_SPC";
 
+            public static string MODEL_CONTEXT_MST_SPC = "MODEL_CONTEXT_MST_SPC";
+            public static string MODEL_CONTEXT_ATT_MST_SPC = "MODEL_CONTEXT_ATT_MST_SPC";
+
             public const string DATA_TEMP_TRX_SPC = "DATA_TEMP_TRX_SPC";
             public const string DATA_TRX_SPC = "DATA_TRX_SPC";
         }
@@ -96,9 +104,57 @@ namespace BISTel.eSPC.Common
         public const string COL_TOGGLE_YN = "TOGGLE_YN";
         public const string COL_MODEL_CONFIG_RAWID = "MODEL_CONFIG_RAWID";
         public const string COL_SAMPLE_COUNT = "SAMPLE_COUNT";
+
+        //E
+        public static string COL_EQP_MODULE_ID = "EQP_MODULE_ID";
+        public static string COL_EQP_RECIPE_ID = "EQP_RECIPE_ID";
+        public static string COL_RECIPE_ID = "RECIPE_ID";
+        public static string COL_STEP_ID = "STEP_ID";
+        public static string COL_EQP_PARAM_ALIAS = "EQP_PARAM_ALIAS";
+
+        //SPC-929, KBLEE, START
+        public const string COL_EQP_ID = "EQP_ID";
+        public const string COL_MODULE_ID = "MODULE_ID";
+        public const string COL_MODULE_NAME = "MODULE_NAME";
+        public const string COL_MODULE_ALIAS = "MODULE_ALIAS";
+        public const string COL_AREA = "AREA";
+        public const string COL_STATUS_CD = "STATUS_CD";
+        public const string COL_LOT_ID = "LOT_ID";
+        public const string COL_LOT_TYPE = "LOT_TYPE";
+        public const string COL_SUBSTRATE_ID = "SUBSTRATE_ID";
+        public const string COL_CASSETTE_SLOT = "CASSETTE_SLOT";
+        public const string COL_OPERATION_ID = "OPERATION_ID";
+        public const string COL_PRODUCT_ID = "PRODUCT_ID";
+        public const string COL_CHAMBER = "CHAMBER";
+        public const string COL_RECIPE = "RECIPE";
+        public const string COL_STEP = "STEP";
+        public const string COL_RAW = "RAW";
+        public const string COL_RAW_USL = "RAW_USL";
+        public const string COL_RAW_LSL = "RAW_LSL";
+        public const string COL_RAW_UCL = "RAW_UCL";
+        public const string COL_RAW_LCL = "RAW_LCL";
+        public const string COL_RAW_TARGET = "RAW_TARGET";
+        public const string COL_USL = "UPPER_SPEC";
+        public const string COL_LSL = "LOWER_SPEC";
+        public const string COL_TARGET = "TARGET";
+        public const string COL_WAFER = "wafer";
+        public const string COL_SELECT = "SELECT";
+
+        public const string COL_SUM_VALUE = "SUM_VALUE";
+        public const string COL_LOTID = "LOTID";
+        public const string COL_LOTTYPE = "LOTTYPE";
+        public const string COL_SUBSTRATEID = "SUBSTRATEID";
+        public const string COL_OPERATION = "OPERATION";
+        public const string COL_PRODUCT = "PRODUCT";
+        public const string COL_SLOT = "SLOT";
+        public const string COL_STATUS = "STATUS";
+        //SPC-929, KBLEE, END
+
         #endregion
 
         #endregion
+        
+        public const string CONTEXT_MENU_REMOVE = "Remove"; //SPC-929, KBLEE
 
 
         public struct Common
@@ -306,6 +362,14 @@ namespace BISTel.eSPC.Common
             public const string MR_CL = "MR_CL";
             public const string MR_TARGET = "MR_TARGET";
 
+            //SPC-930, KBLEE, START
+            public const string UTL = "UTL";
+            public const string LTL = "LTL";
+            public const string UPPER_TECHNICAL_LIMIT = "UPPER_TECHNICAL_LIMIT";
+            public const string LOWER_TECHNICAL_LIMIT = "LOWER_TECHNICAL_LIMIT";
+            public const string TREND_LIMIT = "Trend limit";
+            //SPC-930, KBLEE, END
+
             public const string RUCL = "RUCL";
             public const string RCL = "RCL";
             public const string RLCL = "RLCL";
@@ -348,6 +412,7 @@ namespace BISTel.eSPC.Common
             public const string CA = "CA";
             public const string OOC_COUNT = "OOC_COUNT";
             public const string OOS_COUNT = "OOS_COUNT";
+            public const string OCAP_LIST = "OCAP_LIST";
 
             //added by enkim 2012.08.24 for normal value
             public const string ORIGINAL_PARAM_VALUE_LIST = "ORIGINAL_PARAM_VALUE_LIST";
@@ -394,6 +459,8 @@ namespace BISTel.eSPC.Common
             public const string PN_OCAP_LIST = "PN_OCAP_LIST";
             public const string C_OCAP_LIST = "C_OCAP_LIST";
             public const string U_OCAP_LIST = "U_OCAP_LIST";
+
+            public static string RESTRICT_TYPE_CD = "RESTRICT_TYPE_CD";
         }
 
 
@@ -403,7 +470,8 @@ namespace BISTel.eSPC.Common
             public const string CONTROL_LIMIT = "SPC_SERIES_CONTROL_LIMIT";
             public const string MIN_MAX = "SPC_SERIES_MIN_MAX";
             public const string POINT = "SPC_SERIES_POINT";
-            public const string SPEC = "SPC_SERIES_SPEC";            
+            public const string SPEC = "SPC_SERIES_SPEC";
+            public const string VAL = "SPC_SERIES_VAL";
         }
        
 
@@ -453,7 +521,13 @@ namespace BISTel.eSPC.Common
 
         }
 
-
+        //SPC-930, KBLEE, START
+        public static string SPC_RULE_NO = "SPC_RULE_NO";
+        public static string DATA_INDEX = "DATA_INDEX";
+        public static string CHART_TYPE_STRING = "CHART_TYPE";
+        public static string RULE_OPTION_VALUE = "RULE_OPTION_VALUE";
+        public static string OPTION_NAME = "OPTION_NAME";
+        //SPC-930, KBLEE, END
 
         public struct CHART_TYPE
         {
@@ -483,6 +557,39 @@ namespace BISTel.eSPC.Common
             public const string C = "C";
        
         }
+
+        //SPC-930, KBLEE, START
+        public struct CHART_TYPE_ALIAS
+        {
+            public const string MEAN = "MEAN";
+            public const string STD = "STD";
+            public const string EWMA = "EWMA";
+            public const string MSTD = "MSTD";
+        }
+        //SPC-930, KBLEE, END
+
+        //SPC-930, KBLEE, START
+        public struct RULE_MODE
+        {
+            public const string BIGGER = "BIGGER";
+            public const string SMALLER = "SMALLER";
+            public const string BIGGER_N = "BIGGER_N";
+            public const string SMALLER_N = "SMALLER_N";
+            public const string BIGGER_NM = "BIGGER_NM";
+            public const string SMALLER_NM = "SMALLER_NM";
+            public const string BIGGER_OR_SMALLER_NM = "BIGGER_OR_SMALLER_NM";
+            public const string RISING_N = "RISING_N";
+            public const string FALLING_N = "FALLING_N";
+            public const string RISING_FALLING_N = "RISING_FALLING_N";
+            public const string IN_ONE_ZONE_N = "IN_ONE_ZONE_N";
+            public const string IN_ONE_ZONE_NM = "IN_ONE_ZONE_NM";
+            public const string IN_TWO_ZONE_NM = "IN_TWO_ZONE_NM";
+            public const string BIGGER_TREND_N = "BIGGER_TREND_N";
+            public const string SMALLER_TREND_N = "SMALLER_TREND_N";
+            public const string BIGGER_TREND_LR_N = "BIGGER_TREND_LR_N";
+            public const string SMALLER_TREND_LR_N = "SMALLER_TREND_LR_N";
+        }
+        //SPC-930, KBLEE, END
 
 
         public struct SELECT_CHART_COMBO_KEY  //추가
@@ -586,6 +693,7 @@ namespace BISTel.eSPC.Common
             public static string CONTEXT_ITEM = "SPC_CONTEXT_ITEM";
             public static string CONTEXT_VALUE = "SPC_CONTEXT_VALUE";
             public static string EXCLUDE_LIST = "SPC_EXCLUDE_LIST";
+            public static string EXCLUDE_YN = "EXCLUDE_YN";
 
             public static string RULE = "SPC_RULE";
             public static string RULE_OPTION = "SPC_RULE_OPTION";
@@ -704,6 +812,11 @@ namespace BISTel.eSPC.Common
             public const string VERSION_HISTORY = "SPC_VERSION_HISTORY";
             public const string VERSION_COMPARE = "SPC_VERSION_COMPARE";
             public const string VERSION_DELETE  = "SPC_VERSION_DELETE";
+
+            //SPC-929, KBLEE, START
+            public const string SUMMARY_INSERT = "SPC_SUMMARY_INSERT";
+            public const string SUMMARY_RESULT = "SPC_SUMMARY_RESULT";
+            //SPC-929, KBLEE, END
         }
 
         public static string BUTTON_KEY_DEFAULTSETTING = "DEFAULTSETTING";
@@ -944,6 +1057,7 @@ namespace BISTel.eSPC.Common
             public static string START_DTTS = "START_DTTS";
             public static string END_DTTS = "END_DTTS";
             public static string MODEL_CONFIG_RAWID = "MODEL_CONFIG_RAWID";
+            public static string GROUP_RAWID = "GROUP_RAWID";
 
             //SPc-704 MultiCalculation
             
@@ -1111,7 +1225,10 @@ namespace BISTel.eSPC.Common
 
         public static string CONDITION_KEY_SPC_PARAM_CATEGORY_CD = "SPC_PARAM_CATEGORY_CD";
 
-
+        public static string CONDITION_KEY_SUM_CATEGORY_CD = "SUM_CATEGORY_CD"; //SPC-929, KBLEE
+        public static string CONDITION_KEY_LOCATION_RAWID = "LOCATION_RAWID";
+        public static string CONDITION_KEY_EQPMODEL = "EQPMODEL";
+        public static string CONDITION_KEY_FILTER = "FILTER";
 
         public static string CONDITION_KEY_CASSETTE_SLOT = "CASSETTE_SLOT";
         public static string CONDITION_KEY_OPERATION_ID = "OPERATION_ID";
@@ -1398,6 +1515,10 @@ namespace BISTel.eSPC.Common
         public static string CONDITION_SEARCH_KEY_SPCMODEL = "ESPC_SPCMODEL";
         public static string CONDITION_SEARCH_KEY_SITE = "ESPC_SITE";
         public static string CONDITION_SEARCH_KEY_FAB = "ESPC_FAB";
+        public static string CONDITION_SEARCH_KEY_GROUP_NAME = "ESPC_GROUP_NAME";
+        public static string CONDITION_SEARCH_KEY_LINE_RAWID = "ESPC_LINE_RAWID";
+        public static string CONDITION_SEARCH_KEY_AREA_RAWID = "ESPC_AREA_RAWID";
+        public static string CONDITION_SEARCH_KEY_MODEL_CONFIG_RAWID = "ESPC_MODEL_CONFIG_RAWID";
 
         public static string CONDITION_SEARCH_KEY_PRODUCT_TYPE = "ESPC_PRODUCT_TYPE";
         public static string CONDITION_SEARCH_KEY_PRODUCT = "ESPC_PRODUCT";
@@ -1428,6 +1549,9 @@ namespace BISTel.eSPC.Common
         public static string CONDITION_SEARCH_KEY_VALUEDATA = "VALUEDATA";
         public static string CONDITION_SEARCH_KEY_DISPLAYDATA = "DISPLAYDATA";
         public static string CONDITION_SEARCH_KEY_ADDTIONALVALUEDATA = "ADDTIONALVALUEDATA";
+        public static string CONDITION_SEARCH_KEY_CHECKED = "CHECKED";
+        public static string CONDITION_SEARCH_KEY_SPC_MODEL_LIST = "SPC_MODEL_LIST";
+        public static string CONDITION_SEARCH_KEY_FILTER = "ESPC_FILTER";
 
         public static string CONDITION_SEARCH_KEY_SPEC_MODEL_RAWID_LIST = "ESPC_SPEC_MODEL_RAWID_LIST";
         public static string CONDITION_SEARCH_KEY_PATTERN_RAWID_LIST = "ESPC_PATTERN_RAWID_LIST";
@@ -1575,6 +1699,9 @@ namespace BISTel.eSPC.Common
         public static string PAGE_KEY_SPC_ATT_PROCESS_CAPABILITY_UC = "SPC_ATT_PROCESS_CAPABILITY_UC";
 
         public static string PAGE_KEY_SPC_CONFIGURATION_AUTO_CALCULATION = "SPC_CONFIGURATION_AUTO_CALCULATION";
+
+        //SUMMARY
+        public const string PAGE_KEY_SPC_SUMMARYDATA_OPTION_POPUP = "SPC_SUMMARYDATA_OPTION_POPUP"; //SPC-929, KBLEE
         #endregion
 
 
@@ -1649,6 +1776,11 @@ namespace BISTel.eSPC.Common
 
         public static string TITLE_KEY_SPC_ATT_CONTROL_CHART = "SPC_TITLE_ATT_CONTROL_CHART";
 
+        #endregion
+
+        #region : TITLE
+        public static string POPUP_TITLE_SUMMARY_DATA_OPTION = "SUMMARY DATA OPTION"; //SPC-929, KBLEE
+        public static string POPUP_TITLE_RULE_SIMULATION_OPTION = "Rule Simulation Option"; //SPC-930, KBLEE
         #endregion
 
         #region : LABEL
@@ -2082,21 +2214,7 @@ namespace BISTel.eSPC.Common
         public static string TEMP_TIME = "Trace_Time";
 
         #endregion
-
-
-        #region : Table Column
-
-        //E
-        public static string TCOL_EQP_MODULE_ID = "EQP_MODULE_ID";
-        public static string TCOL_EQP_RECIPE_ID = "EQP_RECIPE_ID";
-        public static string TCOL_EQP_STEP_ID = "EQP_STEP_ID";
-        public static string TCOL_EQP_PARAM_ALIAS = "EQP_PARAM_ALIAS";
-
-
-
-        #endregion
-
-
+        
         #region : INTERFACE TAGET INFO
 
         //TIB
@@ -2164,6 +2282,18 @@ namespace BISTel.eSPC.Common
             public static string PRODUCT = "product";
             public static string STEP = "step";
             public static string STATUS = "status";
+
+
+            //SPC-929, KBLEE, START
+            public const string EQP_ID = "eqp_id";
+            public const string MODULE_ID = "module_id";
+            public const string MODULE_ALIAS = "module_alias";
+            public const string SUM_VALUE = "sum_value";
+            public const string PARAM_INFO = "param_info";
+            public const string SUBSTRATE_INFO = "substrate_info";
+            public const string STEP_INFO = "step_info";
+            public const string STEPNAME = "stepname";
+            //SPC-929, KBLEE, END
             
 
 
@@ -2238,6 +2368,24 @@ namespace BISTel.eSPC.Common
             }
         }
 
+        //SPC-929, KBLEE, START
+        public struct DATA_CATEGORY_CODE
+        {
+            public static string TS = "TS";
+            public static string EV = "EV";
+            public static string MP = "MP";
+        }
+        //SPC-929, KBLEE, END
+
+        //SPC-929, KBLEE, START
+        public struct SUMMARY_DATA
+        {
+            public const string DATA_EXIST_MODE = "DATA_EXIST_MODE";
+            public const string ALL_EXIST = "ALL_EXIST";
+            public const string ONLY_RECIPE_EXIST = "ONLY_RECIPE_EXIST";
+            public const string ONLY_STEP_EXIST = "ONLY_STEP_EXIST";
+        }
+        //SPC-929, KBLEE, END
 
 
         #region Copy SPC Model.
@@ -2251,14 +2399,15 @@ namespace BISTel.eSPC.Common
             public static string CONTEXT_AUTO_CALCULATION = "CONTEXT_AUTO_CALCULATION";
             public static string CONTEXT_AUTO_GENERATE_SUB_CHART = "CONTEXT_AUTO_GENERATE_SUB_CHART";
             public static string CONTEXT_ACTIVE = "CONTEXT_ACTIVE";
+            public static string CONTEXT_MODE = "CONTEXT_MODE";
             public static string CONTEXT_SAMPLE_COUNT = "CONTEXT_SAMPLE_COUNT";
             public static string CONTEXT_MANAGE_TYPE = "CONTEXT_MANAGE_TYPE";
             public static string CONTEXT_AUTO_SETTING = "CONTEXT_AUTO_SETTING";
             public static string CONTEXT_GENERATE_SUB_CHART_WITH_INTERLOCK = "CONTEXT_GENERATE_SUB_CHART_WITH_INTERLOCK";
             public static string CONTEXT_GENERATE_SUB_CHART_WITH_AUTO_CALCULATION = "CONTEXT_GENERATE_SUB_CHART_WITH_AUTO_CALCULATION";
-            public static string CONTEXT_USE_NORMALIZATION_VALUE = "CONTEXT_USE_NORMALIZATION_VALUE";
             public static string CONTEXT_INHERIT_THE_SPEC_OF_MAIN = "CONTEXT_INHERIT_THE_SPEC_OF_MAIN";
-            public static string CONTEXT_MODE = "CONTEXT_MODE";
+            public static string CONTEXT_USE_NORMALIZATION_VALUE = "CONTEXT_USE_NORMALIZATION_VALUE";
+            public static string CONTEXT_CONTEXT_INFORMATION = "CONTEXT_CONTEXT_INFORMATION"; //SPC-1218, KBLEE
 
             //SPC-676 by Louis
             public static string CONTEXT_CHART_DESCRIPTION = "CONTEXT_CHART_DESCRIPTION";
@@ -2439,9 +2588,13 @@ namespace BISTel.eSPC.Common
         public const string RULE_OPT_LIST_OF_RULES = "List of Rules";
         public const string RULE_OPT_SAMPLE_COUNT = "Sample count";
         public const string RULE_OPT_VIOLATION_COUNT = "Violation count";
+        public const string RULE_OPT_TREND_LIMIT = "Trend limit"; //SPC-1335, KBLEE
         
         #endregion
 
+        public static string INCLUDE = "INCLUDE";
+        public static string EXCLUDE = "EXCLUDE";
+        public static string DATA_FILTER = "DATA_FILTER";
     }
 
 

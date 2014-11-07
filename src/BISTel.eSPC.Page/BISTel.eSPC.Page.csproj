@@ -424,6 +424,8 @@
     <Compile Include="Common\Class\CreateChartDataTable.cs" />
     <Compile Include="Common\Class\MessageBuilder.cs" />
     <Compile Include="Common\Class\MessageParser.cs" />
+    <Compile Include="Common\Class\RuleSimulation.cs" />
+    <Compile Include="Common\Class\SummaryTrxDataParse.cs" />
     <Compile Include="Common\Class\TibInterface.cs" />
     <Compile Include="Common\Class\TibManager.cs" />
     <Compile Include="Common\ColumnVisibilityControl.cs">
@@ -698,6 +700,12 @@
     <Compile Include="Modeling\ContextConfigurationUC.Designer.cs">
       <DependentUpon>ContextConfigurationUC.cs</DependentUpon>
     </Compile>
+    <Compile Include="Modeling\RuleSimulationOptionPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modeling\RuleSimulationOptionPopup.Designer.cs">
+      <DependentUpon>RuleSimulationOptionPopup.cs</DependentUpon>
+    </Compile>
     <Compile Include="Modeling\SelectEQPModel.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -770,6 +778,12 @@
     <Compile Include="Modeling\SPCCopySpec.Designer.cs">
       <DependentUpon>SPCCopySpec.cs</DependentUpon>
     </Compile>
+    <Compile Include="Modeling\SPCDataRestrictionUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Modeling\SPCDataRestrictionUC.Designer.cs">
+      <DependentUpon>SPCDataRestrictionUC.cs</DependentUpon>
+    </Compile>
     <Compile Include="Modeling\SPCModelGroupPopup.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -811,6 +825,12 @@
     </Compile>
     <Compile Include="Modeling\AutoCalcConfigurationUC.Designer.cs">
       <DependentUpon>AutoCalcConfigurationUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modeling\SummaryDataOptionPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modeling\SummaryDataOptionPopup.Designer.cs">
+      <DependentUpon>SummaryDataOptionPopup.cs</DependentUpon>
     </Compile>
     <Compile Include="OCAP\OCAPDetailsPopup.cs">
       <SubType>Form</SubType>
@@ -1275,6 +1295,9 @@
       <DependentUpon>ContextConfigurationUC.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Modeling\RuleSimulationOptionPopup.resx">
+      <DependentUpon>RuleSimulationOptionPopup.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Modeling\SelectEQPModel.resx">
       <DependentUpon>SelectEQPModel.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -1323,6 +1346,9 @@
       <DependentUpon>SPCCopySpec.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Modeling\SPCDataRestrictionUC.resx">
+      <DependentUpon>SPCDataRestrictionUC.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Modeling\SPCModelGroupPopup.resx">
       <DependentUpon>SPCModelGroupPopup.cs</DependentUpon>
     </EmbeddedResource>
@@ -1347,6 +1373,9 @@
     <EmbeddedResource Include="Modeling\AutoCalcConfigurationUC.resx">
       <DependentUpon>AutoCalcConfigurationUC.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modeling\SummaryDataOptionPopup.resx">
+      <DependentUpon>SummaryDataOptionPopup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="OCAP\OCAPDetailsPopup.resx">
       <DependentUpon>OCAPDetailsPopup.cs</DependentUpon>

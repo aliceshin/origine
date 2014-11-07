@@ -321,78 +321,88 @@ namespace BISTel.eSPC.Page.Common
                     this.dtDataSource.Columns.Add(strValue, typeof(string));                
             }
 
-            DateTime nextSampleStartDate =
-                                    DateTime.Parse(this.DataManager.RawDataTable.Rows[0][Definition.CHART_COLUMN.TIME].ToString().Split(';')[0]);
-                                nextSampleStartDate = new DateTime(nextSampleStartDate.Year, nextSampleStartDate.Month, nextSampleStartDate.Day);
-            int sampleCountTemp = 0;
-
-            DataRow dr = null;
-            int seqIndex = 0;
-            for (int i = 0; i < this.DataManager.DataRowCount; i++)
+            if (this.DataManager.RawDataTable.Rows.Count > 0)
             {
-                if(sample)
-                {
-                    if (DateTime.Parse(this.DataManager.RawDataTable.Rows[i][Definition.CHART_COLUMN.TIME].ToString().Split(';')[0]) > nextSampleStartDate)
-                    {
-                        while (DateTime.Parse(this.DataManager.RawDataTable.Rows[i][Definition.CHART_COLUMN.TIME].ToString().Split(';')[0]) > nextSampleStartDate)
-                        {
-                            nextSampleStartDate = nextSampleStartDate.AddDays(samplePeriod);
-                        }
-                        sampleCountTemp = 1;
-                    }
-                    else if (sampleCountTemp < sampleCount)
-                    {
-                        sampleCountTemp++;
-                    }
-                    else
-                    {
-                        this.DataManager.RawDataTable.Rows.RemoveAt(i);
-                        i--;
-                        continue;
-                    }
-                }
+                DateTime nextSampleStartDate =
+                                        DateTime.Parse(this.DataManager.RawDataTable.Rows[0][Definition.CHART_COLUMN.TIME].ToString().Split(';')[0]);
+                nextSampleStartDate = new DateTime(nextSampleStartDate.Year, nextSampleStartDate.Month, nextSampleStartDate.Day);
+                int sampleCountTemp = 0;
 
-                dr = this.dtDataSource.NewRow();
-                for (int j = 0; j < lstChartColumn.Count; j++)
+                DataRow dr = null;
+                int seqIndex = 0;
+                for (int i = 0; i < this.DataManager.DataRowCount; i++)
                 {
-                    string strKey = lstChartColumn.GetKey(j).ToString();
-                    string strValue = lstChartColumn.GetValue(j).ToString();
-                    
-                    if(this.DataManager.RawDataTable.Columns.Contains(strKey))
+                    if (sample)
                     {
-                        if (strKey == Definition.CHART_COLUMN.TIME)
+                        if (DateTime.Parse(this.DataManager.RawDataTable.Rows[i][Definition.CHART_COLUMN.TIME].ToString().Split(';')[0]) > nextSampleStartDate)
                         {
-                            string sTime = this.DataManager.RawDataTable.Rows[i][strKey].ToString();
-                            dr[Definition.CHART_COLUMN.TIME2] = sTime.Substring(0, 16);
-                            dr[strKey] = this.DataManager.RawDataTable.Rows[i][strKey];
-                        }
-                        else if (strKey == Definition.CHART_COLUMN.RAW)
-                        {
-                            if (lstRawColumn.Count == 0)
+                            while (DateTime.Parse(this.DataManager.RawDataTable.Rows[i][Definition.CHART_COLUMN.TIME].ToString().Split(';')[0]) > nextSampleStartDate)
                             {
-                                dr[strValue] = this.DataManager.RawDataTable.Rows[i][strKey];                                                                
+                                nextSampleStartDate = nextSampleStartDate.AddDays(samplePeriod);
+                            }
+                            sampleCountTemp = 1;
+                        }
+                        else if (sampleCountTemp < sampleCount)
+                        {
+                            sampleCountTemp++;
+                        }
+                        else
+                        {
+                            this.DataManager.RawDataTable.Rows.RemoveAt(i);
+                            i--;
+                            continue;
+                        }
+                    }
+
+                    dr = this.dtDataSource.NewRow();
+                    for (int j = 0; j < lstChartColumn.Count; j++)
+                    {
+                        string strKey = lstChartColumn.GetKey(j).ToString();
+                        string strValue = lstChartColumn.GetValue(j).ToString();
+
+                        if (this.DataManager.RawDataTable.Columns.Contains(strKey))
+                        {
+                            if (strKey == Definition.CHART_COLUMN.TIME)
+                            {
+                                string sTime = this.DataManager.RawDataTable.Rows[i][strKey].ToString();
+                                dr[Definition.CHART_COLUMN.TIME2] = sTime.Substring(0, 16);
+                                dr[strKey] = this.DataManager.RawDataTable.Rows[i][strKey];
+                            }
+                            else if (strKey == Definition.CHART_COLUMN.RAW)
+                            {
+                                if (lstRawColumn.Count == 0)
+                                {
+                                    dr[strValue] = this.DataManager.RawDataTable.Rows[i][strKey];
+                                }
+                            }
+                            else
+                                dr[strValue] = this.DataManager.RawDataTable.Rows[i][strKey];
+                        }
+                    }
+                    dr[CommonChart.COLUMN_NAME_SEQ_INDEX] = seqIndex.ToString();
+                    seqIndex++;
+                    if (this.Name != Definition.CHART_TYPE.RAW)
+                    {
+                        if (this.Name != Definition.CHART_TYPE.XBAR && this.Name != Definition.CHART_TYPE.EWMA_MEAN)
+                        {
+                            if (this.Name.Contains("EWMA"))
+                            {
+                                if (dr[this.Name.Replace("EWMA_", "")].ToString() == "")
+                                    continue;
+                                else
+                                    this.dtDataSource.Rows.Add(dr);
+                            }
+                            else
+                            {
+                                if (dr[this.Name].ToString() == "")
+                                    continue;
+                                else
+                                    this.dtDataSource.Rows.Add(dr);
                             }
                         }
                         else
-                            dr[strValue] = this.DataManager.RawDataTable.Rows[i][strKey];
-                    }
-                }
-                dr[CommonChart.COLUMN_NAME_SEQ_INDEX] = seqIndex.ToString();
-                seqIndex++;
-                if (this.Name != Definition.CHART_TYPE.RAW)
-                {
-                    if (this.Name != Definition.CHART_TYPE.XBAR && this.Name != Definition.CHART_TYPE.EWMA_MEAN)
-                    {
-                        if (this.Name.Contains("EWMA"))
                         {
-                            if (dr[this.Name.Replace("EWMA_", "")].ToString() == "")
-                                continue;
-                            else
-                                this.dtDataSource.Rows.Add(dr);
-                        }
-                        else
-                        {
-                            if (dr[this.Name].ToString() == "")
+                            if (dr["AVG"].ToString() == "")
                                 continue;
                             else
                                 this.dtDataSource.Rows.Add(dr);
@@ -400,17 +410,10 @@ namespace BISTel.eSPC.Page.Common
                     }
                     else
                     {
-                        if (dr["AVG"].ToString() == "")
-                            continue;
-                        else
-                            this.dtDataSource.Rows.Add(dr);
+                        this.dtDataSource.Rows.Add(dr);
                     }
                 }
-                else
-                {
-                    this.dtDataSource.Rows.Add(dr);
-                }
-            }  
+            }
         }
 
         public void SettingXBarInfo(string xBarChartType, string sXLabel, List<string> _lstRawColumn, LinkedList _llstChartSeriesVisibleType)

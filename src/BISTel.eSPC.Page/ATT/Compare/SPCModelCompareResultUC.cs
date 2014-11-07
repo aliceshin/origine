@@ -366,7 +366,10 @@ namespace BISTel.eSPC.Page.ATT.Compare
             while (con.Parent != null)
             {
                 if (con is SPCModelCompareUC)
+                {
                     break;
+                }
+
                 con = con.Parent;
             }
 
@@ -395,22 +398,36 @@ namespace BISTel.eSPC.Page.ATT.Compare
                 }
             }
 
+            //SPC-1218, KBLEE, START
+            for (int i = 0; i < selectedColumns.Length; i++)
+            {
+                if (copyPopup.CONTEXT_CONTEXT_INFORMATION == "Y" && GetMainYN(selectedColumns[i]) == "N")
+                {
+                    MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_COPY_CONTEXT_FOR_ONLY_MAIN", null, null);
+                    return;
+                }
+            }
+            //SPC-1218, KBLEE, END
+
             if (copyPopup.RULE_PN_SPEC_LIMIT.ToString().Equals("Y") ||
                 copyPopup.RULE_PN_CONTROL.ToString().Equals("Y") )
             {
                 LinkedList toraltargetRawidList = new LinkedList();
                 string[] targetRawid = new string[selectedColumns.Length];
+
                 for (int i = 0; i < selectedColumns.Length; i++)
                 {
                     LinkedList targetRawidList = new LinkedList();
                     targetRawid[i] = GetHeader(selectedColumns[i]);
                 }
+
                 DataSet targetSpecData = this._controller.GetATTTargetConfigSpecData(targetRawid);
                 DataSet sourceSpecData = this._controller.GetATTSourseConfigSpecData(copyPopup.CONFIG_RAWID.ToString());
 
                 if (targetSpecData != null && sourceSpecData != null)
                 {
                     bool CompareResult = true;
+
                     if (copyPopup.RULE_PN_SPEC_LIMIT.ToString().Equals("Y") && copyPopup.RULE_PN_CONTROL.ToString().Equals("Y"))
                     {
                         CompareResult = this.compareSpecLimit(sourceSpecData, targetSpecData, "11", "PN");
@@ -423,6 +440,7 @@ namespace BISTel.eSPC.Page.ATT.Compare
                     {
                         CompareResult = this.compareSpecLimit(sourceSpecData, targetSpecData, "10", "PN");
                     }
+
                     if (!CompareResult)
                     {
                         return;
@@ -431,7 +449,7 @@ namespace BISTel.eSPC.Page.ATT.Compare
 
             }
 
-            DialogResult result = MSGHandler.DialogQuestionResult("SPC_INFO_DIALOG_COPY?",
+            DialogResult result = MSGHandler.DialogQuestionResult("SPC_INFO_DIALOG_COPY",
                                                                   new string[] { "Model Copy" }, MessageBoxButtons.YesNo);
 
             if (result == DialogResult.Yes)
@@ -471,6 +489,8 @@ namespace BISTel.eSPC.Page.ATT.Compare
                 }
                 else
                 {
+                    MSGHandler.DisplayMessage(MSGType.Information,
+                                                      MSGHandler.GetMessage(Definition.MSG_KEY_SUCCESS_SAVE_CHANGE_DATA)); //SPC-1218, KBLEE
                     this.RefreshData();
                 }
             }

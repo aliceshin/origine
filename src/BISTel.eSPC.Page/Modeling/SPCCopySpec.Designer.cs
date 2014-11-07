@@ -97,6 +97,7 @@
             this.bLabel2 = new BISTel.PeakPerformance.Client.BISTelControl.BLabel();
             this.chkChartDesc = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
             this.btpnlContext = new BISTel.PeakPerformance.Client.BISTelControl.BTitlePanel();
+            this.chkContextInform = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
             this.chkUseNorm = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
             this.chkGenerateSubChartWithAutoCalculation = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
             this.chkInterlock = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
@@ -129,7 +130,7 @@
             this.pnlContentsArea.Controls.Add(this.btpnlContext);
             this.pnlContentsArea.Controls.Add(this.bTitlePanel4);
             this.pnlContentsArea.Controls.Add(this.bapnlBottom);
-            this.pnlContentsArea.Size = new System.Drawing.Size(738, 727);
+            this.pnlContentsArea.Size = new System.Drawing.Size(738, 777);
             // 
             // btpnlRule
             // 
@@ -170,7 +171,7 @@
             this.btpnlRule.IsPopupMax = false;
             this.btpnlRule.IsSelected = false;
             this.btpnlRule.Key = "";
-            this.btpnlRule.Location = new System.Drawing.Point(3, 240);
+            this.btpnlRule.Location = new System.Drawing.Point(3, 275);
             this.btpnlRule.MaxControlName = "";
             this.btpnlRule.MaxResizable = false;
             this.btpnlRule.MaxVisibleStateForMaxNormal = false;
@@ -435,7 +436,7 @@
             this.btpnlOption.IsPopupMax = false;
             this.btpnlOption.IsSelected = false;
             this.btpnlOption.Key = "";
-            this.btpnlOption.Location = new System.Drawing.Point(3, 365);
+            this.btpnlOption.Location = new System.Drawing.Point(3, 400);
             this.btpnlOption.MaxControlName = "";
             this.btpnlOption.MaxResizable = false;
             this.btpnlOption.MaxVisibleStateForMaxNormal = false;
@@ -573,7 +574,7 @@
             this.btpnlAutoCalculation.IsPopupMax = false;
             this.btpnlAutoCalculation.IsSelected = false;
             this.btpnlAutoCalculation.Key = "";
-            this.btpnlAutoCalculation.Location = new System.Drawing.Point(3, 462);
+            this.btpnlAutoCalculation.Location = new System.Drawing.Point(3, 497);
             this.btpnlAutoCalculation.MaxControlName = "";
             this.btpnlAutoCalculation.MaxResizable = false;
             this.btpnlAutoCalculation.MaxVisibleStateForMaxNormal = false;
@@ -587,7 +588,7 @@
             this.btpnlAutoCalculation.ShowCloseButton = false;
             this.btpnlAutoCalculation.ShowMaxNormalButton = false;
             this.btpnlAutoCalculation.ShowMinButton = false;
-            this.btpnlAutoCalculation.Size = new System.Drawing.Size(732, 225);
+            this.btpnlAutoCalculation.Size = new System.Drawing.Size(732, 240);
             this.btpnlAutoCalculation.TabIndex = 2;
             this.btpnlAutoCalculation.Title = "Auto Calculation";
             this.btpnlAutoCalculation.TitleColor = System.Drawing.Color.Black;
@@ -607,7 +608,7 @@
             this.gbxAutoCalcItem.Controls.Add(this.chkEWMAMeanControlLimit);
             this.gbxAutoCalcItem.Controls.Add(this.chkRawControlLimit);
             this.gbxAutoCalcItem.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.gbxAutoCalcItem.Location = new System.Drawing.Point(0, 115);
+            this.gbxAutoCalcItem.Location = new System.Drawing.Point(0, 130);
             this.gbxAutoCalcItem.Name = "gbxAutoCalcItem";
             this.gbxAutoCalcItem.Size = new System.Drawing.Size(732, 110);
             this.gbxAutoCalcItem.TabIndex = 15;
@@ -876,7 +877,7 @@
             this.bapnlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.bapnlBottom.IsCondition = false;
             this.bapnlBottom.Key = "";
-            this.bapnlBottom.Location = new System.Drawing.Point(3, 687);
+            this.bapnlBottom.Location = new System.Drawing.Point(3, 737);
             this.bapnlBottom.Name = "bapnlBottom";
             this.bapnlBottom.Padding_Bottom = 5;
             this.bapnlBottom.Padding_Left = 5;
@@ -1146,6 +1147,7 @@
             // btpnlContext
             // 
             this.btpnlContext.BssClass = "TitlePanel";
+            this.btpnlContext.Controls.Add(this.chkContextInform);
             this.btpnlContext.Controls.Add(this.chkUseNorm);
             this.btpnlContext.Controls.Add(this.chkGenerateSubChartWithAutoCalculation);
             this.btpnlContext.Controls.Add(this.chkInterlock);
@@ -1192,12 +1194,24 @@
             this.btpnlContext.ShowCloseButton = false;
             this.btpnlContext.ShowMaxNormalButton = false;
             this.btpnlContext.ShowMinButton = false;
-            this.btpnlContext.Size = new System.Drawing.Size(732, 125);
+            this.btpnlContext.Size = new System.Drawing.Size(732, 160);
             this.btpnlContext.TabIndex = 8;
             this.btpnlContext.Title = "Context";
             this.btpnlContext.TitleColor = System.Drawing.Color.Black;
             this.btpnlContext.TitleFont = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.btpnlContext.TopPadding = 5;
+            // 
+            // chkContextInform
+            // 
+            this.chkContextInform.BssClass = "";
+            this.chkContextInform.IsMultiLanguage = true;
+            this.chkContextInform.Key = "";
+            this.chkContextInform.Location = new System.Drawing.Point(7, 127);
+            this.chkContextInform.Name = "chkContextInform";
+            this.chkContextInform.Size = new System.Drawing.Size(144, 24);
+            this.chkContextInform.TabIndex = 20;
+            this.chkContextInform.Text = "Context Information";
+            this.chkContextInform.UseVisualStyleBackColor = true;
             // 
             // chkUseNorm
             // 
@@ -1359,7 +1373,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(750, 760);
+            this.ClientSize = new System.Drawing.Size(750, 810);
             this.Name = "SPCCopySpec";
             this.Text = "SPCCopySpec";
             this.Title = "SPC Model Copy";
@@ -1467,6 +1481,7 @@
         private PeakPerformance.Client.BISTelControl.BCheckBox chkMR;
         private PeakPerformance.Client.BISTelControl.BCheckBox chkMRControlLimit;
         private PeakPerformance.Client.BISTelControl.BCheckBox chkGlobal;
+        private PeakPerformance.Client.BISTelControl.BCheckBox chkContextInform;
 
     }
 }

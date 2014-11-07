@@ -935,9 +935,22 @@ namespace BISTel.eSPC.Page.OCAP
                     _ChartVariable.MAIN_YN = dr[Definition.DynamicCondition_Condition_key.MAIN_YN].ToString();
                     _ChartVariable.OCAPRawID = strOCAPRawID;
 
+                    DateTime dtStart = DateTime.Parse(strTime);
+                    dtStart = dtStart.AddHours(-12.0);
+
+                    DateTime dtEnd = DateTime.Parse(strTime);
+                    dtEnd = dtEnd.AddHours(12.0);
+
                     LinkedList llstSearch = new LinkedList();
-                    llstSearch.Add(Definition.CONDITION_KEY_START_DTTS,  _comUtil.NVL(this._llstCondition[Definition.CONDITION_KEY_START_DTTS]));
-                    llstSearch.Add(Definition.CONDITION_KEY_END_DTTS, _comUtil.NVL(this._llstCondition[Definition.CONDITION_KEY_END_DTTS]));
+
+                    llstSearch.Add(Definition.CONDITION_KEY_START_DTTS, dtStart.ToString("yyyy-MM-dd HH:mm:ss"));
+                    llstSearch.Add(Definition.CONDITION_KEY_END_DTTS, dtEnd.ToString("yyyy-MM-dd HH:mm:ss"));
+
+                    _ChartVariable.dateTimeStart = dtStart;
+                    _ChartVariable.dateTimeEnd = dtEnd;
+                    
+                    //llstSearch.Add(Definition.CONDITION_KEY_START_DTTS,  _comUtil.NVL(this._llstCondition[Definition.CONDITION_KEY_START_DTTS]));
+                    //llstSearch.Add(Definition.CONDITION_KEY_END_DTTS, _comUtil.NVL(this._llstCondition[Definition.CONDITION_KEY_END_DTTS]));
                     llstSearch.Add(Definition.CONDITION_KEY_MODEL_CONFIG_RAWID, strModelConfigRawID);
 
                     DataSet dsTemp = _wsSPC.GetSPCControlChartData(llstSearch.GetSerialData());
@@ -1203,11 +1216,13 @@ namespace BISTel.eSPC.Page.OCAP
                     _ChartVariable.DEFAULT_CHART = strDefaultChartList;
                     //_ChartVariable.DEFAULT_CHART = this._mlthandler.GetVariable(Definition.VARIABLE_SPC_INITIAL_DISPLAY_CHART);
                     _ChartVariable.CHART_PARENT_MODE = CHART_PARENT_MODE.OCAP;
-                    _ChartVariable.dateTimeStart = DateTime.Parse(strTime).AddDays(-7);
-                    if (DateTime.Parse(strTime).AddDays(7) > DateTime.Parse(CommonPageUtil.ToDayStart()))
+                    //_ChartVariable.dateTimeStart = DateTime.Parse(strTime).AddDays(-7);
+                    if (_ChartVariable.dateTimeStart > DateTime.Parse(CommonPageUtil.ToDayStart()))
                         _ChartVariable.dateTimeEnd = DateTime.Parse(CommonPageUtil.ToDayEnd());
                     else
-                        _ChartVariable.dateTimeEnd = DateTime.Parse(strTime).AddDays(7);
+                    {
+                        //_ChartVariable.dateTimeEnd = DateTime.Parse(strTime).AddDays(7);
+                    }
 
                     if (string.IsNullOrEmpty(_ChartVariable.DEFAULT_CHART))
                     {

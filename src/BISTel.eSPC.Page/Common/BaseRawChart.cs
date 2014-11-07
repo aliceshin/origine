@@ -45,10 +45,13 @@ namespace BISTel.eSPC.Page.Common
         bool _IsVisibleLegendScrollBar = false;
         bool _IsVisibleShadow = false;
 
+        private bool _isSummaryData = false; //SPC-929, KBLEE
 
         private DateTime _StartDateTime = DateTime.Now;
         private DateTime _EndDateTime = DateTime.Now;
-
+        
+        private DataSet _dsFilter;
+        private DataSet _dsContextData;
 
         System.Windows.Forms.Panel pnlParent = null;
 
@@ -180,6 +183,29 @@ namespace BISTel.eSPC.Page.Common
 
         }
 
+        public DataSet dsFilter
+        {
+            get
+            {
+                return _dsFilter;
+            }
+            set
+            {
+                this._dsFilter = value;
+            }
+        }
+
+        public DataSet dsContextData
+        {
+            get
+            {
+                return _dsContextData;
+            }
+            set
+            {
+                this._dsContextData = value;
+            }
+        }
 
         public BTeeChart Get_Chart()
         {
@@ -238,6 +264,19 @@ namespace BISTel.eSPC.Page.Common
             set
             {
                 this.ParentPagekey = value;
+            }
+        }
+
+        private string ParentName = "";
+        public string PageName
+        {
+            get
+            {
+                return ParentName;
+            }
+            set
+            {
+                this.ParentName = value;
             }
         }
 
@@ -357,6 +396,14 @@ namespace BISTel.eSPC.Page.Common
         {
             get { return this.bckbPointMarking.Checked; }
         }
+
+        //SPC-929, KBLEE, START
+        public bool ISSUMMARYDATA
+        {
+            get { return this._isSummaryData; }
+            set { this._isSummaryData = value; }
+        }
+        //SPC-929, KBLEE, END
         #endregion
 
         #region ::: Override Method.
@@ -411,6 +458,10 @@ namespace BISTel.eSPC.Page.Common
                     this._mllstContextType.Add("RAW_DTTS", null);
                     if (!this._mllstContextType.Contains("EQP_ID"))
                         this._mllstContextType.Add("EQP_ID", null);
+                    if (!this._mllstContextType.Contains("MODULE_ALIAS"))
+                        this._mllstContextType.Add("MODULE_ALIAS", null);
+                    if (!this._mllstContextType.Contains("MODULE_NAME"))
+                        this._mllstContextType.Add("MODULE_NAME", null);
                     for (int i = 0; i < this.DataManager.RawDataTableOriginal.Columns.Count; i++)
                     {
                         if (!this._mllstContextType.Contains(this.DataManager.RawDataTableOriginal.Columns[i].ColumnName.ToUpper()))
@@ -526,6 +577,25 @@ namespace BISTel.eSPC.Page.Common
                             }
                         }
 
+                        if (this.PageName == "BISTel.eSPC.Page.Modeling.SPCDataRestrictionUC")
+                        {
+                            if (_dsFilter != null && _dsFilter.Tables.Count > 0 && _dsFilter.Tables[0].Rows.Count > 0)
+                            {
+                                DataRestriction restriction = new DataRestriction();
+                                DataTable dtFilterData = restriction.GetEQPFilterData(_dsFilter, _dsContextData, this._dtDataSource);
+                                if (dtFilterData != null)
+                                {
+                                    this._dtDataSource = dtFilterData;
+                                }
+                                this._dtDataSource = restriction.GetIncludeFilterResultDataByRaw(_dsFilter, _dsContextData, this._dtDataSource);
+
+                                if (this._dtDataSource != null)
+                                {
+                                    this._dtDataSource = restriction.GetExcludeFilterResultDataByRaw(_dsFilter, _dsContextData, this._dtDataSource);
+                                }
+                            }
+                        }
+
                         if (this._dtDataSource.Rows.Count > 0)
                         {
                             this._dtDataSource = DataUtil.DataTableImportRow(this._dtDataSource.Select(null, COLUMN.RAW_DTTS));
@@ -544,6 +614,8 @@ namespace BISTel.eSPC.Page.Common
                             this._dtDataSource.Rows[i][CommonChart.COLUMN_NAME_SEQ_INDEX] = i;
                         }
                     }
+
+                    
 
                     SeriesInfo si = null;
                     if (this._dtDataSource.Rows.Count > 0)
@@ -595,6 +667,40 @@ namespace BISTel.eSPC.Page.Common
                 }
                 else
                 {
+                    if (this.ParentName == "BISTel.eSPC.Page.Modeling.SPCDataRestrictionUC")
+                    {
+                        if (_dsFilter != null && _dsFilter.Tables.Count > 0 && _dsFilter.Tables[0].Rows.Count > 0)
+                        {
+                            DataRestriction restriction = new DataRestriction();
+
+                            DataTable dtFilterData = restriction.GetEQPFilterData(_dsFilter, _dsContextData, this.DataManager.RawDataTable);
+                            if (dtFilterData != null)
+                            {
+                                this.DataManager.RawDataTable = dtFilterData;
+                            }
+
+                            DataTable dtResult = restriction.GetIncludeFilterResultData(_dsFilter, _dsContextData, this.DataManager.RawDataTable);
+                            if (dtResult != null)
+                            {
+                                this._dataManager.RawDataTable = dtResult.Copy();
+                            }
+                            else
+                            {
+                                this._dataManager.RawDataTable.Clear();
+                            }
+
+                            dtResult = restriction.GetExcludeFilterResultData(_dsFilter, _dsContextData, this.DataManager.RawDataTable);
+                            if (dtResult != null)
+                            {
+                                this._dataManager.RawDataTable = dtResult.Copy();
+                            }
+                            else
+                            {
+                                this._dataManager.RawDataTable.Clear();
+                            }
+                        }
+                    }
+
                     MakeDataSourceToDrawSPCChart();
                     DrawChartWithSeriesInfo();
                     ChangeSeriesStyle();
@@ -661,12 +767,45 @@ namespace BISTel.eSPC.Page.Common
                     this._mllstContextType.Add("RAW_DTTS", null);
                     if (!this._mllstContextType.Contains("EQP_ID"))
                         this._mllstContextType.Add("EQP_ID", null);
+                    if (!this._mllstContextType.Contains("MODULE_ALIAS"))
+                        this._mllstContextType.Add("MODULE_ALIAS", null);
+                    if (!this._mllstContextType.Contains("MODULE_NAME"))
+                        this._mllstContextType.Add("MODULE_NAME", null);
+                    //for (int i = 0; i < this.DataManager.RawDataTableOriginal.Columns.Count; i++)
+                    //{
+                    //    if (!this._mllstContextType.Contains(this.DataManager.RawDataTableOriginal.Columns[i].ColumnName.ToUpper()))
+                    //    {
+                    //        this.DataManager.RawDataTableOriginal.Columns.Remove(this.DataManager.RawDataTableOriginal.Columns[i].ColumnName);
+                    //        i--;
+                    //    }
+                    //}
+
                     for (int i = 0; i < this.DataManager.RawDataTableOriginal.Columns.Count; i++)
                     {
                         if (!this._mllstContextType.Contains(this.DataManager.RawDataTableOriginal.Columns[i].ColumnName.ToUpper()))
                         {
-                            this.DataManager.RawDataTableOriginal.Columns.Remove(this.DataManager.RawDataTableOriginal.Columns[i].ColumnName);
-                            i--;
+                            bool isContainsColumn = false;
+                            for (int j = 0; j < this._mllstContextType.Count; j++)
+                            {
+                                if (this._mllstContextType.GetValue(j) != null)
+                                {
+                                    string strContextName = ((BISTel.eSPC.Common.SPCStruct.ContextTypeInfo)this._mllstContextType.GetValue(j)).NAME;
+                                    if (strContextName != null)
+                                    {
+                                        if (this.DataManager.RawDataTableOriginal.Columns[i].ColumnName.ToUpper() == strContextName)
+                                        {
+                                            isContainsColumn = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+
+                            if (!isContainsColumn)
+                            {
+                                this.DataManager.RawDataTableOriginal.Columns.Remove(this.DataManager.RawDataTableOriginal.Columns[i].ColumnName);
+                                i--;
+                            }
                         }
                     }
 
@@ -772,6 +911,26 @@ namespace BISTel.eSPC.Page.Common
                             }
                         }
 
+
+                        if (this.PageName == "BISTel.eSPC.Page.Modeling.SPCDataRestrictionUC")
+                        {
+                            if (_dsFilter != null && _dsFilter.Tables.Count > 0 && _dsFilter.Tables[0].Rows.Count > 0)
+                            {
+                                DataRestriction restriction = new DataRestriction();
+                                DataTable dtFilterData = restriction.GetEQPFilterData(_dsFilter, _dsContextData, this._dtDataSource);
+                                if (dtFilterData != null)
+                                {
+                                    this._dtDataSource = dtFilterData;
+                                }
+                                this._dtDataSource = restriction.GetIncludeFilterResultDataByRaw(_dsFilter, _dsContextData, this._dtDataSource);
+
+                                if (this._dtDataSource != null)
+                                {
+                                    this._dtDataSource = restriction.GetExcludeFilterResultDataByRaw(_dsFilter, _dsContextData, this._dtDataSource);
+                                }
+                            }
+                        }
+
                         if (this._dtDataSource.Rows.Count > 0)
                         {
                             this._dtDataSource = DataUtil.DataTableImportRow(this._dtDataSource.Select(null, COLUMN.RAW_DTTS));
@@ -841,6 +1000,40 @@ namespace BISTel.eSPC.Page.Common
                 }
                 else
                 {
+                    if (this.PageName == "BISTel.eSPC.Page.Modeling.SPCDataRestrictionUC")
+                    {
+                        if (_dsFilter != null && _dsFilter.Tables.Count > 0 && _dsFilter.Tables[0].Rows.Count > 0)
+                        {
+                            DataRestriction restriction = new DataRestriction();
+
+                            DataTable dtFilterData = restriction.GetEQPFilterData(_dsFilter, _dsContextData, this.DataManager.RawDataTable);
+                            if (dtFilterData != null)
+                            {
+                                this.DataManager.RawDataTable = dtFilterData;
+                            }
+
+                            DataTable dtResult = restriction.GetIncludeFilterResultData(_dsFilter, _dsContextData, this.DataManager.RawDataTable);
+                            if (dtResult != null)
+                            {
+                                this._dataManager.RawDataTable = dtResult.Copy();
+                            }
+                            else
+                            {
+                                this._dataManager.RawDataTable.Clear();
+                            }
+
+                            dtResult = restriction.GetExcludeFilterResultData(_dsFilter, _dsContextData, this.DataManager.RawDataTable);
+                            if (dtResult != null)
+                            {
+                                this._dataManager.RawDataTable = dtResult.Copy();
+                            }
+                            else
+                            {
+                                this._dataManager.RawDataTable.Clear();
+                            }
+                        }
+                    }
+
                     MakeDataSourceToDrawSPCChart();
                     DrawChartWithSeriesInfo();
                     ChangeSeriesStyle();

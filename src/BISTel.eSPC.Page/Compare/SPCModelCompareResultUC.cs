@@ -32,7 +32,9 @@ namespace BISTel.eSPC.Page.Compare
         private Initialization _initialization = null;
         private ICompareResultController _controller = null;
         private string _line = string.Empty;
+        private string _lineName = string.Empty; //SPC-1307, KBLEE
         private string _areaRawid = string.Empty;
+        private string _area = string.Empty;
         //private string _area = string.Empty;
         private string _eqpModel = string.Empty;
         private string _paramAlias = string.Empty;
@@ -59,7 +61,6 @@ namespace BISTel.eSPC.Page.Compare
 
         private bool isMET = false;
         private string _groupName;
-        private string _area= string.Empty;
 
         #endregion
 
@@ -137,6 +138,7 @@ namespace BISTel.eSPC.Page.Compare
                 _line =
                     ((DataTable)llCondition[Definition.DynamicCondition_Search_key.LINE]).Rows[0][Definition.CONDITION_SEARCH_KEY_VALUEDATA].ToString();
                 sLine = ((DataTable)llCondition[Definition.DynamicCondition_Search_key.LINE]).Rows[0][Definition.CONDITION_SEARCH_KEY_DISPLAYDATA].ToString();
+                _lineName = sLine; //SPC-1307, KBLEE
             }
 
             if (llCondition[Definition.DynamicCondition_Search_key.AREA] != null
@@ -552,7 +554,20 @@ namespace BISTel.eSPC.Page.Compare
             }
 
             if (copyPopup != null)
+            {
                 copyPopup.InitializePopup();
+            }
+
+            //SPC-1218, KBLEE, START
+            for (int i = 0; i < selectedColumns.Length; i++)
+            {
+                if (copyPopup.CONTEXT_CONTEXT_INFORMATION == "Y" && GetMainYN(selectedColumns[i]) == "N")
+                {
+                    MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_COPY_CONTEXT_FOR_ONLY_MAIN", null, null);
+                    return;
+                }
+            }
+            //SPC-1218, KBLEE, END
 
             //SPC-855 by Louis ==> SpecLimit Check (raw,mean,master)
             if (copyPopup.RULE_MASTER_SPEC_LIMIT.ToString().Equals("Y") ||
@@ -821,10 +836,10 @@ namespace BISTel.eSPC.Page.Compare
             string spcModelName = GetSPCModelName(selectedColumns[0]);
             string chartId = GetHeader(selectedColumns[0]);
 
-            this.ViewChart(this.sessionData, this.URL, this._line, this._areaRawid, spcModelName, this._paramAlias, chartId, this._paramType);
+            this.ViewChart(this.sessionData, this.URL, this._line, this._lineName, this._areaRawid, this._area, spcModelName, this._paramAlias, chartId, this._paramType);
         }
 
-        public void ViewChart(SessionData sessionData, string URL, string line, string area, string spcModelName, string paramAlias, string chartId, string paramType)
+        public void ViewChart(SessionData sessionData, string URL, string lineRawid, string line, string areaRawid, string area, string spcModelName, string paramAlias, string chartId, string paramType)
         {
             Common.ChartViewPopup chartViewPop = new Common.ChartViewPopup();
             chartViewPop.URL = URL;
@@ -832,10 +847,12 @@ namespace BISTel.eSPC.Page.Compare
 
             //Louis SPC-834 [SPC Compare] Chart
             chartViewPop.ChartVariable.CHART_PARENT_MODE = CHART_PARENT_MODE.MODELING; //SPC-834 Chart Mode 수정
+            //SPC-1307, KBLEE, START
             chartViewPop.ChartVariable.LINE = line;
             chartViewPop.ChartVariable.AREA = area;
-            chartViewPop.AREA_RAWID = area;
-            chartViewPop.LINE_RAWID = line;
+            chartViewPop.AREA_RAWID = areaRawid;
+            chartViewPop.LINE_RAWID = lineRawid;
+            //SPC-1307, KBLEE, END
             chartViewPop.ChartVariable.SPC_MODEL = spcModelName;
             chartViewPop.ChartVariable.PARAM_ALIAS = paramAlias;
             chartViewPop.ChartVariable.MODEL_CONFIG_RAWID = chartId;
@@ -881,10 +898,12 @@ namespace BISTel.eSPC.Page.Compare
 
         private string GetHeader(int columnIndex)
         {
-            CheckBoxCellType checkbox = this.bsprData.ActiveSheet.ColumnHeader.Cells[0, columnIndex].CellType as CheckBoxCellType; 
+            CheckBoxCellType checkbox = this.bsprData.ActiveSheet.ColumnHeader.Cells[0, columnIndex].CellType as CheckBoxCellType;
 
-            if(checkbox == null)
+            if (checkbox == null)
+            {
                 return string.Empty;
+            }
 
             return checkbox.Caption;
         }

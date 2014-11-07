@@ -2865,6 +2865,30 @@ namespace BISTel.eSPC.Page.ATT.Modeling
                 return;
             }
 
+            //SPC-1218, KBLEE, START
+            for (int i = 0; i < alCheckRowIndex.Count; i++)
+            {
+                int selectedRow = (int)alCheckRowIndex[i];
+
+                if (this._popUp.CONFIG_RAWID.ToString() == this.bsprData.ActiveSheet.Cells[selectedRow, (int)iColIdx.CHART_ID].Text)
+                {
+                    MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_TARGET_SAME", null, null);
+                    return;
+                }
+            }
+
+            for (int i = 0; i < alCheckRowIndex.Count; i++)
+            {
+                int selectedRow = (int)alCheckRowIndex[i];
+
+                if (this._popUp.CONTEXT_CONTEXT_INFORMATION == "Y" && this.bsprData.ActiveSheet.Cells[selectedRow, (int)iColIdx.MAIN_YN].Text == "N")
+                {
+                    MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_COPY_CONTEXT_FOR_ONLY_MAIN", null, null);
+                    return;
+                }
+            }
+            //SPC-1218, KBLEE, END
+
             if (_popUp.RULE_PN_SPEC_LIMIT.ToString().Equals("Y") || _popUp.RULE_PN_CONTROL.ToString().Equals("Y"))
             {
                 LinkedList toraltargetRawidList = new LinkedList();
@@ -2960,8 +2984,11 @@ namespace BISTel.eSPC.Page.ATT.Modeling
                             string mainYN = this.bsprData.ActiveSheet.Cells[selectedRow, (int)iColIdx.MAIN_YN].Text;
 
                             bool hasSubConfigs = false;
+
                             if (this.bsprData.ActiveSheet.RowCount > 1) //SubConfig 존재여부
+                            {
                                 hasSubConfigs = true;
+                            }
 
                             LinkedList llstConfigurationInfo = new LinkedList();
 
@@ -2994,6 +3021,7 @@ namespace BISTel.eSPC.Page.ATT.Modeling
                             llstConfigurationInfo.Add(Definition.COPY_MODEL.CONTEXT_INHERIT_THE_SPEC_OF_MAIN,
                                                       this._popUp.CONTEXT_INHERIT_THE_SPEC_OF_MAIN);
                             llstConfigurationInfo.Add(Definition.COPY_MODEL.CONTEXT_MODE, this._popUp.CONTEXT_MODE);
+                            llstConfigurationInfo.Add(Definition.COPY_MODEL.CONTEXT_CONTEXT_INFORMATION, this._popUp.CONTEXT_CONTEXT_INFORMATION); //SPC-1218, KBLEE
 
                             //SPC-676 by Louis
                             llstConfigurationInfo.Add(Definition.COPY_MODEL.CONTEXT_CHART_DESCRIPTION, this._popUp.CONTEXT_CHART_DESCRIPTION);

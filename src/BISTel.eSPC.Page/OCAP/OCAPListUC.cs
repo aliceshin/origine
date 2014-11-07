@@ -730,6 +730,7 @@ namespace BISTel.eSPC.Page.OCAP
                     DataRow drCurrent = this._dsOCAPList.Tables[0].Rows[iRowIndex];
 
                     _llstPopup = CommonPageUtil.GetOCAPParameter(this._dsOCAPList.Tables[0], iRowIndex);
+                    _llstPopup[Definition.CONDITION_KEY_TIME] = strTime;
                     dtResource = GetChartData(_llstPopup, strModelConfigRawID, iRowIndex);
 
                     List<string> rawIDs = new List<string>();
@@ -997,8 +998,13 @@ namespace BISTel.eSPC.Page.OCAP
                     //    _ChartVariable.dateTimeEnd = DateTime.Parse(CommonPageUtil.ToDayEnd());
                     //else
                     //    _ChartVariable.dateTimeEnd = DateTime.Parse(strTime).AddDays(7);
-                    _ChartVariable.dateTimeStart = DateTime.Parse(this._llstSearchCondition[Definition.DynamicCondition_Condition_key.START_DTTS].ToString());
-                    _ChartVariable.dateTimeEnd = DateTime.Parse(this._llstSearchCondition[Definition.DynamicCondition_Condition_key.END_DTTS].ToString());
+
+                    if (name != Definition.ButtonKey.VIEW_CHART)
+                    {
+                        _ChartVariable.dateTimeStart = DateTime.Parse(this._llstSearchCondition[Definition.DynamicCondition_Condition_key.START_DTTS].ToString());
+                        _ChartVariable.dateTimeEnd = DateTime.Parse(this._llstSearchCondition[Definition.DynamicCondition_Condition_key.END_DTTS].ToString());
+                    }
+                    
                     //modified end
                     _ChartVariable.llstDTSelectCondition = this._llstDTSelectCondition;
                     _ChartVariable.OCAPRawID = strocaprawid;
@@ -1132,8 +1138,20 @@ namespace BISTel.eSPC.Page.OCAP
                 _llstDTSelectCondition.Add(Definition.CHART_COLUMN.PARAM_ALIAS, CommonPageUtil.GetConCatString(this.bsprData.ActiveSheet.Cells[iRowIndex, (int)enum_OCAPLIST.PARAM_ALIAS].Text));
                 _llstDTSelectCondition.Add(Definition.CHART_COLUMN.EQP_ID, CommonPageUtil.GetConCatString(this.bsprData.ActiveSheet.Cells[iRowIndex, (int)enum_OCAPLIST.EQP_ID].Text));
 
-                _llstSearch.Add(Definition.CONDITION_KEY_START_DTTS, _ComUtil.NVL(this._llstSearchCondition[Definition.CONDITION_KEY_START_DTTS]));
-                _llstSearch.Add(Definition.CONDITION_KEY_END_DTTS, _ComUtil.NVL(this._llstSearchCondition[Definition.CONDITION_KEY_END_DTTS]));
+                DateTime dtStart = DateTime.Parse(_llstPopup[Definition.CONDITION_KEY_TIME].ToString());
+                dtStart = dtStart.AddHours(-12.0);
+
+                DateTime dtEnd = DateTime.Parse(_llstPopup[Definition.CONDITION_KEY_TIME].ToString());
+                dtEnd = dtEnd.AddHours(12.0);
+
+                _llstSearch.Add(Definition.CONDITION_KEY_START_DTTS, dtStart.ToString("yyyy-MM-dd HH:mm:ss"));
+                _llstSearch.Add(Definition.CONDITION_KEY_END_DTTS, dtEnd.ToString("yyyy-MM-dd HH:mm:ss"));
+
+                _ChartVariable.dateTimeStart = dtStart;
+                _ChartVariable.dateTimeEnd = dtEnd;
+
+                //_llstSearch.Add(Definition.CONDITION_KEY_START_DTTS, _ComUtil.NVL(this._llstSearchCondition[Definition.CONDITION_KEY_START_DTTS]));
+                //_llstSearch.Add(Definition.CONDITION_KEY_END_DTTS, _ComUtil.NVL(this._llstSearchCondition[Definition.CONDITION_KEY_END_DTTS]));
                 _llstSearch.Add(Definition.CONDITION_KEY_MODEL_CONFIG_RAWID, strModelConfigRawID);
 
                 EESProgressBar.ShowProgress(this, this._lang.GetMessage(Definition.LOADING_DATA), true);

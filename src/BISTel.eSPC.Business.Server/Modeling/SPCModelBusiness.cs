@@ -301,6 +301,7 @@ namespace BISTel.eSPC.Business.Server.Modeling
 
             return string.Empty;
         }
+        
         public bool SaveSPCMultiCalcModelData(byte[] param)
         {
             bool bReturn = true;
@@ -769,5 +770,58 @@ namespace BISTel.eSPC.Business.Server.Modeling
 
             return bResult;
         }
+
+        //SPC-929, KBLEE, START
+        public DataSet GetEQPSummaryData(byte[] baData)
+        {
+            BISTel.eSPC.Data.Server.Modeling.SPCModelData spcModelData = new BISTel.eSPC.Data.Server.Modeling.SPCModelData();
+
+            DataSet dsReturn = new DataSet();
+            DataSet _dsSelect = new DataSet();
+            DataTable dtResult = new DataTable();
+
+            try
+            {
+                _dsSelect = spcModelData.GetEqpSummaryTrxFileData(baData);
+
+                if (_dsSelect != null && _dsSelect.Tables != null && _dsSelect.Tables.Count > 0)
+                {
+                    dtResult = _dsSelect.Tables[0].Copy();
+                    dtResult.TableName = "FILE_DATA";
+                    dsReturn.Tables.Add(dtResult);
+
+                    object oStartDate = null;
+                    LinkedList llstCondition = new LinkedList();
+                    llstCondition.SetSerialData(baData);
+
+                    if (_dsSelect.Tables[0].Rows.Count > 0)
+                    {
+                        oStartDate = _dsSelect.Tables[0].Rows[_dsSelect.Tables[0].Rows.Count - 1]["END_DTTS"];
+                        llstCondition.Remove(Definition.CONDITION_KEY_START_DTTS);
+                        llstCondition.Add(Definition.CONDITION_KEY_START_DTTS, oStartDate);
+                    }
+
+                    _dsSelect = spcModelData.GetEqpSummaryTempTrxCLOBData(llstCondition.GetSerialData());
+
+                    if (_dsSelect != null && _dsSelect.Tables != null && _dsSelect.Tables.Count > 0)
+                    {
+                        dtResult = _dsSelect.Tables[0].Copy();
+                        dtResult.TableName = "TEMP_DATA";
+                        dsReturn.Tables.Add(dtResult);
+                    }
+                }
+            }
+            catch
+            {
+            }
+            finally
+            {
+                if (_dsSelect != null) _dsSelect.Dispose();
+                if (dtResult != null) dtResult.Dispose();
+            }
+
+            return dsReturn;
+        }
+        //SPC-929, KBLEE, END
     }
 }

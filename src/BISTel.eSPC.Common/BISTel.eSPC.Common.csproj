@@ -126,6 +126,7 @@
     <Compile Include="Condition.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="DataBase.cs" />
+    <Compile Include="DataRestriction.cs" />
     <Compile Include="DataTableGroupBy.cs" />
     <Compile Include="DataUtil.cs" />
     <Compile Include="Definition.cs" />

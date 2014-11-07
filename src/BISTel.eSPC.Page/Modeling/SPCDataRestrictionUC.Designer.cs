@@ -1,6 +1,6 @@
 ﻿namespace BISTel.eSPC.Page.Modeling
 {
-    partial class SPCCalculationUC
+    partial class SPCDataRestrictionUC
     {
         /// <summary>
         /// 필수 디자이너 변수입니다.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SPCCalculationUC));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SPCDataRestrictionUC));
             BISTel.PeakPerformance.Client.BISTelControl.ColumnInfo columnInfo1 = new BISTel.PeakPerformance.Client.BISTelControl.ColumnInfo();
             FarPoint.Win.Spread.TipAppearance tipAppearance1 = new FarPoint.Win.Spread.TipAppearance();
             BISTel.PeakPerformance.Client.BISTelControl.ColumnInfo columnInfo2 = new BISTel.PeakPerformance.Client.BISTelControl.ColumnInfo();
@@ -47,17 +47,7 @@
             this.panel34 = new System.Windows.Forms.Panel();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.pnlRuleChart = new System.Windows.Forms.Panel();
             this.pnlChart = new System.Windows.Forms.Panel();
-            this.pnlSetRule = new System.Windows.Forms.Panel();
-            this.bcboRule = new BISTel.PeakPerformance.Client.BISTelControl.BComboBox();
-            this.panel62 = new System.Windows.Forms.Panel();
-            this.bLabel17 = new BISTel.PeakPerformance.Client.BISTelControl.BLabel();
-            this.pnlRuleResult = new System.Windows.Forms.Panel();
-            this.blbRuleResult = new BISTel.PeakPerformance.Client.BISTelControl.BLabel();
-            this.bLabel31 = new BISTel.PeakPerformance.Client.BISTelControl.BLabel();
-            this.bLabel32 = new BISTel.PeakPerformance.Client.BISTelControl.BLabel();
-            this.panel61 = new System.Windows.Forms.Panel();
             this.bTitlePanel1 = new BISTel.PeakPerformance.Client.BISTelControl.BTitlePanel();
             this.bArrangePanel8 = new BISTel.PeakPerformance.Client.BISTelControl.BArrangePanel();
             this.panel49 = new System.Windows.Forms.Panel();
@@ -176,14 +166,10 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.bsprData = new BISTel.PeakPerformance.Client.BISTelControl.BSpread();
             this.bsprData_Sheet1 = new FarPoint.Win.Spread.SheetView();
-            this.bapSearchMainOption = new BISTel.PeakPerformance.Client.BISTelControl.BArrangePanel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.bbtnSummaryOption = new BISTel.PeakPerformance.Client.BISTelControl.BButton();
-            this.bchkSummaryData = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
-            this.bLabel27 = new BISTel.PeakPerformance.Client.BISTelControl.BLabel();
-            this.bLabel28 = new BISTel.PeakPerformance.Client.BISTelControl.BLabel();
-            this.bcboChartType = new BISTel.PeakPerformance.Client.BISTelControl.BComboBox();
             this.bapSearch = new BISTel.PeakPerformance.Client.BISTelControl.BArrangePanel();
+            this.bLabel18 = new BISTel.PeakPerformance.Client.BISTelControl.BLabel();
+            this.bLabel17 = new BISTel.PeakPerformance.Client.BISTelControl.BLabel();
+            this.bcboChartType = new BISTel.PeakPerformance.Client.BISTelControl.BComboBox();
             this.bbtnSearch = new BISTel.PeakPerformance.Client.BISTelControl.BButton();
             this.bDtEnd = new BISTel.PeakPerformance.Client.BISTelControl.BDateTime();
             this.bDtStart = new BISTel.PeakPerformance.Client.BISTelControl.BDateTime();
@@ -213,10 +199,6 @@
             this.panel32.SuspendLayout();
             this.panel33.SuspendLayout();
             this.panel3.SuspendLayout();
-            this.pnlRuleChart.SuspendLayout();
-            this.pnlSetRule.SuspendLayout();
-            this.panel62.SuspendLayout();
-            this.pnlRuleResult.SuspendLayout();
             this.bTitlePanel1.SuspendLayout();
             this.bArrangePanel8.SuspendLayout();
             this.panel49.SuspendLayout();
@@ -270,7 +252,6 @@
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bsprData)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsprData_Sheet1)).BeginInit();
-            this.bapSearchMainOption.SuspendLayout();
             this.bapSearch.SuspendLayout();
             this.bapSearchOption.SuspendLayout();
             this.SuspendLayout();
@@ -311,7 +292,7 @@
             this.btpnlSPCChart.IsPopupMax = false;
             this.btpnlSPCChart.IsSelected = false;
             this.btpnlSPCChart.Key = "";
-            this.btpnlSPCChart.Location = new System.Drawing.Point(0, 209);
+            this.btpnlSPCChart.Location = new System.Drawing.Point(0, 181);
             this.btpnlSPCChart.MaxControlName = "pnlSPCBase";
             this.btpnlSPCChart.MaxResizable = true;
             this.btpnlSPCChart.MaxVisibleStateForMaxNormal = false;
@@ -325,7 +306,7 @@
             this.btpnlSPCChart.ShowCloseButton = false;
             this.btpnlSPCChart.ShowMaxNormalButton = false;
             this.btpnlSPCChart.ShowMinButton = false;
-            this.btpnlSPCChart.Size = new System.Drawing.Size(885, 557);
+            this.btpnlSPCChart.Size = new System.Drawing.Size(885, 585);
             this.btpnlSPCChart.TabIndex = 1;
             this.btpnlSPCChart.Title = "SPC Calculation";
             this.btpnlSPCChart.TitleColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(151)))), ((int)(((byte)(212)))));
@@ -338,7 +319,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 344);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(885, 213);
+            this.panel2.Size = new System.Drawing.Size(885, 241);
             this.panel2.TabIndex = 5;
             // 
             // btpnlChartData
@@ -378,7 +359,7 @@
             this.btpnlChartData.ShowCloseButton = false;
             this.btpnlChartData.ShowMaxNormalButton = false;
             this.btpnlChartData.ShowMinButton = false;
-            this.btpnlChartData.Size = new System.Drawing.Size(885, 213);
+            this.btpnlChartData.Size = new System.Drawing.Size(885, 241);
             this.btpnlChartData.TabIndex = 8;
             this.btpnlChartData.Title = "Chart Data";
             this.btpnlChartData.TitleColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(151)))), ((int)(((byte)(212)))));
@@ -435,7 +416,7 @@
             this.bsprChartData.ScrollBarTrackPolicy = FarPoint.Win.Spread.ScrollBarTrackPolicy.Both;
             this.bsprChartData.Sheets.AddRange(new FarPoint.Win.Spread.SheetView[] {
             this.bsprChartData_Sheet1});
-            this.bsprChartData.Size = new System.Drawing.Size(885, 168);
+            this.bsprChartData.Size = new System.Drawing.Size(885, 196);
             this.bsprChartData.StyleID = null;
             this.bsprChartData.TabIndex = 4;
             tipAppearance1.BackColor = System.Drawing.SystemColors.Info;
@@ -571,7 +552,7 @@
             // 
             // panel3
             // 
-            this.panel3.Controls.Add(this.pnlRuleChart);
+            this.panel3.Controls.Add(this.pnlChart);
             this.panel3.Controls.Add(this.bTitlePanel1);
             this.panel3.Controls.Add(this.btpSetSpec);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
@@ -580,156 +561,14 @@
             this.panel3.Size = new System.Drawing.Size(885, 314);
             this.panel3.TabIndex = 6;
             // 
-            // pnlRuleChart
-            // 
-            this.pnlRuleChart.Controls.Add(this.pnlChart);
-            this.pnlRuleChart.Controls.Add(this.pnlSetRule);
-            this.pnlRuleChart.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlRuleChart.Location = new System.Drawing.Point(0, 0);
-            this.pnlRuleChart.Name = "pnlRuleChart";
-            this.pnlRuleChart.Size = new System.Drawing.Size(525, 314);
-            this.pnlRuleChart.TabIndex = 0;
-            // 
             // pnlChart
             // 
             this.pnlChart.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlChart.Location = new System.Drawing.Point(0, 28);
+            this.pnlChart.Location = new System.Drawing.Point(0, 0);
             this.pnlChart.Name = "pnlChart";
             this.pnlChart.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
-            this.pnlChart.Size = new System.Drawing.Size(525, 286);
+            this.pnlChart.Size = new System.Drawing.Size(525, 314);
             this.pnlChart.TabIndex = 7;
-            // 
-            // pnlSetRule
-            // 
-            this.pnlSetRule.Controls.Add(this.bcboRule);
-            this.pnlSetRule.Controls.Add(this.panel62);
-            this.pnlSetRule.Controls.Add(this.pnlRuleResult);
-            this.pnlSetRule.Controls.Add(this.panel61);
-            this.pnlSetRule.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlSetRule.Location = new System.Drawing.Point(0, 0);
-            this.pnlSetRule.Name = "pnlSetRule";
-            this.pnlSetRule.Size = new System.Drawing.Size(525, 28);
-            this.pnlSetRule.TabIndex = 0;
-            // 
-            // bcboRule
-            // 
-            this.bcboRule.AutoDropDownWidth = true;
-            this.bcboRule.BssClass = "";
-            this.bcboRule.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.bcboRule.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.bcboRule.FormattingEnabled = true;
-            this.bcboRule.IsMultiLanguage = true;
-            this.bcboRule.Key = "";
-            this.bcboRule.Location = new System.Drawing.Point(54, 5);
-            this.bcboRule.Name = "bcboRule";
-            this.bcboRule.Size = new System.Drawing.Size(235, 20);
-            this.bcboRule.TabIndex = 28;
-            this.bcboRule.SelectedIndexChanged += new System.EventHandler(this.bcboRule_SelectedIndexChanged);
-            // 
-            // panel62
-            // 
-            this.panel62.Controls.Add(this.bLabel17);
-            this.panel62.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel62.Location = new System.Drawing.Point(0, 5);
-            this.panel62.Name = "panel62";
-            this.panel62.Size = new System.Drawing.Size(54, 23);
-            this.panel62.TabIndex = 128;
-            // 
-            // bLabel17
-            // 
-            this.bLabel17.AutoSize = true;
-            this.bLabel17.BackColor = System.Drawing.Color.Transparent;
-            this.bLabel17.BssClass = "";
-            this.bLabel17.CustomTextAlign = "";
-            this.bLabel17.Dock = System.Windows.Forms.DockStyle.Right;
-            this.bLabel17.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.bLabel17.ForeColor = System.Drawing.Color.Black;
-            this.bLabel17.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.bLabel17.IsMultiLanguage = false;
-            this.bLabel17.Key = "";
-            this.bLabel17.Location = new System.Drawing.Point(16, 0);
-            this.bLabel17.Name = "bLabel17";
-            this.bLabel17.Padding = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.bLabel17.Size = new System.Drawing.Size(38, 21);
-            this.bLabel17.TabIndex = 1;
-            this.bLabel17.Text = "Rule";
-            this.bLabel17.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // pnlRuleResult
-            // 
-            this.pnlRuleResult.BackColor = System.Drawing.Color.Transparent;
-            this.pnlRuleResult.Controls.Add(this.blbRuleResult);
-            this.pnlRuleResult.Controls.Add(this.bLabel31);
-            this.pnlRuleResult.Controls.Add(this.bLabel32);
-            this.pnlRuleResult.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pnlRuleResult.Location = new System.Drawing.Point(289, 5);
-            this.pnlRuleResult.Name = "pnlRuleResult";
-            this.pnlRuleResult.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
-            this.pnlRuleResult.Size = new System.Drawing.Size(236, 23);
-            this.pnlRuleResult.TabIndex = 127;
-            // 
-            // blbRuleResult
-            // 
-            this.blbRuleResult.AutoSize = true;
-            this.blbRuleResult.BackColor = System.Drawing.Color.Transparent;
-            this.blbRuleResult.BssClass = "";
-            this.blbRuleResult.CustomTextAlign = "";
-            this.blbRuleResult.Dock = System.Windows.Forms.DockStyle.Right;
-            this.blbRuleResult.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.blbRuleResult.ForeColor = System.Drawing.Color.Black;
-            this.blbRuleResult.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.blbRuleResult.IsMultiLanguage = false;
-            this.blbRuleResult.Key = "";
-            this.blbRuleResult.Location = new System.Drawing.Point(226, 0);
-            this.blbRuleResult.Name = "blbRuleResult";
-            this.blbRuleResult.Padding = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.blbRuleResult.Size = new System.Drawing.Size(10, 21);
-            this.blbRuleResult.TabIndex = 9;
-            this.blbRuleResult.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // bLabel31
-            // 
-            this.bLabel31.AutoSize = true;
-            this.bLabel31.BackColor = System.Drawing.Color.Transparent;
-            this.bLabel31.BssClass = "";
-            this.bLabel31.CustomTextAlign = "";
-            this.bLabel31.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.bLabel31.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.bLabel31.ForeColor = System.Drawing.Color.Black;
-            this.bLabel31.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.bLabel31.IsMultiLanguage = false;
-            this.bLabel31.Key = "";
-            this.bLabel31.Location = new System.Drawing.Point(15, 0);
-            this.bLabel31.Name = "bLabel31";
-            this.bLabel31.Padding = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.bLabel31.Size = new System.Drawing.Size(50, 21);
-            this.bLabel31.TabIndex = 0;
-            this.bLabel31.Text = "Result ";
-            this.bLabel31.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // bLabel32
-            // 
-            this.bLabel32.BackColor = System.Drawing.Color.Transparent;
-            this.bLabel32.BssClass = "";
-            this.bLabel32.CustomTextAlign = "";
-            this.bLabel32.Dock = System.Windows.Forms.DockStyle.Left;
-            this.bLabel32.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.bLabel32.ForeColor = System.Drawing.Color.Black;
-            this.bLabel32.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.bLabel32.IsMultiLanguage = true;
-            this.bLabel32.Key = "";
-            this.bLabel32.Location = new System.Drawing.Point(3, 0);
-            this.bLabel32.Name = "bLabel32";
-            this.bLabel32.Size = new System.Drawing.Size(12, 23);
-            this.bLabel32.TabIndex = 8;
-            // 
-            // panel61
-            // 
-            this.panel61.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel61.Location = new System.Drawing.Point(0, 0);
-            this.panel61.Name = "panel61";
-            this.panel61.Size = new System.Drawing.Size(525, 5);
-            this.panel61.TabIndex = 29;
             // 
             // bTitlePanel1
             // 
@@ -1679,7 +1518,6 @@
             this.btxtLSL.Name = "btxtLSL";
             this.btxtLSL.Size = new System.Drawing.Size(143, 21);
             this.btxtLSL.TabIndex = 2;
-            this.btxtLSL.Validated += new System.EventHandler(this.btxt_Validated);
             // 
             // panel13
             // 
@@ -1783,7 +1621,6 @@
             this.btxtTarget.Name = "btxtTarget";
             this.btxtTarget.Size = new System.Drawing.Size(143, 21);
             this.btxtTarget.TabIndex = 2;
-            this.btxtTarget.Validated += new System.EventHandler(this.btxt_Validated);
             // 
             // panel59
             // 
@@ -1887,7 +1724,6 @@
             this.btxtUSL.Name = "btxtUSL";
             this.btxtUSL.Size = new System.Drawing.Size(143, 21);
             this.btxtUSL.TabIndex = 2;
-            this.btxtUSL.Validated += new System.EventHandler(this.btxt_Validated);
             // 
             // panel10
             // 
@@ -2438,7 +2274,7 @@
             // 
             this.splitter2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.splitter2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.splitter2.Location = new System.Drawing.Point(0, 206);
+            this.splitter2.Location = new System.Drawing.Point(0, 178);
             this.splitter2.Name = "splitter2";
             this.splitter2.Size = new System.Drawing.Size(885, 3);
             this.splitter2.TabIndex = 6;
@@ -2448,7 +2284,6 @@
             // 
             this.btpnlSPCConfig.BssClass = "TitlePanel";
             this.btpnlSPCConfig.Controls.Add(this.panel1);
-            this.btpnlSPCConfig.Controls.Add(this.bapSearchMainOption);
             this.btpnlSPCConfig.Controls.Add(this.bapSearch);
             this.btpnlSPCConfig.Controls.Add(this.bapSearchOption);
             this.btpnlSPCConfig.Dock = System.Windows.Forms.DockStyle.Top;
@@ -2483,7 +2318,7 @@
             this.btpnlSPCConfig.ShowCloseButton = false;
             this.btpnlSPCConfig.ShowMaxNormalButton = false;
             this.btpnlSPCConfig.ShowMinButton = false;
-            this.btpnlSPCConfig.Size = new System.Drawing.Size(885, 206);
+            this.btpnlSPCConfig.Size = new System.Drawing.Size(885, 178);
             this.btpnlSPCConfig.TabIndex = 0;
             this.btpnlSPCConfig.Title = "SPC Model";
             this.btpnlSPCConfig.TitleColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(151)))), ((int)(((byte)(212)))));
@@ -2601,104 +2436,65 @@
             this.bsprData_Sheet1.VisualStyles = FarPoint.Win.VisualStyles.Off;
             this.bsprData_Sheet1.ReferenceStyle = FarPoint.Win.Spread.Model.ReferenceStyle.A1;
             // 
-            // bapSearchMainOption
+            // bapSearch
             // 
-            this.bapSearchMainOption.BLabelAutoPadding = true;
-            this.bapSearchMainOption.BssClass = "DataArrPanel";
-            this.bapSearchMainOption.Controls.Add(this.label1);
-            this.bapSearchMainOption.Controls.Add(this.bbtnSummaryOption);
-            this.bapSearchMainOption.Controls.Add(this.bchkSummaryData);
-            this.bapSearchMainOption.Controls.Add(this.bLabel27);
-            this.bapSearchMainOption.Controls.Add(this.bLabel28);
-            this.bapSearchMainOption.Controls.Add(this.bcboChartType);
-            this.bapSearchMainOption.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.bapSearchMainOption.IsCondition = true;
-            this.bapSearchMainOption.Key = "";
-            this.bapSearchMainOption.Location = new System.Drawing.Point(0, 122);
-            this.bapSearchMainOption.Name = "bapSearchMainOption";
-            this.bapSearchMainOption.Padding_Bottom = 5;
-            this.bapSearchMainOption.Padding_Left = 5;
-            this.bapSearchMainOption.Padding_Right = 5;
-            this.bapSearchMainOption.Padding_Top = 5;
-            this.bapSearchMainOption.Size = new System.Drawing.Size(885, 28);
-            this.bapSearchMainOption.Space = 5;
-            this.bapSearchMainOption.TabIndex = 28;
-            this.bapSearchMainOption.Title = "";
+            this.bapSearch.BLabelAutoPadding = true;
+            this.bapSearch.BssClass = "DataArrPanel";
+            this.bapSearch.Controls.Add(this.bLabel18);
+            this.bapSearch.Controls.Add(this.bLabel17);
+            this.bapSearch.Controls.Add(this.bcboChartType);
+            this.bapSearch.Controls.Add(this.bbtnSearch);
+            this.bapSearch.Controls.Add(this.bDtEnd);
+            this.bapSearch.Controls.Add(this.bDtStart);
+            this.bapSearch.Controls.Add(this.bLabel9);
+            this.bapSearch.Controls.Add(this.bLabel1);
+            this.bapSearch.Controls.Add(this.blblTitSearch);
+            this.bapSearch.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.bapSearch.IsCondition = true;
+            this.bapSearch.Key = "";
+            this.bapSearch.Location = new System.Drawing.Point(0, 122);
+            this.bapSearch.Name = "bapSearch";
+            this.bapSearch.Padding_Bottom = 5;
+            this.bapSearch.Padding_Left = 5;
+            this.bapSearch.Padding_Right = 5;
+            this.bapSearch.Padding_Top = 5;
+            this.bapSearch.Size = new System.Drawing.Size(885, 28);
+            this.bapSearch.Space = 5;
+            this.bapSearch.TabIndex = 8;
+            this.bapSearch.Title = "";
             // 
-            // label1
+            // bLabel18
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(223, 8);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(9, 12);
-            this.label1.TabIndex = 38;
-            this.label1.Text = " ";
+            this.bLabel18.BackColor = System.Drawing.Color.Transparent;
+            this.bLabel18.BssClass = "";
+            this.bLabel18.CustomTextAlign = "";
+            this.bLabel18.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.bLabel18.ForeColor = System.Drawing.Color.Black;
+            this.bLabel18.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.bLabel18.IsMultiLanguage = true;
+            this.bLabel18.Key = "";
+            this.bLabel18.Location = new System.Drawing.Point(485, 5);
+            this.bLabel18.Name = "bLabel18";
+            this.bLabel18.Size = new System.Drawing.Size(75, 18);
+            this.bLabel18.TabIndex = 26;
+            this.bLabel18.Text = "Chart Type";
+            this.bLabel18.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // bbtnSummaryOption
+            // bLabel17
             // 
-            this.bbtnSummaryOption.AutoButtonSize = false;
-            this.bbtnSummaryOption.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("bbtnSummaryOption.BackgroundImage")));
-            this.bbtnSummaryOption.BssClass = "ConditionButton";
-            this.bbtnSummaryOption.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.bbtnSummaryOption.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.bbtnSummaryOption.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(97)))), ((int)(((byte)(133)))));
-            this.bbtnSummaryOption.IsMultiLanguage = false;
-            this.bbtnSummaryOption.Key = "";
-            this.bbtnSummaryOption.Location = new System.Drawing.Point(382, 2);
-            this.bbtnSummaryOption.Name = "bbtnSummaryOption";
-            this.bbtnSummaryOption.Size = new System.Drawing.Size(68, 24);
-            this.bbtnSummaryOption.TabIndex = 37;
-            this.bbtnSummaryOption.Text = "Option";
-            this.bbtnSummaryOption.ToolTipText = "";
-            this.bbtnSummaryOption.UseVisualStyleBackColor = true;
-            this.bbtnSummaryOption.Click += new System.EventHandler(this.bbtnSummaryOption_Click);
-            // 
-            // bchkSummaryData
-            // 
-            this.bchkSummaryData.BssClass = "";
-            this.bchkSummaryData.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.bchkSummaryData.IsMultiLanguage = false;
-            this.bchkSummaryData.Key = "";
-            this.bchkSummaryData.Location = new System.Drawing.Point(237, 5);
-            this.bchkSummaryData.Name = "bchkSummaryData";
-            this.bchkSummaryData.Size = new System.Drawing.Size(140, 19);
-            this.bchkSummaryData.TabIndex = 36;
-            this.bchkSummaryData.Text = "Use Summary Data";
-            this.bchkSummaryData.UseVisualStyleBackColor = true;
-            this.bchkSummaryData.CheckedChanged += new System.EventHandler(this.bchkSummaryData_CheckedChanged);
-            // 
-            // bLabel27
-            // 
-            this.bLabel27.BackColor = System.Drawing.Color.Transparent;
-            this.bLabel27.BssClass = "";
-            this.bLabel27.CustomTextAlign = "";
-            this.bLabel27.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.bLabel27.ForeColor = System.Drawing.Color.Black;
-            this.bLabel27.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.bLabel27.IsMultiLanguage = true;
-            this.bLabel27.Key = "";
-            this.bLabel27.Location = new System.Drawing.Point(22, 5);
-            this.bLabel27.Name = "bLabel27";
-            this.bLabel27.Size = new System.Drawing.Size(75, 18);
-            this.bLabel27.TabIndex = 26;
-            this.bLabel27.Text = "Chart Type";
-            this.bLabel27.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // bLabel28
-            // 
-            this.bLabel28.BackColor = System.Drawing.Color.Transparent;
-            this.bLabel28.BssClass = "";
-            this.bLabel28.CustomTextAlign = "";
-            this.bLabel28.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.bLabel28.ForeColor = System.Drawing.Color.Black;
-            this.bLabel28.Image = global::BISTel.eSPC.Page.Properties.Resources.bullet_01;
-            this.bLabel28.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.bLabel28.IsMultiLanguage = true;
-            this.bLabel28.Key = "";
-            this.bLabel28.Location = new System.Drawing.Point(5, 5);
-            this.bLabel28.Name = "bLabel28";
-            this.bLabel28.Size = new System.Drawing.Size(12, 18);
-            this.bLabel28.TabIndex = 25;
+            this.bLabel17.BackColor = System.Drawing.Color.Transparent;
+            this.bLabel17.BssClass = "";
+            this.bLabel17.CustomTextAlign = "";
+            this.bLabel17.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.bLabel17.ForeColor = System.Drawing.Color.Black;
+            this.bLabel17.Image = global::BISTel.eSPC.Page.Properties.Resources.bullet_01;
+            this.bLabel17.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.bLabel17.IsMultiLanguage = true;
+            this.bLabel17.Key = "";
+            this.bLabel17.Location = new System.Drawing.Point(468, 5);
+            this.bLabel17.Name = "bLabel17";
+            this.bLabel17.Size = new System.Drawing.Size(12, 18);
+            this.bLabel17.TabIndex = 25;
             // 
             // bcboChartType
             // 
@@ -2709,35 +2505,11 @@
             this.bcboChartType.FormattingEnabled = true;
             this.bcboChartType.IsMultiLanguage = true;
             this.bcboChartType.Key = "";
-            this.bcboChartType.Location = new System.Drawing.Point(102, 4);
+            this.bcboChartType.Location = new System.Drawing.Point(565, 4);
             this.bcboChartType.Name = "bcboChartType";
             this.bcboChartType.Size = new System.Drawing.Size(116, 21);
             this.bcboChartType.TabIndex = 24;
             this.bcboChartType.SelectedIndexChanged += new System.EventHandler(this.bcboChartType_SelectedIndexChanged);
-            // 
-            // bapSearch
-            // 
-            this.bapSearch.BLabelAutoPadding = true;
-            this.bapSearch.BssClass = "DataArrPanel";
-            this.bapSearch.Controls.Add(this.bbtnSearch);
-            this.bapSearch.Controls.Add(this.bDtEnd);
-            this.bapSearch.Controls.Add(this.bDtStart);
-            this.bapSearch.Controls.Add(this.bLabel9);
-            this.bapSearch.Controls.Add(this.bLabel1);
-            this.bapSearch.Controls.Add(this.blblTitSearch);
-            this.bapSearch.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.bapSearch.IsCondition = true;
-            this.bapSearch.Key = "";
-            this.bapSearch.Location = new System.Drawing.Point(0, 150);
-            this.bapSearch.Name = "bapSearch";
-            this.bapSearch.Padding_Bottom = 5;
-            this.bapSearch.Padding_Left = 5;
-            this.bapSearch.Padding_Right = 5;
-            this.bapSearch.Padding_Top = 5;
-            this.bapSearch.Size = new System.Drawing.Size(885, 28);
-            this.bapSearch.Space = 5;
-            this.bapSearch.TabIndex = 8;
-            this.bapSearch.Title = "";
             // 
             // bbtnSearch
             // 
@@ -2881,7 +2653,7 @@
             this.blblTitSearch.Name = "blblTitSearch";
             this.blblTitSearch.Size = new System.Drawing.Size(96, 18);
             this.blblTitSearch.TabIndex = 20;
-            this.blblTitSearch.Text = "Search Period";
+            this.blblTitSearch.Text = "Search Period :";
             this.blblTitSearch.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // bapSearchOption
@@ -2902,7 +2674,7 @@
             this.bapSearchOption.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.bapSearchOption.IsCondition = true;
             this.bapSearchOption.Key = "";
-            this.bapSearchOption.Location = new System.Drawing.Point(0, 178);
+            this.bapSearchOption.Location = new System.Drawing.Point(0, 150);
             this.bapSearchOption.Name = "bapSearchOption";
             this.bapSearchOption.Padding_Bottom = 5;
             this.bapSearchOption.Padding_Left = 5;
@@ -3036,7 +2808,6 @@
             // bchkSampling
             // 
             this.bchkSampling.BssClass = "";
-            this.bchkSampling.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.bchkSampling.IsMultiLanguage = false;
             this.bchkSampling.Key = "";
             this.bchkSampling.Location = new System.Drawing.Point(5, 0);
@@ -3100,12 +2871,6 @@
             this.panel32.ResumeLayout(false);
             this.panel33.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
-            this.pnlRuleChart.ResumeLayout(false);
-            this.pnlSetRule.ResumeLayout(false);
-            this.panel62.ResumeLayout(false);
-            this.panel62.PerformLayout();
-            this.pnlRuleResult.ResumeLayout(false);
-            this.pnlRuleResult.PerformLayout();
             this.bTitlePanel1.ResumeLayout(false);
             this.bTitlePanel1.PerformLayout();
             this.bArrangePanel8.ResumeLayout(false);
@@ -3174,8 +2939,6 @@
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.bsprData)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsprData_Sheet1)).EndInit();
-            this.bapSearchMainOption.ResumeLayout(false);
-            this.bapSearchMainOption.PerformLayout();
             this.bapSearch.ResumeLayout(false);
             this.bapSearchOption.ResumeLayout(false);
             this.bapSearchOption.PerformLayout();
@@ -3215,6 +2978,9 @@
         private System.Windows.Forms.Panel panel34;
         private System.Windows.Forms.Splitter splitter2;
         private BISTel.PeakPerformance.Client.BISTelControl.BTitlePanel btpnlChartData;
+        private BISTel.PeakPerformance.Client.BISTelControl.BComboBox bcboChartType;
+        private BISTel.PeakPerformance.Client.BISTelControl.BLabel bLabel18;
+        private BISTel.PeakPerformance.Client.BISTelControl.BLabel bLabel17;
         private BISTel.PeakPerformance.Client.BISTelControl.BTitlePanel bTitlePanel1;
         private BISTel.PeakPerformance.Client.BISTelControl.BTitlePanel btpSetSpec;
         private System.Windows.Forms.RadioButton rbtnAverage;
@@ -3340,22 +3106,5 @@
         private System.Windows.Forms.Panel panel60;
         private PeakPerformance.Client.BISTelControl.BLabel bLabel25;
         private PeakPerformance.Client.BISTelControl.BLabel bLabel26;
-        private PeakPerformance.Client.BISTelControl.BArrangePanel bapSearchMainOption;
-        private PeakPerformance.Client.BISTelControl.BButton bbtnSummaryOption;
-        private PeakPerformance.Client.BISTelControl.BCheckBox bchkSummaryData;
-        private PeakPerformance.Client.BISTelControl.BLabel bLabel27;
-        private PeakPerformance.Client.BISTelControl.BLabel bLabel28;
-        private PeakPerformance.Client.BISTelControl.BComboBox bcboChartType;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Panel pnlRuleChart;
-        private PeakPerformance.Client.BISTelControl.BComboBox bcboRule;
-        private System.Windows.Forms.Panel pnlSetRule;
-        private System.Windows.Forms.Panel panel61;
-        private System.Windows.Forms.Panel pnlRuleResult;
-        private PeakPerformance.Client.BISTelControl.BLabel blbRuleResult;
-        private PeakPerformance.Client.BISTelControl.BLabel bLabel31;
-        private PeakPerformance.Client.BISTelControl.BLabel bLabel32;
-        private System.Windows.Forms.Panel panel62;
-        private PeakPerformance.Client.BISTelControl.BLabel bLabel17;
     }
 }

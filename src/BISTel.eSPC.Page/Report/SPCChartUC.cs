@@ -324,11 +324,14 @@ namespace BISTel.eSPC.Page.Report
                     if (sOCAPDtts.Length > 0)
                     {
 
-                        String sStartTime = CommonPageUtil.CalcStartDate(sOCAPDtts);
-                        String sEndTime = CommonPageUtil.CalcEndDate(sOCAPDtts);
+                        //String sStartTime = CommonPageUtil.CalcStartDate(sOCAPDtts);
+                        //String sEndTime = CommonPageUtil.CalcEndDate(sOCAPDtts);
 
-                        DataTable dtStartValue = DCUtil.MakeDataTableForDCValue(sStartTime, sStartTime);
-                        DataTable dtEndValue = DCUtil.MakeDataTableForDCValue(sEndTime, sEndTime);
+                        String sStartTime = DateTime.Parse(sOCAPDtts).AddHours(-12.0).ToString(Definition.DATETIME_FORMAT);
+                        String sEndTime = DateTime.Parse(sOCAPDtts).AddHours(12.0).ToString(Definition.DATETIME_FORMAT);
+
+                        DataTable dtStartValue = DCUtil.MakeDataTableForDCValue(DateTime.Parse(sOCAPDtts).AddHours(-12.0).ToString(Definition.DATETIME_FORMAT), DateTime.Parse(sOCAPDtts).AddHours(-12.0).ToString(Definition.DATETIME_FORMAT));
+                        DataTable dtEndValue = DCUtil.MakeDataTableForDCValue(DateTime.Parse(sOCAPDtts).AddHours(12.0).ToString(Definition.DATETIME_FORMAT), DateTime.Parse(sOCAPDtts).AddHours(12.0).ToString(Definition.DATETIME_FORMAT));
                         lnkListConditionFromURL.Add(Definition.DynamicCondition_Search_key.DATETIME_FROM, dtStartValue);
                         lnkListConditionFromURL.Add(Definition.DynamicCondition_Search_key.DATETIME_TO, dtEndValue);
                     }
@@ -336,7 +339,7 @@ namespace BISTel.eSPC.Page.Report
                     //this._isURLOPen = true;
 
                     this.PageSearch(lnkListConditionFromURL);
-
+                    this.DynaminCondition.RefreshCondition(lnkListConditionFromURL);
                     this._sOCAPRawIDURL = string.Empty;
                 }
                 else

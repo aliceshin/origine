@@ -19,7 +19,7 @@ namespace BISTel.eSPC.Page.Modeling
         
         Initialization _Initialization = null;
         MultiLanguageHandler _mlthandler = null;
-        SessionData _sessionData = null;
+        //SessionData _sessionData = null;
 
         eSPCWebService.eSPCWebService _ws = null;
 
@@ -29,7 +29,7 @@ namespace BISTel.eSPC.Page.Modeling
         string _paramAlias = "";
         string _mainYN = "";
         string _area = "";
-
+        
         int _contextCount = 0;
         int _ruleCount = 0;
         int _optionCount = 0;
@@ -137,6 +137,14 @@ namespace BISTel.eSPC.Page.Modeling
         {
             get { return this.chkMode.Checked ? "Y" : "N"; }
         }
+
+        //SPC-1218, KBLEE. START
+        public string CONTEXT_CONTEXT_INFORMATION
+        {
+            get { return this.chkContextInform.Checked ? "Y" : "N"; }
+        }
+        //SPC-1218, KBLEE. END
+
         #endregion
         
         #region RULE Info.
@@ -476,11 +484,11 @@ namespace BISTel.eSPC.Page.Modeling
 
                 _isClosedOK = true;
                 _tempCount = 0;
+
                 this.Close();
             }
             else
             {
-                //////후에 MSG 표기 변경
                 MSGHandler.DisplayMessage(MSGType.Warning, "SPC_INFO_NO_CHANGED_ITEM", null, null);
 
                 _isClosedOK = false;
@@ -516,16 +524,24 @@ namespace BISTel.eSPC.Page.Modeling
                 InitailizeOldCopyInfo(this.gbxAutoCalcItem);
 
                 if (_oldSpcModelInfo.COPY_MODEL.Contains(this.chkAllAutoCalculation.Name))
+                {
                     this.chkAllAutoCalculation.Checked = true;
+                }
 
                 if (_oldSpcModelInfo.COPY_MODEL.Contains(this.chkAllRule.Name))
+                {
                     this.chkAllRule.Checked = true;
+                }
 
                 if (_oldSpcModelInfo.COPY_MODEL.Contains(this.chkAllContext.Name))
+                {
                     this.chkAllContext.Checked = true;
+                }
 
                 if (_oldSpcModelInfo.COPY_MODEL.Contains(this.chkAllOption.Name))
+                {
                     this.chkAllOption.Checked = true;
+                }
             }
         }
 
@@ -586,6 +602,7 @@ namespace BISTel.eSPC.Page.Modeling
                 this.chkGenerateSubChartWithInterlock.Checked = this.chkAllContext.Checked;
                 this.chkGenerateSubChartWithAutoCalculation.Checked = this.chkAllContext.Checked;
                 this.chkUseNorm.Checked = this.chkAllContext.Checked;
+                this.chkContextInform.Checked = this.chkAllContext.Checked; //SPC-1218, KBLEE
             }
             else
             {
@@ -653,6 +670,7 @@ namespace BISTel.eSPC.Page.Modeling
             this.chkGenerateSubChartWithInterlock.Enabled = isMain;
             this.chkGenerateSubChartWithAutoCalculation.Enabled = isMain;
             this.chkUseNorm.Enabled = isMain;
+            this.chkContextInform.Enabled = isMain; //SPC-1218, KBLEE
 
             this.chkInherittheSpecOfMain.Enabled = !isMain;
 
@@ -668,6 +686,7 @@ namespace BISTel.eSPC.Page.Modeling
                 this.chkGenerateSubChartWithInterlock.Checked = false;
                 this.chkGenerateSubChartWithAutoCalculation.Checked = false;
                 this.chkUseNorm.Checked = false;
+                this.chkContextInform.Checked = false; //SPC-1218, KBLEE
             }
         }
 

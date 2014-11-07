@@ -617,6 +617,71 @@ namespace BISTel.eSPC.Page.Common
 
         }
 
+        //SPC-929, KBLEE, START
+        public static DataTable ExcelExportUsingSummaryData(DataTable dt, List<string> _lstRawColumn)
+        {
+            DataTable dtExcel = new DataTable();
+            for (int i = dt.Columns.Count - 1; i >= 0; i--)
+            {
+                string sCol = dt.Columns[i].ColumnName.ToString().ToUpper();
+                if ((sCol.IndexOf("_RULE") > -1)
+                    || sCol.Equals("WORKDATE")
+                    || sCol.Equals("SAMPLE_QTY")
+                    || (sCol.IndexOf(COLUMN.DEFAULT_CHART_LIST) > -1)
+                    || (sCol.IndexOf(COLUMN.DATA_LIST) > -1)
+                    || (sCol.IndexOf(COLUMN.CONTEXT_LIST) > -1)
+                    || (sCol.IndexOf(COLUMN.FILE_DATA) > -1)
+                    || (sCol.IndexOf(COLUMN.RESTRICT_SAMPLE_DAYS) > -1)
+                    || (sCol.IndexOf(COLUMN.RESTRICT_SAMPLE_COUNT) > -1)
+                    || (sCol.IndexOf(COLUMN.COMPLEX_YN) > -1)
+                    || (sCol.IndexOf(COLUMN.MAIN_YN) > -1)
+                    || (sCol.IndexOf(Definition.COL_TOGGLE_YN) > -1)
+                    || (sCol.IndexOf(Definition.COL_TOGGLE) > -1)
+                    || (sCol.IndexOf(COLUMN.SAMPLE_COUNT) > -1)
+                    || (sCol.IndexOf(Definition.CHART_COLUMN.ORDERINFILEDATA) > -1)
+                    || (sCol.IndexOf(Definition.CHART_COLUMN.TABLENAME) > -1)
+                    || (sCol.IndexOf(Definition.CHART_COLUMN.DTSOURCEID) > -1)
+                   )
+                    dt.Columns.RemoveAt(i);
+                else if (sCol.IndexOf(Definition.CHART_COLUMN.RAW) > -1)
+                {
+                    if (_lstRawColumn.Count > 0)
+                        dt.Columns.RemoveAt(i);
+                }
+                else if (sCol.IndexOf("PARAM_LIST") > -1)
+                {
+                    if (_lstRawColumn.Count > 0)
+                        dt.Columns.RemoveAt(i);
+                }
+            }
+
+            for (int i = 0; i < dt.Columns.Count; i++)
+            {
+                string sCol = dt.Columns[i].ColumnName.ToString().ToUpper();
+
+                if (!dtExcel.Columns.Contains(sCol))
+                {
+                    if (CommonChart.PARAM_ITEM.Contains(sCol))
+                        dtExcel.Columns.Add(sCol, typeof(string));
+                    else if (sCol == Definition.CHART_COLUMN.TIME)
+                        dtExcel.Columns.Add(sCol, typeof(string));
+                    else if (sCol == Definition.COL_MODEL_CONFIG_RAWID)
+                        dtExcel.Columns.Add(sCol, typeof(string));
+                    else
+                        dtExcel.Columns.Add(sCol, dt.Columns[i].DataType);
+                }
+            }
+
+            dt.AcceptChanges();
+
+            foreach (DataRow dr in dt.Rows)
+                dtExcel.ImportRow(dr);
+
+            return dtExcel;
+
+        }
+        //SPC-929, KBLEE, END
+
         public static DataTable ExcelExportWithRaw(DataTable dt, List<string> _lstRawColumn)
         {
             DataTable dtExcel = new DataTable();

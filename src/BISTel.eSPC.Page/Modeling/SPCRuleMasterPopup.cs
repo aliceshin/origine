@@ -269,7 +269,6 @@ namespace BISTel.eSPC.Page.Modeling
                         this.bsprRuleOpt.ActiveSheet.Cells[i, this._ColIdx_RULE_OPTION_NAME].Text == "zone A" ||
                         this.bsprRuleOpt.ActiveSheet.Cells[i, this._ColIdx_RULE_OPTION_NAME].Text == "zone B" ||
                         this.bsprRuleOpt.ActiveSheet.Cells[i, this._ColIdx_RULE_OPTION_NAME].Text == "zone C" ||
-                        this.bsprRuleOpt.ActiveSheet.Cells[i, this._ColIdx_RULE_OPTION_NAME].Text == "Trend limit" ||
                         this.bsprRuleOpt.ActiveSheet.Cells[i, this._ColIdx_RULE_OPTION_NAME].Text == "lambda")
                     {
                         this.bsprRuleOpt.ActiveSheet.Cells[i, this._ColIdx_VALUE].Locked = true;
@@ -481,6 +480,20 @@ namespace BISTel.eSPC.Page.Modeling
                 }
 
                 //SPC-1303, KBLEE, END
+
+                //SPC-1335, KBLEE, START
+                //Trend Limit값이 숫자여야 한다는 Validation
+                if (this.bsprRuleOpt.ActiveSheet.Cells[i, this._ColIdx_RULE_OPTION_NAME].Text.ToUpper() == Definition.RULE_OPT_TREND_LIMIT.ToUpper())
+                {
+                    double dTrendLimit = 0.0;
+
+                    if (!double.TryParse(this.bsprRuleOpt.ActiveSheet.Cells[i, this._ColIdx_VALUE].Text, out dTrendLimit))
+                    {
+                        MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_INPUT_VALUE_AS_NUM", new string[] { Definition.RULE_OPT_TREND_LIMIT }, null);
+                        return false;
+                    }
+                }
+                //SPC-1335, KBLEE, END
             }
 
             return true;
@@ -523,7 +536,6 @@ namespace BISTel.eSPC.Page.Modeling
                         this.bsprRuleOpt.ActiveSheet.Cells[i, this._ColIdx_RULE_OPTION_NAME].Text == "zone A" ||
                         this.bsprRuleOpt.ActiveSheet.Cells[i, this._ColIdx_RULE_OPTION_NAME].Text == "zone B" ||
                         this.bsprRuleOpt.ActiveSheet.Cells[i, this._ColIdx_RULE_OPTION_NAME].Text == "zone C" ||
-                        this.bsprRuleOpt.ActiveSheet.Cells[i, this._ColIdx_RULE_OPTION_NAME].Text == "Trend limit" ||
                         this.bsprRuleOpt.ActiveSheet.Cells[i, this._ColIdx_RULE_OPTION_NAME].Text == "lambda")
                     {
                         this.bsprRuleOpt.ActiveSheet.Cells[i, this._ColIdx_VALUE].Locked = true;

@@ -935,7 +935,7 @@ namespace BISTel.eSPC.Data.Server.OCAP
 
 
                 //OOC_CAUSE_MST_SPC Data
-                strSQL = string.Format(@"select * from OOC_CAUSE_MST_SPC where location_rawid = {0} and area_rawid = {1} ", LocationRawid, AreaRawid);
+                strSQL = string.Format(@"select location_rawid, area_rawid, ooc_cause from OOC_CAUSE_MST_SPC where location_rawid = {0} and area_rawid = {1} order by ooc_cause asc ", LocationRawid, AreaRawid);
                 dsTemp = base.Query(strSQL);
 
                 if (base.ErrorMessage.Length > 0)
@@ -952,7 +952,7 @@ namespace BISTel.eSPC.Data.Server.OCAP
                 }
 
                 //OOC_COMMENT_MST_SPC Data
-                strSQL = string.Format(@"select * from OOC_COMMENT_MST_SPC where location_rawid = {0} and area_rawid = {1} ", LocationRawid, AreaRawid);
+                strSQL = string.Format(@"select location_rawid, area_rawid, ooc_comment from OOC_COMMENT_MST_SPC where location_rawid = {0} and area_rawid = {1} order by ooc_comment asc ", LocationRawid, AreaRawid);
                 dsTemp = base.Query(strSQL);
 
                 if (base.ErrorMessage.Length > 0)
@@ -969,7 +969,7 @@ namespace BISTel.eSPC.Data.Server.OCAP
                 }
 
                 //OOC_PROBLEM_MST_SPC  Data
-                strSQL = string.Format(@"select * from OOC_PROBLEM_MST_SPC where location_rawid = {0} and area_rawid = {1} ", LocationRawid, AreaRawid);
+                strSQL = string.Format(@"select location_rawid, area_rawid, ooc_problem from OOC_PROBLEM_MST_SPC where location_rawid = {0} and area_rawid = {1} order by ooc_problem asc ", LocationRawid, AreaRawid);
                 dsTemp = base.Query(strSQL);
 
                 if (base.ErrorMessage.Length > 0)
@@ -986,7 +986,7 @@ namespace BISTel.eSPC.Data.Server.OCAP
                 }
 
                 //OOC_SOLUTION_MST_SPC  Data
-                strSQL = string.Format(@"select * from OOC_SOLUTION_MST_SPC where location_rawid = {0} and area_rawid = {1} ", LocationRawid, AreaRawid);
+                strSQL = string.Format(@"select location_rawid, area_rawid, ooc_solution from OOC_SOLUTION_MST_SPC where location_rawid = {0} and area_rawid = {1} order by ooc_solution ", LocationRawid, AreaRawid);
                 dsTemp = base.Query(strSQL);
 
                 if (base.ErrorMessage.Length > 0)
@@ -1727,7 +1727,7 @@ namespace BISTel.eSPC.Data.Server.OCAP
                 }
 
                 //OOC_COMMENT_MST_SPC Data
-                strSQL = string.Format(@"select * from OOC_COMMENT_MST_SPC where location_rawid = {0} and area_rawid = {1} ", LocationRawid, AreaRawid);
+                strSQL = string.Format(@"select location_rawid, area_rawid, ooc_comment from OOC_COMMENT_MST_SPC where location_rawid = {0} and area_rawid = {1} order by ooc_comment asc ", LocationRawid, AreaRawid);
                 dsTemp = base.Query(strSQL);
 
                 if (base.ErrorMessage.Length > 0)

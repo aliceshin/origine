@@ -301,8 +301,8 @@ namespace BISTel.eSPC.Data.Server.Modeling
                 //sb.Append(" WHERE 1 = 1 ");
 
                 sb.Append("SELECT mcms.rawid, mcms.model_config_rawid, mcms.context_key,  ");
-                
-                if(useComma)
+
+                if (useComma)
                     sb.Append(" replace(mcms.context_value, ';', ',') as context_value, ");
                 else
                     sb.Append(" mcms.context_value, ");
@@ -586,7 +586,7 @@ namespace BISTel.eSPC.Data.Server.Modeling
                 }
 
                 //#00. MODEL_MST_SPC
-                sb.Append("SELECT B.RAWID LOCATION_RAWID, B.SITE, B.LINE, B.FAB, C.RAWID AREA_RAWID, C.AREA, A.RAWID MODEL_RAWID, A.SPC_MODEL_NAME, A.EQP_MODEL, A.GROUP_RAWID "); 
+                sb.Append("SELECT B.RAWID LOCATION_RAWID, B.SITE, B.LINE, B.FAB, C.RAWID AREA_RAWID, C.AREA, A.RAWID MODEL_RAWID, A.SPC_MODEL_NAME, A.EQP_MODEL, A.GROUP_RAWID ");
                 sb.Append("FROM MODEL_MST_SPC A, LOCATION_MST_PP B, AREA_MST_PP C ");
                 sb.Append(" WHERE 1 = 1 ");
                 sb.Append(" AND A.LOCATION_RAWID = B.RAWID ");
@@ -762,7 +762,7 @@ namespace BISTel.eSPC.Data.Server.Modeling
         //                                            + "                        AND A.MODEL_CONFIG_RAWID = D.MODEL_CONFIG_RAWID)   "
         //                                            + "              AND MAIN_YN = 'N')                                           ";
 
-        
+
 
         //private const string SQL_SEARCH_CALC_MODEL_CONFIG = "           SELECT *                                                  "
         //                                            + "             FROM MODEL_CONFIG_MST_SPC                                     "
@@ -1324,7 +1324,7 @@ namespace BISTel.eSPC.Data.Server.Modeling
                                                         + "           SELECT DISTINCT MODEL_RAWID                                     "
                                                         + "             FROM MODEL_CONFIG_MST_SPC                                     "
                                                         + "            WHERE RAWID = :CONFIGRAWID)                                    ";
-        
+
         //SPC-704 MultiCalc Popup
         private const string SQL_SEARCH_MULTI_CALC_MODEL_POPUP = " SELECT *                                                                 "
                                                         + "   FROM MODEL_MST_SPC                                                      "
@@ -1393,16 +1393,16 @@ namespace BISTel.eSPC.Data.Server.Modeling
                 }
                 else
                     sb2.Append(" PARAM_LIST,                                            ");
-                
+
                 sb2.Append(" COMPLEX_YN,                                            ");
                 sb2.Append(" REF_PARAM,                                             ");
-               
+
                 if (useComma)
                 {
                     sb2.Append(" REPLACE(REF_PARAM_LIST,';', ',') REF_PARAM_LIST,   ");
                 }
-                    sb2.Append(" REF_PARAM_LIST,                                        ");
-                
+                sb2.Append(" REF_PARAM_LIST,                                        ");
+
                 sb2.Append(" MAIN_YN,                                               ");
                 sb2.Append(" AUTO_TYPE_CD,                                          ");
                 sb2.Append(" AUTO_SUB_YN,                                           ");
@@ -1766,7 +1766,7 @@ namespace BISTel.eSPC.Data.Server.Modeling
                 //#02. MODEL_CONTEXT_MST_SPC
 
                 sb.Remove(0, sb.Length);
-                
+
                 sb.Append("SELECT RAWID, MODEL_CONFIG_RAWID, CONTEXT_KEY,                    ");
 
                 if (useComma)
@@ -1781,7 +1781,7 @@ namespace BISTel.eSPC.Data.Server.Modeling
                 sb.Append(" KEY_ORDER, CREATE_DTTS, CREATE_BY, LAST_UPDATE_DTTS, LAST_UPDATE_BY, GROUP_YN, VERSION ");
                 sb.Append("  FROM MODEL_CONTEXT_MST_SPC                                      ");
                 sb.Append(" WHERE MODEL_CONFIG_RAWID = :CONFIGRAWID                          ");
-                
+
                 dsTemp = this.Query(sb.ToString(), llstWhereData);
 
                 if (base.ErrorMessage.Length > 0)
@@ -2252,7 +2252,7 @@ namespace BISTel.eSPC.Data.Server.Modeling
                         llstFieldData.Add(COLUMN.LOCATION_RAWID, drModel[COLUMN.LOCATION_RAWID]);
                         llstFieldData.Add(COLUMN.AREA_RAWID, drModel[COLUMN.AREA_RAWID]);
                         llstFieldData.Add(COLUMN.EQP_MODEL, drModel[COLUMN.EQP_MODEL]);
-                        
+
                         llstFieldData.Add(COLUMN.CREATE_BY, sUserID);
                         llstFieldData.Add(string.Format("{0}+SYSTIMESTAMP", COLUMN.CREATE_DTTS), "");
 
@@ -3519,7 +3519,7 @@ namespace BISTel.eSPC.Data.Server.Modeling
                                 string excludeList = drContext[COLUMN.EXCLUDE_LIST].ToString();
                                 drContext[COLUMN.EXCLUDE_LIST] = excludeList.Replace(",", ";");
                             }
-                            
+
                             llstFieldData.Add(COLUMN.CONTEXT_VALUE, drContext[COLUMN.CONTEXT_VALUE]);
                             llstFieldData.Add(COLUMN.EXCLUDE_LIST, drContext[COLUMN.EXCLUDE_LIST]);
                             llstFieldData.Add(COLUMN.KEY_ORDER, drContext[COLUMN.KEY_ORDER]);
@@ -3914,12 +3914,12 @@ namespace BISTel.eSPC.Data.Server.Modeling
                             {
                                 strTemp = strTemp + ",'" + arrTemp[i].ToString() + "'";
                             }
-                          
+
                             //strTemp += "," + arrTemp[i];
                             itemp++;
                             if (itemp == 300)
                             {
-                               // arrsModelRawID.Add(strTemp.Substring(1));
+                                // arrsModelRawID.Add(strTemp.Substring(1));
                                 arrsModelRawID.Add(strTemp);
                                 itemp = 0;
                                 strTemp = "";
@@ -4291,11 +4291,11 @@ namespace BISTel.eSPC.Data.Server.Modeling
                 string sLineRawID = _ComUtil.NVL(llstParam[Definition.CONDITION_KEY_LINE_RAWID]);
                 string sAreaRawID = _ComUtil.NVL(llstParam[Definition.CONDITION_KEY_AREA_RAWID]);
                 string sEQPModel = _ComUtil.NVL(llstParam[Definition.CONDITION_KEY_EQP_MODEL]);
-                bool useComma=false;
+                bool useComma = false;
 
                 if (llstParam[Definition.VARIABLE_USE_COMMA] is bool)
                     useComma = (bool)llstParam[Definition.VARIABLE_USE_COMMA];
-                
+
                 llstCondition.Add("LINE_RAWID", sLineRawID);
                 llstCondition.Add("AREA_RAWID", sAreaRawID);
                 llstCondition.Add("EQP_MODEL", sEQPModel);
@@ -4382,7 +4382,7 @@ namespace BISTel.eSPC.Data.Server.Modeling
 
 
                 sb.Append(" SELECT DCMS.RAWID, DCMS.DEF_CONFIG_RAWID AS MODEL_CONFIG_RAWID, DCMS.CONTEXT_KEY,  ");
-                
+
                 if (useComma)
                 {
                     sb.Append(" REPLACE(DCMS.CONTEXT_VALUE, ';', ',') AS CONTEXT_VALUE,  ");
@@ -4391,7 +4391,7 @@ namespace BISTel.eSPC.Data.Server.Modeling
                 {
                     sb.Append(" DCMS.CONTEXT_VALUE,  ");
                 }
-                
+
                 sb.Append(" DCMS.KEY_ORDER, ");
 
                 if (useComma)
@@ -4470,7 +4470,7 @@ namespace BISTel.eSPC.Data.Server.Modeling
                 //#05. MODEL_RULE_OPT_MST_SPC
                 sb.Remove(0, sb.Length);
                 sb.Append(" SELECT B.RAWID, B.DEF_RULE_RAWID AS MODEL_RULE_RAWID, B.RULE_OPTION_NO,  ");
-                
+
                 if (useComma)
                 {
                     sb.Append(" REPLACE(B.RULE_OPTION_VALUE, ';', ',') AS RULE_OPTION_VALUE,  ");
@@ -4863,7 +4863,7 @@ namespace BISTel.eSPC.Data.Server.Modeling
                             llstFieldData.Add(COLUMN.DEF_CONFIG_RAWID, configRawID);
 
                             llstFieldData.Add(COLUMN.CONTEXT_KEY, drContext[COLUMN.CONTEXT_KEY]);
-                            
+
                             //spc-1281
                             if (useComma)
                             {
@@ -4969,7 +4969,7 @@ namespace BISTel.eSPC.Data.Server.Modeling
                             llstFieldData.Add(COLUMN.CALC_COUNT, drAutoCalc[COLUMN.CALC_COUNT]);
 
                             //SPC-658 Initial Calc Count
-                          //  llstFieldData.Add(COLUMN.INITIAL_CALC_COUNT, drAutoCalc[COLUMN.INITIAL_CALC_COUNT]);
+                            //  llstFieldData.Add(COLUMN.INITIAL_CALC_COUNT, drAutoCalc[COLUMN.INITIAL_CALC_COUNT]);
 
                             llstFieldData.Add(COLUMN.MIN_SAMPLES, drAutoCalc[COLUMN.MIN_SAMPLES]);
                             llstFieldData.Add(COLUMN.DEFAULT_PERIOD, drAutoCalc[COLUMN.DEFAULT_PERIOD]);
@@ -4991,7 +4991,7 @@ namespace BISTel.eSPC.Data.Server.Modeling
                             llstFieldData.Add(COLUMN.ZONE_YN, drAutoCalc[COLUMN.ZONE_YN]);
                             llstFieldData.Add(COLUMN.SHIFT_CALC_YN, drAutoCalc[COLUMN.SHIFT_CALC_YN]);
                             llstFieldData.Add(COLUMN.WITHOUT_IQR_YN, drAutoCalc[COLUMN.WITHOUT_IQR_YN]);
-                            
+
                             //SPC-731 건으로 Threshold Column추가로 인한 수정 - 2012.02.06일
                             llstFieldData.Add(COLUMN.THRESHOLD_OFF_YN, drAutoCalc[COLUMN.THRESHOLD_OFF_YN]);
 
@@ -5481,7 +5481,7 @@ namespace BISTel.eSPC.Data.Server.Modeling
                                                             + "      AND A.RAWID = :RAWID                                                     "
                                                             + "      ORDER BY C.KEY_ORDER                                                     ";
 
-        private const string SQL_GET_DUPLICATE_SPC_NAME = " SELECT   DISTINCT RAWID, SPC_MODEL_NAME                                          " 
+        private const string SQL_GET_DUPLICATE_SPC_NAME = " SELECT   DISTINCT RAWID, SPC_MODEL_NAME                                          "
                                                            + "     FROM MODEL_MST_SPC                                                        "
                                                            + "    WHERE LOCATION_RAWID = :LOCATIONRAWID                                      "
                                                            + "      AND NVL (AREA_RAWID, -1) = :AREARAWID                                    "
@@ -5579,11 +5579,11 @@ namespace BISTel.eSPC.Data.Server.Modeling
                         for (int i = 0; i < dsTempReturn.Tables[0].Rows.Count; i++)
                         {
                             string strTempSPCModelName = dsTempReturn.Tables[0].Rows[i][COLUMN.SPC_MODEL_NAME].ToString();
-                            if(strTempSPCModelName.Length > 0)
+                            if (strTempSPCModelName.Length > 0)
                                 return strTempSPCModelName;
                         }
                     }
-                    
+
                 }
 
                 lnkListWhere.Clear();
@@ -5816,7 +5816,7 @@ namespace BISTel.eSPC.Data.Server.Modeling
             LinkedList llstWhereData = new LinkedList();
             string sUserID = "";
             string comment = "";    //spc-977 by stella
-            
+
             base.BeginTrans();
 
             try
@@ -5930,7 +5930,7 @@ namespace BISTel.eSPC.Data.Server.Modeling
                     llstFieldData.Add(COLUMN.CHANGED_ITEMS, llstParam[COLUMN.CHANGED_ITEMS].ToString());
                     llstFieldData.Add(COLUMN.LAST_UPDATE_BY, sUserID);
                     llstFieldData.Add(string.Format("{0}+SYSTIMESTAMP", COLUMN.LAST_UPDATE_DTTS), "");
-                    
+
                     llstWhereData.Clear();
                     llstWhereData.Add(Definition.DynamicCondition_Condition_key.RAWID, arrTempSpecRawID[i].ToString());
 
@@ -6030,7 +6030,7 @@ namespace BISTel.eSPC.Data.Server.Modeling
             LinkedList llstFieldData = new LinkedList();
             LinkedList llstWhereData = new LinkedList();
             string sChartType = "";
-            
+
             try
             {
                 LinkedList llstParam = new LinkedList();
@@ -6070,7 +6070,7 @@ namespace BISTel.eSPC.Data.Server.Modeling
                                 llstFieldData.Add(COLUMN.RAW_LCL, llstParam[COLUMN.RAW_LCL].ToString());
                             }
                         }
-                        else if(llstParam[COLUMN.RAW_UCL].ToString() != "" && llstParam[COLUMN.RAW_LCL].ToString() != "")   //LCL, UCL 값이 모두 있을 경우(NaN이 아닌) center 저장.
+                        else if (llstParam[COLUMN.RAW_UCL].ToString() != "" && llstParam[COLUMN.RAW_LCL].ToString() != "")   //LCL, UCL 값이 모두 있을 경우(NaN이 아닌) center 저장.
                         {
                             if (llstParam.Contains(COLUMN.RAW_UCL) && llstParam.Contains(COLUMN.RAW_LCL))
                             {
@@ -6288,7 +6288,7 @@ namespace BISTel.eSPC.Data.Server.Modeling
                             }
                         }
                         break;
-                }           
+                }
 
                 if (llstParam.Contains(COLUMN.UPPER_SPEC) && llstParam.Contains(COLUMN.LOWER_SPEC))
                 {
@@ -6526,7 +6526,7 @@ namespace BISTel.eSPC.Data.Server.Modeling
                 {
                     llstFieldData.Add(COLUMN.LAST_UPDATE_BY, llstParam[Definition.CONDITION_KEY_USER_ID].ToString());
                     llstFieldData.Add(string.Format("{0}+SYSTIMESTAMP", COLUMN.LAST_UPDATE_DTTS), "");
-                }                
+                }
 
                 llstWhereData.Clear();
                 string rawid = llstParam[Definition.CONDITION_KEY_MODEL_CONFIG_RAWID].ToString();
@@ -6534,7 +6534,7 @@ namespace BISTel.eSPC.Data.Server.Modeling
 
                 base.Update(Definition.TableName.MODEL_CONFIG_MST_SPC, llstFieldData, sWhereQuery, llstWhereData);
 
-                foreach(string s in _commondata.GetIncreaseVersionQuery(rawid))
+                foreach (string s in _commondata.GetIncreaseVersionQuery(rawid))
                 {
                     this.Query(s);
                 }
@@ -6805,14 +6805,14 @@ namespace BISTel.eSPC.Data.Server.Modeling
 
                     if (arrRawID.Count > 0)
                     {
-                        llstFieldData.Add(COLUMN.RAWID, (string[]) arrRawID.ToArray(typeof (string)));
-                        llstFieldData.Add(COLUMN.MODEL_CONFIG_RAWID, (string[]) arrModelConfigRawID.ToArray(typeof (string)));
-                        llstFieldData.Add(COLUMN.SPC_RULE_NO, (string[]) arrSPCRuleNo.ToArray(typeof (string)));
-                        llstFieldData.Add(COLUMN.OCAP_LIST, (string[]) arrOCAPList.ToArray(typeof (string)));
-                        llstFieldData.Add(COLUMN.USE_MAIN_SPEC_YN, (string[]) arrUseMainSpec.ToArray(typeof (string)));
-                        llstFieldData.Add(COLUMN.RULE_ORDER, (string[]) arrRuleOrder.ToArray(typeof (string)));
-                        llstFieldData.Add(COLUMN.CREATE_BY, (string[]) arrCreateBy.ToArray(typeof (string)));
-                        llstFieldData.Add(COLUMN.CREATE_DTTS, (DateTime[]) arrCreateDtts.ToArray(typeof (DateTime)));
+                        llstFieldData.Add(COLUMN.RAWID, (string[])arrRawID.ToArray(typeof(string)));
+                        llstFieldData.Add(COLUMN.MODEL_CONFIG_RAWID, (string[])arrModelConfigRawID.ToArray(typeof(string)));
+                        llstFieldData.Add(COLUMN.SPC_RULE_NO, (string[])arrSPCRuleNo.ToArray(typeof(string)));
+                        llstFieldData.Add(COLUMN.OCAP_LIST, (string[])arrOCAPList.ToArray(typeof(string)));
+                        llstFieldData.Add(COLUMN.USE_MAIN_SPEC_YN, (string[])arrUseMainSpec.ToArray(typeof(string)));
+                        llstFieldData.Add(COLUMN.RULE_ORDER, (string[])arrRuleOrder.ToArray(typeof(string)));
+                        llstFieldData.Add(COLUMN.CREATE_BY, (string[])arrCreateBy.ToArray(typeof(string)));
+                        llstFieldData.Add(COLUMN.CREATE_DTTS, (DateTime[])arrCreateDtts.ToArray(typeof(DateTime)));
 
                         base.InsertBatch(TABLE.MODEL_RULE_MST_SPC, llstFieldData);
 
@@ -6823,12 +6823,12 @@ namespace BISTel.eSPC.Data.Server.Modeling
                         }
 
                         llstFieldData.Clear();
-                        llstFieldData.Add(COLUMN.RAWID, (string[]) arrRuleOptRawID.ToArray(typeof (string)));
-                        llstFieldData.Add(COLUMN.MODEL_RULE_RAWID, (string[]) arrRuleRawID.ToArray(typeof (string)));
-                        llstFieldData.Add(COLUMN.RULE_OPTION_NO, (string[]) arrRuleOptNo.ToArray(typeof (string)));
-                        llstFieldData.Add(COLUMN.RULE_OPTION_VALUE, (string[]) arrRuleOptValue.ToArray(typeof (string)));
-                        llstFieldData.Add(COLUMN.CREATE_BY, (string[]) arrRuleOptCreateBy.ToArray(typeof (string)));
-                        llstFieldData.Add(COLUMN.CREATE_DTTS, (DateTime[]) arrRuleOptCreateDtts.ToArray(typeof (DateTime)));
+                        llstFieldData.Add(COLUMN.RAWID, (string[])arrRuleOptRawID.ToArray(typeof(string)));
+                        llstFieldData.Add(COLUMN.MODEL_RULE_RAWID, (string[])arrRuleRawID.ToArray(typeof(string)));
+                        llstFieldData.Add(COLUMN.RULE_OPTION_NO, (string[])arrRuleOptNo.ToArray(typeof(string)));
+                        llstFieldData.Add(COLUMN.RULE_OPTION_VALUE, (string[])arrRuleOptValue.ToArray(typeof(string)));
+                        llstFieldData.Add(COLUMN.CREATE_BY, (string[])arrRuleOptCreateBy.ToArray(typeof(string)));
+                        llstFieldData.Add(COLUMN.CREATE_DTTS, (DateTime[])arrRuleOptCreateDtts.ToArray(typeof(DateTime)));
 
                         base.InsertBatch(TABLE.MODEL_RULE_OPT_MST_SPC, llstFieldData);
 
@@ -7513,6 +7513,7 @@ ORDER BY spc_model_name";
                 _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.CONTEXT_AUTO_CALCULATION].ToString(), COLUMN.AUTOCALC_YN, COLUMN.RAWID, sourceConfigRawID);
                 _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.CONTEXT_AUTO_GENERATE_SUB_CHART].ToString(), COLUMN.AUTO_SUB_YN, COLUMN.RAWID, sourceConfigRawID);
                 _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.CONTEXT_ACTIVE].ToString(), COLUMN.ACTIVATION_YN, COLUMN.RAWID, sourceConfigRawID);
+                _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.CONTEXT_MODE].ToString(), COLUMN.CHART_MODE_CD, COLUMN.RAWID, sourceConfigRawID);
                 _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.CONTEXT_SAMPLE_COUNT].ToString(), COLUMN.SAMPLE_COUNT, COLUMN.RAWID, sourceConfigRawID);
                 _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.CONTEXT_MANAGE_TYPE].ToString(), COLUMN.MANAGE_TYPE_CD, COLUMN.RAWID, sourceConfigRawID);
                 _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.CONTEXT_AUTO_SETTING].ToString(), COLUMN.AUTO_TYPE_CD, COLUMN.RAWID, sourceConfigRawID);
@@ -7521,7 +7522,6 @@ ORDER BY spc_model_name";
                 _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.CONTEXT_USE_NORMALIZATION_VALUE].ToString(), COLUMN.USE_NORM_YN, COLUMN.RAWID, sourceConfigRawID);
                 _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.CONTEXT_USE_NORMALIZATION_VALUE].ToString(), COLUMN.VALIDATION_SAME_MODULE_YN, COLUMN.RAWID, sourceConfigRawID);
                 _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.CONTEXT_INHERIT_THE_SPEC_OF_MAIN].ToString(), COLUMN.INHERIT_MAIN_YN, COLUMN.RAWID, sourceConfigRawID);
-                _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.CONTEXT_MODE].ToString(), COLUMN.CHART_MODE_CD, COLUMN.RAWID, sourceConfigRawID);
 
                 //SPC-676 by Louis
                 _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.CONTEXT_CHART_DESCRIPTION].ToString(), COLUMN.CHART_DESCRIPTON, COLUMN.RAWID, sourceConfigRawID);
@@ -7653,7 +7653,7 @@ ORDER BY spc_model_name";
 
                 _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.RULE_ZONE_A].ToString(), COLUMN.ZONE_A_LCL, COLUMN.RAWID, sourceConfigRawID);
                 _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.RULE_ZONE_A].ToString(), COLUMN.ZONE_A_LCL_OFFSET, COLUMN.RAWID, sourceConfigRawID);
-                
+
                 if (llstParam[Definition.COPY_MODEL.RULE_MASTER_SPEC_LIMIT].ToString() == "Y")
                 {
                     sUseOffset = "Y";
@@ -7873,27 +7873,27 @@ ORDER BY spc_model_name";
                 //}
                 //else
                 //{
-                    _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_RAW_CONTROL_LIMIT].ToString(), COLUMN.RAW_CALC_VALUE, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
-                    _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_MEAN_CONTROL_LIMIT].ToString(), COLUMN.MEAN_CALC_VALUE, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
-                    _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_STD_CONTROL_LIMIT].ToString(), COLUMN.STD_CALC_VALUE, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
-                    _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_RANGE_CONTROL_LIMIT].ToString(), COLUMN.RANGE_CALC_VALUE, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
-                    _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_EWMA_MEAN_CONTROL_LIMIT].ToString(), COLUMN.EWMA_M_CALC_VALUE, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
-                    _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_EWMA_RANGE_CONTROL_LIMIT].ToString(), COLUMN.EWMA_R_CALC_VALUE, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
-                    _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_EWMA_STD_CONTROL_LIMIT].ToString(), COLUMN.EWMA_S_CALC_VALUE, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
-                    _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_MA_CONTROL_LIMIT].ToString(), COLUMN.MA_CALC_VALUE, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
-                    _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_MS_CONTROL_LIMIT].ToString(), COLUMN.MS_CALC_VALUE, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
-                    _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_MR_CONTROL_LIMIT].ToString(), COLUMN.MR_CALC_VALUE, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
+                _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_RAW_CONTROL_LIMIT].ToString(), COLUMN.RAW_CALC_VALUE, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
+                _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_MEAN_CONTROL_LIMIT].ToString(), COLUMN.MEAN_CALC_VALUE, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
+                _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_STD_CONTROL_LIMIT].ToString(), COLUMN.STD_CALC_VALUE, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
+                _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_RANGE_CONTROL_LIMIT].ToString(), COLUMN.RANGE_CALC_VALUE, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
+                _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_EWMA_MEAN_CONTROL_LIMIT].ToString(), COLUMN.EWMA_M_CALC_VALUE, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
+                _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_EWMA_RANGE_CONTROL_LIMIT].ToString(), COLUMN.EWMA_R_CALC_VALUE, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
+                _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_EWMA_STD_CONTROL_LIMIT].ToString(), COLUMN.EWMA_S_CALC_VALUE, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
+                _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_MA_CONTROL_LIMIT].ToString(), COLUMN.MA_CALC_VALUE, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
+                _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_MS_CONTROL_LIMIT].ToString(), COLUMN.MS_CALC_VALUE, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
+                _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_MR_CONTROL_LIMIT].ToString(), COLUMN.MR_CALC_VALUE, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
 
-                    _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_RAW_CONTROL_LIMIT].ToString(), COLUMN.RAW_CALC_OPTION, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
-                    _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_MEAN_CONTROL_LIMIT].ToString(), COLUMN.MEAN_CALC_OPTION, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
-                    _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_STD_CONTROL_LIMIT].ToString(), COLUMN.STD_CALC_OPTION, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
-                    _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_RANGE_CONTROL_LIMIT].ToString(), COLUMN.RANGE_CALC_OPTION, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
-                    _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_EWMA_MEAN_CONTROL_LIMIT].ToString(), COLUMN.EWMA_M_CALC_OPTION, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
-                    _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_EWMA_RANGE_CONTROL_LIMIT].ToString(), COLUMN.EWMA_R_CALC_OPTION, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
-                    _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_EWMA_STD_CONTROL_LIMIT].ToString(), COLUMN.EWMA_S_CALC_OPTION, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
-                    _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_MA_CONTROL_LIMIT].ToString(), COLUMN.MA_CALC_OPTION, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
-                    _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_MS_CONTROL_LIMIT].ToString(), COLUMN.MS_CALC_OPTION, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
-                    _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_MR_CONTROL_LIMIT].ToString(), COLUMN.MR_CALC_OPTION, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
+                _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_RAW_CONTROL_LIMIT].ToString(), COLUMN.RAW_CALC_OPTION, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
+                _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_MEAN_CONTROL_LIMIT].ToString(), COLUMN.MEAN_CALC_OPTION, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
+                _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_STD_CONTROL_LIMIT].ToString(), COLUMN.STD_CALC_OPTION, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
+                _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_RANGE_CONTROL_LIMIT].ToString(), COLUMN.RANGE_CALC_OPTION, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
+                _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_EWMA_MEAN_CONTROL_LIMIT].ToString(), COLUMN.EWMA_M_CALC_OPTION, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
+                _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_EWMA_RANGE_CONTROL_LIMIT].ToString(), COLUMN.EWMA_R_CALC_OPTION, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
+                _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_EWMA_STD_CONTROL_LIMIT].ToString(), COLUMN.EWMA_S_CALC_OPTION, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
+                _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_MA_CONTROL_LIMIT].ToString(), COLUMN.MA_CALC_OPTION, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
+                _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_MS_CONTROL_LIMIT].ToString(), COLUMN.MS_CALC_OPTION, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
+                _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_MR_CONTROL_LIMIT].ToString(), COLUMN.MR_CALC_OPTION, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
                 //}
                 _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_RAW_CONTROL_LIMIT].ToString(), COLUMN.RAW_CALC_SIDED, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
                 _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_MEAN_CONTROL_LIMIT].ToString(), COLUMN.MEAN_CALC_SIDED, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
@@ -7905,7 +7905,7 @@ ORDER BY spc_model_name";
                 _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_MA_CONTROL_LIMIT].ToString(), COLUMN.MA_CALC_SIDED, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
                 _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_MS_CONTROL_LIMIT].ToString(), COLUMN.MS_CALC_SIDED, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
                 _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_MR_CONTROL_LIMIT].ToString(), COLUMN.MR_CALC_SIDED, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
-                
+
                 if (isEmpty == false)
                 {
                     if (llstParam[Definition.COPY_MODEL.AUTO_AUTO_CALCULATION_COUNT].ToString().Equals("Y"))
@@ -7937,7 +7937,45 @@ ORDER BY spc_model_name";
                 }
                 #endregion
 
-                foreach(string s in _commondata.GetIncreaseVersionQuery(targetConfigRawID))
+                #region MODEL_CONTEXT_MST_SPC
+
+                //SPC-1218, KBLEE, START
+                if (llstParam[Definition.COPY_MODEL.CONTEXT_CONTEXT_INFORMATION].ToString().Equals("Y"))
+                {
+                    string queryGetSourceContext =
+                        @"SELECT context_key, context_value 
+                            FROM MODEL_CONTEXT_MST_SPC 
+                           WHERE model_config_rawid = " + sourceConfigRawID;
+
+                    DataSet sourceResult = base.Query(queryGetSourceContext);
+                    int rowCount = sourceResult.Tables[0].Rows.Count;
+
+                    for (int i = 0; i < rowCount; i++)
+                    {
+                        DataRow dr = sourceResult.Tables[0].Rows[i];
+                        string contextKey = dr[COLUMN.CONTEXT_KEY].ToString();
+                        string contextValue = dr[COLUMN.CONTEXT_VALUE].ToString();
+
+                        string queryUpdateContextInform =
+                            @"UPDATE MODEL_CONTEXT_MST_SPC
+                                 SET context_value = '" + contextValue + @"' 
+                               WHERE context_key = '" + contextKey + @"' 
+                               AND model_config_rawid = " + targetConfigRawID;
+
+                        dsResult = base.Query(queryUpdateContextInform);
+
+                        if (base.ErrorMessage.Length > 0)
+                        {
+                            DSUtil.SetResult(dsResult, 0, "", base.ErrorMessage);
+                            return dsResult;
+                        }
+                    }
+                }
+                //SPC-1218, KBLEE, END
+
+                #endregion
+
+                foreach (string s in _commondata.GetIncreaseVersionQuery(targetConfigRawID))
                 {
                     this.Query(s);
                     if (base.ErrorMessage.Length > 0)
@@ -8355,7 +8393,7 @@ ORDER BY spc_model_name";
                 llstCondition.Add("MODEL_CONFIG_RAWID", sMainConfigRawID);
 
                 base.Query(strQuery_MCMS, llstCondition);
-                
+
                 if (base.ErrorMessage.Length > 0)
                 {
                     return false;
@@ -8468,7 +8506,7 @@ ORDER BY spc_model_name";
             string strWhere = string.Empty;
             try
             {
-                if (targetList.Length !=0)
+                if (targetList.Length != 0)
                 {
                     int itemp = 0;
                     string strTemp = "";
@@ -8507,7 +8545,7 @@ ORDER BY spc_model_name";
                         for (int i = 0; i < targetList.Length; i++)
                         {
                             strTemp += "," + targetList[i];
-                            itemp++;                           
+                            itemp++;
                         }
                         if (strTemp.Length > 0)
                         {
@@ -8530,7 +8568,7 @@ ORDER BY spc_model_name";
 
             }
             catch
-            {                
+            {
             }
 
             return dsResult;
@@ -8630,11 +8668,11 @@ ORDER BY spc_model_name";
 
             StringBuilder sb = new StringBuilder();
 
-            if(isMET)
+            if (isMET)
                 sb.Append("SELECT * FROM CODE_MST_PP WHERE CATEGORY='SPC_MET_MODEL_LEVEL'");
             else
                 sb.Append("SELECT * FROM CODE_MST_PP WHERE CATEGORY='SPC_MODEL_LEVEL'");
-            
+
             ds = this.Query(sb.ToString());
 
             if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
@@ -8665,72 +8703,24 @@ ORDER BY spc_model_name";
                 dsResult.Tables.Add(ds.Tables[0].Copy());
 
                 sb.Remove(0, sb.Length);
-                sb.Append("SELECT A.RAWID, A.LOCATION_RAWID, A.AREA_RAWID, B.AREA AS GROUP_LEVEL, A.GROUP_NAME      ");
+                sb.Append("SELECT DISTINCT A.RAWID, A.LOCATION_RAWID, A.AREA_RAWID, B.AREA AS GROUP_LEVEL, A.GROUP_NAME      ");
                 sb.Append("FROM MODEL_GROUP_MST_SPC A, EQP_VW_SPC B                                   ");
                 sb.Append("WHERE A.LOCATION_RAWID = B.LINE_RAWID AND A.AREA_RAWID = B.AREA_RAWID      ");
-                sb.Append("GROUP BY A.RAWID,A.LOCATION_RAWID,A.AREA_RAWID,B.AREA, A.GROUP_NAME                     ");
-                                            
-                //sb.Append(" SELECT B.RAWID,                                                               ");
-                //sb.Append("          B.LOCATION_RAWID,                                                                    ");
-                //sb.Append("          B.AREA_RAWID,                                                                        ");
-                //sb.Append("          B.GROUP_NAME,                                                                        ");
-                //sb.Append("          A.AREA AS GROUP_LEVEL                                                                ");
-                //sb.Append("     FROM (  SELECT A.AREA, B.LOCATION_RAWID, B.AREA_RAWID                                     ");
-                //sb.Append("               FROM EQP_VW_SPC A, MODEL_MST_SPC B                                              ");
-                //sb.Append("              WHERE A.LINE_RAWID = B.LOCATION_RAWID                                            ");
-                //sb.Append("                    AND A.AREA_RAWID = B.AREA_RAWID                                            ");
-                //sb.Append("           GROUP BY AREA, B.LOCATION_RAWID, B.AREA_RAWID                                       ");
-                //sb.Append("           ORDER BY A.AREA ASC) A,                                                             ");
-                //sb.Append("          (  SELECT C.RAWID,                                                                   ");
-                //sb.Append("                    C.LOCATION_RAWID,                                                          ");
-                //sb.Append("                    C.AREA_RAWID,                                                              ");
-                //sb.Append("                    C.GROUP_NAME                                                               ");
-                //sb.Append("               FROM MODEL_MST_SPC B, MODEL_GROUP_MST_SPC C                                     ");
-                //sb.Append("              WHERE B.LOCATION_RAWID = C.LOCATION_RAWID                                        ");
-                //sb.Append("                    AND B.AREA_RAWID = C.AREA_RAWID                                            ");
-                //sb.Append("           GROUP BY C.RAWID,                                                                   ");
-                //sb.Append("                    C.LOCATION_RAWID,                                                          ");
-                //sb.Append("                    C.AREA_RAWID,                                                              ");
-                //sb.Append("                    C.GROUP_NAME) B                                                            ");
-                //sb.Append("                    WHERE A.LOCATION_RAWID = B.LOCATION_RAWID AND A.AREA_RAWID = B.AREA_RAWID  ");
-                //sb.Append(" GROUP BY B.RAWID,                                                                             ");
-                //sb.Append("          B.LOCATION_RAWID,                                                                    ");
-                //sb.Append("          B.AREA_RAWID,                                                                        ");
-                //sb.Append("          B.GROUP_NAME,                                                                        ");
-                //sb.Append("          A.AREA                                                                               ");
-                //sb.Append(" ORDER BY B.GROUP_NAME ASC                                                                     ");
 
                 ds = this.Query(sb.ToString());
                 ds.Tables[0].TableName = "MODEL_GROUP_SPC";
                 dsResult.Tables.Add(ds.Tables[0].Copy());
 
                 sb.Remove(0, sb.Length);
-                sb.Append("SELECT B.RAWID, B.LOCATION_RAWID, B.AREA_RAWID, A.AREA AS GROUP_LEVEL, B.SPC_MODEL_NAME , B.GROUP_NAME                      ");
-                sb.Append("FROM (  SELECT A.AREA, B.LOCATION_RAWID, B.AREA_RAWID                                                                       ");
-                sb.Append("              FROM EQP_VW_SPC A, MODEL_MST_SPC B                                                                            ");
-                sb.Append("             WHERE A.LINE_RAWID = B.LOCATION_RAWID                                                                          ");
-                sb.Append("                   AND A.AREA_RAWID = B.AREA_RAWID                                                                          ");
-                sb.Append("          GROUP BY AREA, B.LOCATION_RAWID, B.AREA_RAWID                                                                     ");
-                sb.Append("          ORDER BY A.AREA ASC) A,                                                                                           ");
-                sb.Append("         (  SELECT B.RAWID,                                                                                                 ");
-                sb.Append("                   B.LOCATION_RAWID,                                                                                        ");
-                sb.Append("                   B.AREA_RAWID,                                                                                            ");
-                sb.Append("                   B.GROUP_RAWID,                                                                                           ");
-                sb.Append("                   B.SPC_MODEL_NAME,                                                                                        ");
-                sb.Append("                   C.GROUP_NAME                                                                                             ");
-                sb.Append("              FROM MODEL_MST_SPC B, MODEL_GROUP_MST_SPC C                                                                   ");
-                sb.Append("             WHERE B.LOCATION_RAWID = C.LOCATION_RAWID                                                                      ");
-                sb.Append("                   AND B.AREA_RAWID = C.AREA_RAWID                                                                          ");
-                sb.Append("                   AND B.GROUP_RAWID = C.RAWID                                                                              ");
-                sb.Append("                   AND B.GROUP_RAWID IS NOT NULL                                                                            ");
-                sb.Append("          GROUP BY B.RAWID,                                                                                                 ");
-                sb.Append("                   B.LOCATION_RAWID,                                                                                        ");
-                sb.Append("                   B.AREA_RAWID,                                                                                            ");
-                sb.Append("                   B.GROUP_RAWID,                                                                                           ");
-                sb.Append("                   B.SPC_MODEL_NAME,                                                                                        ");
-                sb.Append("                   C.GROUP_NAME) B , MODEL_CONFIG_MST_SPC C                                                                 ");
-                sb.Append("WHERE A.LOCATION_RAWID = B.LOCATION_RAWID                                                                                   ");
-                sb.Append("AND A.AREA_RAWID = B.AREA_RAWID AND C.MODEL_RAWID =  B.RAWID                                                                ");
+                sb.Append("SELECT   b.rawid, b.location_rawid, b.area_rawid,  ");
+                sb.Append("b.spc_model_name, NVL (d.group_name, 'UNASSIGNED MODEL') AS GROUP_NAME  ");
+                sb.Append("FROM model_mst_spc b,  ");
+                sb.Append("model_config_mst_spc c,  ");
+                sb.Append("model_group_mst_spc d  ");
+                sb.Append("WHERE 1=1  ");
+                sb.Append("AND c.model_rawid = b.rawid  ");
+                sb.Append("AND c.main_yn = 'Y'  ");
+
 
                 if (isMET)
                 {
@@ -8741,24 +8731,10 @@ ORDER BY spc_model_name";
                     sb.Append("AND C.PARAM_TYPE_CD != 'MET'                                                                                       ");
                 }
 
-                sb.Append("GROUP BY B.RAWID, B.LOCATION_RAWID, B.AREA_RAWID, A.AREA, B.SPC_MODEL_NAME, B.GROUP_NAME                                    ");
-                sb.Append("UNION ALL                                                                                                                   ");
-                sb.Append("SELECT B.RAWID, B.LOCATION_RAWID, B.AREA_RAWID, A.AREA AS GROUP_LEVEL, B.SPC_MODEL_NAME , 'UNASSIGNED MODEL' AS GROUP_NAME  ");
-                sb.Append("FROM EQP_VW_SPC  A, MODEL_MST_SPC B, MODEL_CONFIG_MST_SPC C                                                                 ");
-                sb.Append("WHERE A.LINE_RAWID = B.LOCATION_RAWID AND A.AREA_RAWID = B.AREA_RAWID                                                       ");
-                sb.Append("AND B.GROUP_RAWID IS NULL  AND C.MODEL_RAWID = B.RAWID                                                                      ");
+                sb.Append("AND b.location_rawid = d.location_rawid(+)  ");
+                sb.Append("AND b.area_rawid = d.area_rawid(+)  ");
+                sb.Append("AND b.group_rawid = d.rawid(+)  ");
 
-                if (isMET)
-                {
-                    sb.Append("AND C.PARAM_TYPE_CD = 'MET'                                                                                         ");
-                }
-                else
-                {
-                    sb.Append("AND C.PARAM_TYPE_CD != 'MET'                                                                                       ");
-                }
-
-                sb.Append("GROUP BY B.RAWID, B.LOCATION_RAWID, B.AREA_RAWID, A.AREA, B.SPC_MODEL_NAME                                                  ");
-                
                 ds = this.Query(sb.ToString());
                 ds.Tables[0].TableName = "MODEL_MST_SPC";
 
@@ -8777,61 +8753,40 @@ ORDER BY spc_model_name";
 
                 sb.Remove(0, sb.Length);
                 sb.Append("SELECT RAWID, LOCATION_RAWID, AREA_RAWID, EQP_MODEL AS GROUP_LEVEL, GROUP_NAME FROM MODEL_GROUP_MST_SPC ");
-                //sb.Append("SELECT C.RAWID, C.LOCATION_RAWID, C.AREA_RAWID,  C.GROUP_NAME, C.EQP_MODEL AS GROUP_LEVEL  ");
-                //sb.Append("FROM MODEL_MST_SPC B, MODEL_GROUP_MST_SPC C  ");
-                //sb.Append("WHERE B.LOCATION_RAWID = C.LOCATION_RAWID ");
-                //sb.Append("AND B.AREA_RAWID = C.AREA_RAWID ");
-                //sb.Append("AND B.EQP_MODEL = C.EQP_MODEL  ");
-                ////sb.Append("AND B.GROUP_RAWID = C.RAWID ");
-                //sb.Append("GROUP BY C.RAWID, C.LOCATION_RAWID, C.AREA_RAWID,  C.GROUP_NAME, C.EQP_MODEL ");
-                //sb.Append("ORDER BY C.GROUP_NAME ASC ");
 
                 ds = this.Query(sb.ToString());
                 ds.Tables[0].TableName = "MODEL_GROUP_SPC";
                 dsResult.Tables.Add(ds.Tables[0].Copy());
 
                 sb.Remove(0, sb.Length);
-                sb.Append("SELECT A.PARAM_TYPE_CD, B.RAWID, C.LOCATION_RAWID, C.AREA_RAWID, B.EQP_MODEL AS GROUP_LEVEL, B.SPC_MODEL_NAME , C.GROUP_NAME       ");
-                sb.Append("FROM MODEL_CONFIG_MST_SPC A, MODEL_MST_SPC B, MODEL_GROUP_MST_SPC C                                               ");
-                sb.Append("WHERE  B.LOCATION_RAWID = C.LOCATION_RAWID                                                                                        ");
-                sb.Append("AND B.AREA_RAWID = C.AREA_RAWID                                                                                                   ");
-                sb.Append("AND  B.EQP_MODEL = C.EQP_MODEL                                                                                                    ");
-                sb.Append("AND B.GROUP_RAWID IS NOT NULL                                                                                                    ");
-                sb.Append("AND B.GROUP_RAWID = C.RAWID                                                                                                       ");
-                sb.Append("AND B.GROUP_RAWID = C.RAWID                                                                                                       ");
-                sb.Append("AND A.MODEL_RAWID = B.RAWID                                                                                                       ");
-                
-                if (isMET)
-                {
-                    sb.Append("AND A.PARAM_TYPE_CD = 'MET'                                                                                         ");
-                }
-                else
-                {
-                    sb.Append("AND A.PARAM_TYPE_CD != 'MET'                                                                                       ");
-                }
-
-                sb.Append("GROUP BY A.PARAM_TYPE_CD, B.RAWID, C.LOCATION_RAWID, C.AREA_RAWID, B.EQP_MODEL, B.SPC_MODEL_NAME, C.GROUP_NAME                       ");
-                sb.Append("UNION ALL                                                                                                                         ");
-                sb.Append("SELECT C.PARAM_TYPE_CD, B.RAWID, B.LOCATION_RAWID, B.AREA_RAWID, B.EQP_MODEL AS GROUP_LEVEL, B.SPC_MODEL_NAME , 'UNASSIGNED MODEL' AS GROUP_NAME   ");
-                sb.Append("FROM EQP_VW_SPC A, MODEL_MST_SPC B, MODEL_CONFIG_MST_SPC C                                                                   ");
-                sb.Append("WHERE A.LINE_RAWID = B.LOCATION_RAWID AND A.AREA_RAWID = B.AREA_RAWID                                                             ");
-                sb.Append("AND A.EQPMODEL = B.EQP_MODEL AND C.MODEL_RAWID = B.RAWID                                                                          ");
-                sb.Append("AND B.GROUP_RAWID IS NULL                                                                                                         ");
+                sb.Append("SELECT   b.rawid, b.location_rawid, b.area_rawid, b.eqp_model,     ");
+                sb.Append("b.spc_model_name, NVL (d.group_name, 'UNASSIGNED MODEL') AS GROUP_NAME                                        ");
+                sb.Append("FROM model_mst_spc b, ");
+                sb.Append("model_config_mst_spc c, ");
+                sb.Append("model_group_mst_spc d ");
+                sb.Append("WHERE 1=1 ");
+                sb.Append("AND c.model_rawid = b.rawid  ");
+                sb.Append("AND c.main_yn = 'Y'  ");
 
                 if (isMET)
                 {
-                    sb.Append("AND C.PARAM_TYPE_CD = 'MET'                                                                                         ");
+                    sb.Append("AND c.PARAM_TYPE_CD = 'MET'                                                                                         ");
                 }
                 else
                 {
-                    sb.Append("AND C.PARAM_TYPE_CD != 'MET'                                                                                       ");
+                    sb.Append("AND c.PARAM_TYPE_CD != 'MET'                                                                                       ");
                 }
-                sb.Append("GROUP BY C.PARAM_TYPE_CD, B.RAWID, B.LOCATION_RAWID, B.AREA_RAWID, B.EQP_MODEL, B.SPC_MODEL_NAME                                                   ");
+
+                sb.Append("AND b.location_rawid = d.location_rawid(+) ");
+                sb.Append("AND b.area_rawid = d.area_rawid(+) ");
+                sb.Append("AND b.eqp_model = d.eqp_model(+) ");
+                sb.Append("AND b.group_rawid = d.rawid(+) ");
 
                 ds = this.Query(sb.ToString());
                 ds.Tables[0].TableName = "MODEL_MST_SPC";
 
                 dsResult.Tables.Add(ds.Tables[0].Copy());
+
 
             }
             return dsResult;
@@ -8854,7 +8809,7 @@ ORDER BY spc_model_name";
             }
 
             llWhereField.Add(Definition.DynamicCondition_Condition_key.PARAM_TYPE_CD, "MET");
-            
+
             try
             {
                 #region original
@@ -8865,7 +8820,7 @@ ORDER BY spc_model_name";
                 //sb.Append("            WHERE     A.RAWID = B.MODEL_RAWID                                                            ");
                 //sb.Append("                  AND A.LOCATION_RAWID = :LOCATION_RAWID                                                 ");
                 //sb.Append("                  AND A.AREA_RAWID = :AREA_RAWID                                                         ");
-                
+
                 //if (isMET)
                 //{
                 //    sb.Append("                  AND B.PARAM_TYPE_CD = 'MET'                                                            ");
@@ -8874,14 +8829,14 @@ ORDER BY spc_model_name";
                 //{
                 //    sb.Append("                  AND B.PARAM_TYPE_CD != 'MET'                                                           ");
                 //}
-                
+
                 //sb.Append("         GROUP BY A.RAWID, A.LOCATION_RAWID, A.AREA_RAWID, A.EQP_MODEL, A.SPC_MODEL_NAME, A.GROUP_RAWID  ");
                 //sb.Append("         ORDER BY A.SPC_MODEL_NAME ASC) A                                                                ");
                 //sb.Append("     LEFT OUTER JOIN                                                                                     ");
                 //sb.Append("        MODEL_GROUP_MST_SPC C                                                                            ");
                 //sb.Append("     ON A.LOCATION_RAWID = C.LOCATION_RAWID                                                              ");
                 //sb.Append("        AND A.AREA_RAWID = C.AREA_RAWID                                                                  ");
-                
+
                 //if (llParam.Contains(Definition.CONDITION_KEY_EQP_MODEL))
                 //{
                 //    sb.Append("        AND A.EQP_MODEL = C.EQP_MODEL                                                                ");
@@ -8950,7 +8905,7 @@ ORDER BY spc_model_name";
 
             try
             {
-                
+
                 string sUserId = llParam[COLUMN.USER_ID].ToString();
 
                 if (dsSave.Tables.Count > 0)
@@ -9021,7 +8976,7 @@ ORDER BY spc_model_name";
                             llstFieldData.Add(COLUMN.LOCATION_RAWID, llParam[COLUMN.LOCATION_RAWID].ToString());
                             llstFieldData.Add(COLUMN.AREA_RAWID, llParam[COLUMN.AREA_RAWID].ToString());
 
-                            if(llParam[COLUMN.EQP_MODEL] != null)
+                            if (llParam[COLUMN.EQP_MODEL] != null)
                                 llstFieldData.Add(COLUMN.EQP_MODEL, llParam[COLUMN.EQP_MODEL].ToString());
 
                             llstFieldData.Add(COLUMN.GROUP_NAME, row[COLUMN.GROUP_NAME].ToString().ToUpper());
@@ -9118,7 +9073,7 @@ ORDER BY spc_model_name";
 
             base.Commit();
             bResult = true;
-            
+
             return bResult;
         }
 
@@ -9195,8 +9150,8 @@ ORDER BY spc_model_name";
             llWhereField.Add(COLUMN.LOCATION_RAWID, llParam[COLUMN.LOCATION_RAWID]);
             llWhereField.Add(COLUMN.AREA_RAWID, llParam[COLUMN.AREA_RAWID]);
 
-            StringBuilder sb = new StringBuilder();  
-           
+            StringBuilder sb = new StringBuilder();
+
             sb.Append("SELECT * FROM MODEL_GROUP_MST_SPC        ");
             sb.Append("WHERE LOCATION_RAWID =: LOCATION_RAWID   ");
             sb.Append("AND AREA_RAWID =: AREA_RAWID             ");
@@ -9258,7 +9213,7 @@ ORDER BY spc_model_name";
         public string CheckDuplicateMapping(DataTable dt, bool isEmptyGroupRawid)
         {
             string strResult = string.Empty;
-            
+
             LinkedList llParam = new LinkedList();
 
             StringBuilder sb = new StringBuilder();
@@ -9298,7 +9253,7 @@ ORDER BY spc_model_name";
 
             LinkedList llparam = new LinkedList();
             llparam.SetSerialData(param);
-           
+
 
             StringBuilder sb = new StringBuilder();
             sb.Append("SELECT COUNT(*) FROM MODEL_MST_SPC ");
@@ -9315,6 +9270,796 @@ ORDER BY spc_model_name";
 
             return cntModel;
         }
+
+        //SPC-929, KBLEE, START
+        public DataSet GetEqpSummaryTrxFileData(byte[] baData)
+        {
+            DataSet dsReturn = new DataSet();
+
+            LinkedList llstCondition = new LinkedList();
+            LinkedList llstData = new LinkedList();
+            llstData.SetSerialData(baData);
+
+            StringBuilder sbQuery = new StringBuilder();
+            sbQuery.Append("SELECT B.EQP_ID, B.MODULE_ID, B.MODULE_NAME, B.ALIAS AS MODULE_ALIAS, A.* ");
+            sbQuery.Append("  FROM EQP_SUMMARY_TRX_PP A ");
+            sbQuery.Append("       INNER JOIN EQP_MST_PP B ");
+            sbQuery.Append("       ON (A.EQP_MODULE_ID = B.MODULE_ID) ");
+            sbQuery.Append(" WHERE 1 = 1 ");
+
+            if (llstData[Definition.CONDITION_KEY_RAWID] != null)
+            {
+                //01. RAWID로 조회하는 경우
+
+                object obRawID = llstData[Definition.CONDITION_KEY_RAWID];
+
+                if (obRawID is ArrayList)
+                {
+                    ArrayList alRawIDList = (ArrayList)llstData[Definition.CONDITION_KEY_RAWID];
+
+                    sbQuery.AppendFormat(" AND A.RAWID IN ({0}) ", _ComUtil.ConvertArrayIntoStringList(alRawIDList, ","));
+                }
+                else
+                {
+                    sbQuery.Append(" AND A.RAWID = :RAWID ");
+                    llstCondition.Add("RAWID", _ComUtil.NVL(llstData[Definition.CONDITION_KEY_RAWID]));
+                }
+            }
+            else
+            {
+                //02. CONTEXT 정보로 조회하는 경우
+
+                //EQP
+                if (llstData[Definition.CONDITION_KEY_MODULE_ID] != null)
+                {
+                    sbQuery.Append(" AND A.EQP_MODULE_ID = :EQP_MODULE_ID ");
+                    llstCondition.Add("EQP_MODULE_ID", _ComUtil.NVL(llstData[Definition.CONDITION_KEY_MODULE_ID]));
+                }
+
+                //DCP
+                if (llstData[Definition.CONDITION_KEY_DCP_ID] != null)
+                {
+                    sbQuery.Append(" AND A.EQP_DCP_ID = :EQP_DCP_ID ");
+                    llstCondition.Add("EQP_DCP_ID", _ComUtil.NVL(llstData[Definition.CONDITION_KEY_DCP_ID]));
+                }
+
+                //PARAMETER_ALIAS
+                if (llstData[Definition.CONDITION_KEY_PARAM_ALIAS] != null)
+                {
+                    sbQuery.Append(" AND A.PARAMETER_ALIAS = :PARAM_ALIAS ");
+                    llstCondition.Add("PARAM_ALIAS", _ComUtil.NVL(llstData[Definition.CONDITION_KEY_PARAM_ALIAS]));
+                }
+
+                //MESSAGE_TYPE_CD
+                if (llstData[Definition.CONDITION_KEY_DATA_CATEGORY_CD] != null)
+                {
+                    sbQuery.Append(" AND A.MESSAGE_TYPE_CD = :MESSAGE_TYPE_CD ");
+                    llstCondition.Add("MESSAGE_TYPE_CD", _ComUtil.NVL(llstData[Definition.CONDITION_KEY_DATA_CATEGORY_CD]));
+                }
+
+                if (llstData[Definition.CONDITION_KEY_START_DTTS] != null && llstData[Definition.CONDITION_KEY_END_DTTS] != null)
+                {
+                    object obStartDtts = llstData[Definition.CONDITION_KEY_START_DTTS];
+                    object obEndDtts = llstData[Definition.CONDITION_KEY_END_DTTS];
+
+                    if (obStartDtts is DateTime && obEndDtts is DateTime)
+                    {
+                        llstCondition.Add("START_DTTS", (DateTime)llstData[Definition.CONDITION_KEY_START_DTTS]);
+                        llstCondition.Add("END_DTTS", (DateTime)llstData[Definition.CONDITION_KEY_END_DTTS]);
+
+                        sbQuery.Append(" AND ");
+                        sbQuery.Append(" ( ");
+                        sbQuery.Append(" a.start_dtts between :START_DTTS and :END_DTTS ");
+                        sbQuery.Append(" or ");
+                        sbQuery.Append(" a.end_dtts between :START_DTTS and :END_DTTS ");
+                        sbQuery.Append(" or ");
+                        sbQuery.Append(" :START_DTTS BETWEEN a.start_dtts AND a.end_dtts ");
+                        sbQuery.Append(" or ");
+                        sbQuery.Append(" :END_DTTS BETWEEN a.start_dtts AND a.end_dtts ");
+                        sbQuery.Append(" ) ");
+                    }
+                    else
+                    {
+                        llstCondition.Add("START_DTTS", _ComUtil.NVL(llstData[Definition.CONDITION_KEY_START_DTTS]));
+                        llstCondition.Add("END_DTTS", _ComUtil.NVL(llstData[Definition.CONDITION_KEY_END_DTTS]));
+
+                        sbQuery.Append(" AND ");
+                        sbQuery.Append(" ( ");
+                        sbQuery.Append(" a.start_dtts between (TO_TIMESTAMP(:START_DTTS, 'YYYY-MM-DD HH24:MI:SS.FF3')) and (TO_TIMESTAMP(:END_DTTS, 'YYYY-MM-DD HH24:MI:SS.FF3'))");
+                        sbQuery.Append(" or ");
+                        sbQuery.Append(" a.end_dtts between (TO_TIMESTAMP(:START_DTTS, 'YYYY-MM-DD HH24:MI:SS.FF3')) and (TO_TIMESTAMP(:END_DTTS, 'YYYY-MM-DD HH24:MI:SS.FF3'))");
+                        sbQuery.Append(" or ");
+                        sbQuery.Append(" TO_TIMESTAMP(:START_DTTS, 'YYYY-MM-DD HH24:MI:SS.FF3') BETWEEN a.start_dtts AND a.end_dtts ");
+                        sbQuery.Append(" or ");
+                        sbQuery.Append(" TO_TIMESTAMP(:END_DTTS, 'YYYY-MM-DD HH24:MI:SS.FF3') BETWEEN a.start_dtts AND a.end_dtts ");
+                        sbQuery.Append(" ) ");
+                    }
+                }
+
+                //END DATE
+                /*if (llstData[Definition.CONDITION_KEY_END_DTTS] != null)
+                {
+                    object obEndDtts = llstData[Definition.CONDITION_KEY_END_DTTS];
+
+                    if (obEndDtts is DateTime)
+                    {
+                        DateTime dtEnd = (DateTime)llstData[Definition.CONDITION_KEY_END_DTTS];
+                        llstCondition.Add("END_DTTS", dtEnd.ToString(Definition.DATETIME_FORMAT_MS));
+                    }
+                    else
+                    {
+                        llstCondition.Add("END_DTTS", _ComUtil.NVL(llstData[Definition.CONDITION_KEY_END_DTTS]));
+                    }
+
+                    sbQuery.Append(" AND A.START_DTTS <= TO_TIMESTAMP(:END_DTTS, 'YYYY-MM-DD HH24:MI:SS.FF3') ");
+                }*/
+            }
+
+            sbQuery.Append(" ORDER BY A.START_DTTS  ");
+
+            try
+            {
+                dsReturn = base.Query(sbQuery.ToString(), llstCondition);
+
+                if (base.ErrorMessage.Length > 0)
+                {
+                    DSUtil.SetResult(dsReturn, 0, "", base.ErrorMessage);
+                }
+            }
+            catch (Exception ex)
+            {
+                DSUtil.SetResult(dsReturn, 0, "", ex.Message);
+            }
+
+            return dsReturn;
+        }
+        //SPC-929, KBLEE, END
+
+        //SPC-929, KBLEE, START
+        public DataSet GetEqpSummaryTempTrxCLOBData(byte[] baData)
+        {
+            DataSet dsReturn = new DataSet();
+
+            LinkedList llstCondition = new LinkedList();
+            LinkedList llstData = new LinkedList();
+            llstData.SetSerialData(baData);
+
+            StringBuilder sbQuery = new StringBuilder();
+            sbQuery.Append("SELECT b.eqp_id, b.module_id, b.alias AS module_alias, ");
+            sbQuery.Append("       a.sum_dtts AS TIME, a.lot_id AS lotid, a.substrate_id AS substrateid, ");
+            sbQuery.Append("       a.recipe_id AS recipe, a.operation_id AS operation, ");
+            sbQuery.Append("       a.product_id AS product, a.cassette_slot AS slot, a.step_id AS step, a.context_key, ");
+            sbQuery.Append("       a.file_data, ");
+            sbQuery.Append("       a.rsd_01, a.rsd_02, a.rsd_03, a.rsd_04, a.rsd_05, a.rsd_06, a.rsd_07, a.rsd_08, a.rsd_09, a.rsd_10, ");
+            sbQuery.Append("       a.rsd_11, a.rsd_12, a.rsd_13, a.rsd_14, a.rsd_15, a.rsd_16, a.rsd_17, a.rsd_18, a.rsd_19, a.rsd_20 ");
+            sbQuery.Append("  FROM eqp_summary_tmp_trx_pp a INNER JOIN eqp_mst_pp b ");
+            sbQuery.Append("       ON (a.eqp_module_id = b.module_id) ");
+            sbQuery.Append(" WHERE 1 = 1 ");
+
+            //EQP
+            if (llstData[Definition.CONDITION_KEY_MODULE_ID] != null)
+            {
+                sbQuery.Append(" AND A.EQP_MODULE_ID = :EQP_MODULE_ID ");
+                llstCondition.Add("EQP_MODULE_ID", _ComUtil.NVL(llstData[Definition.CONDITION_KEY_MODULE_ID]));
+            }
+
+            //DCP
+            if (llstData[Definition.CONDITION_KEY_DCP_ID] != null)
+            {
+                sbQuery.Append(" AND A.EQP_DCP_ID = :EQP_DCP_ID ");
+                llstCondition.Add("EQP_DCP_ID", _ComUtil.NVL(llstData[Definition.CONDITION_KEY_DCP_ID]));
+            }
+
+            //RECIPE
+            if (llstData[Definition.CONDITION_KEY_RECIPE_ID] != null)
+            {
+                if (llstData[Definition.CONDITION_KEY_RECIPE_ID].ToString() != "DEFAULT_ALL")
+                {
+                    sbQuery.Append(" AND A.RECIPE_ID = :RECIPE_ID ");
+                    llstCondition.Add("RECIPE_ID", _ComUtil.NVL(llstData[Definition.CONDITION_KEY_RECIPE_ID]));
+                }
+            }
+
+            //RECIPE LIST
+            if (llstData.Contains(Definition.CONDITION_KEY_RECIPE_ID_LIST))
+            {
+                object obj = llstData[Definition.CONDITION_KEY_RECIPE_ID_LIST];
+
+                if (obj is string)
+                {
+                    sbQuery.Append(" AND A.RECIPE_ID = :RECIPE_ID ");
+                    llstCondition.Add("RECIPE_ID", _ComUtil.NVL(llstData[Definition.CONDITION_KEY_RECIPE_ID_LIST]));
+                }
+                else if (obj is IEnumerable)
+                {
+                    sbQuery.AppendFormat(" AND A.RECIPE_ID IN ({0}) ", _ComUtil.ConvertArrayIntoStringList((IEnumerable)obj, "'", ","));
+                }
+            }
+
+            //STEP
+            if (llstData[Definition.CONDITION_KEY_STEP_ID] != null)
+            {
+                if (llstData[Definition.CONDITION_KEY_STEP_ID].ToString() != "DEFAULT_ALL")
+                {
+                    if (llstData[Definition.CONDITION_KEY_STEP_ID].ToString().Length > 0)
+                    {
+                        sbQuery.Append(" AND A.STEP_ID= :STEP_ID");
+                        llstCondition.Add("STEP_ID", _ComUtil.NVL(llstData[Definition.CONDITION_KEY_STEP_ID]));
+                    }
+                }
+            }
+
+            //STEP LIST
+            if (llstData.Contains(Definition.CONDITION_KEY_STEP_ID_LIST))
+            {
+                object obj = llstData[Definition.CONDITION_KEY_STEP_ID_LIST];
+
+                if (obj is string)
+                {
+                    sbQuery.Append(" AND A.STEP_ID= :STEP_ID");
+                    llstCondition.Add("STEP_ID", _ComUtil.NVL(llstData[Definition.CONDITION_KEY_STEP_ID_LIST]));
+                }
+                else if (obj is IEnumerable)
+                {
+                    sbQuery.AppendFormat(" AND A.STEP_ID IN ({0}) ", _ComUtil.ConvertArrayIntoStringList((IEnumerable)obj, "'", ","));
+                }
+            }
+
+
+            //PRODUCT
+            if (llstData[Definition.CONDITION_KEY_PRODUCT_ID] != null && llstData[Definition.CONDITION_KEY_PRODUCT_ID].ToString().ToUpper() != "DEFAULT_ALL")
+            {
+                if (llstData[Definition.CONDITION_KEY_PRODUCT_ID].ToString().Length > 0)
+                {
+                    sbQuery.Append(" AND A.PRODUCT_ID= :PRODUCT_ID ");
+                    llstCondition.Add("PRODUCT_ID", _ComUtil.NVL(llstData[Definition.CONDITION_KEY_PRODUCT_ID]));
+                }
+                //else
+                //{
+                //    sbQuery.Append(" AND A.PRODUCT_ID IS NULL ");
+                //}
+            }
+
+            //DCP
+            if (llstData[Definition.CONDITION_KEY_DATA_CATEGORY_CD] != null)
+            {
+                sbQuery.Append(" AND A.MESSAGE_TYPE_CD= :MESSAGE_TYPE_CD");
+                llstCondition.Add("MESSAGE_TYPE_CD", _ComUtil.NVL(llstData[Definition.CONDITION_KEY_DATA_CATEGORY_CD]));
+            }
+
+            //Additional Data Filter
+            //if (llstData[Definition.CONDITION_KEY_DATA_FILTER] != null)
+            //{
+            //    sbQuery.Append(llstData[Definition.CONDITION_KEY_DATA_FILTER].ToString());
+            //}
+
+            if (llstData[Definition.CONDITION_KEY_START_DTTS] != null && llstData[Definition.CONDITION_KEY_END_DTTS] != null)
+            {
+                object obStartDtts = llstData[Definition.CONDITION_KEY_START_DTTS];
+                object obEndDtts = llstData[Definition.CONDITION_KEY_END_DTTS];
+
+                if (obStartDtts is DateTime)
+                {
+                    DateTime dtStart = (DateTime)llstData[Definition.CONDITION_KEY_START_DTTS];
+                    llstCondition.Add("START_DTTS", dtStart);
+
+                    sbQuery.Append(" AND A.SUM_DTTS >= :START_DTTS ");
+                }
+                else
+                {
+                    llstCondition.Add("START_DTTS", _ComUtil.NVL(llstData[Definition.CONDITION_KEY_START_DTTS]));
+
+                    sbQuery.Append(" AND A.SUM_DTTS >= TO_TIMESTAMP(:START_DTTS, 'YYYY-MM-DD HH24:MI:SS.FF3') ");
+                }
+
+                if (obEndDtts is DateTime)
+                {
+                    DateTime dtEnd = (DateTime)llstData[Definition.CONDITION_KEY_END_DTTS];
+                    llstCondition.Add("END_DTTS", dtEnd);
+
+                    sbQuery.Append(" AND A.SUM_DTTS <= :END_DTTS ");
+                }
+                else
+                {
+                    llstCondition.Add("END_DTTS", _ComUtil.NVL(llstData[Definition.CONDITION_KEY_END_DTTS]));
+
+                    sbQuery.Append(" AND A.SUM_DTTS <= TO_TIMESTAMP(:END_DTTS, 'YYYY-MM-DD HH24:MI:SS.FF3') ");
+                }
+
+                //sbQuery.Append(" AND A.SUM_DTTS BETWEEN (TO_TIMESTAMP (:START_DTTS, 'YYYY-MM-DD HH24:MI:SS.FF3')) AND (TO_TIMESTAMP (:END_DTTS, 'YYYY-MM-DD HH24:MI:SS.FF3'))");
+            }
+
+            sbQuery.Append(" ORDER BY A.SUM_DTTS  ");
+
+            try
+            {
+                dsReturn = base.Query(sbQuery.ToString(), llstCondition);
+
+                if (base.ErrorMessage.Length > 0)
+                {
+                    DSUtil.SetResult(dsReturn, 0, "", base.ErrorMessage);
+                }
+            }
+            catch (Exception ex)
+            {
+                DSUtil.SetResult(dsReturn, 0, "", ex.Message);
+            }
+
+            return dsReturn;
+        }
+        //SPC-929, KBLEE, END
+
+        //SPC-929, KBLEE, START
+        public DataSet GetEqpModuleInfoByParamAlias(byte[] baData)
+        {
+            DataSet dsReturn = new DataSet();
+            LinkedList llparam = new LinkedList();
+            llparam.SetSerialData(baData);
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("SELECT distinct EQPM.EQP_ID, EQPM.alias Chamber, EQPM.module_id EQP_MODULE_ID ");
+            sb.Append(" FROM EQP_VW_SPC EQPM, EQP_SUM_PARAM_MST_PP EQPSPM                            ");
+            sb.Append(" WHERE 1=1                                                                    ");
+            sb.Append(" AND EQPM.eqp_id = EQPSPM.eqp_id                                              ");
+            sb.Append(" AND EQPM.module_id = EQPSPM.eqp_module_id                                    ");
+
+            try
+            {
+                LinkedList llstCondition = new LinkedList();
+
+                if (llparam[Definition.CONDITION_KEY_PARAM_ALIAS].ToString().Length > 0)
+                {
+                    sb.Append(" AND EQPSPM.SUM_PARAM_ALIAS = :PARAM_ALIAS ");
+                    llstCondition.Add(Definition.CONDITION_KEY_PARAM_ALIAS, llparam[Definition.CONDITION_KEY_PARAM_ALIAS]);
+                }
+                if (llparam[Definition.CONDITION_KEY_LINE_RAWID].ToString().Length > 0)
+                {
+                    sb.Append(" AND EQPM.LINE_RAWID = :LINE_RAWID ");
+                    llstCondition.Add(Definition.CONDITION_KEY_LINE_RAWID, llparam[Definition.CONDITION_KEY_LINE_RAWID]);
+                }
+                if (llparam[Definition.CONDITION_KEY_AREA_RAWID].ToString().Length > 0)
+                {
+                    sb.Append(" AND EQPM.AREA_RAWID = :AREA_RAWID ");
+                    llstCondition.Add(Definition.CONDITION_KEY_AREA_RAWID, llparam[Definition.CONDITION_KEY_AREA_RAWID]);
+                }
+
+                sb.Append(" ORDER BY EQPM.eqp_id ");
+
+                dsReturn = base.Query(sb.ToString(), llstCondition);
+
+                if (base.ErrorMessage.Length > 0)
+                {
+                    DSUtil.SetResult(dsReturn, 0, "", base.ErrorMessage);
+                }
+            }
+            catch (Exception ex)
+            {
+                BISTel.PeakPerformance.Client.CommonLibrary.LogHandler.ExceptionLogWrite(Definition.APPLICATION_NAME, new string[] { ex.Message, ex.Source, ex.StackTrace });
+            }
+
+            return dsReturn;
+        }
+        //SPC-929, KBLEE, END
+
+        //SPC-929, KBLEE, START
+        public DataSet GetRecipeStepByEqpModuleId(byte[] baData)
+        {
+            DataSet dsReturn = new DataSet();
+            LinkedList llparam = new LinkedList();
+            llparam.SetSerialData(baData);
+
+            StringBuilder sb = new StringBuilder();
+
+            if (llparam.Contains(Definition.SUMMARY_DATA.DATA_EXIST_MODE))
+            {
+                string dataExistMode = llparam[Definition.SUMMARY_DATA.DATA_EXIST_MODE].ToString();
+
+                if (dataExistMode.Equals(Definition.SUMMARY_DATA.ALL_EXIST))
+                {
+                    sb.Append("SELECT distinct eqp_recipe_id recipe, step_id step ");
+                }
+                else if (dataExistMode.Equals(Definition.SUMMARY_DATA.ONLY_RECIPE_EXIST))
+                {
+                    sb.Append("SELECT distinct eqp_recipe_id recipe, '*' step ");
+                }
+                else if (dataExistMode.Equals(Definition.SUMMARY_DATA.ONLY_STEP_EXIST))
+                {
+                    sb.Append("SELECT distinct '*' recipe, step_id step ");
+                }
+            }
+            else
+            {
+                sb.Append("SELECT distinct '*' recipe, '*' step ");
+            }
+
+            sb.Append(" FROM EQP_RECIPE_STEP_MST_PP                       ");
+            sb.Append(" WHERE 1=1                                         ");
+            sb.Append(" AND eqp_recipe_id <> 'DEFAULT_ALL'                ");
+            sb.Append(" AND step_id <> 'DEFAULT_ALL'                      ");
+
+            try
+            {
+                LinkedList llstCondition = new LinkedList();
+
+                if (llparam[Definition.COL_EQP_MODULE_ID].ToString().Length > 0)
+                {
+                    sb.Append(" AND EQP_MODULE_ID = :EQP_MODULE_ID ");
+                    llstCondition.Add(Definition.COL_EQP_MODULE_ID, llparam[Definition.COL_EQP_MODULE_ID]);
+                }
+
+                if (llparam.Contains(Definition.SUMMARY_DATA.DATA_EXIST_MODE))
+                {
+                    string dataExistMode = llparam[Definition.SUMMARY_DATA.DATA_EXIST_MODE].ToString();
+
+                    if (dataExistMode.Equals(Definition.SUMMARY_DATA.ALL_EXIST))
+                    {
+                        sb.Append(" ORDER BY eqp_recipe_id, step_id ");
+                    }
+                    else if (dataExistMode.Equals(Definition.SUMMARY_DATA.ONLY_RECIPE_EXIST))
+                    {
+                        sb.Append(" ORDER BY eqp_recipe_id ");
+                    }
+                    else if (dataExistMode.Equals(Definition.SUMMARY_DATA.ONLY_STEP_EXIST))
+                    {
+                        sb.Append(" ORDER BY step_id ");
+                    }
+                }
+
+                dsReturn = base.Query(sb.ToString(), llstCondition);
+
+                if (base.ErrorMessage.Length > 0)
+                {
+                    DSUtil.SetResult(dsReturn, 0, "", base.ErrorMessage);
+                    return dsReturn;
+                }
+
+                return dsReturn;
+            }
+            catch (Exception ex)
+            {
+                BISTel.PeakPerformance.Client.CommonLibrary.LogHandler.ExceptionLogWrite(Definition.APPLICATION_NAME, new string[] { ex.Message, ex.Source, ex.StackTrace });
+            }
+
+            return dsReturn;
+        }
+        //SPC-929, KBLEE, END
+
+        //SPC-929, KBLEE, START
+        public DataSet GetConfigInfoByRawId(byte[] baData)
+        {
+            DataSet dsReturn = new DataSet();
+            LinkedList llparam = new LinkedList();
+            llparam.SetSerialData(baData);
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("SELECT * ");
+            sb.Append(" FROM MODEL_CONFIG_MST_SPC    ");
+            sb.Append(" WHERE 1=1                                                                    ");
+
+            try
+            {
+                LinkedList llstCondition = new LinkedList();
+
+                if (llparam[Definition.COL_RAW_ID].ToString().Length > 0)
+                {
+                    sb.Append(" AND rawid = :RAWID ");
+                    llstCondition.Add(Definition.COL_RAW_ID, llparam[Definition.COL_RAW_ID]);
+                }
+
+                dsReturn = base.Query(sb.ToString(), llstCondition);
+
+                if (base.ErrorMessage.Length > 0)
+                {
+                    DSUtil.SetResult(dsReturn, 0, "", base.ErrorMessage);
+                }
+            }
+            catch (Exception ex)
+            {
+                BISTel.PeakPerformance.Client.CommonLibrary.LogHandler.ExceptionLogWrite(Definition.APPLICATION_NAME, new string[] { ex.Message, ex.Source, ex.StackTrace });
+            }
+
+            return dsReturn;
+        }
+        //SPC-929, KBLEE, END
+
+        //SPC-929, KBLEE, START
+        public DataSet GetModuleNameByModuleId(byte[] baData)
+        {
+            DataSet dsReturn = new DataSet();
+            LinkedList llparam = new LinkedList();
+            llparam.SetSerialData(baData);
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("SELECT MODULE_NAME ");
+            sb.Append(" FROM EQP_VW_SPC   ");
+            sb.Append(" WHERE 1=1         ");
+
+            try
+            {
+                LinkedList llstCondition = new LinkedList();
+
+                if (llparam[Definition.COL_MODULE_ID].ToString().Length > 0)
+                {
+                    sb.Append(" AND module_id = :MODULE_ID ");
+                    llstCondition.Add(Definition.COL_MODULE_ID, llparam[Definition.COL_MODULE_ID]);
+                }
+
+                dsReturn = base.Query(sb.ToString(), llstCondition);
+
+                if (base.ErrorMessage.Length > 0)
+                {
+                    DSUtil.SetResult(dsReturn, 0, "", base.ErrorMessage);
+                }
+            }
+            catch (Exception ex)
+            {
+                BISTel.PeakPerformance.Client.CommonLibrary.LogHandler.ExceptionLogWrite(Definition.APPLICATION_NAME, new string[] { ex.Message, ex.Source, ex.StackTrace });
+            }
+
+            return dsReturn;
+        }
+        //SPC-929, KBLEE, END
+
+        public DataSet GetRestrictionFilter(string userRawid)
+        {
+            DataSet dsResult = new DataSet();
+
+            try
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append(string.Format("select * from user_mst_pp where rawid = {0} ", userRawid));
+
+                DataSet dsUserInfo = base.Query(sb.ToString());
+
+                if (dsUserInfo != null && dsUserInfo.Tables.Count > 0 && dsUserInfo.Tables[0].Rows.Count > 0)
+                {
+                    //user group에 설정된 Data restriction filter 조건 가져옴.
+
+                    sb.Remove(0, sb.Length);
+                    sb.Append("SELECT A.RAWID, ZZ.GROUP_RAWID, A.USER_ID, ZZ.GROUP_ID   ");
+                    sb.Append("FROM USER_MST_PP A, LOCATION_MST_PP E, AREA_MST_PP F,    ");
+                    sb.Append("     (SELECT USER_RAWID, GROUP_ID, D.RAWID AS GROUP_RAWID    ");
+                    sb.Append("      FROM USER_GROUP_LINK_MST_PP B, USER_COND_GROUPSET_MST_PP C, ");
+                    sb.Append("       USER_GROUP_MST_PP D                                       ");
+                    sb.Append("      WHERE B.END_DTTS > SYSTIMESTAMP                            ");
+                    sb.Append("         AND C.USER_COND_RAWID = B.RAWID                         ");
+                    sb.Append("         AND C.GROUP_RAWID = D.RAWID                             ");
+                    sb.Append("         AND C.END_DTTS > SYSTIMESTAMP ) ZZ                      ");
+                    sb.Append(" WHERE ZZ.USER_RAWID(+) = A.RAWID AND A.LOCATION_RAWID = E.RAWID(+)  ");
+                    sb.Append("     AND A.AREA_RAWID = F.RAWID(+)                                   ");
+                    sb.Append(string.Format("     AND A.RAWID = {0}                             ", userRawid));
+                    sb.Append("     ORDER BY A.USER_ID                                          ");
+
+                    DataSet dsUserGroup = base.Query(sb.ToString());
+
+                    if (dsUserGroup != null && dsUserGroup.Tables.Count > 0 && dsUserGroup.Tables[0].Rows.Count > 0)
+                    {
+                        ArrayList arrGroup = new ArrayList();
+
+                        foreach (DataRow dr in dsUserGroup.Tables[0].Rows)
+                        {
+                            arrGroup.Add(dr[Definition.DynamicCondition_Condition_key.GROUP_RAWID].ToString());
+                        }
+
+                        sb.Remove(0, sb.Length);
+                        sb.Append("SELECT RAWID, USER_GROUP_RAWID, DATA_FILTER, OPTION_FILTER, EXCLUDE_YN, ");
+                        sb.Append("DESCRIPTION, CREATE_DTTS, CREATE_BY, LAST_UPDATE_DTTS, LAST_UPDATE_BY, NVL(RESTRICT_TYPE_CD, 'DT') AS RESTRICT_TYPE_CD ");
+                        sb.Append("FROM DATA_RESTRICT_MST_FDC WHERE USER_GROUP_RAWID IN( ");
+
+                        for (int i = 0; i < arrGroup.Count; i++)
+                        {
+                            if (i == arrGroup.Count - 1)
+                            {
+                                sb.Append(arrGroup[i]);
+                            }
+                            else
+                            {
+                                sb.Append(arrGroup[i] + ",");
+                            }
+                        }
+
+                        sb.Append(" )");
+
+                        dsResult = base.Query(sb.ToString());
+
+                        if (dsResult != null && dsResult.Tables.Count > 0)
+                        {
+                            DataSet dsModule;
+                            ArrayList arrModuleName = new ArrayList();
+                            ArrayList arrModuleId = new ArrayList();
+                            ArrayList arrAlias = new ArrayList();
+
+                            foreach (DataRow dr in dsResult.Tables[0].Rows)
+                            {
+                                string[] sFilter = dr[Definition.DATA_FILTER].ToString().Split('=');
+                                if (sFilter[0] == Definition.CONDITION_KEY_EQP_ID)
+                                {
+                                    foreach (string sEqp in sFilter[1].Split(','))
+                                    {
+                                        string sQuery = string.Format("SELECT EQP_ID, MODULE_NAME, MODULE_ID, ALIAS FROM EQP_VW_SPC WHERE EQP_ID='{0}'", sEqp);
+                                        dsModule = base.Query(sQuery);
+
+                                        if (dsModule != null && dsModule.Tables.Count > 0)
+                                        {
+                                            foreach (DataRow drModule in dsModule.Tables[0].Rows)
+                                            {
+                                                if (!arrModuleName.Contains(drModule[Definition.CONDITION_KEY_MODULE_NAME].ToString()))
+                                                {
+                                                    arrModuleName.Add(drModule[Definition.CONDITION_KEY_MODULE_NAME].ToString());
+                                                }
+                                                if (!arrModuleId.Contains(drModule[Definition.CONDITION_KEY_MODULE_ID].ToString()))
+                                                {
+                                                    arrModuleId.Add(drModule[Definition.CONDITION_KEY_MODULE_ID].ToString());
+                                                }
+                                                if (!arrAlias.Contains(drModule[Definition.CONDITION_KEY_ALIAS].ToString()))
+                                                {
+                                                    arrAlias.Add(drModule[Definition.CONDITION_KEY_ALIAS].ToString());
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            if (arrModuleName.Count > 0)
+                            {
+                                DataRow dr = dsResult.Tables[0].NewRow();
+                                string data = "MODULE_NAME=";
+
+                                for (int i = 0; i < arrModuleName.Count; i++)
+                                {
+                                    data += arrModuleName[i].ToString() + ",";
+                                }
+
+                                data = data.Remove(data.Length - 1, 1);
+                                dr[Definition.DATA_FILTER] = data;
+                                dr[Definition.SpreadHeaderColKey.EXCLUDE_YN] = "N";
+                                dr[Definition.CHART_COLUMN.RESTRICT_TYPE_CD] = "EQ";
+                                dsResult.Tables[0].Rows.Add(dr);
+                            }
+
+                            if (arrModuleId.Count > 0)
+                            {
+                                DataRow dr = dsResult.Tables[0].NewRow();
+                                string data = "MODULE_ID=";
+
+                                for (int i = 0; i < arrModuleId.Count; i++)
+                                {
+                                    data += arrModuleId[i].ToString() + ",";
+                                }
+
+                                data = data.Remove(data.Length - 1, 1);
+                                dr[Definition.DATA_FILTER] = data;
+                                dr[Definition.SpreadHeaderColKey.EXCLUDE_YN] = "N";
+                                dr[Definition.CHART_COLUMN.RESTRICT_TYPE_CD] = "EQ";
+                                dsResult.Tables[0].Rows.Add(dr);
+                            }
+
+                            if (arrAlias.Count > 0)
+                            {
+                                DataRow dr = dsResult.Tables[0].NewRow();
+                                string data = "MODULE_ALIAS=";
+
+                                for (int i = 0; i < arrAlias.Count; i++)
+                                {
+                                    data += arrAlias[i].ToString() + ",";
+                                }
+
+                                data = data.Remove(data.Length - 1, 1);
+                                dr[Definition.DATA_FILTER] = data;
+                                dr[Definition.SpreadHeaderColKey.EXCLUDE_YN] = "N";
+                                dr[Definition.CHART_COLUMN.RESTRICT_TYPE_CD] = "EQ";
+                                dsResult.Tables[0].Rows.Add(dr);
+                            }
+
+                            dsResult.AcceptChanges();
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                BISTel.PeakPerformance.Client.CommonLibrary.LogHandler.ExceptionLogWrite(Definition.APPLICATION_NAME, new string[] { ex.Message, ex.Source, ex.StackTrace });
+            }
+
+            return dsResult;
+        }
+
+        //SPC-930, KBLEE, START
+        public DataSet GetRuleListByChartType(byte[] baData)
+        {
+            DataSet dsReturn = new DataSet();
+            LinkedList llparam = new LinkedList();
+            llparam.SetSerialData(baData);
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("SELECT spc_rule_no, description ");
+            sb.Append(" FROM RULE_MST_SPC              ");
+            sb.Append(" WHERE 1=1                      ");
+
+            try
+            {
+                LinkedList llstCondition = new LinkedList();
+
+                if (llparam[Definition.CHART_TYPE_STRING].ToString().Length > 0)
+                {
+                    sb.Append(" AND source_type_cd = :CHART_TYPE ");
+                    llstCondition.Add(Definition.CHART_TYPE_STRING, llparam[Definition.CHART_TYPE_STRING]);
+                }
+
+                sb.Append(" ORDER BY spc_rule_no ");
+
+                dsReturn = base.Query(sb.ToString(), llstCondition);
+
+                if (base.ErrorMessage.Length > 0)
+                {
+                    DSUtil.SetResult(dsReturn, 0, "", base.ErrorMessage);
+                }
+            }
+            catch (Exception ex)
+            {
+                BISTel.PeakPerformance.Client.CommonLibrary.LogHandler.ExceptionLogWrite(Definition.APPLICATION_NAME, new string[] { ex.Message, ex.Source, ex.StackTrace });
+            }
+
+            return dsReturn;
+        }
+        //SPC-930, KBLEE, END
+
+        //SPC-930, KBLEE, START
+        public DataSet GetRuleOptionByRuleNo(byte[] baData)
+        {
+            DataSet dsReturn = new DataSet();
+            LinkedList llparam = new LinkedList();
+            llparam.SetSerialData(baData);
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("SELECT MRO.*                                                ");
+            sb.Append("  FROM MODEL_RULE_MST_SPC MR, MODEL_RULE_OPT_MST_SPC MRO    ");
+            sb.Append(" WHERE 1 = 1                                                ");
+            sb.Append("   AND MR.rawid = MRO.model_rule_rawid                      ");
+            sb.Append("   AND MR.MODEL_CONFIG_RAWID = :MODEL_CONFIG_RAWID          ");
+            sb.Append("   AND MR.spc_rule_no = :SPC_RULE_NO                        ");
+            sb.Append("   AND MRO.rule_option_no =                                 ");
+            sb.Append("               (SELECT RO.rule_option_no                    ");
+            sb.Append("                  FROM RULE_MST_SPC R, RULE_OPT_MST_SPC RO  ");
+            sb.Append("                 WHERE 1 = 1                                ");
+            sb.Append("                   AND R.rawid = RO.rule_rawid              ");
+            sb.Append("                   AND R.spc_rule_no = :SPC_RULE_NO         ");
+            sb.Append("                   AND RO.option_name = :OPTION_NAME )      ");
+
+            try
+            {
+                LinkedList llstCondition = new LinkedList();
+
+                if (llparam[Definition.COL_MODEL_CONFIG_RAWID].ToString().Length > 0)
+                {
+                    llstCondition.Add(Definition.COL_MODEL_CONFIG_RAWID, llparam[Definition.COL_MODEL_CONFIG_RAWID]);
+                }
+                if (llparam[Definition.SPC_RULE_NO].ToString().Length > 0)
+                {
+                    llstCondition.Add(Definition.SPC_RULE_NO, llparam[Definition.SPC_RULE_NO]);
+                }
+                if (llparam[Definition.OPTION_NAME].ToString().Length > 0)
+                {
+                    llstCondition.Add(Definition.OPTION_NAME, llparam[Definition.OPTION_NAME]);
+                }
+
+                dsReturn = base.Query(sb.ToString(), llstCondition);
+
+                if (base.ErrorMessage.Length > 0)
+                {
+                    DSUtil.SetResult(dsReturn, 0, "", base.ErrorMessage);
+                }
+            }
+            catch (Exception ex)
+            {
+                BISTel.PeakPerformance.Client.CommonLibrary.LogHandler.ExceptionLogWrite(Definition.APPLICATION_NAME, new string[] { ex.Message, ex.Source, ex.StackTrace });
+            }
+
+            return dsReturn;
+        }
+        //SPC-930, KBLEE, END
     }
 
     public class SPCATTModelData : DataBase
@@ -9807,7 +10552,7 @@ ORDER BY spc_model_name";
 
                 sb.Append("SELECT dcms.rawid,                                   ");
                 sb.Append("       dcms.def_config_rawid AS model_config_rawid, dcms.context_key,  ");
-                
+
                 if (useComma)
                 {
                     sb.Append("  replace(dcms.context_value, ';', ',') as context_value,          ");
@@ -9894,7 +10639,7 @@ ORDER BY spc_model_name";
                 sb.Remove(0, sb.Length);
 
                 sb.Append("SELECT b.rawid, b.def_rule_rawid AS model_rule_rawid, b.rule_option_no,    ");
-                
+
                 if (useComma)
                 {
                     sb.Append("  replace(b.rule_option_value, ';', ',') as rule_option_value,          ");
@@ -10448,7 +11193,7 @@ ORDER BY spc_model_name";
                                 string excludeList = drContext[COLUMN.EXCLUDE_LIST].ToString();
                                 drContext[COLUMN.EXCLUDE_LIST] = excludeList.Replace(",", ";");
                             }
-                            
+
                             llstFieldData.Add(COLUMN.CONTEXT_VALUE, drContext[COLUMN.CONTEXT_VALUE]);
                             llstFieldData.Add(COLUMN.EXCLUDE_LIST, drContext[COLUMN.EXCLUDE_LIST]);
                             llstFieldData.Add(COLUMN.KEY_ORDER, drContext[COLUMN.KEY_ORDER]);
@@ -10510,7 +11255,7 @@ ORDER BY spc_model_name";
                                 llstFieldData.Add(COLUMN.MODEL_RULE_RAWID, ruleRawID);
 
                                 llstFieldData.Add(COLUMN.RULE_OPTION_NO, drRuleOpt[COLUMN.RULE_OPTION_NO]);
-                                
+
                                 if (useComma)
                                 {
                                     string ruleOPTValue = drRuleOpt[COLUMN.RULE_OPTION_VALUE].ToString();
@@ -11269,7 +12014,7 @@ ORDER BY spc_model_name";
                                 llstFieldData.Add(COLUMN.DEF_RULE_RAWID, ruleRawID);
 
                                 llstFieldData.Add(COLUMN.RULE_OPTION_NO, drRuleOpt[COLUMN.RULE_OPTION_NO]);
-                                
+
                                 if (useComma)
                                 {
                                     string sValue = drRuleOpt[COLUMN.RULE_OPTION_VALUE].ToString();
@@ -11683,7 +12428,7 @@ ORDER BY spc_model_name";
 
         private const string SQL_COPY_MODEL_FOR_INSERT_MODEL_RULE_ATT_MST_SPC = " INSERT INTO MODEL_RULE_ATT_MST_SPC (RAWID, MODEL_CONFIG_RAWID, SPC_RULE_NO, OCAP_LIST, USE_MAIN_SPEC_YN, RULE_ORDER, CREATE_DTTS, CREATE_BY, LAST_UPDATE_DTTS, LAST_UPDATE_BY) " +
             " SELECT  SEQ_MODEL_RULE_MST_SPC.NEXTVAL, :TARGET_MODEL_CONFIG_RAWID, SPC_RULE_NO, OCAP_LIST, USE_MAIN_SPEC_YN, RULE_ORDER, SYSTIMESTAMP, :USER_ID, SYSTIMESTAMP, :USER_ID " +
-            " FROM    MODEL_RULE_MST_SPC " +
+            " FROM    MODEL_RULE_ATT_MST_SPC " +
             " WHERE   MODEL_CONFIG_RAWID = :SOURCE_MODEL_CONFIG_RAWID ";
 
         private const string SQL_COPY_MODEL_FOR_INSERT_MODEL_RULE_OPT_ATT_MST_SPC = " INSERT INTO MODEL_RULE_OPT_ATT_MST_SPC (RAWID, MODEL_RULE_RAWID, RULE_OPTION_NO, CREATE_DTTS, CREATE_BY, LAST_UPDATE_DTTS, LAST_UPDATE_BY, RULE_OPTION_VALUE) " +
@@ -11855,7 +12600,7 @@ ORDER BY spc_model_name";
                 #region MODEL_CONFIG_OPT_MST_SPC
                 isEmpty = true;
                 sbQuery.Length = 0;
-                tableName = Definition.TableName.MODEL_CONFIG_OPT_ATT_MST_SPC;
+                tableName = TABLE.MODEL_CONFIG_OPT_ATT_MST_SPC;
 
                 sbQuery.AppendLine(SQL_COPY_MODEL_FOR_MODEL_CONFIG_OPT_ATT_MST_SPC);
 
@@ -11889,7 +12634,7 @@ ORDER BY spc_model_name";
                 #region MODEL_AUTOCALC_MST_SPC
                 isEmpty = true;
                 sbQuery.Length = 0;
-                tableName = Definition.TableName.MODEL_AUTOCALC_ATT_MST_SPC;
+                tableName = TABLE.MODEL_AUTOCALC_ATT_MST_SPC;
 
                 sbQuery.AppendLine(SQL_COPY_MODEL_FOR_MODEL_AUTOCALC_ATT_MST_SPC);
 
@@ -11906,19 +12651,7 @@ ORDER BY spc_model_name";
                 _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_U_CONTROL_LIMIT].ToString(), COLUMN.U_CL_YN, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
                 _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_CALCULATION_WITH_SHIFT_COMPENSATION].ToString(), COLUMN.SHIFT_CALC_YN, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
                 _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_CALCULATION_THRESHOLD_OFF_YN].ToString(), COLUMN.THRESHOLD_OFF_YN, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
-                _commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_AUTO_CALCULATION_COUNT].ToString(), COLUMN.CALC_COUNT, COLUMN.INITIAL_CALC_COUNT, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
-
-                //_commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_RAW_CALCULATION_VALUE].ToString(), COLUMN.RAW_CALC_VALUE, COLUMN.INITIAL_CALC_COUNT, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
-                //_commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_MEAN_CALCULATION_VALUE].ToString(), COLUMN.MEAN_CALC_VALUE, COLUMN.INITIAL_CALC_COUNT, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
-                //_commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_EWMA_STD_CALCULATION_VALUE].ToString(), COLUMN.STD_CALC_VALUE, COLUMN.INITIAL_CALC_COUNT, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
-                //_commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_EWMA_MEAN_CALCULATION_VALUE].ToString(), COLUMN.EWMA_M_CALC_VALUE, COLUMN.INITIAL_CALC_COUNT, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
-                //_commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_EWMA_RANGE_CALCULATION_VALUE].ToString(), COLUMN.EWMA_R_CALC_VALUE, COLUMN.INITIAL_CALC_COUNT, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
-                //_commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_EWMA_STD_CALCULATION_VALUE].ToString(), COLUMN.EWMA_S_CALC_VALUE, COLUMN.INITIAL_CALC_COUNT, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
-                //_commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_MR_CALCULATION_VALUE].ToString(), COLUMN.MR_CALC_VALUE, COLUMN.INITIAL_CALC_COUNT, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
-                //_commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_MS_CALCULATION_VALUE].ToString(), COLUMN.MS_CALC_VALUE, COLUMN.INITIAL_CALC_COUNT, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
-                //_commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_MA_CALCULATION_VALUE].ToString(), COLUMN.MA_CALC_VALUE, COLUMN.INITIAL_CALC_COUNT, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
-                //_commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_RANGE_CALCULATION_VALUE].ToString(), COLUMN.RANGE_CALC_VALUE, COLUMN.INITIAL_CALC_COUNT, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
-
+                //_commondata.MakeQueryForConfigMst(ref isEmpty, sbQuery, tableName, llstParam[Definition.COPY_MODEL.AUTO_AUTO_CALCULATION_INITIAL_COUNT].ToString(), COLUMN.CALC_COUNT, COLUMN.INITIAL_CALC_COUNT, COLUMN.MODEL_CONFIG_RAWID, sourceConfigRawID);
 
                 if (isEmpty == false)
                 {
@@ -11944,6 +12677,48 @@ ORDER BY spc_model_name";
                     }
                 }
                 #endregion
+
+
+                #region MODEL_CONTEXT_MST_SPC
+
+                //SPC-1218, KBLEE, START
+                if (llstParam[Definition.COPY_MODEL.CONTEXT_CONTEXT_INFORMATION].ToString().Equals("Y"))
+                {
+                    string queryGetSourceContext =
+                        @"SELECT context_key, context_value 
+                            FROM MODEL_CONTEXT_ATT_MST_SPC 
+                           WHERE 1=1
+                            AND model_config_rawid = " + sourceConfigRawID;
+
+                    DataSet sourceResult = base.Query(queryGetSourceContext);
+                    int rowCount = sourceResult.Tables[0].Rows.Count;
+
+                    for (int i = 0; i < rowCount; i++)
+                    {
+                        DataRow dr = sourceResult.Tables[0].Rows[i];
+                        string contextKey = dr[COLUMN.CONTEXT_KEY].ToString();
+                        string contextValue = dr[COLUMN.CONTEXT_VALUE].ToString();
+
+                        string queryUpdateContextInform =
+                            @"UPDATE MODEL_CONTEXT_ATT_MST_SPC
+                                 SET context_value = '" + contextValue + @"' 
+                               WHERE 1=1
+                                AND context_key = '" + contextKey + @"' 
+                                AND model_config_rawid = " + targetConfigRawID;
+
+                        dsResult = base.Query(queryUpdateContextInform);
+
+                        if (base.ErrorMessage.Length > 0)
+                        {
+                            DSUtil.SetResult(dsResult, 0, "", base.ErrorMessage);
+                            return dsResult;
+                        }
+                    }
+                }
+                //SPC-1218, KBLEE, END
+
+                #endregion
+
 
                 foreach (string s in _commondata.GetIncreaseATTVersionQuery(targetConfigRawID))
                 {

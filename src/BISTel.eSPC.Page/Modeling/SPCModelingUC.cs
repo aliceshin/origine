@@ -117,6 +117,7 @@ namespace BISTel.eSPC.Page.Modeling
         //SPC-676 ChartDesc
         private int _Colldx_CHART_DESCRIPTION = 0;
 
+        private string _sFab; //SPC-929, KBLEE
         private string _sLineRawid;
         private string _sLine;
         private string _sAreaRawid;
@@ -125,6 +126,7 @@ namespace BISTel.eSPC.Page.Modeling
         private string _sSPCModelRawid;
         private string _sSPCModelName;
         private string _sSPCGroupName;
+        private string _sConditionFilter;
 
         private DataSet _dsSPCModeData = new DataSet();
         private DataTable _dtTableOriginal = new DataTable();
@@ -220,6 +222,12 @@ namespace BISTel.eSPC.Page.Modeling
                 }
             }
 
+            bool bUseComponent = Configuration.GetConfig("configuration/general/componentcondition").GetAttribute("isuse", false);
+            if (bUseComponent)
+            {
+                this.InitializeCondition();
+            }
+
             this.InitializePage();
         }
 
@@ -228,23 +236,155 @@ namespace BISTel.eSPC.Page.Modeling
         //    return new BISTel.eSPC.Condition.Modeling.SPCModelCondition();			
         //}
 
+        public void InitializeCondition()
+        {
+            //DCBar.
+            if (ComponentCondition.GetInstance().Count > 0)
+            {
+                DataTable dtTemp = new DataTable();
+                dtTemp.Columns.Add(Definition.CONDITION_SEARCH_KEY_VALUEDATA);
+                dtTemp.Columns.Add(Definition.CONDITION_SEARCH_KEY_DISPLAYDATA);
+                dtTemp.Columns.Add(Definition.CONDITION_SEARCH_KEY_CHECKED);
+
+                if (ComponentCondition.GetInstance().Contain(Definition.CONDITION_SEARCH_KEY_AREA))
+                {
+                    DataTable _dtArea = dtTemp.Clone();
+                    _dtArea.Columns.Add(Definition.CONDITION_KEY_AREA);
+                    _dtArea.Columns.Add(Definition.CONDITION_SEARCH_KEY_LINE);
+                    _dtArea.Columns.Add(Definition.CONDITION_SEARCH_KEY_FAB);
+                    _dtArea.Columns.Add(Definition.CONDITION_SEARCH_KEY_SITE);
+
+                    DataRow dr = _dtArea.NewRow();
+                    dr[Definition.CONDITION_SEARCH_KEY_VALUEDATA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_LINE_RAWID);
+                    dr[Definition.CONDITION_SEARCH_KEY_DISPLAYDATA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_AREA);
+                    dr[Definition.CONDITION_SEARCH_KEY_CHECKED] = "T";
+                    dr[Definition.CONDITION_KEY_AREA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_AREA);
+                    dr[Definition.CONDITION_SEARCH_KEY_LINE] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_LINE_RAWID);
+                    dr[Definition.CONDITION_SEARCH_KEY_FAB] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_FAB);
+                    dr[Definition.CONDITION_SEARCH_KEY_SITE] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_SITE);
+                    _dtArea.Rows.Add(dr);
+
+                    _llstSearchCondition.Add(Definition.CONDITION_SEARCH_KEY_AREA, _dtArea);
+                }
+
+                if (ComponentCondition.GetInstance().Contain(Definition.CONDITION_SEARCH_KEY_EQPMODEL))
+                {
+                    DataTable dtEQPModel = dtTemp.Clone();
+                    dtEQPModel.Columns.Add(Definition.CONDITION_KEY_EQPMODEL);
+                    dtEQPModel.Columns.Add(Definition.CONDITION_SEARCH_KEY_AREA);
+                    dtEQPModel.Columns.Add(Definition.CONDITION_SEARCH_KEY_LINE);
+                    dtEQPModel.Columns.Add(Definition.CONDITION_SEARCH_KEY_FAB);
+                    dtEQPModel.Columns.Add(Definition.CONDITION_SEARCH_KEY_SITE);
+
+                    DataRow dr = dtEQPModel.NewRow();
+                    dr[Definition.CONDITION_SEARCH_KEY_VALUEDATA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_EQPMODEL);
+                    dr[Definition.CONDITION_SEARCH_KEY_DISPLAYDATA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_EQPMODEL);
+                    dr[Definition.CONDITION_SEARCH_KEY_CHECKED] = "T";
+                    dr[Definition.CONDITION_KEY_EQPMODEL] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_EQPMODEL);
+                    dr[Definition.CONDITION_SEARCH_KEY_AREA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_AREA_RAWID);
+                    dr[Definition.CONDITION_SEARCH_KEY_LINE] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_LINE_RAWID);
+                    dr[Definition.CONDITION_SEARCH_KEY_FAB] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_FAB);
+                    dr[Definition.CONDITION_SEARCH_KEY_SITE] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_SITE);
+                    dtEQPModel.Rows.Add(dr);
+
+                    _llstSearchCondition.Add(Definition.CONDITION_SEARCH_KEY_EQPMODEL, dtEQPModel);
+                }
+
+                if (ComponentCondition.GetInstance().Contain(Definition.CONDITION_SEARCH_KEY_FILTER))
+                {
+                    DataTable _dtFilter = new DataTable();
+                    _dtFilter.Columns.Add(Definition.CONDITION_SEARCH_KEY_VALUEDATA);
+                    _dtFilter.Columns.Add(Definition.CONDITION_SEARCH_KEY_DISPLAYDATA);
+
+                    DataRow dr = _dtFilter.NewRow();
+                    dr[Definition.CONDITION_SEARCH_KEY_VALUEDATA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_FILTER);
+                    dr[Definition.CONDITION_SEARCH_KEY_DISPLAYDATA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_FILTER);
+                    _dtFilter.Rows.Add(dr);
+
+                    _llstSearchCondition.Add(Definition.CONDITION_KEY_FILTER, _dtFilter);
+                }
+
+                if (ComponentCondition.GetInstance().Contain(Definition.CONDITION_SEARCH_KEY_SPC_MODEL_LIST))
+                {
+                    DataTable dtSPCModelList = dtTemp.Clone();
+
+                    DataRow dr = dtSPCModelList.NewRow();
+                    dr[Definition.CONDITION_SEARCH_KEY_VALUEDATA] = "SPC MODEL LIST";
+                    dr[Definition.CONDITION_SEARCH_KEY_DISPLAYDATA] = "SPC MODEL LIST";
+                    dr[Definition.CONDITION_SEARCH_KEY_CHECKED] = "F";
+
+                    dtSPCModelList.Rows.Add(dr);
+
+                    _llstSearchCondition.Add("SPC MODEL LIST", dtSPCModelList);
+                }
+
+                if (ComponentCondition.GetInstance().Contain(Definition.CONDITION_SEARCH_KEY_GROUP_NAME))
+                {
+                    DataTable dtGroup = dtTemp.Clone();
+                    dtGroup.Columns.Add("SPC MODEL LIST");
+
+                    DataRow dr = dtGroup.NewRow();
+                    dr[Definition.CONDITION_SEARCH_KEY_VALUEDATA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_GROUP_NAME);
+                    dr[Definition.CONDITION_SEARCH_KEY_DISPLAYDATA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_GROUP_NAME);
+                    dr[Definition.CONDITION_SEARCH_KEY_CHECKED] = "F";
+                    dr["SPC MODEL LIST"] = "SPC MODEL LIST";
+
+                    dtGroup.Rows.Add(dr);
+
+                    _llstSearchCondition.Add(Definition.CONDITION_KEY_GROUP_NAME, dtGroup);
+                }
+
+                if (ComponentCondition.GetInstance().Contain(Definition.CONDITION_SEARCH_KEY_SPCMODEL))
+                {
+                    DataTable dtSPCModel = dtTemp.Clone();
+                    dtSPCModel.Columns.Add(Definition.CONDITION_KEY_LOCATION_RAWID);
+                    dtSPCModel.Columns.Add(Definition.CONDITION_KEY_AREA_RAWID);
+                    dtSPCModel.Columns.Add(Definition.CONDITION_KEY_GROUP_NAME);
+                    dtSPCModel.Columns.Add("SPC MODEL LIST");
+
+                    DataRow dr = dtSPCModel.NewRow();
+                    dr[Definition.CONDITION_SEARCH_KEY_VALUEDATA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_MODEL_CONFIG_RAWID);
+                    dr[Definition.CONDITION_SEARCH_KEY_DISPLAYDATA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_SPCMODEL);
+                    dr[Definition.CONDITION_SEARCH_KEY_CHECKED] = "T";
+                    dr[Definition.CONDITION_KEY_LOCATION_RAWID] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_LINE_RAWID);
+                    dr[Definition.CONDITION_KEY_AREA_RAWID] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_AREA_RAWID);
+                    dr[Definition.CONDITION_KEY_GROUP_NAME] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_GROUP_NAME);
+                    dr["SPC MODEL LIST"] = "SPC MODEL LIST";
+
+                    dtSPCModel.Rows.Add(dr);
+
+                    _llstSearchCondition.Add(Definition.CONDITION_SEARCH_KEY_SPCMODEL, dtSPCModel);
+                }
+            }
+
+            this.RefreshConditions(this._llstSearchCondition);
+        }
+
         LinkedList llstDynamicCondition = new LinkedList();
         public override void PageSearch(LinkedList llCondition)
         {
             //초기화
             this.InitializePageData();
-
             llstDynamicCondition = llCondition;
+            ComponentCondition.GetInstance().Clear();
 
             DataTable dtSite = (DataTable)llstDynamicCondition[Definition.CONDITION_SEARCH_KEY_SITE];
             string site = string.Empty;
             if (dtSite != null)
+            {
                 site = dtSite.Rows[0][Definition.CONDITION_SEARCH_KEY_DISPLAYDATA].ToString();
+                ComponentCondition.GetInstance().Set(Definition.CONDITION_SEARCH_KEY_SITE, site);
+            }
 
             DataTable dtFab = (DataTable)llstDynamicCondition[Definition.CONDITION_SEARCH_KEY_FAB];
             string fab = "";
             if (dtFab != null)
+            {
                 fab = dtFab.Rows[0][Definition.CONDITION_SEARCH_KEY_DISPLAYDATA].ToString();
+                ComponentCondition.GetInstance().Set(Definition.CONDITION_SEARCH_KEY_FAB, fab);
+
+                _sFab = fab; //SPC-929, KBLEE
+            }
 
 
             DataTable dt = ((DataTable)llstDynamicCondition[Definition.CONDITION_SEARCH_KEY_SPCMODEL]);
@@ -263,6 +403,8 @@ namespace BISTel.eSPC.Page.Modeling
 
             this._sAreaRawid = DCUtil.GetValueData(dtArea);
             this._sArea = dtArea.Rows[0][DCUtil.DISPLAY_FIELD].ToString();
+            ComponentCondition.GetInstance().Set(Definition.CONDITION_SEARCH_KEY_AREA, _sArea);
+            ComponentCondition.GetInstance().Set(Definition.CONDITION_SEARCH_KEY_AREA_RAWID, _sAreaRawid);
 
             if (llCondition.Contains(Definition.CONDITION_SEARCH_KEY_LINE))
             {
@@ -270,6 +412,9 @@ namespace BISTel.eSPC.Page.Modeling
                 this._sLine = dtArea.Rows[0][DCUtil.DISPLAY_FIELD].ToString();
                 this._sLineRawid = DCUtil.GetValueData(dtArea);
             }
+
+            ComponentCondition.GetInstance().Set(Definition.CONDITION_SEARCH_KEY_LINE, _sLine);
+            ComponentCondition.GetInstance().Set(Definition.CONDITION_SEARCH_KEY_LINE_RAWID, _sLineRawid);
 
             if (!base.ApplyAuthory(this.bbtnList, site, fab, this._sLine, this._sArea.Trim('\'')))
             {
@@ -284,6 +429,14 @@ namespace BISTel.eSPC.Page.Modeling
                 DataTable dtGroup = (DataTable)llCondition[Definition.CONDITION_KEY_GROUP_NAME];
 
                 this._sSPCGroupName = dtGroup.Rows[0][DCUtil.DISPLAY_FIELD].ToString();
+                ComponentCondition.GetInstance().Set(Definition.CONDITION_SEARCH_KEY_GROUP_NAME, _sSPCGroupName);
+            }
+
+            if (llCondition.Contains("FILTER"))
+            {
+                DataTable dtFilter = (DataTable)llCondition[Definition.CONDITION_KEY_FILTER];
+                this._sConditionFilter = dtFilter.Rows[0][DCUtil.VALUE_FIELD].ToString();
+                ComponentCondition.GetInstance().Set(Definition.CONDITION_SEARCH_KEY_FILTER, _sConditionFilter);
             }
 
             if (llCondition.Contains(Definition.CONDITION_SEARCH_KEY_EQPMODEL))
@@ -295,7 +448,7 @@ namespace BISTel.eSPC.Page.Modeling
                     if (!llCondition.Contains(Definition.CONDITION_SEARCH_KEY_SPCMODEL))
                     {
                         this._sEQPModel = dtEQPModel.Rows[0][DCUtil.VALUE_FIELD].ToString();
-
+                        ComponentCondition.GetInstance().Set(Definition.CONDITION_SEARCH_KEY_EQPMODEL, _sEQPModel);
                         MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_SELECT_OR_CREATE_MODEL", null, null);
                         return;
                     }
@@ -306,7 +459,12 @@ namespace BISTel.eSPC.Page.Modeling
                         this._sSPCModelRawid = dtSPCModel.Rows[0][DCUtil.VALUE_FIELD].ToString();
                         this._sSPCModelName = dtSPCModel.Rows[0][DCUtil.DISPLAY_FIELD].ToString();
                         this._sEQPModel = dtEQPModel.Rows[0][DCUtil.VALUE_FIELD].ToString();
+
+                        ComponentCondition.GetInstance().Set(Definition.CONDITION_SEARCH_KEY_MODEL_CONFIG_RAWID, _sSPCModelRawid);
+                        ComponentCondition.GetInstance().Set(Definition.CONDITION_SEARCH_KEY_SPCMODEL, _sSPCModelName);
+                        ComponentCondition.GetInstance().Set(Definition.CONDITION_SEARCH_KEY_EQPMODEL, _sEQPModel);
                     }
+                    
                 }
                 //else
                 //{
@@ -337,8 +495,12 @@ namespace BISTel.eSPC.Page.Modeling
 
                 this._sSPCModelRawid = dtSPCModel.Rows[0][DCUtil.VALUE_FIELD].ToString();
                 this._sSPCModelName = dtSPCModel.Rows[0][DCUtil.DISPLAY_FIELD].ToString();
+
+                ComponentCondition.GetInstance().Set(Definition.CONDITION_SEARCH_KEY_MODEL_CONFIG_RAWID, _sSPCModelRawid);
+                ComponentCondition.GetInstance().Set(Definition.CONDITION_SEARCH_KEY_SPCMODEL, _sSPCModelName);
             }
 
+            
             this.ConfigListDataBinding();
         }
 
@@ -1855,6 +2017,13 @@ namespace BISTel.eSPC.Page.Modeling
                     chartCalcPopup.SessionData = this.sessionData;
                     chartCalcPopup.SModelConfigRawID = sConfigRawID;
                     chartCalcPopup.SParamAlias = sParamAlias;
+                    //SPC-929, KBLEE, START
+                    chartCalcPopup.SFab = _sFab;
+                    chartCalcPopup.SLine = _sLine;
+                    chartCalcPopup.SArea = _sArea;
+                    chartCalcPopup.SLineRawId = _sLineRawid;
+                    chartCalcPopup.SAreaRawId = _sAreaRawid;
+                    //SPC-929, KBLEE, END
                     //SPC-812
                     chartCalcPopup._sCalculation = false;
                     
@@ -4013,10 +4182,13 @@ namespace BISTel.eSPC.Page.Modeling
         int freeze_Count = 0;
         void freeze_Click(object sender, EventArgs e)
         {
-            
-            
+
+
             if (bsprData.ActiveSheet.ColumnCount <= 0)
+            {
                 return;
+            }
+
             if (this.bsprData.ActiveSheet.ActiveColumnIndex >= 0)
             {
                 bsprData.ActiveSheet.FrozenColumnCount = bsprData.ActiveSheet.ActiveColumnIndex;
@@ -4064,6 +4236,7 @@ namespace BISTel.eSPC.Page.Modeling
             _arrColConfig.Add(Definition.COPY_MODEL.CONTEXT_AUTO_CALCULATION);
             _arrColConfig.Add(Definition.COPY_MODEL.CONTEXT_AUTO_GENERATE_SUB_CHART);
             _arrColConfig.Add(Definition.COPY_MODEL.CONTEXT_ACTIVE);
+            _arrColConfig.Add(Definition.COPY_MODEL.CONTEXT_MODE);
             _arrColConfig.Add(Definition.COPY_MODEL.CONTEXT_SAMPLE_COUNT);
             _arrColConfig.Add(Definition.COPY_MODEL.CONTEXT_MANAGE_TYPE);
             _arrColConfig.Add(Definition.COPY_MODEL.CONTEXT_AUTO_SETTING);
@@ -4071,9 +4244,8 @@ namespace BISTel.eSPC.Page.Modeling
             _arrColConfig.Add(Definition.COPY_MODEL.CONTEXT_GENERATE_SUB_CHART_WITH_AUTO_CALCULATION);
             _arrColConfig.Add(Definition.COPY_MODEL.CONTEXT_USE_NORMALIZATION_VALUE);
             _arrColConfig.Add(Definition.COPY_MODEL.CONTEXT_INHERIT_THE_SPEC_OF_MAIN);
-            _arrColConfig.Add(Definition.COPY_MODEL.CONTEXT_MODE);
 
-            //_arrColContext.Add(Definition.COPY_MODEL.CONTEXT_CHART_DESCRIPTION);
+            _arrColContext.Add(Definition.COPY_MODEL.CONTEXT_CONTEXT_INFORMATION); //SPC-1218, KBLEE
 
             _arrColLimit.Add(Definition.COPY_MODEL.RULE_MASTER_SPEC_LIMIT);
             _arrColLimit.Add(Definition.COPY_MODEL.RULE_RAW);
@@ -4138,7 +4310,7 @@ namespace BISTel.eSPC.Page.Modeling
             }
 
             ArrayList alCheckRowIndex = this.bsprData.GetCheckedList((int)iColIdx.SELECT);
-
+            
             if (alCheckRowIndex.Count == 0)
             {
                 MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_SELECT_TARGET_MODEL", null, null);
@@ -4146,7 +4318,33 @@ namespace BISTel.eSPC.Page.Modeling
             }
 
             if (this._popUp != null)
+            {
                 this._popUp.InitializePopup();
+            }
+
+            //SPC-1218, KBLEE, START
+            for (int i = 0; i < alCheckRowIndex.Count; i++)
+            {
+                int selectedRow = (int)alCheckRowIndex[i];
+
+                if (this._popUp.CONFIG_RAWID.ToString() == this.bsprData.ActiveSheet.Cells[selectedRow, (int)iColIdx.CHART_ID].Text)
+                {
+                    MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_TARGET_SAME", null, null);
+                    return;
+                }
+            }
+
+            for (int i = 0; i < alCheckRowIndex.Count; i++)
+            {
+                int selectedRow = (int)alCheckRowIndex[i];
+
+                if (this._popUp.CONTEXT_CONTEXT_INFORMATION == "Y" && this.bsprData.ActiveSheet.Cells[selectedRow, (int)iColIdx.MAIN_YN].Text == "N")
+                {
+                    MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_COPY_CONTEXT_FOR_ONLY_MAIN", null, null);
+                    return;
+                }
+            }
+            //SPC-1218, KBLEE, END
 
             //SPC-855 by Louis ==> SpecLimit Check (raw,mean,master)
             if (_popUp.RULE_MASTER_SPEC_LIMIT.ToString().Equals("Y") ||
@@ -4154,18 +4352,21 @@ namespace BISTel.eSPC.Page.Modeling
             {
                 LinkedList toraltargetRawidList = new LinkedList();
                 string[] targetRawid = new string[alCheckRowIndex.Count];
+
                 for (int i = 0; i < alCheckRowIndex.Count; i++)
                 {
                     LinkedList targetRawidList = new LinkedList();
                     int selectedRow = (int)alCheckRowIndex[i];
                     targetRawid[i] = this.bsprData.ActiveSheet.Cells[selectedRow, (int)iColIdx.CHART_ID].Text;
                 }
+
                 DataSet targetSpecData = _wsSPC.GetTargetConfigSpecData(targetRawid);
                 DataSet sourceSpecData = _wsSPC.GetSourseConfigSpecData(_popUp.CONFIG_RAWID.ToString());
 
                 if (targetSpecData != null && sourceSpecData != null)
                 {
                     bool CompareResult = true;
+
                     if (_popUp.RULE_MASTER_SPEC_LIMIT.ToString().Equals("Y") && _popUp.RULE_RAW.ToString().Equals("Y") && _popUp.RULE_MEAN.ToString().Equals("N"))
                     {
                         CompareResult = this.compareSpecLimit(sourceSpecData, targetSpecData, "111");
@@ -4194,33 +4395,35 @@ namespace BISTel.eSPC.Page.Modeling
                     {
                         CompareResult = this.compareSpecLimit(sourceSpecData, targetSpecData, "001");
                     }
+
                     if (!CompareResult)
                     {
                         return;
                     }
                 }
-
             }
-
-            StringBuilder sbResult = new StringBuilder();
-            string sourceConfigRawID = this._popUp.CONFIG_RAWID;
-
-            LinkedList llCopyModel = new LinkedList();
-            LinkedList llstTotalConfigInfo = new LinkedList();
-            ArrayList arrTotalConfigList = new ArrayList();
 
             if (this._popUp != null)
             {
+                StringBuilder sbResult = new StringBuilder();
+                string sourceConfigRawID = this._popUp.CONFIG_RAWID;
+
+                LinkedList llCopyModel = new LinkedList();
+                LinkedList llstTotalConfigInfo = new LinkedList();
+                ArrayList arrTotalConfigList = new ArrayList();
+
                 for (int i = 0; i < alCheckRowIndex.Count; i++)
                 {
                     int selectedRow = (int)alCheckRowIndex[i];
                     string targetConfigRawID =
                         this.bsprData.ActiveSheet.Cells[selectedRow, (int)iColIdx.CHART_ID].Text;
                     string mainYN = this.bsprData.ActiveSheet.Cells[selectedRow, (int)iColIdx.MAIN_YN].Text;
-
                     bool hasSubConfigs = false;
+
                     if (this.bsprData.ActiveSheet.RowCount > 1) //SubConfig 존재여부
+                    {
                         hasSubConfigs = true;
+                    }
 
                     llCopyModel = this.GetCopyModelList(mainYN, hasSubConfigs, sourceConfigRawID, targetConfigRawID);
                     arrTotalConfigList.Add(llCopyModel);
@@ -4257,23 +4460,21 @@ namespace BISTel.eSPC.Page.Modeling
                     Panel pnlDumy = new Panel();
                     pnlDumy.Size = new Size(250, 500);
                     this.InvokeMoreInformation(EESConstants.InformationType.UI, true, this.KeyOfPage,
-                                               "SPC Model Property", pnlDumy, false);
+                                                "SPC Model Property", pnlDumy, false);
 
                     this.MsgClose();
 
                     if (sbResult.Length < 1)
                     {
                         MSGHandler.DisplayMessage(MSGType.Information,
-                                                  MSGHandler.GetMessage(Definition.MSG_KEY_SUCCESS_SAVE_CHANGE_DATA));
+                                                    MSGHandler.GetMessage(Definition.MSG_KEY_SUCCESS_SAVE_CHANGE_DATA));
                     }
                     else
                     {
                         MSGHandler.DisplayMessage(MSGType.Information, sbResult.ToString());
                     }
                 }
-                
             }
-
         }
 
         private LinkedList GetCopyModelList(string mainYN, bool hasSubConfigs, string sourceConfigRawID, string targetConfigRawID)
@@ -4298,6 +4499,7 @@ namespace BISTel.eSPC.Page.Modeling
             llstConfigurationInfo.Add(Definition.COPY_MODEL.CONTEXT_AUTO_GENERATE_SUB_CHART,
                                       this._popUp.CONTEXT_AUTO_GENERATE_SUB_CHART);
             llstConfigurationInfo.Add(Definition.COPY_MODEL.CONTEXT_ACTIVE, this._popUp.CONTEXT_ACTIVE);
+            llstConfigurationInfo.Add(Definition.COPY_MODEL.CONTEXT_MODE, this._popUp.CONTEXT_MODE);
             llstConfigurationInfo.Add(Definition.COPY_MODEL.CONTEXT_SAMPLE_COUNT,
                                       this._popUp.CONTEXT_SAMPLE_COUNT);
             llstConfigurationInfo.Add(Definition.COPY_MODEL.CONTEXT_MANAGE_TYPE,
@@ -4308,11 +4510,12 @@ namespace BISTel.eSPC.Page.Modeling
                                       this._popUp.CONTEXT_GENERATE_SUB_CHART_WITH_INTERLOCK);
             llstConfigurationInfo.Add(Definition.COPY_MODEL.CONTEXT_GENERATE_SUB_CHART_WITH_AUTO_CALCULATION,
                                       this._popUp.CONTEXT_GENERATE_SUB_CHART_WITH_AUTO_CALCULATION);
-            llstConfigurationInfo.Add(Definition.COPY_MODEL.CONTEXT_USE_NORMALIZATION_VALUE,
-                                      this._popUp.CONTEXT_USE_NORMALIZATION_VALUE);
             llstConfigurationInfo.Add(Definition.COPY_MODEL.CONTEXT_INHERIT_THE_SPEC_OF_MAIN,
                                       this._popUp.CONTEXT_INHERIT_THE_SPEC_OF_MAIN);
-            llstConfigurationInfo.Add(Definition.COPY_MODEL.CONTEXT_MODE, this._popUp.CONTEXT_MODE);
+            llstConfigurationInfo.Add(Definition.COPY_MODEL.CONTEXT_USE_NORMALIZATION_VALUE,
+                                      this._popUp.CONTEXT_USE_NORMALIZATION_VALUE);
+            llstConfigurationInfo.Add(Definition.COPY_MODEL.CONTEXT_CONTEXT_INFORMATION,
+                                      this._popUp.CONTEXT_CONTEXT_INFORMATION); //SPC-1218, KBLEE
 
             //SPC-676 by Louis
             llstConfigurationInfo.Add(Definition.COPY_MODEL.CONTEXT_CHART_DESCRIPTION, this._popUp.CONTEXT_CHART_DESCRIPTION);
@@ -4420,6 +4623,19 @@ namespace BISTel.eSPC.Page.Modeling
                     break;
                 }
             }
+
+            //SPC-1218, KBLEE, START
+            for (int i = 0; i < llstConfigurationInfo.Count; i++)
+            {
+                key = llstConfigurationInfo.GetKey(i).ToString();
+
+                if (_arrColContext.Contains(key) && llstConfigurationInfo[key].ToString() == Definition.YES)
+                {
+                    changedItems += "Context,";
+                    break;
+                }
+            }
+            //SPC-1218, KBLEE, END
 
             for (int i = 0; i < llstConfigurationInfo.Count; i++)
             {

@@ -6,6 +6,7 @@ using System.Data;
 using System.Text;
 using System.Windows.Forms;
 using System.Collections;
+using System.IO;
 
 using BISTel.PeakPerformance.Client.BaseUserCtrl;
 using BISTel.PeakPerformance.Client.BISTelControl;
@@ -30,6 +31,8 @@ using Steema.TeeChart.Styles;
 
 using System.CodeDom;
 using System.Globalization;
+using System.Text.RegularExpressions;
+using BISTel.PeakPerformance.Statistics;
 
 
 namespace BISTel.eSPC.Page.Modeling
@@ -51,6 +54,13 @@ namespace BISTel.eSPC.Page.Modeling
         private SortedList _slParamColumnIndex = new SortedList();
         private SortedList _slSpcModelingIndex = new SortedList();
 
+        //SPC-929, KBLEE. START
+        private string _sSiteRawid;
+        private string _sSite;
+        private string _sFabRawid;
+        private string _sFab;
+        private string _sParamTypeCD;
+        //SPC-929, KBLEE. END
         private string _sLineRawid;
         private string _sLine;
         private string _sAreaRawid;
@@ -91,10 +101,12 @@ namespace BISTel.eSPC.Page.Modeling
         LinkedList mllstContextType;
         private string _sUSL = "";
         private string _sLSL = "";
+        private string _sChartValueType; //SPC-930, KBLEE
 
         ContextMenu ctChart;
         ContextMenu ctSpread;
         ArrayList arrOutlierList = new ArrayList();
+        ArrayList _alViolatedDataList = new ArrayList(); //SPC-930, KBLEE
 
         private string _sChartType = string.Empty;
         LinkedList _mllstChart = new LinkedList();
@@ -102,15 +114,27 @@ namespace BISTel.eSPC.Page.Modeling
         private List<int> lstTempForSetOulierPreview = new List<int>();
 
         private int _selectedRawID = -1;
+        private int _prevSumOptionClickedRawID = -1;//SPC-929, KBLEE
+        private int _iRawIdForRuleOption = -1;//SPC-930, KBLEE
 
         MultiLanguageHandler _lang;
         private string _sTarget;
         private bool _bUseComma;
+        private bool _isSummaryOptionSetting = false; //SPC-929, KBLEE
+        private bool _isUseRuleSimulation = false; //SPC-930, KBLEE
+        private bool _isPreveiwMouseUp = false; //SPC-930, KBLEE
+
+        private DataSet _dsSummaryOptionResult;//SPC-929, KBLEE
+        private DataRestriction _dataRestriction;
+
+        private DataSet _dsFilter;
+        private DataSet _dsCustomContext;
        
         enum iColIdx
         {
             SELECT,
             RAWID,
+            SPC_MODEL_NAME,
             PARAM_ALIAS,
             MAIN_YN
         }
@@ -122,6 +146,7 @@ namespace BISTel.eSPC.Page.Modeling
             SIGMA,
             CONTROL
         }
+
         #endregion
 
 
@@ -151,6 +176,45 @@ namespace BISTel.eSPC.Page.Modeling
             set { this._sParamAlias = value; }
         }
 
+        //SPC-929, KBLEE, START
+        public string SFAB
+        {
+            set { this._sFab = value; }
+        }
+        public string SLINE
+        {
+            set { this._sLine = value; }
+        }
+        public string SAREA
+        {
+            set { this._sArea = value; }
+        }
+        public string SLINE_RAWID
+        {
+            set { this._sLineRawid = value; }
+        }
+        public string SAREA_RAWID
+        {
+            set { this._sAreaRawid = value; }
+        }
+        public string SEQP_MODEL
+        {
+            set { this._sEQPModel = value; }
+        }
+
+        public bool ISSUMMARYOPTIONSETTING
+        {
+            get { return this._isSummaryOptionSetting; }
+            set { this._isSummaryOptionSetting = value; }
+        }
+
+        public DataSet SUMMARYOPTIONRESULT
+        {
+            get { return this._dsSummaryOptionResult; }
+            set { this._dsSummaryOptionResult = value; }
+        }
+        //SPC-929, KBLEE, END
+
 
         #endregion
 
@@ -178,22 +242,176 @@ namespace BISTel.eSPC.Page.Modeling
             {
                 this.KeyOfPage = "BISTel.eSPC.Page.Modeling.SPCModelingUC";
             }
+            else if (this.GetType().FullName == "BISTel.eSPC.Page.Modeling.SPCDataRestrictionUC")
+            {
+                this.KeyOfPage = "BISTel.eSPC.Page.Modeling.SPCModelingUC";
+            }
+
+            bool bUseComponent = Configuration.GetConfig("configuration/general/componentcondition").GetAttribute("isuse", false);
+            if (bUseComponent)
+            {
+                this.InitializeCondition();
+            }
+
             this.InitializePage();
         }
 
+        public void InitializeCondition()
+        {
+            //DCBar.
+            if (ComponentCondition.GetInstance().Count > 0)
+            {
+                DataTable dtTemp = new DataTable();
+                dtTemp.Columns.Add(Definition.CONDITION_SEARCH_KEY_VALUEDATA);
+                dtTemp.Columns.Add(Definition.CONDITION_SEARCH_KEY_DISPLAYDATA);
+                dtTemp.Columns.Add(Definition.CONDITION_SEARCH_KEY_CHECKED);
+
+                if (ComponentCondition.GetInstance().Contain(Definition.CONDITION_SEARCH_KEY_AREA))
+                {
+                    DataTable _dtArea = dtTemp.Clone();
+                    _dtArea.Columns.Add(Definition.CONDITION_KEY_AREA);
+                    _dtArea.Columns.Add(Definition.CONDITION_SEARCH_KEY_LINE);
+                    _dtArea.Columns.Add(Definition.CONDITION_SEARCH_KEY_FAB);
+                    _dtArea.Columns.Add(Definition.CONDITION_SEARCH_KEY_SITE);
+
+                    DataRow dr = _dtArea.NewRow();
+                    dr[Definition.CONDITION_SEARCH_KEY_VALUEDATA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_AREA_RAWID);
+                    dr[Definition.CONDITION_SEARCH_KEY_DISPLAYDATA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_AREA);
+                    dr[Definition.CONDITION_SEARCH_KEY_CHECKED] = "T";
+                    dr[Definition.CONDITION_KEY_AREA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_AREA);
+                    dr[Definition.CONDITION_SEARCH_KEY_LINE] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_LINE_RAWID);
+                    dr[Definition.CONDITION_SEARCH_KEY_FAB] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_FAB);
+                    dr[Definition.CONDITION_SEARCH_KEY_SITE] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_SITE);
+                    _dtArea.Rows.Add(dr);
+
+                    _llstSearchCondition.Add(Definition.CONDITION_SEARCH_KEY_AREA, _dtArea);
+                }
+
+                if (ComponentCondition.GetInstance().Contain(Definition.CONDITION_SEARCH_KEY_EQPMODEL))
+                {
+                    DataTable dtEQPModel = dtTemp.Clone();
+                    dtEQPModel.Columns.Add(Definition.CONDITION_KEY_EQPMODEL);
+                    dtEQPModel.Columns.Add(Definition.CONDITION_SEARCH_KEY_AREA);
+                    dtEQPModel.Columns.Add(Definition.CONDITION_SEARCH_KEY_LINE);
+                    dtEQPModel.Columns.Add(Definition.CONDITION_SEARCH_KEY_FAB);
+                    dtEQPModel.Columns.Add(Definition.CONDITION_SEARCH_KEY_SITE);
+
+                    DataRow dr = dtEQPModel.NewRow();
+                    dr[Definition.CONDITION_SEARCH_KEY_VALUEDATA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_EQPMODEL);
+                    dr[Definition.CONDITION_SEARCH_KEY_DISPLAYDATA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_EQPMODEL);
+                    dr[Definition.CONDITION_SEARCH_KEY_CHECKED] = "T";
+                    dr[Definition.CONDITION_KEY_EQPMODEL] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_EQPMODEL);
+                    dr[Definition.CONDITION_SEARCH_KEY_AREA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_AREA_RAWID);
+                    dr[Definition.CONDITION_SEARCH_KEY_LINE] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_LINE_RAWID);
+                    dr[Definition.CONDITION_SEARCH_KEY_FAB] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_FAB);
+                    dr[Definition.CONDITION_SEARCH_KEY_SITE] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_SITE);
+                    dtEQPModel.Rows.Add(dr);
+
+                    _llstSearchCondition.Add(Definition.CONDITION_SEARCH_KEY_EQPMODEL, dtEQPModel);
+                }
+
+                if (ComponentCondition.GetInstance().Contain(Definition.CONDITION_SEARCH_KEY_FILTER))
+                {
+                    DataTable _dtFilter = new DataTable();
+                    _dtFilter.Columns.Add(Definition.CONDITION_SEARCH_KEY_VALUEDATA);
+                    _dtFilter.Columns.Add(Definition.CONDITION_SEARCH_KEY_DISPLAYDATA);
+
+                    DataRow dr = _dtFilter.NewRow();
+                    dr[Definition.CONDITION_SEARCH_KEY_VALUEDATA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_FILTER);
+                    dr[Definition.CONDITION_SEARCH_KEY_DISPLAYDATA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_FILTER);
+                    _dtFilter.Rows.Add(dr);
+
+                    _llstSearchCondition.Add(Definition.CONDITION_KEY_FILTER, _dtFilter);
+                }
+
+                if (ComponentCondition.GetInstance().Contain(Definition.CONDITION_SEARCH_KEY_SPC_MODEL_LIST))
+                {
+                    DataTable dtSPCModelList = dtTemp.Clone();
+
+                    DataRow dr = dtSPCModelList.NewRow();
+                    dr[Definition.CONDITION_SEARCH_KEY_VALUEDATA] = "SPC MODEL LIST";
+                    dr[Definition.CONDITION_SEARCH_KEY_DISPLAYDATA] = "SPC MODEL LIST";
+                    dr[Definition.CONDITION_SEARCH_KEY_CHECKED] = "F";
+
+                    dtSPCModelList.Rows.Add(dr);
+
+                    _llstSearchCondition.Add("SPC MODEL LIST", dtSPCModelList);
+                }
+
+                if (ComponentCondition.GetInstance().Contain(Definition.CONDITION_SEARCH_KEY_GROUP_NAME))
+                {
+                    DataTable dtGroup = dtTemp.Clone();
+                    dtGroup.Columns.Add("SPC MODEL LIST");
+
+                    DataRow dr = dtGroup.NewRow();
+                    dr[Definition.CONDITION_SEARCH_KEY_VALUEDATA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_GROUP_NAME);
+                    dr[Definition.CONDITION_SEARCH_KEY_DISPLAYDATA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_GROUP_NAME);
+                    dr[Definition.CONDITION_SEARCH_KEY_CHECKED] = "F";
+                    dr["SPC MODEL LIST"] = "SPC MODEL LIST";
+
+                    dtGroup.Rows.Add(dr);
+
+                    _llstSearchCondition.Add(Definition.CONDITION_KEY_GROUP_NAME, dtGroup);
+                }
+
+                if (ComponentCondition.GetInstance().Contain(Definition.CONDITION_SEARCH_KEY_SPCMODEL))
+                {
+                    DataTable dtSPCModel = dtTemp.Clone();
+                    dtSPCModel.Columns.Add(Definition.CONDITION_KEY_LOCATION_RAWID);
+                    dtSPCModel.Columns.Add(Definition.CONDITION_KEY_AREA_RAWID);
+                    dtSPCModel.Columns.Add(Definition.CONDITION_KEY_GROUP_NAME);
+                    dtSPCModel.Columns.Add("SPC MODEL LIST");
+
+                    DataRow dr = dtSPCModel.NewRow();
+                    dr[Definition.CONDITION_SEARCH_KEY_VALUEDATA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_MODEL_CONFIG_RAWID);
+                    dr[Definition.CONDITION_SEARCH_KEY_DISPLAYDATA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_SPCMODEL);
+                    dr[Definition.CONDITION_SEARCH_KEY_CHECKED] = "T";
+                    dr[Definition.CONDITION_KEY_LOCATION_RAWID] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_LINE_RAWID);
+                    dr[Definition.CONDITION_KEY_AREA_RAWID] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_AREA_RAWID);
+                    dr[Definition.CONDITION_KEY_GROUP_NAME] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_GROUP_NAME);
+                    dr["SPC MODEL LIST"] = "SPC MODEL LIST";
+
+                    dtSPCModel.Rows.Add(dr);
+
+                    _llstSearchCondition.Add(Definition.CONDITION_SEARCH_KEY_SPCMODEL, dtSPCModel);
+                }
+            }
+
+            this.RefreshConditions(this._llstSearchCondition);
+        }
 
         public override void PageSearch(LinkedList llCondition)
         {
             //초기화
             this.InitializePageData();
-
+            ComponentCondition.GetInstance().Clear();
             DataTable dt = new DataTable();
+
+            //SPC-929, KBLEE, START
+            if (llCondition.Contains(Definition.CONDITION_SEARCH_KEY_SITE))
+            {
+                dt = (DataTable)llCondition[Definition.CONDITION_SEARCH_KEY_SITE];
+                this._sSite = dt.Rows[0][DCUtil.DISPLAY_FIELD].ToString();
+                this._sSiteRawid = DCUtil.GetValueData(dt);
+                ComponentCondition.GetInstance().Set(Definition.CONDITION_SEARCH_KEY_SITE, this._sSite);
+            }
+
+            if (llCondition.Contains(Definition.CONDITION_SEARCH_KEY_FAB))
+            {
+                dt = (DataTable)llCondition[Definition.CONDITION_SEARCH_KEY_FAB];
+                this._sFab = dt.Rows[0][DCUtil.DISPLAY_FIELD].ToString();
+                this._sFabRawid = DCUtil.GetValueData(dt);
+                ComponentCondition.GetInstance().Set(Definition.CONDITION_SEARCH_KEY_FAB, this._sFab);
+            }
+            //SPC-929, KBLEE. END
 
             if (llCondition.Contains(Definition.CONDITION_SEARCH_KEY_LINE))
             {
                 dt = (DataTable)llCondition[Definition.CONDITION_SEARCH_KEY_LINE];
                 this._sLine = dt.Rows[0][DCUtil.DISPLAY_FIELD].ToString();
                 this._sLineRawid = DCUtil.GetValueData(dt);
+                ComponentCondition.GetInstance().Set(Definition.CONDITION_SEARCH_KEY_LINE, this._sLine);
+                ComponentCondition.GetInstance().Set(Definition.CONDITION_SEARCH_KEY_LINE_RAWID, this._sLineRawid);
             }
 
             if (llCondition.Contains(Definition.CONDITION_SEARCH_KEY_AREA))
@@ -201,6 +419,8 @@ namespace BISTel.eSPC.Page.Modeling
                 dt = (DataTable)llCondition[Definition.CONDITION_SEARCH_KEY_AREA];
                 this._sAreaRawid = DCUtil.GetValueData(dt);
                 this._sArea = dt.Rows[0][DCUtil.DISPLAY_FIELD].ToString();
+                ComponentCondition.GetInstance().Set(Definition.CONDITION_SEARCH_KEY_AREA, this._sArea);
+                ComponentCondition.GetInstance().Set(Definition.CONDITION_SEARCH_KEY_AREA_RAWID, this._sAreaRawid);
             }
             else
             {
@@ -212,7 +432,8 @@ namespace BISTel.eSPC.Page.Modeling
             {
                 dt = (DataTable)llCondition[Definition.CONDITION_SEARCH_KEY_EQPMODEL];
                 this._sEQPModel = dt.Rows[0][DCUtil.VALUE_FIELD].ToString();
-
+                ComponentCondition.GetInstance().Set(Definition.CONDITION_SEARCH_KEY_EQPMODEL, this._sEQPModel);
+                
                 if (!llCondition.Contains(Definition.CONDITION_SEARCH_KEY_SPCMODEL))
                 {
                     MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_SELECT_MODEL", null, null);
@@ -224,12 +445,14 @@ namespace BISTel.eSPC.Page.Modeling
 
                     this._sSPCModelRawid = dtSPCModel.Rows[0][DCUtil.VALUE_FIELD].ToString();
                     this._sSPCModelName = dtSPCModel.Rows[0][DCUtil.DISPLAY_FIELD].ToString();
+                    ComponentCondition.GetInstance().Set(Definition.CONDITION_SEARCH_KEY_MODEL_CONFIG_RAWID, _sSPCModelRawid);
+                    ComponentCondition.GetInstance().Set(Definition.CONDITION_SEARCH_KEY_SPCMODEL, _sSPCModelName);
                 }
             }
             else
             {
                 this._sEQPModel = "";
-
+                ComponentCondition.GetInstance().Set(Definition.CONDITION_SEARCH_KEY_EQPMODEL, this._sEQPModel);
                 if (!llCondition.Contains(Definition.CONDITION_SEARCH_KEY_SPCMODEL))
                 {
                     MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_SELECT_MODEL", null, null);
@@ -241,8 +464,45 @@ namespace BISTel.eSPC.Page.Modeling
 
                     this._sSPCModelRawid = dtSPCModel.Rows[0][DCUtil.VALUE_FIELD].ToString();
                     this._sSPCModelName = dtSPCModel.Rows[0][DCUtil.DISPLAY_FIELD].ToString();
+                    ComponentCondition.GetInstance().Set(Definition.CONDITION_SEARCH_KEY_MODEL_CONFIG_RAWID, _sSPCModelRawid);
+                    ComponentCondition.GetInstance().Set(Definition.CONDITION_SEARCH_KEY_SPCMODEL, _sSPCModelName);
                 }
             }
+
+            if (llCondition.Contains(Definition.CONDITION_KEY_GROUP_NAME))
+            {
+                DataTable dtGroup = (DataTable)llCondition[Definition.CONDITION_KEY_GROUP_NAME];
+
+                string _sSPCGroupName = dtGroup.Rows[0][DCUtil.DISPLAY_FIELD].ToString();
+                ComponentCondition.GetInstance().Set(Definition.CONDITION_SEARCH_KEY_GROUP_NAME, _sSPCGroupName);
+            }
+
+            if (llCondition.Contains("FILTER"))
+            {
+                DataTable dtFilter = (DataTable)llCondition[Definition.CONDITION_KEY_FILTER];
+                string _sConditionFilter = dtFilter.Rows[0][DCUtil.VALUE_FIELD].ToString();
+                ComponentCondition.GetInstance().Set(Definition.CONDITION_SEARCH_KEY_FILTER, _sConditionFilter);
+            }
+
+            if (this.GetType().FullName == "BISTel.eSPC.Page.Modeling.SPCDataRestrictionUC")
+            {
+                if (!UserAuthorityHandler.isAvailableFunction(this.ApplicationName, true, "SPC_DATA_RESTRICTION", this.sessionData.UserId, this._sSite, this._sFab, this._sLine, this._sArea.Trim('\'')))
+                {
+                    MSGHandler.DisplayMessage(MSGType.Warning, MSGHandler.GetMessage("GENERAL_NOT_ENOUGHT_SUFFICIENT"), null, null, true);
+                    this.InitializePage();
+                    return;
+                }
+            }
+            else
+            {
+                if (!UserAuthorityHandler.isAvailableFunction(this.ApplicationName, true, this.FunctionName, this.sessionData.UserId, this._sSite, this._sFab, this._sLine, this._sArea.Trim('\'')))
+                {
+                    MSGHandler.DisplayMessage(MSGType.Warning, MSGHandler.GetMessage("GENERAL_NOT_ENOUGHT_SUFFICIENT"), null, null, true);
+                    this.InitializePage();
+                    return;
+                }
+            }
+            
 
             //if (llCondition.Contains(Definition.DynamicCondition_Condition_key.EQP_ID))
             //{
@@ -316,6 +576,9 @@ namespace BISTel.eSPC.Page.Modeling
             this.mChartUtil = new ChartUtility();
 
             this._lang = MultiLanguageHandler.getInstance();
+            this._dataRestriction = new DataRestriction();
+
+            _dsSummaryOptionResult = new DataSet(); //SPC-929, KBLEE
 
             this.InitializeCode();
             this.InitializeDataButton();
@@ -339,6 +602,49 @@ namespace BISTel.eSPC.Page.Modeling
             ctSpread.MenuItems.Add("UnSet Outlier", new EventHandler(SpreadMenuClick));
 
             this.bcboOutlierType.SelectedIndex = 0;
+
+            this.bchkSummaryData.Enabled = false; //SPC-929, KBLee
+            this.bbtnSummaryOption.Enabled = false; //SPC-929, KBLee
+
+            _sChartValueType = Definition.CHART_COLUMN.MEAN; //SPC-930, KBLEE
+
+            if (this.GetType().FullName == "BISTel.eSPC.Page.Modeling.SPCDataRestrictionUC")
+            {
+                this.bapnlUSL.Visible = false;
+                this.bapnlTarget.Visible = false;
+                this.bapnlLSL.Visible = false;
+                this.bapnlSave.Visible = false;
+                this.rbtnControlLimit.Visible = false;
+                this.rbtnAverage.Visible = false;
+                this.panel42.Visible = false;
+
+                Label lblAverage = new Label();
+                lblAverage.Text = "Use Average";
+                lblAverage.TextAlign = ContentAlignment.MiddleLeft;
+
+                Label lblPanel = new Label();
+                lblPanel.Image = global::BISTel.eSPC.Page.Properties.Resources.bullet_01;
+
+                Panel pAverage = new Panel();
+                pAverage.Width = 12;
+                pAverage.Height = 24;
+
+
+                this.panel5.Controls.Add(lblAverage);
+                lblAverage.Dock = DockStyle.Fill;
+
+                pAverage.Controls.Add(lblPanel);
+                lblPanel.Dock = DockStyle.Fill;
+
+                this.panel5.Controls.Add(pAverage);
+                pAverage.Dock = DockStyle.Left;
+
+                this.bapnlUSL.AutoSize = true;
+                this.bapnlTarget.AutoSize = true;
+                this.bapnlLSL.AutoSize = true;
+                this.bapnlSave.AutoSize = true;
+                this.panel42.AutoSize = true;
+            }
         }
 
         private void InitializeCode()
@@ -436,6 +742,14 @@ namespace BISTel.eSPC.Page.Modeling
             this._sAreaRawid = null;
             this._sEQPModel = null;
 
+            //SPC-930, KBLEE, START
+            this.bcboRule.Items.Clear();
+            this.blbRuleResult.Text = "";
+
+            _alViolatedDataList.Clear();
+            _isUseRuleSimulation = false;
+            //SPC-930, KBLEE, END
+
             this.InitializeBSpread();
             this.InitializeBTextBox();
             this.pnlChart.Controls.Clear();
@@ -475,6 +789,13 @@ namespace BISTel.eSPC.Page.Modeling
                     chartBase.URL = this.URL;
                     chartBase.Dock = System.Windows.Forms.DockStyle.Fill;
 
+                    //SPC-929, KBLEE, START
+                    if (bchkSummaryData.Checked)
+                    {
+                        chartBase.ISSUMMARYDATA = true;
+                    }
+                    //SPC-929, KBLEE, END
+
                     chartBase.ContextMenu = ctChart;
                     this.bsprChartData.ContextMenu = ctSpread;
                     chartBase.ParentControl = this.pnlChart;
@@ -484,7 +805,15 @@ namespace BISTel.eSPC.Page.Modeling
                     chartBase.SettingXBarInfo(strKey, Definition.CHART_COLUMN.TIME, ChartVariable.lstRawColumn, mllstChartSeriesVisibleType);
 
                     bool result = false;
-                    if(bchkSampling.Checked)
+
+                    if (this.GetType().FullName == "BISTel.eSPC.Page.Modeling.SPCDataRestrictionUC")
+                    {
+                        chartBase.PageName = this.GetType().FullName;
+                        chartBase.dsFilter = _dsFilter;
+                        chartBase.dsContextData = _dsCustomContext;
+                    }
+
+                    if (bchkSampling.Checked)
                     {
                         //result = chartBase.DrawSPCChart(true, int.Parse(btxtSamplePeriod.Text), int.Parse(btxtSampleCnt.Text));
                         result = chartBase.DrawSPCChart(true, int.Parse(btxtSamplePeriod.Text), int.Parse(btxtSampleCnt.Text), int.Parse(btxtWSampleCnt.Text));
@@ -528,7 +857,30 @@ namespace BISTel.eSPC.Page.Modeling
                         }
                         else
                         {
-                            this.bsprChartData.DataSource = CommonPageUtil.ExcelExport(_dataManager.RawDataTableOriginal, ChartVariable.lstRawColumn);
+                            //SPC-929, KBLEE, START
+                            if (bchkSummaryData.Checked)
+                            {
+                                this.bsprChartData.DataSource = CommonPageUtil.ExcelExportUsingSummaryData(_dataManager.RawDataTable, ChartVariable.lstRawColumn);
+
+                                int columnNum = this.bsprChartData.ActiveSheet.Columns.Count;
+
+                                for (int i = 0; i < columnNum; i++)
+                                {
+                                    string columnName = this.bsprChartData.ActiveSheet.Columns[i].Label;
+
+                                    if (columnName.Equals(Definition.COL_RAW_USL) || columnName.Equals(Definition.COL_RAW_LSL) ||
+                                        columnName.Equals(Definition.COL_RAW_UCL) || columnName.Equals(Definition.COL_RAW_LCL) ||
+                                        columnName.Equals(Definition.COL_RAW_TARGET))
+                                    {
+                                        this.bsprChartData.ActiveSheet.Columns[i].Visible = false;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                this.bsprChartData.DataSource = CommonPageUtil.ExcelExport(_dataManager.RawDataTableOriginal, ChartVariable.lstRawColumn);
+                            }
+                            //SPC-929, KBLEE, END                            
                         }
 
                         //Column Size 조절
@@ -604,9 +956,16 @@ namespace BISTel.eSPC.Page.Modeling
                     chartCalcBase.EndDateTime = ChartVariable.dateTimeEnd;
                     //chartCalcBase.mllstContextType = this.mllstContextType;
                     chartCalcBase.SettingXBarInfo(strKey, Definition.CHART_COLUMN.TIME, ChartVariable.lstRawColumn, mllstChartSeriesVisibleType);
-                    
+
                     bool result = false;
-                    if(bchkSampling.Checked)
+
+                    if (this.GetType().FullName == "BISTel.eSPC.Page.Modeling.SPCDataRestrictionUC")
+                    {
+                        chartCalcBase.PageName = this.GetType().FullName;
+                        chartCalcBase.dsFilter = _dsFilter;
+                        chartCalcBase.dsContextData = _dsCustomContext;
+                    }
+                    if (bchkSampling.Checked)
                     {
                         result = chartCalcBase.DrawSPCChart(true, int.Parse(btxtSamplePeriod.Text), int.Parse(btxtSampleCnt.Text));
                     }
@@ -627,6 +986,7 @@ namespace BISTel.eSPC.Page.Modeling
 
                         chartCalcBase.SPCChart.Chart.MouseLeave += new EventHandler(Chart_MouseLeave);
                         chartCalcBase.SPCChart.ClickSeries += new Steema.TeeChart.TChart.SeriesEventHandler(SPCChart_ClickSeries);
+
                         this.pnlChart.Controls.Add(chartCalcBase);
 
                         if (chartCalcBase.IsWaferColumn)
@@ -658,6 +1018,8 @@ namespace BISTel.eSPC.Page.Modeling
                             this.bsprChartData.ActiveSheet.ColumnHeader.Cells[0, cIdx].Text = ((DataSet)this.bsprChartData.DataSource).Tables[0].Columns[cIdx].ToString();
                         }
 
+                        //TODO: Data Restriction Column 설정
+
                         int rowCount = 0;
 
                         rowCount = chartCalcBase.dtDataSource.Rows.Count;
@@ -683,7 +1045,7 @@ namespace BISTel.eSPC.Page.Modeling
                                                      dtDataDisplay, CommonChart.COLUMN_NAME_SEQ_INDEX, Definition.CHART_COLUMN.PREVIEWUPPERLIMIT);
                         SeriesInfo siLowerLimit = new SeriesInfo(typeof(ExtremeBFastLine), Definition.CHART_COLUMN.PREVIEWLOWERLIMIT,
                                                                  dtDataDisplay, CommonChart.COLUMN_NAME_SEQ_INDEX, Definition.CHART_COLUMN.PREVIEWLOWERLIMIT);
-                        
+
                         ChartUtility util = new ChartUtility();
                         siUpperLimit.ShowLegend = false;
                         siLowerLimit.ShowLegend = false;
@@ -704,6 +1066,28 @@ namespace BISTel.eSPC.Page.Modeling
                     }
                     GC.Collect();
                     GC.WaitForPendingFinalizers();
+                }
+
+                //Spec 정보가 포함된 Column은 안보이도록 처리
+                if (this.GetType().FullName == "BISTel.eSPC.Page.Modeling.SPCDataRestrictionUC")
+                {
+                    DataSet dsTemp = this.bsprChartData.DataSet as DataSet;
+                    DataTable dtTemp = dsTemp.Tables[0].Copy();
+
+                    foreach (DataColumn dc in dsTemp.Tables[0].Columns)
+                    {
+                        if (dc.ColumnName.ToUpper().Contains(Definition.CHART_COLUMN.UCL) || dc.ColumnName.ToUpper().Contains(Definition.CHART_COLUMN.LCL) ||
+                            dc.ColumnName.ToUpper().Contains(Definition.CHART_COLUMN.USL) || dc.ColumnName.ToUpper().Contains(Definition.CHART_COLUMN.LSL) ||
+                            dc.ColumnName.ToUpper().Contains(Definition.CHART_COLUMN.MIN) || dc.ColumnName.ToUpper().Contains(Definition.CHART_COLUMN.MAX) ||
+                            dc.ColumnName.ToUpper().Contains(Definition.CHART_COLUMN.TARGET) || dc.ColumnName.ToUpper().Contains(Definition.CHART_COLUMN.OCAP_LIST))
+                        {
+                            dtTemp.Columns.Remove(dc.ColumnName);
+                        }
+                    }
+
+                    this.bsprChartData.ClearHead();
+                    this.bsprChartData.AddHeadComplete();
+                    this.bsprChartData.DataSource = dtTemp;
                 }
             }
             catch (Exception ex)
@@ -726,22 +1110,22 @@ namespace BISTel.eSPC.Page.Modeling
                     return;
 
                 bool isPointMarking = false;
-                if((this.chartCalcBase != null && this.chartCalcBase.IsPointMarking)
+                if ((this.chartCalcBase != null && this.chartCalcBase.IsPointMarking)
                     || (this.chartBase != null && this.chartBase.IsPointMarking))
                 {
                     isPointMarking = true;
                 }
                 if (this.iValueIndex < 0 && isPointMarking == false)
                     return;
-                
+
 
                 if (menuItem.Text == "Set Outlier")
                 {
-                    if(this.chartCalcBase != null && this.chartCalcBase.IsPointMarking)
+                    if (this.chartCalcBase != null && this.chartCalcBase.IsPointMarking)
                     {
                         SetOutlier(this.chartCalcBase.GetSelectedShape());
                     }
-                    else if(this.chartBase != null && this.chartBase.IsPointMarking)
+                    else if (this.chartBase != null && this.chartBase.IsPointMarking)
                     {
                         SetOutlier(this.chartBase.GetSelectedShape());
                     }
@@ -750,13 +1134,13 @@ namespace BISTel.eSPC.Page.Modeling
                         SetOutlier(iValueIndex, true);
                     }
                 }
-                else if((menuItem.Text == "UnSet Outlier"))
+                else if ((menuItem.Text == "UnSet Outlier"))
                 {
-                    if(this.chartCalcBase != null && this.chartCalcBase.IsPointMarking)
+                    if (this.chartCalcBase != null && this.chartCalcBase.IsPointMarking)
                     {
                         UnsetOutlier(this.chartCalcBase.GetSelectedShape());
                     }
-                    else if(this.chartBase != null && this.chartBase.IsPointMarking)
+                    else if (this.chartBase != null && this.chartBase.IsPointMarking)
                     {
                         UnsetOutlier(this.chartBase.GetSelectedShape());
                     }
@@ -766,7 +1150,7 @@ namespace BISTel.eSPC.Page.Modeling
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 LogHandler.LogWriteException(Definition.APPLICATION_NAME, ex.Message, ex);
             }
@@ -825,7 +1209,7 @@ namespace BISTel.eSPC.Page.Modeling
 
         #region ::: User Defined Method.
 
-        private void ConfigListDataBinding(bool main)
+        private void   ConfigListDataBinding(bool main)
         {
             try
             {
@@ -838,12 +1222,10 @@ namespace BISTel.eSPC.Page.Modeling
 
                 AsyncCallHandler ach = new AsyncCallHandler(EESProgressBar.AsyncCallManager);
                 object objDataSet = null;
-                
 
-                
 
                 //_ds = _wsSPC.GetSPCControlChartData(_llstSearch.GetSerialData());
-               
+
 
                 //SPC-750 Calculate Spec/Control Limit
                 if (main)
@@ -876,9 +1258,6 @@ namespace BISTel.eSPC.Page.Modeling
                     MSGHandler.DisplayMessage(MSGType.Warning, MSGHandler.GetMessage("INFORMATION_NODATA"));
                     return;
                 }
-
-
-                
 
                 if (!DSUtil.CheckRowCount(_dsSPCModeData, TABLE.MODEL_MST_SPC))
                 {
@@ -931,33 +1310,38 @@ namespace BISTel.eSPC.Page.Modeling
                 //dtSPCModelChartList.Columns.Add("MODULE_ID");
                 //dtSPCModelChartList.Columns.Add("RECIPE_ID");
                 //dtSPCModelChartList.Columns.Add("STEP_ID");
-                dtSPCModelChartList.Columns.Add(COLUMN.UPPER_SPEC);
-                dtSPCModelChartList.Columns.Add(COLUMN.LOWER_SPEC);
-                dtSPCModelChartList.Columns.Add(COLUMN.TARGET);
-                dtSPCModelChartList.Columns.Add(COLUMN.UPPER_CONTROL);
-                dtSPCModelChartList.Columns.Add(COLUMN.LOWER_CONTROL);
-                dtSPCModelChartList.Columns.Add(COLUMN.RAW_UCL);
-                dtSPCModelChartList.Columns.Add(COLUMN.RAW_LCL);
-                dtSPCModelChartList.Columns.Add(COLUMN.STD_UCL);
-                dtSPCModelChartList.Columns.Add(COLUMN.STD_LCL);
-                dtSPCModelChartList.Columns.Add(COLUMN.RANGE_UCL);
-                dtSPCModelChartList.Columns.Add(COLUMN.RANGE_LCL);
-                dtSPCModelChartList.Columns.Add(COLUMN.EWMA_MEAN_UCL);
-                dtSPCModelChartList.Columns.Add(COLUMN.EWMA_MEAN_LCL);
-                dtSPCModelChartList.Columns.Add(COLUMN.EWMA_RANGE_UCL);
-                dtSPCModelChartList.Columns.Add(COLUMN.EWMA_RANGE_LCL);
-                dtSPCModelChartList.Columns.Add(COLUMN.EWMA_STD_UCL);
-                dtSPCModelChartList.Columns.Add(COLUMN.EWMA_STD_LCL);
-                dtSPCModelChartList.Columns.Add(COLUMN.MA_UCL);
-                dtSPCModelChartList.Columns.Add(COLUMN.MA_LCL);
-                dtSPCModelChartList.Columns.Add(COLUMN.MS_UCL);
-                dtSPCModelChartList.Columns.Add(COLUMN.MS_LCL);
-                dtSPCModelChartList.Columns.Add(COLUMN.MR_UCL);
-                dtSPCModelChartList.Columns.Add(COLUMN.MR_LCL);
-                dtSPCModelChartList.Columns.Add(COLUMN.UPPER_TECHNICAL_LIMIT);
-                dtSPCModelChartList.Columns.Add(COLUMN.LOWER_TECHNICAL_LIMIT);
-                dtSPCModelChartList.Columns.Add(COLUMN.INTERLOCK_YN);
-                dtSPCModelChartList.Columns.Add(COLUMN.ACTIVATION_YN);
+
+                if (!(this.GetType().FullName == "BISTel.eSPC.Page.Modeling.SPCDataRestrictionUC"))
+                {
+                    dtSPCModelChartList.Columns.Add(COLUMN.UPPER_SPEC);
+                    dtSPCModelChartList.Columns.Add(COLUMN.LOWER_SPEC);
+                    dtSPCModelChartList.Columns.Add(COLUMN.TARGET);
+                    dtSPCModelChartList.Columns.Add(COLUMN.UPPER_CONTROL);
+                    dtSPCModelChartList.Columns.Add(COLUMN.LOWER_CONTROL);
+                    dtSPCModelChartList.Columns.Add(COLUMN.RAW_UCL);
+                    dtSPCModelChartList.Columns.Add(COLUMN.RAW_LCL);
+                    dtSPCModelChartList.Columns.Add(COLUMN.STD_UCL);
+                    dtSPCModelChartList.Columns.Add(COLUMN.STD_LCL);
+                    dtSPCModelChartList.Columns.Add(COLUMN.RANGE_UCL);
+                    dtSPCModelChartList.Columns.Add(COLUMN.RANGE_LCL);
+                    dtSPCModelChartList.Columns.Add(COLUMN.EWMA_MEAN_UCL);
+                    dtSPCModelChartList.Columns.Add(COLUMN.EWMA_MEAN_LCL);
+                    dtSPCModelChartList.Columns.Add(COLUMN.EWMA_RANGE_UCL);
+                    dtSPCModelChartList.Columns.Add(COLUMN.EWMA_RANGE_LCL);
+                    dtSPCModelChartList.Columns.Add(COLUMN.EWMA_STD_UCL);
+                    dtSPCModelChartList.Columns.Add(COLUMN.EWMA_STD_LCL);
+                    dtSPCModelChartList.Columns.Add(COLUMN.MA_UCL);
+                    dtSPCModelChartList.Columns.Add(COLUMN.MA_LCL);
+                    dtSPCModelChartList.Columns.Add(COLUMN.MS_UCL);
+                    dtSPCModelChartList.Columns.Add(COLUMN.MS_LCL);
+                    dtSPCModelChartList.Columns.Add(COLUMN.MR_UCL);
+                    dtSPCModelChartList.Columns.Add(COLUMN.MR_LCL);
+                    dtSPCModelChartList.Columns.Add(COLUMN.UPPER_TECHNICAL_LIMIT);
+                    dtSPCModelChartList.Columns.Add(COLUMN.LOWER_TECHNICAL_LIMIT);
+                    dtSPCModelChartList.Columns.Add(COLUMN.INTERLOCK_YN);
+                    dtSPCModelChartList.Columns.Add(COLUMN.ACTIVATION_YN);
+                }
+
                 dtSPCModelChartList.Columns.Add(COLUMN.CREATE_BY);
                 dtSPCModelChartList.Columns.Add(COLUMN.CREATE_DTTS);
                 dtSPCModelChartList.Columns.Add(COLUMN.LAST_UPDATE_BY);
@@ -984,41 +1368,48 @@ namespace BISTel.eSPC.Page.Modeling
                     }
 
                     //MODEL 정보                
-                    drChartList[COLUMN.UPPER_SPEC] = drConfig[COLUMN.UPPER_SPEC].ToString();
-                    drChartList[COLUMN.LOWER_SPEC] = drConfig[COLUMN.LOWER_SPEC].ToString();
-                    drChartList[COLUMN.TARGET] = drConfig[COLUMN.TARGET].ToString();
-                    drChartList[COLUMN.UPPER_CONTROL] = drConfig[COLUMN.UPPER_CONTROL].ToString();
-                    drChartList[COLUMN.LOWER_CONTROL] = drConfig[COLUMN.LOWER_CONTROL].ToString();
-                    drChartList[COLUMN.RAW_UCL] = drConfig[COLUMN.RAW_UCL].ToString();
-                    drChartList[COLUMN.RAW_LCL] = drConfig[COLUMN.RAW_LCL].ToString();
-                    
-                    drChartList[COLUMN.INTERLOCK_YN] = _ComUtil.NVL(drConfig[COLUMN.INTERLOCK_YN], "N", true);
-                    drChartList[COLUMN.ACTIVATION_YN] = _ComUtil.NVL(drConfig[COLUMN.ACTIVATION_YN], "N", true);
+                    if (!(this.GetType().FullName == "BISTel.eSPC.Page.Modeling.SPCDataRestrictionUC"))
+                    {
+                        drChartList[COLUMN.UPPER_SPEC] = drConfig[COLUMN.UPPER_SPEC].ToString();
+                        drChartList[COLUMN.LOWER_SPEC] = drConfig[COLUMN.LOWER_SPEC].ToString();
+                        drChartList[COLUMN.TARGET] = drConfig[COLUMN.TARGET].ToString();
+                        drChartList[COLUMN.UPPER_CONTROL] = drConfig[COLUMN.UPPER_CONTROL].ToString();
+                        drChartList[COLUMN.LOWER_CONTROL] = drConfig[COLUMN.LOWER_CONTROL].ToString();
+                        drChartList[COLUMN.RAW_UCL] = drConfig[COLUMN.RAW_UCL].ToString();
+                        drChartList[COLUMN.RAW_LCL] = drConfig[COLUMN.RAW_LCL].ToString();
+                        drChartList[COLUMN.STD_UCL] = drConfig[COLUMN.STD_UCL].ToString();
+                        drChartList[COLUMN.STD_LCL] = drConfig[COLUMN.STD_LCL].ToString();
+                        drChartList[COLUMN.RANGE_UCL] = drConfig[COLUMN.RANGE_UCL].ToString();
+                        drChartList[COLUMN.RANGE_LCL] = drConfig[COLUMN.RANGE_LCL].ToString();
+                        drChartList[COLUMN.EWMA_MEAN_UCL] = drConfig[COLUMN.EWMA_M_UCL].ToString();
+                        drChartList[COLUMN.EWMA_MEAN_LCL] = drConfig[COLUMN.EWMA_M_LCL].ToString();
+                        drChartList[COLUMN.EWMA_RANGE_UCL] = drConfig[COLUMN.EWMA_R_UCL].ToString();
+                        drChartList[COLUMN.EWMA_RANGE_LCL] = drConfig[COLUMN.EWMA_R_LCL].ToString();
+                        drChartList[COLUMN.EWMA_STD_UCL] = drConfig[COLUMN.EWMA_S_UCL].ToString();
+                        drChartList[COLUMN.EWMA_STD_LCL] = drConfig[COLUMN.EWMA_S_LCL].ToString();
+                        drChartList[COLUMN.MA_UCL] = drConfig[COLUMN.MA_UCL].ToString();
+                        drChartList[COLUMN.MA_LCL] = drConfig[COLUMN.MA_LCL].ToString();
+                        drChartList[COLUMN.MS_UCL] = drConfig[COLUMN.MS_UCL].ToString();
+                        drChartList[COLUMN.MS_LCL] = drConfig[COLUMN.MS_LCL].ToString();
+                        drChartList[COLUMN.MR_UCL] = drConfig[COLUMN.MR_UCL].ToString();
+                        drChartList[COLUMN.MR_LCL] = drConfig[COLUMN.MR_LCL].ToString();
+                        drChartList[COLUMN.UPPER_TECHNICAL_LIMIT] = drConfig[COLUMN.UPPER_TECHNICAL_LIMIT].ToString();
+                        drChartList[COLUMN.LOWER_TECHNICAL_LIMIT] = drConfig[COLUMN.LOWER_TECHNICAL_LIMIT].ToString();
+                        drChartList[COLUMN.INTERLOCK_YN] = _ComUtil.NVL(drConfig[COLUMN.INTERLOCK_YN], "N", true);
+                        drChartList[COLUMN.ACTIVATION_YN] = _ComUtil.NVL(drConfig[COLUMN.ACTIVATION_YN], "N", true);
+                    }
+
                     drChartList[COLUMN.CREATE_BY] = drConfig[COLUMN.CREATE_BY].ToString();
                     drChartList[COLUMN.CREATE_DTTS] = drConfig[COLUMN.CREATE_DTTS] == DBNull.Value ? null : DateTime.Parse(drConfig[COLUMN.CREATE_DTTS].ToString()).ToString(Definition.DATETIME_FORMAT_MS).ToString();
                     drChartList[COLUMN.LAST_UPDATE_BY] = drConfig[COLUMN.LAST_UPDATE_BY].ToString();
                     drChartList[COLUMN.LAST_UPDATE_DTTS] = drConfig[COLUMN.LAST_UPDATE_DTTS] == DBNull.Value ? null : DateTime.Parse(drConfig[COLUMN.LAST_UPDATE_DTTS].ToString()).ToString(Definition.DATETIME_FORMAT_MS).ToString();
 
-                    drChartList[COLUMN.STD_UCL] = drConfig[COLUMN.STD_UCL].ToString();
-                    drChartList[COLUMN.STD_LCL] = drConfig[COLUMN.STD_LCL].ToString();
-                    drChartList[COLUMN.RANGE_UCL] = drConfig[COLUMN.RANGE_UCL].ToString();
-                    drChartList[COLUMN.RANGE_LCL] = drConfig[COLUMN.RANGE_LCL].ToString();
-                    drChartList[COLUMN.EWMA_MEAN_UCL] = drConfig[COLUMN.EWMA_M_UCL].ToString();
-                    drChartList[COLUMN.EWMA_MEAN_LCL] = drConfig[COLUMN.EWMA_M_LCL].ToString();
-                    drChartList[COLUMN.EWMA_RANGE_UCL] = drConfig[COLUMN.EWMA_R_UCL].ToString();
-                    drChartList[COLUMN.EWMA_RANGE_LCL] = drConfig[COLUMN.EWMA_R_LCL].ToString();
-                    drChartList[COLUMN.EWMA_STD_UCL] = drConfig[COLUMN.EWMA_S_UCL].ToString();
-                    drChartList[COLUMN.EWMA_STD_LCL] = drConfig[COLUMN.EWMA_S_LCL].ToString();
-                    drChartList[COLUMN.MA_UCL] = drConfig[COLUMN.MA_UCL].ToString();
-                    drChartList[COLUMN.MA_LCL] = drConfig[COLUMN.MA_LCL].ToString();
-                    drChartList[COLUMN.MS_UCL] = drConfig[COLUMN.MS_UCL].ToString();
-                    drChartList[COLUMN.MS_LCL] = drConfig[COLUMN.MS_LCL].ToString();
-                    drChartList[COLUMN.MR_UCL] = drConfig[COLUMN.MR_UCL].ToString();
-                    drChartList[COLUMN.MR_LCL] = drConfig[COLUMN.MR_LCL].ToString();
-                    drChartList[COLUMN.UPPER_TECHNICAL_LIMIT] = drConfig[COLUMN.UPPER_TECHNICAL_LIMIT].ToString();
-                    drChartList[COLUMN.LOWER_TECHNICAL_LIMIT] = drConfig[COLUMN.LOWER_TECHNICAL_LIMIT].ToString();
-
                     dtSPCModelChartList.Rows.Add(drChartList);
+
+                    //SPC-929, KBLEE, START
+                    _sParamTypeCD = drConfig[COLUMN.PARAM_TYPE_CD].ToString();
+                    _sParamAlias = drConfig[COLUMN.PARAM_ALIAS].ToString();
+                    //SPC-929, KBLEE, END
                 }
 
                 dtSPCModelChartList.AcceptChanges();
@@ -1030,18 +1421,18 @@ namespace BISTel.eSPC.Page.Modeling
                 {
                     string sColumn = dtSPCModelChartList.Columns[i].ColumnName.ToString();
                     //this.bsprData.ActiveSheet.ColumnHeader.Cells[0, i].Text = sColumn;
-                    if (i == (int) iColIdx.SELECT)
+                    if (i == (int)iColIdx.SELECT)
                     {
                         this.bsprData.AddHead(i, sColumn, sColumn, 100, 20, null, null, null, ColumnAttribute.Null,
                                               ColumnType.CheckBox, null, null, null, false, true);
                     }
-                    else if(sColumn == COLUMN.UPPER_CONTROL)
+                    else if (sColumn == COLUMN.UPPER_CONTROL)
                     {
                         string headerName = MSGHandler.GetVariable("SPC_MEAN_UCL");
                         this.bsprData.AddHead(i, headerName, sColumn, 100, 20, null, null, null, ColumnAttribute.Null,
                                               ColumnType.Null, null, null, null, false, true);
                     }
-                    else if(sColumn == COLUMN.LOWER_CONTROL)
+                    else if (sColumn == COLUMN.LOWER_CONTROL)
                     {
                         string headerName = MSGHandler.GetVariable("SPC_MEAN_LCL");
                         this.bsprData.AddHead(i, headerName, sColumn, 100, 20, null, null, null, ColumnAttribute.Null,
@@ -1057,13 +1448,70 @@ namespace BISTel.eSPC.Page.Modeling
 
                 this.bsprData.ActiveSheet.Columns[(int)iColIdx.SELECT].Locked = false;
                 this.bsprData.ActiveSheet.Columns[(int)iColIdx.RAWID].Visible = false;
-
-                this.bsprData.DataSet = dtSPCModelChartList;
+                
                 this._dtTableOriginal = dtSPCModelChartList.Copy();
+
+                if (this.GetType().FullName == "BISTel.eSPC.Page.Modeling.SPCDataRestrictionUC")
+                {
+                    _dsFilter = _wsSPC.GetRestrictionFilter(this.sessionData.UserRawID);
+                    _dsCustomContext = _wsSPC.GetContextTypeData();
+
+                    if (_dsFilter != null && _dsFilter.Tables.Count > 0 && _dsFilter.Tables[0].Rows.Count > 0)
+                    {
+                        this._dataRestriction = new DataRestriction();
+                        DataTable dtFilterData = dtSPCModelChartList.Clone();
+
+                        foreach (DataRow dr in _dtTableOriginal.Rows)
+                        {
+                            for (int col = 0; col < _dtTableOriginal.Columns.Count; col++)
+                            {
+                                if (dr[col].ToString() == "*")
+                                {
+                                    dtFilterData.ImportRow(dr);
+                                    break;
+                                }
+                            }
+                        }
+
+                        if (dtSPCModelChartList.Columns.Contains(Definition.CONDITION_KEY_EQP_ID) || dtSPCModelChartList.Columns.Contains(Definition.CONDITION_KEY_MODULE_ID) ||
+                            dtSPCModelChartList.Columns.Contains(Definition.CONDITION_KEY_MODULE_NAME) || dtSPCModelChartList.Columns.Contains(Definition.CONDITION_KEY_MODULE_ALIAS))
+                        {
+                            string query = GetEQPFilterData(_dsFilter);
+                            if (query != null && query != "")
+                            {
+                                DataRow[] filterData = dtSPCModelChartList.Select(query);
+
+                                foreach (DataRow drData in filterData)
+                                {
+                                    dtFilterData.ImportRow(drData);
+                                }
+                            }
+                            else
+                            {
+                                dtFilterData = _dtTableOriginal;
+                            }
+
+                            dtSPCModelChartList = dtFilterData;
+                            this.bsprData.DataSet = dtFilterData;
+                        }
+                        else
+                        {
+                            this.bsprData.DataSet = _dtTableOriginal;
+                        }
+                    }
+                    else
+                    {
+                        this.bsprData.DataSet = dtSPCModelChartList;
+                    }
+                }
+                else
+                {
+                    this.bsprData.DataSet = dtSPCModelChartList;
+                }
 
                 for(int i=0; i<dtSPCModelChartList.Rows.Count; i++)
                 {
-                    this.bsprData.ActiveSheet.Cells[i, (int) iColIdx.SELECT].Locked = false;
+                    this.bsprData.ActiveSheet.Cells[i, (int)iColIdx.SELECT].Locked = false;
                 }
 
                 FarPoint.Win.Spread.CellType.TextCellType tc = new FarPoint.Win.Spread.CellType.TextCellType();
@@ -1106,6 +1554,64 @@ namespace BISTel.eSPC.Page.Modeling
             }
         }
 
+        private string GetEQPFilterData(DataSet dsFilter)
+        {
+            ArrayList arrRawid = new ArrayList();
+            LinkedList llValue = new LinkedList();
+
+            string strInclude = string.Empty;
+            ArrayList arrContextKey = new ArrayList();
+            ArrayList arrContextValue = new ArrayList();
+
+            DataTable dtFilter = _dsSPCModeData.Tables[Definition.TableName.MODEL_CONTEXT_MST_SPC].Clone();
+
+            foreach (DataRow drContext in _dsSPCModeData.Tables[Definition.TableName.MODEL_CONTEXT_MST_SPC].Rows)
+            {
+                if (!arrContextKey.Contains(drContext[Definition.CHART_COLUMN.CONTEXT_KEY].ToString()))
+                {
+                    arrContextKey.Add(drContext[Definition.CHART_COLUMN.CONTEXT_KEY].ToString());
+                }
+            }
+
+            foreach (DataRow dr in dsFilter.Tables[0].Rows)
+            {
+                foreach (string str in dr["DATA_FILTER"].ToString().Split('^'))
+                {
+                    arrContextValue.Add(str);
+                }
+            }
+
+            for (int i = 0; i < arrContextValue.Count; i++)
+            {
+                string[] context = arrContextValue[i].ToString().Split('=');
+                string sKey = context[0];
+                string[] sValues = context[1].Split(',');
+
+                if (sKey.Equals(Definition.CONDITION_KEY_EQP_ID) || sKey.Equals(Definition.CONDITION_KEY_MODULE_ID) ||
+                    sKey.Equals(Definition.CONDITION_KEY_MODULE_NAME) || sKey.Equals(Definition.CONDITION_KEY_ALIAS))
+                {
+                    if (arrContextKey.Contains(sKey))
+                    {
+                        strInclude += sKey + " IN (";
+
+                        foreach(string sValue in sValues)
+                        {
+                            strInclude += "'" + sValue + "',";
+                        }
+
+                        strInclude = strInclude.Remove(strInclude.Length - 1, 1) + ") AND ";
+                    }
+                }
+            }
+            
+            if (strInclude.Length == 0)
+                return string.Empty;
+
+            strInclude = strInclude.Remove(strInclude.Length - 5, 5);
+           
+            return strInclude;
+        }
+
         private void ConfigListDataBindingPopup()
         {
             try
@@ -1141,7 +1647,7 @@ namespace BISTel.eSPC.Page.Modeling
                 {
                     dtSPCModelChartList.Columns.Add(drContext[COLUMN.CONTEXT_KEY].ToString());
                 }
-                
+
                 dtSPCModelChartList.Columns.Add(COLUMN.UPPER_SPEC);
                 dtSPCModelChartList.Columns.Add(COLUMN.LOWER_SPEC);
                 dtSPCModelChartList.Columns.Add(COLUMN.TARGET);
@@ -1183,6 +1689,11 @@ namespace BISTel.eSPC.Page.Modeling
                     drChartList[COLUMN.CREATE_DTTS] = drConfig[COLUMN.CREATE_DTTS] == DBNull.Value ? null : DateTime.Parse(drConfig[COLUMN.CREATE_DTTS].ToString()).ToString(Definition.DATETIME_FORMAT_MS).ToString();
 
                     dtSPCModelChartList.Rows.Add(drChartList);
+
+                    //SPC-929, KBLEE, START
+                    _sParamTypeCD = drConfig[COLUMN.PARAM_TYPE_CD].ToString();
+                    _sParamAlias = drConfig[COLUMN.PARAM_ALIAS].ToString();
+                    //SPC-929, KBLEE, END
                 }
 
                 dtSPCModelChartList.AcceptChanges();
@@ -1274,7 +1785,7 @@ namespace BISTel.eSPC.Page.Modeling
         private bool SetOutlier(int rowIndex, bool isApplySpread)
         {
             SeriesCollection seriesCollection = GetSeriesCollection();
-            if(seriesCollection == null)
+            if (seriesCollection == null)
             {
                 Exception ex = new Exception("seriesCollection is null");
                 LogHandler.LogWriteException(Definition.APPLICATION_NAME, ex.Message, ex);
@@ -1282,9 +1793,9 @@ namespace BISTel.eSPC.Page.Modeling
             }
 
             DataTable dtDataSource = null;
-            if(chartBase != null)
+            if (chartBase != null)
                 dtDataSource = chartBase.dtDataSource;
-            else if(chartCalcBase != null)
+            else if (chartCalcBase != null)
                 dtDataSource = _dataManager.RawDataTableOriginal;
             else
             {
@@ -1293,13 +1804,21 @@ namespace BISTel.eSPC.Page.Modeling
                 throw ex;
             }
 
+            //SPC-929, KBLEE, START
+            //if (bchkSummaryData.Checked)
+            //{
+            //    dtDataSource = _dataManager.RawDataTableOriginal;
+            //}
+            //SPC-929, KBLEE, END
+
             bool result = false;
-            foreach(Series s in seriesCollection)
+            foreach (Series s in seriesCollection)
             {
-                if(!IsDataSeriesOfCurrentChartType(s.Title))
+                if (!IsDataSeriesOfCurrentChartType(s.Title))
                     continue;
 
                 s[rowIndex].Color = Color.Red;
+
                 if (isApplySpread)
                 {
                     this.bsprChartData.ActiveSheet.Rows[rowIndex].BackColor = Color.LightGreen;
@@ -1324,15 +1843,15 @@ namespace BISTel.eSPC.Page.Modeling
         private bool SetOutlier(Steema.TeeChart.Styles.Shape shape)
         {
             List<Series> series = GetAllSeriesOfChart();
-            if(series == null) return false;
+            if (series == null) return false;
 
-            if(shape.X0 > shape.X1)
+            if (shape.X0 > shape.X1)
             {
                 double temp = shape.X1;
                 shape.X1 = shape.X0;
                 shape.X0 = temp;
             }
-            if(shape.Y1 > shape.Y0)
+            if (shape.Y1 > shape.Y0)
             {
                 double temp = shape.Y0;
                 shape.Y0 = shape.Y1;
@@ -1340,9 +1859,9 @@ namespace BISTel.eSPC.Page.Modeling
             }
 
             bool result = false;
-            foreach(Series s in series)
+            foreach (Series s in series)
             {
-                if(IsDataSeriesOfCurrentChartType(s.Title))
+                if (IsDataSeriesOfCurrentChartType(s.Title))
                 {
                     DataTable dtSource = ((DataSet)s.DataSource).Tables[0];
                     DataRow[] dtRows = dtSource.Select(string.Format("X > {0} and X < {1} and Y > {2} and Y < {3}", shape.X0, shape.X1, shape.Y1, shape.Y0));
@@ -1359,11 +1878,11 @@ namespace BISTel.eSPC.Page.Modeling
 
         private List<Series> GetAllSeriesOfChart()
         {
-            if(this.chartCalcBase != null)
+            if (this.chartCalcBase != null)
             {
                 return this.chartCalcBase.SPCChart.GetAllSeries();
             }
-            else if(this.chartBase != null)
+            else if (this.chartBase != null)
             {
                 return this.chartBase.SPCChart.GetAllSeries();
             }
@@ -1376,25 +1895,60 @@ namespace BISTel.eSPC.Page.Modeling
         /// </summary>
         /// <param name="rowIndex">Row index of bsprChartData or Series</param>
         private void UnsetOutlier(int rowIndex, bool isApplySpread)
-        {    
+        {
             SeriesCollection seriesCollection = GetSeriesCollection();
-            if(seriesCollection == null)
+            if (seriesCollection == null)
                 return;
 
             DataTable dtDataSource = null;
-            if(chartBase != null)
+            if (chartBase != null)
                 dtDataSource = chartBase.dtDataSource;
-            else if(chartCalcBase != null)
+            else if (chartCalcBase != null)
                 dtDataSource = _dataManager.RawDataTableOriginal;
             else
                 return;
 
-            foreach(Series s in seriesCollection)
+            //SPC-929, KBLEE, START
+            //if (bchkSummaryData.Checked)
+            //{
+            //    dtDataSource = _dataManager.RawDataTableOriginal;
+            //}
+            //SPC-929, KBLEE, END
+
+            foreach (Series s in seriesCollection)
             {
                 if (!IsDataSeriesOfCurrentChartType(s.Title))
                     continue;
 
-                s[rowIndex].Color = Color.Black;
+                //SPC-930, KBLEE, START
+                if (_isUseRuleSimulation)
+                {
+                    bool isViolatedData = false;
+
+                    for (int j = 0; j < _alViolatedDataList.Count; j++)
+                    {
+                        if (rowIndex == Int32.Parse(_alViolatedDataList[j].ToString()))
+                        {
+                            isViolatedData = true;
+                            break;
+                        }
+                    }
+
+                    if (isViolatedData)
+                    {
+                        s[rowIndex].Color = Color.Yellow;
+                    }
+                    else
+                    {
+                        s[rowIndex].Color = Color.Black;
+                    }
+                }
+                else
+                {
+                    s[rowIndex].Color = Color.Black;
+                }
+                //SPC-930, KBLEE, END                
+
                 if (isApplySpread)
                 {
                     this.bsprChartData.ActiveSheet.Rows[rowIndex].ResetBackColor();
@@ -1416,15 +1970,15 @@ namespace BISTel.eSPC.Page.Modeling
         private bool UnsetOutlier(Steema.TeeChart.Styles.Shape shape)
         {
             List<Series> series = GetAllSeriesOfChart();
-            if(series == null) return false;
+            if (series == null) return false;
 
-            if(shape.X0 > shape.X1)
+            if (shape.X0 > shape.X1)
             {
                 double temp = shape.X1;
                 shape.X1 = shape.X0;
                 shape.X0 = temp;
             }
-            if(shape.Y1 > shape.Y0)
+            if (shape.Y1 > shape.Y0)
             {
                 double temp = shape.Y0;
                 shape.Y0 = shape.Y1;
@@ -1432,9 +1986,9 @@ namespace BISTel.eSPC.Page.Modeling
             }
 
             bool result = false;
-            foreach(Series s in series)
+            foreach (Series s in series)
             {
-                if(IsDataSeriesOfCurrentChartType(s.Title))
+                if (IsDataSeriesOfCurrentChartType(s.Title))
                 {
                     DataTable dtSource = ((DataSet)s.DataSource).Tables[0];
                     DataRow[] dtRows = dtSource.Select(string.Format("X > {0} and X < {1} and Y > {2} and Y < {3}", shape.X0, shape.X1, shape.Y1, shape.Y0));
@@ -1457,18 +2011,18 @@ namespace BISTel.eSPC.Page.Modeling
         private bool IsOutlier(int rowIndex)
         {
             SeriesCollection seriesCollection = GetSeriesCollection();
-            if(seriesCollection == null)
+            if (seriesCollection == null)
                 throw new Exception();
 
             DataTable dtDataSource = null;
-            if(chartBase != null)
+            if (chartBase != null)
                 dtDataSource = chartBase.dtDataSource;
-            else if(chartCalcBase != null)
+            else if (chartCalcBase != null)
                 dtDataSource = _dataManager.RawDataTableOriginal;
             else
                 throw new Exception();
 
-            foreach(Series s in seriesCollection)
+            foreach (Series s in seriesCollection)
             {
                 if (!IsDataSeriesOfCurrentChartType(s.Title))
                     continue;
@@ -1510,7 +2064,7 @@ namespace BISTel.eSPC.Page.Modeling
             {
                 return chartBase.SPCChart.Chart.Series;
             }
-            else if(chartCalcBase != null)
+            else if (chartCalcBase != null)
             {
                 return chartCalcBase.SPCChart.Chart.Series;
             }
@@ -1532,7 +2086,7 @@ namespace BISTel.eSPC.Page.Modeling
                         if (e.Column != (int)iColIdx.SELECT)
                             this.bsprData.ActiveSheet.Cells[i, (int)iColIdx.SELECT].Value = 1;
 
-                        int.TryParse(this.bsprData.GetCellText(e.Row, (int) iColIdx.RAWID), out _selectedRawID);
+                        int.TryParse(this.bsprData.GetCellText(e.Row, (int)iColIdx.RAWID), out _selectedRawID);
                         continue;
                     }
                     this.bsprData.ActiveSheet.Cells[i, (int)iColIdx.SELECT].Value = 0;
@@ -1566,9 +2120,20 @@ namespace BISTel.eSPC.Page.Modeling
                 iRowIndex = (int)alCheckRowIndex[0];
             }
 
-            if(bchkSampling.Checked)
+            //SPC-929, KBLEE, START
+            if (bchkSummaryData.Checked == true)
             {
-                if(string.IsNullOrEmpty(btxtSampleCnt.Text) ||
+                if (!_isSummaryOptionSetting || !_selectedRawID.Equals(_prevSumOptionClickedRawID))
+                {
+                    MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_SET_SUMMARY_DATA_OPTION", null, null);
+                    return;
+                }
+            }
+            //SPC-929, KBLEE, END
+
+            if (bchkSampling.Checked)
+            {
+                if (string.IsNullOrEmpty(btxtSampleCnt.Text) ||
                     string.IsNullOrEmpty(btxtSamplePeriod.Text) ||
                     (bcboChartType.Text == "RAW" && string.IsNullOrEmpty(btxtWSampleCnt.Text)))
                 {
@@ -1596,12 +2161,12 @@ namespace BISTel.eSPC.Page.Modeling
                     MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_VALID_INPUT_CONDITION", null, null);
                     return;
                 }
-                
+
             }
 
-            if(this.bDtStart.Value > this.bDtEnd.Value)
+            if (this.bDtStart.Value > this.bDtEnd.Value)
             {
-                MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_CHECK_PERIOD",null, null);
+                MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_CHECK_PERIOD", null, null);
                 return;
             }
 
@@ -1631,6 +2196,94 @@ namespace BISTel.eSPC.Page.Modeling
             this.bsprChartData.UseSpreadEdit = false;
             this.bsprChartData.AutoGenerateColumns = true;
             this.bsprChartData.UseAutoSort = false;
+
+            this.blbRuleResult.Text = ""; //SPC-930, KBLEE
+
+            //SPC-930, KBLEE, START
+            string chartType = "";
+
+            if (bcboChartType.Text.Equals(Definition.CHART_TYPE.XBAR))
+            {
+                chartType = Definition.CHART_TYPE_ALIAS.MEAN;
+                _sChartValueType = Definition.CHART_COLUMN.MEAN;
+            }
+            else if (bcboChartType.Text.Equals(Definition.CHART_TYPE.STDDEV))
+            {
+                chartType = Definition.CHART_TYPE_ALIAS.STD;
+                _sChartValueType = Definition.CHART_COLUMN.STDDEV;
+            }
+            else if (bcboChartType.Text.Equals(Definition.CHART_TYPE.EWMA_MEAN))
+            {
+                chartType = Definition.CHART_TYPE_ALIAS.EWMA;
+                _sChartValueType = Definition.CHART_COLUMN.EWMAMEAN;
+            }
+            else if (bcboChartType.Text.Equals(Definition.CHART_TYPE.MSD))
+            {
+                chartType = Definition.CHART_TYPE_ALIAS.MSTD;
+                _sChartValueType = Definition.CHART_COLUMN.MSD;
+            }
+            else
+            {
+                chartType = bcboChartType.Text;
+
+                if (bcboChartType.Text.Equals(Definition.CHART_TYPE.EWMA_RANGE))
+                {
+                    _sChartValueType = Definition.CHART_COLUMN.EWMARANGE;
+                }
+                else if (bcboChartType.Text.Equals(Definition.CHART_TYPE.EWMA_STDDEV))
+                {
+                    _sChartValueType = Definition.CHART_COLUMN.EWMASTDDEV;
+                }
+                else
+                {
+                    _sChartValueType = chartType;
+                }
+            }
+
+            LinkedList llparam = new LinkedList();
+            llparam.Add(Definition.CHART_TYPE_STRING, chartType);
+            byte[] bParam = llparam.GetSerialData();
+            DataSet dsRule = _wsSPC.GetRuleListByChartType(bParam);
+            DataTable dtRule = dsRule.Tables[0];
+
+            bcboRule.Items.Clear();
+            bcboRule.Items.Add(Definition.NONE);
+
+            for (int i = 0; i < dtRule.Rows.Count; i++)
+            {
+                DataRow dr = dtRule.Rows[i];
+                string sRuleNo = dr[Definition.SPC_RULE_NO].ToString();
+                string sRuleDescription = dr[Definition.DESCRIPTION].ToString();
+
+                //Data Restriction 적용 시에는 Spec 정보 관련 Rule, Technical Limit 관련 Rule(43~46),
+                //X-BAR Chart에서 Raw-UCL을 쓰는 Rule(41, 42)은 보이지 않도록 함.
+                if (this.GetType().FullName == "BISTel.eSPC.Page.Modeling.SPCDataRestrictionUC")
+                {
+                    if (sRuleNo.Equals("1") || sRuleNo.Equals("2") || sRuleNo.Equals("29") ||
+                        sRuleNo.Equals("30") || sRuleNo.Equals("31") || sRuleNo.Equals("35") ||
+                        sRuleNo.Equals("36") || sRuleNo.Equals("41") || sRuleNo.Equals("42") ||
+                        sRuleNo.Equals("43") || sRuleNo.Equals("44") || sRuleNo.Equals("45") ||
+                        sRuleNo.Equals("46"))
+                    {
+                        continue;
+                    }
+                }
+
+                bcboRule.Items.Add(sRuleNo + ". " + sRuleDescription);
+            }
+
+            if (_selectedRawID == -1) //Modeling에서 Popup 띄우면 _selectedRawID가 -1일 수 있음
+            {
+                int.TryParse(this.bsprData.GetCellText(0, (int)iColIdx.RAWID), out _iRawIdForRuleOption);
+            }
+            else
+            {
+                _iRawIdForRuleOption = _selectedRawID;
+            }
+
+            _alViolatedDataList.Clear();
+            _isUseRuleSimulation = false;
+            //SPC-930, KBLEE, END
 
             this.PROC_DataBinding();
         }
@@ -1749,6 +2402,7 @@ namespace BISTel.eSPC.Page.Modeling
                             if (baseCalcChart.SPCChart.Chart.Tools[i].GetType() == typeof(Steema.TeeChart.Tools.Annotation))
                             {
                                 Annotation ann = (Annotation)baseCalcChart.SPCChart.Chart.Tools[i];
+
                                 if (valueIndex == _iSEQIdx)
                                     this.mChartUtil.ShowAnnotate(baseCalcChart.SPCChart.Chart, ann, e.X, e.Y, CreateToolTipString(strCol, strValue, valueIndex, baseCalcChart.NAME));
                                 else
@@ -1768,6 +2422,99 @@ namespace BISTel.eSPC.Page.Modeling
             }
         }
 
+        //SPC-929, KBLEE, START
+        private void bbtnSummaryOption_Click(object sender, EventArgs e)
+        {
+            if (bsprData.ActiveSheet.RowCount <= 0)
+            {
+                return;
+            }
+
+            ArrayList alCheckRowIndex = this.bsprData.GetCheckedList(0);
+            int iRowIndex = -1;
+
+            if (alCheckRowIndex.Count <= 0)
+            {
+                MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_SELECT_ROW", null, null);
+                return;
+            }
+            else
+            {
+                iRowIndex = (int)alCheckRowIndex[0];
+            }
+
+            if (_sEQPModel == null)
+            {
+                _sEQPModel = "";
+            }
+
+            LinkedList llparam = new LinkedList();
+            llparam.Add(Definition.CONDITION_KEY_PARAM_ALIAS, _sParamAlias);
+            llparam.Add(Definition.CONDITION_KEY_LINE_RAWID, _sLineRawid);
+            llparam.Add(Definition.CONDITION_KEY_AREA_RAWID, _sAreaRawid);
+            DataSet dsEqpModuleId = _wsSPC.GetEqpModuleInfoByParamAlias(llparam.GetSerialData());
+
+            if (this.GetType().FullName == "BISTel.eSPC.Page.Modeling.SPCDataRestrictionUC")
+            {
+                if (dsEqpModuleId != null && dsEqpModuleId.Tables.Count > 0 && dsEqpModuleId.Tables[0].Rows.Count > 0)
+                {
+                    string sFilter = this._dataRestriction.GetEQPFilterDataByRaw(this._dsFilter);
+                    DataRow[] drEQP = dsEqpModuleId.Tables[0].Select(sFilter);
+                    DataTable dtEQP = dsEqpModuleId.Tables[0].Clone();
+
+                    foreach (DataRow row in drEQP)
+                    {
+                        dtEQP.ImportRow(row);
+                    }
+                    
+                    DataSet dsTemp = new DataSet();
+                    dsTemp.Tables.Add(dtEQP);
+                    dsEqpModuleId = dsTemp;
+                }
+            }
+
+            SummaryDataOptionPopup sdoPopup = new SummaryDataOptionPopup();
+            sdoPopup.SSESIONDATA = this.sessionData;
+            sdoPopup.PARAMETER = this.bsprData.ActiveSheet.Cells[iRowIndex, (int)iColIdx.PARAM_ALIAS].Text;
+            sdoPopup.EQPMODULEDATA = dsEqpModuleId;
+            sdoPopup.FAB = _sFab;
+            sdoPopup.LINE = _sLine;
+            sdoPopup.AREA = _sArea;
+            sdoPopup.EQPMODEL = _sEQPModel;
+            sdoPopup.SUMMARYOPTIONRESULT = _dsSummaryOptionResult;
+
+            if (!_selectedRawID.Equals(_prevSumOptionClickedRawID))
+            {
+                sdoPopup.ISSELECTEDRAWCHANGE = true;
+                _isSummaryOptionSetting = false;
+            }
+
+            DataTable dt = ((DataSet)bsprData.DataSet).Tables[0];
+
+            if (dt.Columns.Contains("RECIPE_ID"))
+            {
+                int columnIndex = dt.Columns.IndexOf("RECIPE_ID");
+                sdoPopup.RECIPE = this.bsprData.ActiveSheet.Cells[iRowIndex, columnIndex].Text;
+                sdoPopup.ISRECIPEEXIST = true;
+            }
+
+            if (_sParamAlias.Contains("STEP"))
+            {
+                sdoPopup.ISSTEPEXIST = true;
+            }
+
+            sdoPopup.InitializePopup();
+
+            if (sdoPopup.ShowDialog() == DialogResult.OK)
+            {
+                _prevSumOptionClickedRawID = _selectedRawID;
+                _isSummaryOptionSetting = true;
+
+                _dsSummaryOptionResult = sdoPopup.SUMMARYOPTIONRESULT;
+            }
+        }
+        //SPC-929, KBLEE, END
+
         private void PROC_DataBinding()
         {
             DataSet _ds = null;
@@ -1775,9 +2522,9 @@ namespace BISTel.eSPC.Page.Modeling
             DataTable mDTChartData = null;
             _sModelConfigRawIDforSave = "";
             _sMainYNforSave = "";
+
             try
             {
-
                 mDTChartData = new DataTable();
                 _createChartDT = new CreateChartDataTable();
 
@@ -1786,6 +2533,7 @@ namespace BISTel.eSPC.Page.Modeling
                 LinkedList lnkChartSearchData = new LinkedList();
 
                 lnkChartSearchData.Clear();
+
                 lnkChartSearchData.Add(Definition.DynamicCondition_Condition_key.START_DTTS, this.mStartTime);
                 lnkChartSearchData.Add(Definition.DynamicCondition_Condition_key.END_DTTS, this.mEndTime);
                 lnkChartSearchData.Add(Definition.DynamicCondition_Condition_key.MODEL_CONFIG_RAWID, mChartVariable.MODEL_CONFIG_RAWID);
@@ -1794,19 +2542,167 @@ namespace BISTel.eSPC.Page.Modeling
 
                 AsyncCallHandler ach = new AsyncCallHandler(EESProgressBar.AsyncCallManager);
 
-                object objDataSet = ach.SendWait(_wsSPC, "GetSPCControlChartData", new object[] { lnkChartSearchData.GetSerialData() });
-
-                EESProgressBar.CloseProgress(this);
-
-                if (objDataSet != null)
+                //SPC-929, KBLEE, START
+                if (bchkSummaryData.Checked == true)
                 {
-                    _ds = (DataSet)objDataSet;
+                    DataRow[] drArraySumOptResult = _dsSummaryOptionResult.Tables[0].Select(null, Definition.COL_EQP_MODULE_ID + " asc");
+                    DataSet dsSortedSumOptResult = new DataSet();
+
+                    dsSortedSumOptResult.Merge(drArraySumOptResult);
+
+                    bool isFirstModule = true;
+                    string currentEqpModuleId = string.Empty;
+                    string previousEqpModuleId = string.Empty;
+                    DataSet dsOneModuleSumOptResult = dsSortedSumOptResult.Copy();
+                    EqpSummaryTrxDataParse summaryParser = new EqpSummaryTrxDataParse();
+                    DataSet dsOneModuleData = new DataSet();
+                    DataSet dsTemp = new DataSet();
+
+                    dsOneModuleSumOptResult.Tables[0].Rows.Clear();
+
+                    for (int i = 0; i < dsSortedSumOptResult.Tables[0].Rows.Count; i++)
+                    {
+                        bool isLastIndex = false;
+
+                        if (i >= dsSortedSumOptResult.Tables[0].Rows.Count - 1)
+                        {
+                            isLastIndex = true;
+                        }
+
+                        DataRow dr = dsSortedSumOptResult.Tables[0].Rows[i];
+                        currentEqpModuleId = dr[Definition.COL_EQP_MODULE_ID].ToString();
+
+                        if (i == 0)
+                        {
+                            previousEqpModuleId = currentEqpModuleId;
+                        }
+
+                        if (currentEqpModuleId.Equals(previousEqpModuleId) && !isLastIndex)
+                        {
+                            dsOneModuleSumOptResult.Tables[0].ImportRow(dr);
+                        }
+                        else
+                        {
+                            if (currentEqpModuleId.Equals(previousEqpModuleId) && isLastIndex)
+                            {
+                                dsOneModuleSumOptResult.Tables[0].ImportRow(dr);
+                            }
+
+                            lnkChartSearchData.Clear();
+                            lnkChartSearchData.Add(Definition.DynamicCondition_Condition_key.START_DTTS, this.mStartTime);
+                            lnkChartSearchData.Add(Definition.DynamicCondition_Condition_key.END_DTTS, this.mEndTime);
+                            lnkChartSearchData.Add(Definition.DynamicCondition_Condition_key.MODEL_CONFIG_RAWID, mChartVariable.MODEL_CONFIG_RAWID);
+
+                            lnkChartSearchData.Add(Definition.CONDITION_KEY_MODULE_ID, previousEqpModuleId);
+                            lnkChartSearchData.Add(Definition.CONDITION_KEY_PARAM_ALIAS, _sParamAlias);
+
+                            if (_sParamTypeCD.ToUpper() == "TRS")
+                            {
+                                lnkChartSearchData.Add(Definition.CONDITION_KEY_DATA_CATEGORY_CD, Definition.DATA_CATEGORY_CODE.TS);
+                                lnkChartSearchData.Add(Definition.CONDITION_KEY_SUM_CATEGORY_CD, Definition.DATA_CATEGORY_CODE.MP);
+                            }
+                            else
+                            {
+                                lnkChartSearchData.Add(Definition.CONDITION_KEY_DATA_CATEGORY_CD, Definition.DATA_CATEGORY_CODE.EV);
+                                lnkChartSearchData.Add(Definition.CONDITION_KEY_SUM_CATEGORY_CD, Definition.DATA_CATEGORY_CODE.MP);
+                            }
+
+                            summaryParser = new EqpSummaryTrxDataParse();
+                            summaryParser.ASYNCMANAGER = EESProgressBar.AsyncCallManager;
+                            dsOneModuleData = summaryParser.GetSummaryDataSet(lnkChartSearchData);
+
+                            if (!DataUtil.IsNullOrEmptyDataSet(dsOneModuleData))
+                            {
+                                string filter = makeDataTableFilter(dsOneModuleSumOptResult.Tables[0]);
+                                DataRow[] drFiltered = dsOneModuleData.Tables[0].Select(filter, "time asc");
+
+                                if (isFirstModule && drFiltered.Length > 0)
+                                {
+                                    dsTemp.Merge(drFiltered);
+
+                                    isFirstModule = false;
+                                }
+                                else
+                                {
+                                    for (int j = 0; j < drFiltered.Length; j++)
+                                    {
+                                        dsTemp.Tables[0].ImportRow(drFiltered[j]);
+                                    }
+                                }
+                            }
+
+                            dsOneModuleSumOptResult.Tables[0].Rows.Clear();
+                            dsOneModuleSumOptResult.Tables[0].ImportRow(dr);
+
+                            if (!currentEqpModuleId.Equals(previousEqpModuleId) && isLastIndex)
+                            {
+                                lnkChartSearchData.Remove(Definition.CONDITION_KEY_MODULE_ID);
+                                lnkChartSearchData.Add(Definition.CONDITION_KEY_MODULE_ID, currentEqpModuleId);
+
+                                summaryParser = new EqpSummaryTrxDataParse();
+                                summaryParser.ASYNCMANAGER = EESProgressBar.AsyncCallManager;
+                                dsOneModuleData = summaryParser.GetSummaryDataSet(lnkChartSearchData);
+
+                                if (!DataUtil.IsNullOrEmptyDataSet(dsOneModuleData))
+                                {
+                                    string filter = makeDataTableFilter(dsOneModuleSumOptResult.Tables[0]);
+                                    DataRow[] drFiltered = dsOneModuleData.Tables[0].Select(filter, "time asc");
+
+                                    if (isFirstModule && drFiltered.Length > 0)
+                                    {
+                                        dsTemp.Merge(drFiltered);
+
+                                        isFirstModule = false;
+                                    }
+                                    else
+                                    {
+                                        for (int j = 0; j < drFiltered.Length; j++)
+                                        {
+                                            dsTemp.Tables[0].ImportRow(drFiltered[j]);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        previousEqpModuleId = currentEqpModuleId;
+                    }
+
+                    EESProgressBar.CloseProgress(this);
+
+                    if (dsTemp != null)
+                    {
+                        _ds = dsTemp;
+                    }
+                    else
+                    {
+                        MSGHandler.DisplayMessage(MSGType.Warning, MSGHandler.GetMessage("INFORMATION_NODATA"));
+                        return;
+                    }
                 }
                 else
                 {
-                    MSGHandler.DisplayMessage(MSGType.Warning, MSGHandler.GetMessage("INFORMATION_NODATA"));
-                    return;
+                    DataTable dt1 = ((DataSet)bsprData.DataSet).Tables[0];
+                    lnkChartSearchData.Clear();
+                    lnkChartSearchData.Add(Definition.DynamicCondition_Condition_key.START_DTTS, this.mStartTime);
+                    lnkChartSearchData.Add(Definition.DynamicCondition_Condition_key.END_DTTS, this.mEndTime);
+                    lnkChartSearchData.Add(Definition.DynamicCondition_Condition_key.MODEL_CONFIG_RAWID, mChartVariable.MODEL_CONFIG_RAWID);
+
+                    object objDataSet = ach.SendWait(_wsSPC, "GetSPCControlChartData", new object[] { lnkChartSearchData.GetSerialData() });
+
+                    EESProgressBar.CloseProgress(this);
+
+                    if (objDataSet != null)
+                    {
+                        _ds = (DataSet)objDataSet;
+                    }
+                    else
+                    {
+                        MSGHandler.DisplayMessage(MSGType.Warning, MSGHandler.GetMessage("INFORMATION_NODATA"));
+                        return;
+                    }
                 }
+                //SPC-929, KBLEE, END
 
                 //_ds = _wsSPC.GetSPCControlChartData(lnkChartSearchData.GetSerialData());
 
@@ -1820,9 +2716,139 @@ namespace BISTel.eSPC.Page.Modeling
                     EESProgressBar.ShowProgress(this, MSGHandler.GetMessage("PROCESS_LOADING_PAGE_DATA"), false);
 
                     lnkChartSearchData.Add(Definition.DynamicCondition_Condition_key.CONTEXT_KEY_LIST, "");
-                    mDTChartData = CommonPageUtil.CLOBnBLOBParsing(_ds, lnkChartSearchData, false);
+
+                    //SPC-929, KBLEE, START
+                    if (bchkSummaryData.Checked == true)
+                    {
+                        mDTChartData = new DataTable(); //bsprChartData의 Data Source로 활용되는 DataTable.
+
+                        this._slParamColumnIndex = new SortedList();
+                        this._slParamColumnIndex = this._Initialization.InitializeColumnHeader(ref bsprChartData, "SPC_SUMMARYDATA_OPTION_POPUP", true, "");
+
+                        foreach (string sColumn in _slParamColumnIndex.Keys)
+                        {
+                            mDTChartData.Columns.Add(sColumn);
+                        }
+
+                        mDTChartData.Columns.Add(Definition.COL_RAW);
+                        mDTChartData.Columns.Add(Definition.COL_RAW_TARGET);
+                        mDTChartData.Columns.Add(Definition.COL_RAW_UCL);
+                        mDTChartData.Columns.Add(Definition.COL_RAW_LCL);
+                        mDTChartData.Columns.Add(Definition.COL_RAW_USL);
+                        mDTChartData.Columns.Add(Definition.COL_RAW_LSL);
+                        mDTChartData.Columns.Add(Definition.CONDITION_KEY_TIME);
+
+                        //UseYN = true인 Context Type들 추가 시작
+                        DataSet dsContextType = _wsSPC.GetContextTypeData();
+                        DataTable dtContextType = dsContextType.Tables[0];
+
+                        ArrayList alUsedContextType = new ArrayList();
+
+                        for (int i = 0; i < dtContextType.Rows.Count; i++)
+                        {
+                            DataRow dr = dtContextType.Rows[i];
+
+                            if (dr[Definition.CONDITION_KEY_CODE].ToString().Contains(Definition.RSD))
+                            {
+                                mDTChartData.Columns.Add(dr[Definition.CONDITION_KEY_CODE].ToString());
+
+                                alUsedContextType.Add(dr[Definition.CONDITION_KEY_CODE].ToString());
+                            }
+                        }
+                        //UseYN = true인 Context Type들 추가 종료
+
+                        int count = _ds.Tables[0].Rows.Count;
+                        int iRowIndex = (int)this.bsprData.GetCheckedList(0)[0];
+
+                        string configRawId = bsprData.ActiveSheet.GetText(iRowIndex, (int)iColIdx.RAWID);
+
+                        LinkedList llparam = new LinkedList();
+                        llparam.Add(Definition.COL_RAW_ID, configRawId);
+
+                        DataSet dsConfigData = _wsSPC.GetConfigInfoByRawId(llparam.GetSerialData());
+                        DataTable dtConfigData = dsConfigData.Tables[0];
+
+                        string rawUCL = dtConfigData.Rows[0][Definition.COL_RAW_UCL].ToString();
+                        string rawLCL = dtConfigData.Rows[0][Definition.COL_RAW_LCL].ToString();
+                        string USL = dtConfigData.Rows[0][Definition.COL_USL].ToString();
+                        string LSL = dtConfigData.Rows[0][Definition.COL_LSL].ToString();
+                        string target = dtConfigData.Rows[0][Definition.COL_TARGET].ToString();
+
+                        string prevModuleId = string.Empty;
+                        string moduleName = string.Empty;
+
+                        for (int i = 0; i < count; i++)
+                        {
+                            DataRow dr = _ds.Tables[0].Rows[i];
+                            DataRow drData = mDTChartData.NewRow();
+
+                            string currModuleId = dr[Definition.COL_MODULE_ID].ToString();
+
+                            if (!currModuleId.Equals(prevModuleId))
+                            {
+                                LinkedList llp = new LinkedList();
+                                llp.Add(Definition.COL_MODULE_ID, currModuleId);
+
+                                DataSet dsModuleName = _wsSPC.GetModuleNameByModuleId(llp.GetSerialData());
+
+                                moduleName = dsModuleName.Tables[0].Rows[0][Definition.COL_MODULE_NAME].ToString();
+                            }
+
+                            drData[Definition.COL_AREA] = _sArea;
+                            drData[Definition.COL_CASSETTE_SLOT] = dr[Definition.COL_SLOT];
+                            drData[Definition.CONDITION_KEY_CONTEXT_KEY] = dr[Definition.CONDITION_KEY_CONTEXT_KEY];
+                            drData[Definition.COL_EQP_ID] = dr[Definition.COL_EQP_ID];
+                            drData[Definition.COL_LOT_ID] = dr[Definition.COL_LOTID];
+
+                            if (_ds.Tables[0].Columns.Contains(Definition.COL_LOTTYPE))
+                            {
+                                drData[Definition.COL_LOT_TYPE] = dr[Definition.COL_LOTTYPE];
+                            }
+                            else
+                            {
+                                drData[Definition.COL_LOT_TYPE] = "";
+                            }
+
+                            drData[Definition.COL_MODULE_ALIAS] = dr[Definition.COL_MODULE_ALIAS];
+                            drData[Definition.COL_MODULE_ID] = dr[Definition.COL_MODULE_ID];
+                            drData[Definition.COL_MODULE_NAME] = moduleName;
+                            drData[Definition.COL_OPERATION_ID] = dr[Definition.COL_OPERATION];
+                            drData[Definition.COL_PRODUCT_ID] = dr[Definition.COL_PRODUCT];
+                            drData[Definition.COL_RECIPE_ID] = dr[Definition.COL_RECIPE];
+                            drData[Definition.COL_STEP_ID] = dr[Definition.COL_STEP];
+                            drData[Definition.COL_SUBSTRATE_ID] = dr[Definition.COL_SUBSTRATEID];
+                            drData[Definition.COL_RAW] = dr[Definition.COL_SUM_VALUE];
+                            drData[Definition.COL_RAW_UCL] = rawUCL;
+                            drData[Definition.COL_RAW_LCL] = rawLCL;
+                            drData[Definition.COL_RAW_USL] = USL;
+                            drData[Definition.COL_RAW_LSL] = LSL;
+                            drData[Definition.COL_RAW_TARGET] = target;
+                            drData[Definition.CONDITION_KEY_TIME] = dr[Definition.CONDITION_KEY_TIME];
+
+                            for (int j = 0; j < alUsedContextType.Count; j++)
+                            {
+                                if (_ds.Tables[0].Columns.Contains(alUsedContextType[j].ToString()))
+                                {
+                                    drData[alUsedContextType[j].ToString()] = dr[alUsedContextType[j].ToString()];
+                                }
+                                else
+                                {
+                                    drData[alUsedContextType[j].ToString()] = "";
+                                }
+                            }
+
+                            mDTChartData.Rows.Add(drData);
+
+                            prevModuleId = currModuleId;
+                        }
+                    }
+                    else
+                    {
+                        mDTChartData = CommonPageUtil.CLOBnBLOBParsing(_ds, lnkChartSearchData, false);
+                    }
                     GC.Collect();
                     GC.WaitForPendingFinalizers();
+                    //SPC-929, KBLEE, END
 
                     if (DataUtil.IsNullOrEmptyDataTable(mDTChartData))
                     {
@@ -1841,24 +2867,39 @@ namespace BISTel.eSPC.Page.Modeling
                         mChartVariable.dateTimeStart = DateTime.Parse(this.mStartTime);
                         mChartVariable.dateTimeEnd = DateTime.Parse(this.mEndTime);
                         _createChartDT.COMPLEX_YN = Definition.VARIABLE_Y;
-                        if(this._sChartType == Definition.CHART_TYPE.RAW)
+
+                        if (this._sChartType == Definition.CHART_TYPE.RAW)
+                        {
                             mChartVariable.dtParamData = _createChartDT.GetMakeDataTablePopup(mDTChartData);
+                        }
                         else
+                        {
                             mChartVariable.dtParamData = _createChartDT.GetMakeDataTable(mDTChartData);
+                        }
 
                         mChartVariable.lstRawColumn = _createChartDT.lstRawColumn;
-                        if (mDTChartData != null) mDTChartData.Dispose();
-                        if (_createChartDT != null) _createChartDT = null;
+
+                        if (mDTChartData != null)
+                        {
+                            mDTChartData.Dispose();
+                        }
+                        if (_createChartDT != null)
+                        {
+                            _createChartDT = null;
+                        }
                     }
                 }
+
                 this.InitializeCode();
                 this.InitializeChartSeriesVisibleType();
                 this.InitializeChart();
+
                 if (arrOutlierList.Count > 0)
                 {
                     if (chartBase != null)
                     {
                         Series RawSeries = null;
+
                         foreach (Series s in chartBase.SPCChart.Chart.Series)
                         {
                             if (s.Title == "RAW")
@@ -1878,8 +2919,23 @@ namespace BISTel.eSPC.Page.Modeling
                                 if (chartBase.dtDataSource.Columns.Contains(Definition.CHART_COLUMN.LOT_ID))
                                     sLOTID = chartBase.dtDataSource.Rows[i][Definition.CHART_COLUMN.LOT_ID].ToString();
 
+
+                                //SPC-929, KBLEE, START
+                                if (bchkSummaryData.Checked)
+                                {
+                                    sLOTID = _dataManager.RawDataTable.Rows[i][Definition.CHART_COLUMN.LOT_ID].ToString();
+                                }
+                                //SPC-929, KBLEE, END
+
                                 if (chartBase.dtDataSource.Columns.Contains(Definition.CHART_COLUMN.SUBSTRATE_ID))
                                     sSubstrateID = chartBase.dtDataSource.Rows[i][Definition.CHART_COLUMN.SUBSTRATE_ID].ToString();
+
+                                //SPC-929, KBLEE, START
+                                if (bchkSummaryData.Checked)
+                                {
+                                    sSubstrateID = _dataManager.RawDataTable.Rows[i][Definition.CHART_COLUMN.SUBSTRATE_ID].ToString();
+                                }
+                                //SPC-929, KBLEE, END
 
                                 sOutlier = sLOTID + "^" + sSubstrateID;
 
@@ -1893,7 +2949,7 @@ namespace BISTel.eSPC.Page.Modeling
                     }
                     else if (chartCalcBase != null)
                     {
-                        Series sSeries = null; 
+                        Series sSeries = null;
                         foreach (Series s in chartCalcBase.SPCChart.Chart.Series)
                         {
                             if (s.Title != Definition.CHART_COLUMN.UCL && s.Title != Definition.CHART_COLUMN.LCL && s.Title != Definition.CHART_COLUMN.USL && s.Title != Definition.CHART_COLUMN.LSL && s.Title != Definition.CHART_COLUMN.TARGET && s.Title != Definition.CHART_COLUMN.MIN && s.Title != Definition.CHART_COLUMN.MAX && s.Title != Definition.CHART_COLUMN.PREVIEWUPPERLIMIT && s.Title != Definition.CHART_COLUMN.PREVIEWLOWERLIMIT)
@@ -1927,6 +2983,26 @@ namespace BISTel.eSPC.Page.Modeling
                         }
                     }
                 }
+
+                //SPC-929, KBLEE, START
+                if (bchkSummaryData.Checked)
+                {
+                    for (int i = 0; i < bsprChartData.ActiveSheet.Columns.Count; i++)
+                    {
+                        if (bsprChartData.ActiveSheet.Columns[i].Label.Equals(Definition.COL_STATUS))
+                        {
+                            bsprChartData.ActiveSheet.Columns[i].Visible = false;
+                            break;
+                        }
+                    }
+                }
+                //SPC-929, KBLEE, END
+
+                //Data Restriction - Spec 정보를 제외한 데이터만 보여줌.
+                if (this.GetType().FullName == "BISTel.eSPC.Page.Modeling.SPCDataRestrictionUC")
+                {
+                    this.RemoveLimitSeries();
+                }
             }
             catch (Exception ex)
             {
@@ -1951,6 +3027,170 @@ namespace BISTel.eSPC.Page.Modeling
                 this.MsgClose();
             }
         }
+
+        //SPC-929, KBLEE, START
+        private string makeDataTableFilter(DataTable dt)
+        {
+            string sRetrun = string.Empty;
+
+            StringBuilder sbFilter = new StringBuilder();
+
+            for (int j = 0; j < dt.Rows.Count; j++)
+            {
+                DataRow dr = dt.Rows[j];
+
+                if (dr[Definition.COL_RECIPE].ToString().Equals(Definition.VARIABLE.STAR) &&
+                    dr[Definition.COL_STEP].ToString().Equals(Definition.VARIABLE.STAR))
+                {
+                    sRetrun = null;
+
+                    break;
+                }
+                else if (dr[Definition.COL_RECIPE].ToString().Equals(Definition.VARIABLE.STAR))
+                {
+                    sbFilter.Append(Definition.COL_STEP);
+                    sbFilter.Append(" = ");
+                    sbFilter.Append("'" + dr[Definition.COL_STEP].ToString() + "'");
+                }
+                else if (dr[Definition.COL_STEP].ToString().Equals(Definition.VARIABLE.STAR))
+                {
+                    sbFilter.Append(Definition.COL_RECIPE);
+                    sbFilter.Append(" = ");
+                    sbFilter.Append("'" + dr[Definition.COL_RECIPE].ToString() + "'");
+                }
+                else
+                {
+                    sbFilter.Append(Definition.COL_RECIPE);
+                    sbFilter.Append(" = ");
+                    sbFilter.Append("'" + dr[Definition.COL_RECIPE].ToString() + "'");
+                    sbFilter.Append(" AND ");
+                    sbFilter.Append(Definition.COL_STEP);
+                    sbFilter.Append(" = ");
+                    sbFilter.Append("'" + dr[Definition.COL_STEP].ToString() + "'");
+                }
+
+                if (j < dt.Rows.Count - 1)
+                {
+                    sbFilter.Append(" OR ");
+                }
+            }
+
+            sRetrun = sbFilter.ToString();
+
+            return sRetrun;
+        }
+        //SPC-929, KBLEE, END
+
+        //SPC-930, KBLEE, START
+        private void ChangeViolatedDataPointColor(ArrayList alViolatedDataList)
+        {
+            if (alViolatedDataList != null)
+            {
+                alViolatedDataList.Sort();
+            }
+
+            SeriesCollection seriesCollection = GetSeriesCollection();
+
+            if (seriesCollection == null)
+            {
+                Exception ex = new Exception("seriesCollection is null");
+                LogHandler.LogWriteException(Definition.APPLICATION_NAME, ex.Message, ex);
+                throw ex;
+            }
+
+            foreach (Series s in seriesCollection)
+            {
+                if (!IsDataSeriesOfCurrentChartType(s.Title))
+                {
+                    continue;
+                }
+
+                //Outlier들의 Index를 얻는 부분, Start
+                List<int> lstTempOutlier = new List<int>();
+                string dataValueColumnName = GetDataValueColumnName();
+                DataTable dtChartData = ((DataSet)bsprChartData.DataSource).Tables[0];
+                if (!dtChartData.Columns.Contains(dataValueColumnName))
+                {
+                    return;
+                }
+
+                // copy original outlier to preview
+                for (int i = 0; i < dtChartData.Rows.Count; i++)
+                {
+                    if (this.bsprChartData.ActiveSheet.Rows[i].BackColor == Color.LightGreen)
+                    {
+                        lstTempOutlier.Add(i);
+                    }
+                }
+                //Outlier들의 Index를 얻는 부분, End
+
+                DataSet dsSeriesData = (DataSet)s.DataSource;
+                DataTable dtSeriesData = dsSeriesData.Tables[0];
+
+                for (int i = 0; i < dtSeriesData.Rows.Count; i++)
+                {
+                    if (lstTempOutlier.Count > 0)
+                    {
+                        bool isOutlierIndex = false;
+
+                        for (int j = 0; j < lstTempOutlier.Count; j++)
+                        {
+                            int outlierIndex = Int32.Parse(lstTempOutlier[j].ToString());
+
+                            if (i == outlierIndex)
+                            {
+                                s[i].Color = Color.Red;
+
+                                isOutlierIndex = true;
+                                break;
+                            }
+                        }
+
+                        if (isOutlierIndex)
+                        {
+                            if (alViolatedDataList != null)
+                            {
+                                if (alViolatedDataList.Count > 0)
+                                {
+                                    if (i == Int32.Parse(alViolatedDataList[0].ToString()))
+                                    {
+                                        alViolatedDataList.RemoveAt(0);
+                                    }
+                                }
+                            }
+                            continue;
+                        }
+                    }
+
+                    if (alViolatedDataList == null)
+                    {
+                        s[i].Color = Color.Black;
+
+                        continue;
+                    }
+
+                    if (alViolatedDataList.Count <= 0)
+                    {
+                        s[i].Color = Color.Black;
+
+                        continue;
+                    }
+
+                    //alViolatedDataList는 작은 수부터 큰 수 순서대로 저장되므로 그냥 index=0만 뽑으면 됨.
+                    if (i == Int32.Parse(alViolatedDataList[0].ToString()))
+                    {
+                        s[i].Color = Color.Yellow;
+
+                        alViolatedDataList.RemoveAt(0);
+                    }
+                    else
+                    {
+                        s[i].Color = Color.Black;
+                    }
+                }
+            }
+        }
+        //SPC-930, KBLEE, END
 
         private BaseRawChart FindSPCChart(Control ctl)
         {
@@ -2051,11 +3291,15 @@ namespace BISTel.eSPC.Page.Modeling
                     sb.AppendFormat("{0} : {1}\r\n", "TIME", _sTime);
                     sb.AppendFormat("{0} : {1}\r\n", "PARAM LIST", _sParamList);
                     sb.AppendFormat("{0} : {1}\r\n", "VALUE", _sRawValue);
-                    sb.AppendFormat("{0} : {1}\r\n", "USL", _sRawUSL);
-                    sb.AppendFormat("{0} : {1}\r\n", "UCL", _sRawUCL);
-                    sb.AppendFormat("{0} : {1}\r\n", "TARGET", _sRawTarget);
-                    sb.AppendFormat("{0} : {1}\r\n", "LCL", _sRawLCL);
-                    sb.AppendFormat("{0} : {1}\r\n", "LSL", _sRawLSL);
+
+                    if (!(this.GetType().FullName == "BISTel.eSPC.Page.Modeling.SPCDataRestrictionUC"))
+                    {
+                        sb.AppendFormat("{0} : {1}\r\n", "USL", _sRawUSL);
+                        sb.AppendFormat("{0} : {1}\r\n", "UCL", _sRawUCL);
+                        sb.AppendFormat("{0} : {1}\r\n", "TARGET", _sRawTarget);
+                        sb.AppendFormat("{0} : {1}\r\n", "LCL", _sRawLCL);
+                        sb.AppendFormat("{0} : {1}\r\n", "LSL", _sRawLSL);
+                    }
                 }
                 else
                 {
@@ -2213,6 +3457,14 @@ namespace BISTel.eSPC.Page.Modeling
                         sValue.Contains("wafer")
                         ) continue;
 
+                    if (this.GetType().FullName == "BISTel.eSPC.Page.Modeling.SPCDataRestrictionUC")
+                    {
+                        if (sValue.Equals(Definition.CHART_COLUMN.UCL) || sValue.Equals(Definition.CHART_COLUMN.USL) || sValue.Equals(Definition.CHART_COLUMN.TARGET) ||
+                        sValue.Equals(Definition.CHART_COLUMN.LCL) || sValue.Equals(Definition.CHART_COLUMN.LSL) || //sValue.Equals(Definition.CHART_COLUMN.AVG) ||
+                        sValue.Contains("wafer")
+                        ) continue;
+                    }
+
                     if (_dataManager.RawDataTable.Columns.Contains(sKey))
                     {
                         if (_dataManager.RawDataTable.Rows[rowIndex][sKey] != null && _dataManager.RawDataTable.Rows[rowIndex][sKey].ToString().Length > 0)
@@ -2222,7 +3474,7 @@ namespace BISTel.eSPC.Page.Modeling
                     }
                 }
 
-                    
+
             }
             llstChartSeries = null;
 
@@ -2265,7 +3517,7 @@ namespace BISTel.eSPC.Page.Modeling
                     bool isParseSigma = double.TryParse(this.btxtSigma.Text.Trim(), out dsigma);
                     if (!isParseSigma)
                     {
-                        MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_INPUT_VALUE_AS_NUM", new string[]{"sigma"}, null);
+                        MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_INPUT_VALUE_AS_NUM", new string[] { "sigma" }, null);
                         return;
                     }
 
@@ -2280,8 +3532,8 @@ namespace BISTel.eSPC.Page.Modeling
                     double avg = StStat.mean(dsValueList);
                     double std = StStat.std(dsValueList);
 
-                    double dUCL = avg + (std*dsigma);
-                    double dLCL = avg - (std*dsigma);
+                    double dUCL = avg + (std * dsigma);
+                    double dLCL = avg - (std * dsigma);
 
                     this.btxtSTD.Text = std.ToString();
                     this.btxtAvg.Text = avg.ToString();
@@ -2298,7 +3550,7 @@ namespace BISTel.eSPC.Page.Modeling
                     bool isParseConstant = double.TryParse(this.btxtSigma.Text.Trim(), out dconstant);
                     if (!isParseConstant)
                     {
-                        MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_INPUT_VALUE_AS_NUM", new string[]{"constant"}, null);
+                        MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_INPUT_VALUE_AS_NUM", new string[] { "constant" }, null);
                         return;
                     }
 
@@ -2331,7 +3583,7 @@ namespace BISTel.eSPC.Page.Modeling
                     bool isParsePercent = double.TryParse(this.btxtSigma.Text.Trim(), out dPercentage);
                     if (!isParsePercent)
                     {
-                        MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_INPUT_VALUE_AS_NUM", new string[]{"Percent"}, null);
+                        MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_INPUT_VALUE_AS_NUM", new string[] { "Percent" }, null);
                         return;
                     }
 
@@ -2361,12 +3613,12 @@ namespace BISTel.eSPC.Page.Modeling
                 double dUCLTemp = Convert.ToDouble(btxtUCL.Text);
                 double dLCLTemp = Convert.ToDouble(btxtLCL.Text);
 
-                
-                
+
+
 
                 if (this._sChartType == Definition.CHART_TYPE.RAW || this._sChartType == Definition.CHART_TYPE.XBAR)
                 {
-                    
+
                     //if ((btxtUSL.Text != null && btxtLSL.Text != null) && (btxtUSL.Text != "" && btxtLSL.Text != ""))
                     //{
                     //    double dUSLTemp = Convert.ToDouble(btxtUSL.Text);
@@ -2385,7 +3637,7 @@ namespace BISTel.eSPC.Page.Modeling
                         double dUSLTemp = Convert.ToDouble(btxtUSL.Text);
                         if (dUCLTemp > dUSLTemp)
                         {
-                            MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_CALC_VALUE_BIGGER", new string[]{"UCL", "USL"}, null);
+                            MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_CALC_VALUE_BIGGER", new string[] { "UCL", "USL" }, null);
                         }
                     }
                     if (btxtLSL.Text != null && btxtLSL.Text != "")
@@ -2393,10 +3645,10 @@ namespace BISTel.eSPC.Page.Modeling
                         double dLSLTemp = Convert.ToDouble(btxtLSL.Text);
                         if (dLCLTemp < dLSLTemp)
                         {
-                            MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_CALC_VALUE_SMALLER", new string[]{"LCL", "LSL"}, null);
+                            MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_CALC_VALUE_SMALLER", new string[] { "LCL", "LSL" }, null);
                         }
                     }
-                }    
+                }
             }
             catch
             {
@@ -2407,29 +3659,29 @@ namespace BISTel.eSPC.Page.Modeling
 
         private string GetBLOBFieldNameFromChartType(string chartType)
         {
-            switch(chartType)
+            switch (chartType)
             {
-                case Definition.CHART_TYPE.RAW :
+                case Definition.CHART_TYPE.RAW:
                     return Definition.BLOB_FIELD_NAME.RAW;
-                case Definition.CHART_TYPE.XBAR :
+                case Definition.CHART_TYPE.XBAR:
                     return Definition.BLOB_FIELD_NAME.MEAN;
-                case Definition.CHART_TYPE.STDDEV :
+                case Definition.CHART_TYPE.STDDEV:
                     return Definition.BLOB_FIELD_NAME.STDDEV;
-                case Definition.CHART_TYPE.RANGE :
+                case Definition.CHART_TYPE.RANGE:
                     return Definition.BLOB_FIELD_NAME.RANGE;
-                case Definition.CHART_TYPE.EWMA_MEAN :
+                case Definition.CHART_TYPE.EWMA_MEAN:
                     return Definition.BLOB_FIELD_NAME.EWMAMEAN;
-                case Definition.CHART_TYPE.EWMA_RANGE :
+                case Definition.CHART_TYPE.EWMA_RANGE:
                     return Definition.BLOB_FIELD_NAME.EWMARANGE;
-                case Definition.CHART_TYPE.EWMA_STDDEV :
+                case Definition.CHART_TYPE.EWMA_STDDEV:
                     return Definition.BLOB_FIELD_NAME.EWMASTDDEV;
-                case Definition.CHART_TYPE.MA :
+                case Definition.CHART_TYPE.MA:
                     return Definition.BLOB_FIELD_NAME.MA;
-                case Definition.CHART_TYPE.MSD :
+                case Definition.CHART_TYPE.MSD:
                     return Definition.BLOB_FIELD_NAME.MSD;
                 case Definition.CHART_TYPE.MR:
                     return Definition.BLOB_FIELD_NAME.MR;
-                default :
+                default:
                     return string.Empty;
             }
         }
@@ -2451,32 +3703,32 @@ namespace BISTel.eSPC.Page.Modeling
                 bool isParse = double.TryParse(this.btxtUCL.Text.Trim(), out dUCL);
                 if (!isParse)
                 {
-                    MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_INPUT_VALUE_AS_NUM", new string[]{"UCL"}, null);
+                    MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_INPUT_VALUE_AS_NUM", new string[] { "UCL" }, null);
                     return;
                 }
                 lnkListSaveData.Add(Definition.CHART_COLUMN.UCL, dUCL.ToString());
             }
             else
             {
-                MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_INPUT_VALUE", new string[]{"UCL"}, null);
+                MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_INPUT_VALUE", new string[] { "UCL" }, null);
                 return;
             }
 
             if (this.btxtLCL.Text.Trim().Length > 0)
             {
-                double dLCL= 0;
+                double dLCL = 0;
 
                 bool isParse = double.TryParse(this.btxtLCL.Text.Trim(), out dLCL);
                 if (!isParse)
                 {
-                    MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_INPUT_VALUE_AS_NUM", new string[]{"LCL"}, null);
+                    MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_INPUT_VALUE_AS_NUM", new string[] { "LCL" }, null);
                     return;
                 }
                 lnkListSaveData.Add(Definition.CHART_COLUMN.LCL, dLCL.ToString());
             }
             else
             {
-                MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_INPUT_VALUE", new string[]{"LCL"}, null);
+                MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_INPUT_VALUE", new string[] { "LCL" }, null);
                 return;
             }
 
@@ -2487,7 +3739,7 @@ namespace BISTel.eSPC.Page.Modeling
                 bool isParse = double.TryParse(this.btxtUSL.Text.Trim(), out dUSL);
                 if (!isParse)
                 {
-                    MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_INPUT_VALUE_AS_NUM", new string[]{"USL"}, null);
+                    MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_INPUT_VALUE_AS_NUM", new string[] { "USL" }, null);
                     return;
                 }
                 lnkListSaveData.Add(COLUMN.UPPER_SPEC, dUSL.ToString());
@@ -2506,7 +3758,7 @@ namespace BISTel.eSPC.Page.Modeling
                 bool isParse = double.TryParse(this.btxtLSL.Text.Trim(), out dLSL);
                 if (!isParse)
                 {
-                    MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_INPUT_VALUE_AS_NUM", new string[]{"LSL"}, null);
+                    MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_INPUT_VALUE_AS_NUM", new string[] { "LSL" }, null);
                     return;
                 }
                 lnkListSaveData.Add(COLUMN.LOWER_SPEC, dLSL.ToString());
@@ -2526,7 +3778,7 @@ namespace BISTel.eSPC.Page.Modeling
                 bool isParse = double.TryParse(this.btxtTarget.Text.Trim(), out dTarget);
                 if (!isParse)
                 {
-                    MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_INPUT_VALUE_AS_NUM", new string[]{"Target"}, null);
+                    MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_INPUT_VALUE_AS_NUM", new string[] { "Target" }, null);
                     return;
                 }
                 lnkListSaveData.Add(COLUMN.TARGET, dTarget.ToString());
@@ -2569,13 +3821,13 @@ namespace BISTel.eSPC.Page.Modeling
             //modified by enkim 2012.10.18 SPC-923
             if (this._sChartType == Definition.CHART_TYPE.RAW || this._sChartType == Definition.CHART_TYPE.XBAR)
             {
-                
+
                 if (btxtUSL.Text != null && btxtUSL.Text != "")
                 {
                     double dUSLTemp = Convert.ToDouble(btxtUSL.Text);
                     if (dUCLTemp > dUSLTemp)
                     {
-                        MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_VALID_SVAE_CALC_BIGGER", new string[]{"UCL", "USL"}, null);
+                        MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_VALID_SVAE_CALC_BIGGER", new string[] { "UCL", "USL" }, null);
                         return;
                     }
                 }
@@ -2583,10 +3835,10 @@ namespace BISTel.eSPC.Page.Modeling
                 if (btxtLSL.Text != null && btxtLSL.Text != "")
                 {
                     double dLSLTemp = Convert.ToDouble(btxtLSL.Text);
-                    
+
                     if (dLSLTemp > dLCLTemp)
                     {
-                        MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_VALID_SVAE_CALC_SMALLER", new string[]{"LCL", "LSL"}, null);
+                        MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_VALID_SVAE_CALC_SMALLER", new string[] { "LCL", "LSL" }, null);
                         return;
                     }
                 }
@@ -2605,7 +3857,7 @@ namespace BISTel.eSPC.Page.Modeling
 
             if (dUCLTemp < dLCLTemp)
             {
-                MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_VALID_SVAE_CALC_SMALLER", new string[]{"UCL", "LCL"}, null);
+                MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_VALID_SVAE_CALC_SMALLER", new string[] { "UCL", "LCL" }, null);
                 return;
             }
 
@@ -2615,7 +3867,7 @@ namespace BISTel.eSPC.Page.Modeling
                 double dLSLTemp = Convert.ToDouble(btxtLSL.Text);
                 if (dLSLTemp > dUSLTemp)
                 {
-                    MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_VALID_SVAE_CALC_SMALLER", new string[]{"USL", "LSL"}, null);
+                    MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_VALID_SVAE_CALC_SMALLER", new string[] { "USL", "LSL" }, null);
                     return;
                 }
             }
@@ -2625,7 +3877,7 @@ namespace BISTel.eSPC.Page.Modeling
                 double dUSLTemp = 0;
                 double dLSLTemp = 0;
                 double dTarget = Convert.ToDouble(btxtTarget.Text);
-                
+
                 if (btxtUSL.Text != null && btxtUSL.Text != "")
                 {
                     dUSLTemp = Convert.ToDouble(btxtUSL.Text);
@@ -2685,21 +3937,21 @@ namespace BISTel.eSPC.Page.Modeling
         /// <param name="rawID">Raw ID of selected row</param>
         private void SelectRow(int rawID)
         {
-            if(-1 == rawID)
+            if (-1 == rawID)
                 return;
 
             int temp;
-            for(int i=0; i<bsprData.ActiveSheet.Rows.Count; i++)
+            for (int i = 0; i < bsprData.ActiveSheet.Rows.Count; i++)
             {
-                if(!int.TryParse(this.bsprData.GetCellText(i, (int) iColIdx.RAWID), out temp))
+                if (!int.TryParse(this.bsprData.GetCellText(i, (int)iColIdx.RAWID), out temp))
                     continue;
 
-                if(temp == rawID)
+                if (temp == rawID)
                 {
                     this.bsprData.SetCellValue(i, (int)iColIdx.SELECT, true);
                     FarPoint.Win.Spread.EditorNotifyEventArgs e =
                         new EditorNotifyEventArgs(this.bsprData.GetRootWorkbook(), this.bsprData.EditingControl, i,
-                                                  (int) iColIdx.SELECT);
+                                                  (int)iColIdx.SELECT);
                     this.bsprData_ButtonClicked(this.bsprData, e);
                 }
             }
@@ -2725,20 +3977,20 @@ namespace BISTel.eSPC.Page.Modeling
 
                 int numOOC = 0;
                 string dataValueColumnName = GetDataValueColumnName();
-                int total = ((DataSet) bsprChartData.ActiveSheet.DataSource).Tables[0].Rows.Count;
-                for(int i=0; i < total; i++)
+                int total = ((DataSet)bsprChartData.ActiveSheet.DataSource).Tables[0].Rows.Count;
+                for (int i = 0; i < total; i++)
                 {
                     double value;
                     if (
-                        !double.TryParse(((DataSet) bsprChartData.ActiveSheet.DataSource).Tables[0].Rows[i][dataValueColumnName].ToString(), out value))
+                        !double.TryParse(((DataSet)bsprChartData.ActiveSheet.DataSource).Tables[0].Rows[i][dataValueColumnName].ToString(), out value))
                         continue;
 
-                    if(IsUpperLimitParsed && value > dUCL)
+                    if (IsUpperLimitParsed && value > dUCL)
                     {
                         numOOC++;
                         continue;
                     }
-                    if(IsLowerLimitParsed && value < dLCL)
+                    if (IsLowerLimitParsed && value < dLCL)
                     {
                         numOOC++;
                         continue;
@@ -2772,27 +4024,27 @@ namespace BISTel.eSPC.Page.Modeling
             }
 
             double rangeValue = 0;
-            if(this.rbtnAverage.Checked)
+            if (this.rbtnAverage.Checked)
             {
-                if(this.ntxtOutlierAverage.Text.Length == 0)
+                if (this.ntxtOutlierAverage.Text.Length == 0)
                 {
                     MSGHandler.DisplayMessage(MSGType.Information, MSGHandler.GetMessage(Definition.MSG_KEY_INFO_INPUT_OUTLIER_VALUE));
                     return;
                 }
 
-                if(!double.TryParse(this.ntxtOutlierAverage.Text, out rangeValue))
+                if (!double.TryParse(this.ntxtOutlierAverage.Text, out rangeValue))
                 {
                     return;
                 }
             }
 
             string dataValueColumnName = GetDataValueColumnName();
-            DataTable dtChartData = ((DataSet) bsprChartData.DataSource).Tables[0];
-            if(!dtChartData.Columns.Contains(dataValueColumnName))
+            DataTable dtChartData = ((DataSet)bsprChartData.DataSource).Tables[0];
+            if (!dtChartData.Columns.Contains(dataValueColumnName))
             {
                 return;
             }
-            
+
             ClearOutlierOfCurrentChart();
 
             // check all data and set outlier if it is
@@ -2816,37 +4068,37 @@ namespace BISTel.eSPC.Page.Modeling
             bool IsUpperParsed = false;
             bool IsLowerParsed = false;
 
-            if(type == OutlierLimitType.VALUE
+            if (type == OutlierLimitType.VALUE
                     || type == OutlierLimitType.SIGMA
                     || type == OutlierLimitType.CONSTANT)
             {
                 IsUpperParsed = TryGetOutlierUpperLimitUsingAverage(type, rangeValue, out upperLimit);
                 IsLowerParsed = TryGetOutlierLowerLimitUsingAverage(type, rangeValue, out lowerLimit);
 
-                if(previewLine)
+                if (previewLine)
                 {
                     ShowPreviewSeries(upperLimit, lowerLimit, IsUpperParsed, IsLowerParsed, previewLineColor);
                 }
             }
 
-            for(int i=0; i < bsprChartData.ActiveSheet.Rows.Count; i++)
+            for (int i = 0; i < bsprChartData.ActiveSheet.Rows.Count; i++)
             {
                 double value;
-                if(!double.TryParse(((DataSet)bsprChartData.ActiveSheet.DataSource).Tables[0].Rows[i][dataValueColumnName].ToString(), out value))
+                if (!double.TryParse(((DataSet)bsprChartData.ActiveSheet.DataSource).Tables[0].Rows[i][dataValueColumnName].ToString(), out value))
                     continue;
-                
-                if(type == OutlierLimitType.CONTROL)
+
+                if (type == OutlierLimitType.CONTROL)
                 {
                     IsUpperParsed = TryGetUpperControlValue(i, out upperLimit);
                     IsLowerParsed = TryGetLowerControlValue(i, out lowerLimit);
                 }
 
-                if(IsUpperParsed
+                if (IsUpperParsed
                     && value > upperLimit)
                 {
                     SetOutlier(i, isApplySpread);
                 }
-                if(IsLowerParsed
+                if (IsLowerParsed
                     && value < lowerLimit)
                 {
                     SetOutlier(i, isApplySpread);
@@ -2862,23 +4114,23 @@ namespace BISTel.eSPC.Page.Modeling
                 return;
             }
             double rangeValue = 0;
-            if(this.rbtnAverage.Checked)
+            if (this.rbtnAverage.Checked)
             {
-                if(this.ntxtOutlierAverage.Text.Length == 0)
+                if (this.ntxtOutlierAverage.Text.Length == 0)
                 {
                     MSGHandler.DisplayMessage(MSGType.Information, MSGHandler.GetMessage(Definition.MSG_KEY_INFO_INPUT_OUTLIER_VALUE));
                     return;
                 }
 
-                if(!double.TryParse(this.ntxtOutlierAverage.Text, out rangeValue))
+                if (!double.TryParse(this.ntxtOutlierAverage.Text, out rangeValue))
                 {
                     return;
                 }
             }
 
             string dataValueColumnName = GetDataValueColumnName();
-            DataTable dtChartData = ((DataSet) bsprChartData.DataSource).Tables[0];
-            if(!dtChartData.Columns.Contains(dataValueColumnName))
+            DataTable dtChartData = ((DataSet)bsprChartData.DataSource).Tables[0];
+            if (!dtChartData.Columns.Contains(dataValueColumnName))
             {
                 return;
             }
@@ -2902,7 +4154,7 @@ namespace BISTel.eSPC.Page.Modeling
 
         private OutlierLimitType GetOutlierLimitType()
         {
-            if(this.rbtnAverage.Checked)
+            if (this.rbtnAverage.Checked)
             {
                 string text = this.bcboOutlierType.SelectedItem.ToString().ToUpper();
                 if (text == "CONSTANT")
@@ -2914,7 +4166,7 @@ namespace BISTel.eSPC.Page.Modeling
                     return OutlierLimitType.SIGMA;
                 }
             }
-            else if(this.rbtnControlLimit.Checked)
+            else if (this.rbtnControlLimit.Checked)
             {
                 return OutlierLimitType.CONTROL;
             }
@@ -2931,7 +4183,7 @@ namespace BISTel.eSPC.Page.Modeling
 
             ClearOutlierOfCurrentChart();
 
-            foreach(int i in lstTempForSetOulierPreview)
+            foreach (int i in lstTempForSetOulierPreview)
             {
                 SetOutlier(i, true);
             }
@@ -2943,7 +4195,8 @@ namespace BISTel.eSPC.Page.Modeling
         private void ClearOutlierOfCurrentChart()
         {
             arrOutlierList.Clear();
-            DataTable dtChartData = ((DataSet) bsprChartData.DataSource).Tables[0];
+            DataTable dtChartData = ((DataSet)bsprChartData.DataSource).Tables[0];
+
             for (int i = 0; i < dtChartData.Rows.Count; i++)
             {
                 UnsetOutlier(i, true);
@@ -3029,12 +4282,12 @@ namespace BISTel.eSPC.Page.Modeling
             //                                         dtDataSource, CommonChart.COLUMN_NAME_SEQ_INDEX, Definition.CHART_COLUMN.PREVIEWUPPERLIMIT);
             //SeriesInfo siLowerLimit = new SeriesInfo(typeof (Line), Definition.CHART_COLUMN.PREVIEWUPPERLIMIT,
             //                                         dtDataSource, CommonChart.COLUMN_NAME_SEQ_INDEX, Definition.CHART_COLUMN.PREVIEWLOWERLIMIT);
-            
+
             //siUpperLimit.ShowLegend = false;
             //siLowerLimit.ShowLegend = false;
             //siUpperLimit.SeriesColor = previewLineColor;
             //siLowerLimit.SeriesColor = previewLineColor;
-            
+
             //if(isShowUpperLimit)
             //{
             //    Series s = spcChart.AddSeries(siUpperLimit);
@@ -3062,11 +4315,11 @@ namespace BISTel.eSPC.Page.Modeling
         private void HidePreviewSeries()
         {
             BTeeChart chart = null;
-            if(chartCalcBase != null)
+            if (chartCalcBase != null)
             {
                 chart = chartCalcBase.SPCChart;
             }
-            else if(chartBase != null)
+            else if (chartBase != null)
             {
                 chart = chartBase.SPCChart;
             }
@@ -3075,7 +4328,7 @@ namespace BISTel.eSPC.Page.Modeling
 
             for (int i = chart.Chart.Series.Count - 1; i >= 0; i--)
             {
-                if(chart.Chart.Series[i].Title.Equals(Definition.CHART_COLUMN.PREVIEWUPPERLIMIT)
+                if (chart.Chart.Series[i].Title.Equals(Definition.CHART_COLUMN.PREVIEWUPPERLIMIT)
                     || chart.Chart.Series[i].Title.Equals(Definition.CHART_COLUMN.PREVIEWLOWERLIMIT))
                 {
                     chart.Chart.Series[i].Visible = false;
@@ -3115,7 +4368,8 @@ namespace BISTel.eSPC.Page.Modeling
                     return true;
                 }
 
-            } catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -3132,7 +4386,7 @@ namespace BISTel.eSPC.Page.Modeling
         {
             ArrayList arrOutlierData = new ArrayList();
 
-            if(containOutlier == false)
+            if (containOutlier == false)
             {
                 for (int i = 0; i < this.bsprChartData.ActiveSheet.Rows.Count; i++)
                 {
@@ -3146,12 +4400,12 @@ namespace BISTel.eSPC.Page.Modeling
             ArrayList arrData = new ArrayList();
             DataSet dsTemp = (DataSet)this.bsprChartData.DataSource;
             string BLOBFieldName = GetBLOBFieldNameFromChartType(this._sChartType);
-            if(!string.IsNullOrEmpty(BLOBFieldName))
+            if (!string.IsNullOrEmpty(BLOBFieldName))
             {
                 for (int i = 0; i < dsTemp.Tables[0].Rows.Count; i++)
                 {
                     if (arrOutlierData.Contains(i))
-                            continue;
+                        continue;
                     if (dsTemp.Tables[0].Rows[i][BLOBFieldName].ToString().Length > 0)
                     {
                         double dOutPut = 0;
@@ -3197,7 +4451,8 @@ namespace BISTel.eSPC.Page.Modeling
                     return true;
                 }
 
-            } catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -3212,7 +4467,7 @@ namespace BISTel.eSPC.Page.Modeling
         /// <returns>It returns true if success to get value</returns>
         private bool TryGetTargetValue(int rowIndex, out double target)
         {
-            if(bsprChartData == null || bsprChartData.ActiveSheet.Rows.Count == 0)
+            if (bsprChartData == null || bsprChartData.ActiveSheet.Rows.Count == 0)
             {
                 string exceptionMsg = "Chart Data is null or have not rows.";
                 Exception ex = new Exception(exceptionMsg);
@@ -3231,7 +4486,7 @@ namespace BISTel.eSPC.Page.Modeling
         /// <returns>It returns true if success to get value</returns>
         private bool TryGetAverageValue(int rowIndex, out double average)
         {
-            if(bsprChartData == null || bsprChartData.ActiveSheet.Rows.Count == 0)
+            if (bsprChartData == null || bsprChartData.ActiveSheet.Rows.Count == 0)
             {
                 string exceptionMsg = "Chart Data is null or have not rows.";
                 Exception ex = new Exception(exceptionMsg);
@@ -3250,7 +4505,7 @@ namespace BISTel.eSPC.Page.Modeling
         /// <returns>It returns true if success to get value</returns>
         private bool TryGetUpperControlValue(int rowIndex, out double upperControl)
         {
-            if(bsprChartData == null || bsprChartData.ActiveSheet.Rows.Count == 0)
+            if (bsprChartData == null || bsprChartData.ActiveSheet.Rows.Count == 0)
             {
                 string exceptionMsg = "Chart Data is null or have not rows.";
                 Exception ex = new Exception(exceptionMsg);
@@ -3269,7 +4524,7 @@ namespace BISTel.eSPC.Page.Modeling
         /// <returns>It returns true if success to get value</returns>
         private bool TryGetLowerControlValue(int rowIndex, out double upperControl)
         {
-            if(bsprChartData == null || bsprChartData.ActiveSheet.Rows.Count == 0)
+            if (bsprChartData == null || bsprChartData.ActiveSheet.Rows.Count == 0)
             {
                 string exceptionMsg = "Chart Data is null or have not rows.";
                 Exception ex = new Exception(exceptionMsg);
@@ -3292,9 +4547,9 @@ namespace BISTel.eSPC.Page.Modeling
         {
             int indexColumn = -1;
             DataTable dtChartData = ((DataSet)bsprChartData.ActiveSheet.DataSource).Tables[0];
-            for(int i=0; i<bsprChartData.ActiveSheet.Columns.Count; i++)
+            for (int i = 0; i < bsprChartData.ActiveSheet.Columns.Count; i++)
             {
-                if(dtChartData.Columns[i].ColumnName.ToUpper() == columnName.ToUpper())
+                if (dtChartData.Columns[i].ColumnName.ToUpper() == columnName.ToUpper())
                 {
                     indexColumn = i;
                     break;
@@ -3332,7 +4587,7 @@ namespace BISTel.eSPC.Page.Modeling
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -3355,11 +4610,11 @@ namespace BISTel.eSPC.Page.Modeling
                         return llstChartSeries.GetKey(i).ToString();
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
-            
+
             return string.Empty;
         }
 
@@ -3379,7 +4634,7 @@ namespace BISTel.eSPC.Page.Modeling
                         return llstChartSeries.GetKey(i).ToString();
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -3403,11 +4658,11 @@ namespace BISTel.eSPC.Page.Modeling
                         return llstChartSeries.GetKey(i).ToString();
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
-            
+
             return string.Empty;
         }
 
@@ -3427,7 +4682,7 @@ namespace BISTel.eSPC.Page.Modeling
                         return llstChartSeries.GetKey(i).ToString();
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -3438,9 +4693,9 @@ namespace BISTel.eSPC.Page.Modeling
         {
             string strChartName = string.Empty;
 
-            if(chartBase != null)
+            if (chartBase != null)
                 strChartName = chartBase.Name;
-            else if(chartCalcBase != null)
+            else if (chartCalcBase != null)
                 strChartName = chartCalcBase.Name;
             else
             {
@@ -3455,9 +4710,9 @@ namespace BISTel.eSPC.Page.Modeling
 
         public void SetOutlier_CheckedChanged(object sender, EventArgs e)
         {
-            if(sender == this.rbtnAverage)
+            if (sender == this.rbtnAverage)
             {
-                if(rbtnAverage.Checked)
+                if (rbtnAverage.Checked)
                 {
                     this.rbtnControlLimit.Checked = false;
                     this.bcboOutlierType.Enabled = true;
@@ -3469,9 +4724,9 @@ namespace BISTel.eSPC.Page.Modeling
                     this.ntxtOutlierAverage.Enabled = false;
                 }
             }
-            else if(sender == rbtnControlLimit)
+            else if (sender == rbtnControlLimit)
             {
-                if(this.rbtnControlLimit.Checked)
+                if (this.rbtnControlLimit.Checked)
                 {
                     this.rbtnAverage.Checked = false;
                 }
@@ -3480,16 +4735,16 @@ namespace BISTel.eSPC.Page.Modeling
 
         public void bcboOutlierType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            BComboBox box = (BComboBox) sender;
-            if(box.Text == "SIGMA")
+            BComboBox box = (BComboBox)sender;
+            if (box.Text == "SIGMA")
             {
                 this.blblOutlierSymbol.Text = "sigma";
             }
-            else if(box.Text == "VALUE")
+            else if (box.Text == "VALUE")
             {
                 this.blblOutlierSymbol.Text = "%";
             }
-            else if(box.Text == "CONSTANT")
+            else if (box.Text == "CONSTANT")
             {
                 this.blblOutlierSymbol.Text = "";
             }
@@ -3497,9 +4752,9 @@ namespace BISTel.eSPC.Page.Modeling
 
         public void bchkSampling_CheckStateChanged(object sender, System.EventArgs e)
         {
-            if(bchkSampling.Checked)
+            if (bchkSampling.Checked)
             {
-                if(this.bcboChartType.Text == "RAW")
+                if (this.bcboChartType.Text == "RAW")
                     this.btxtWSampleCnt.Enabled = true;
 
                 this.btxtSampleCnt.Enabled = true;
@@ -3521,18 +4776,32 @@ namespace BISTel.eSPC.Page.Modeling
             if (bchkSampling.Checked)
             {
                 if (bcboChartType.Text == "RAW")
+                {
                     this.btxtWSampleCnt.Enabled = true;
+                }
                 else
                 {
                     this.btxtWSampleCnt.Enabled = false;
                     this.btxtWSampleCnt.Text = "";
                 }
             }
+
+            //SPC-929, KBLEE, Start
+            if (bcboChartType.Text == "RAW")
+            {
+                this.bchkSummaryData.Enabled = true;
+            }
+            else
+            {
+                this.bchkSummaryData.Enabled = false;
+                this.bchkSummaryData.Checked = false;
+            }
+            //SPC-929, KBLEE, End
         }
 
         public void bsprChartData_CellClick(object sender, CellClickEventArgs e)
         {
-            
+
         }
 
         private void btxt_Validated(object sender, EventArgs e)
@@ -3545,5 +4814,277 @@ namespace BISTel.eSPC.Page.Modeling
                 this.btxtTarget.Text = ((iUpper + iLower) / 2).ToString();
             }
         }
+
+        //SPC-929, KBLEE
+        private void bchkSummaryData_CheckedChanged(object sender, EventArgs e)
+        {
+            bbtnSummaryOption.Enabled = bchkSummaryData.Checked;
+            bchkSampling.Enabled = !bchkSummaryData.Checked;
+
+            if (bchkSummaryData.Checked)
+            {
+                bchkSampling.Checked = false;
+            }
+        }
+
+        private void RemoveLimitSeries()
+        {
+            if (chartBase != null)
+            {
+                for (int idxSeries = chartBase.SPCChart.Chart.Series.Count - 1; idxSeries >= 0; idxSeries--)
+                {
+                    Series s = chartBase.SPCChart.Chart.Series[idxSeries];
+                    if (s.Title == Definition.CHART_COLUMN.UCL || s.Title == Definition.CHART_COLUMN.LCL || s.Title == Definition.CHART_COLUMN.USL || s.Title == Definition.CHART_COLUMN.LSL || s.Title == Definition.CHART_COLUMN.TARGET)
+                    {
+                        chartBase.SPCChart.RemoveSeries(s);
+                    }
+                }
+            }
+            else if (chartCalcBase != null)
+            {
+                for (int idxSeries = chartCalcBase.SPCChart.Chart.Series.Count - 1; idxSeries >= 0; idxSeries--)
+                {
+                    Series s = chartCalcBase.SPCChart.Chart.Series[idxSeries];
+                    if (s.Title == Definition.CHART_COLUMN.UCL || s.Title == Definition.CHART_COLUMN.LCL || s.Title == Definition.CHART_COLUMN.USL || s.Title == Definition.CHART_COLUMN.LSL || s.Title == Definition.CHART_COLUMN.TARGET)
+                    {
+                        chartCalcBase.SPCChart.RemoveSeries(s);
+                    }
+                }
+            }
+        }
+
+        //SPC-930, KBLEE, START
+        private void bcboRule_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string sRuleNumber = bcboRule.Text.Split('.')[0];
+            double usl = 0.0;
+            double lsl = 0.0;
+            double ucl = 0.0;
+            double lcl = 0.0;
+
+            if (sRuleNumber.Equals(Definition.NONE)) //NONE일 때의 처리
+            {
+                this.blbRuleResult.Text = "";
+                ChangeViolatedDataPointColor(null); //Chart 내의 Point 빨갛게 하는 부분
+
+                _alViolatedDataList.Clear();
+                _isUseRuleSimulation = false;
+
+                return;
+            }
+
+            _isUseRuleSimulation = true;
+
+            if (sRuleNumber.Equals("1") || sRuleNumber.Equals("29") || sRuleNumber.Equals("30") ||
+                sRuleNumber.Equals("35"))
+            {
+                if (!Double.TryParse(btxtUSL.Text, out usl))
+                {
+                    MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_INPUT_VALUE_AS_NUM", new string[] { Definition.CHART_COLUMN.USL }, null);
+                    return;
+                }
+            }
+            if (sRuleNumber.Equals("2") || sRuleNumber.Equals("29") || sRuleNumber.Equals("31") ||
+                sRuleNumber.Equals("36"))
+            {
+                if (!Double.TryParse(btxtLSL.Text, out lsl))
+                {
+                    MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_INPUT_VALUE_AS_NUM", new string[] { Definition.CHART_COLUMN.LSL }, null);
+                    return;
+                }
+            }
+            if (sRuleNumber.Equals("3") || sRuleNumber.Equals("5") || sRuleNumber.Equals("7") ||
+                sRuleNumber.Equals("11") || sRuleNumber.Equals("12") || sRuleNumber.Equals("13") ||
+                sRuleNumber.Equals("14") || sRuleNumber.Equals("15") || sRuleNumber.Equals("16") ||
+                sRuleNumber.Equals("17") || sRuleNumber.Equals("20") || sRuleNumber.Equals("22") ||
+                sRuleNumber.Equals("24") || sRuleNumber.Equals("32") || sRuleNumber.Equals("33") ||
+                sRuleNumber.Equals("37") || sRuleNumber.Equals("39"))
+            {
+                if (!Double.TryParse(btxtUCL.Text, out ucl))
+                {
+                    MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_INPUT_VALUE_AS_NUM", new string[] { Definition.CHART_COLUMN.UCL }, null);
+                    return;
+                }
+            }
+            if (sRuleNumber.Equals("4") || sRuleNumber.Equals("6") || sRuleNumber.Equals("8") ||
+                sRuleNumber.Equals("11") || sRuleNumber.Equals("12") || sRuleNumber.Equals("13") ||
+                sRuleNumber.Equals("14") || sRuleNumber.Equals("15") || sRuleNumber.Equals("16") ||
+                sRuleNumber.Equals("17") || sRuleNumber.Equals("21") || sRuleNumber.Equals("23") ||
+                sRuleNumber.Equals("25") || sRuleNumber.Equals("32") || sRuleNumber.Equals("34") ||
+                sRuleNumber.Equals("38") || sRuleNumber.Equals("40"))
+            {
+                if (!Double.TryParse(btxtLCL.Text, out lcl))
+                {
+                    MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_INPUT_VALUE_AS_NUM", new string[] { Definition.CHART_COLUMN.LCL }, null);
+                    return;
+                }
+            }
+
+            DataSet dsChartData = (DataSet)this.bsprChartData.DataSet;
+            _alViolatedDataList = new ArrayList();
+
+            int total = dsChartData.Tables[0].Rows.Count;
+            int count = 0; // rule 위반 개수 (위반한 Data의 개수가 아닌, rule이 위반당한 회수이다.)
+
+            ///Popup창 없이 바로 RuleSimulation을 수행하는 Rule들 명시 (확정 아님)
+            if (sRuleNumber.Equals("1") || sRuleNumber.Equals("2") || sRuleNumber.Equals("3") ||
+                sRuleNumber.Equals("4") || sRuleNumber.Equals("5") || sRuleNumber.Equals("6") ||
+                sRuleNumber.Equals("7") || sRuleNumber.Equals("8") || sRuleNumber.Equals("20") ||
+                sRuleNumber.Equals("21") || sRuleNumber.Equals("22") || sRuleNumber.Equals("23") ||
+                sRuleNumber.Equals("24") || sRuleNumber.Equals("25") || sRuleNumber.Equals("35") ||
+                sRuleNumber.Equals("36") || sRuleNumber.Equals("39") || sRuleNumber.Equals("40"))
+            {
+                RuleSimulation ruleSimulation = new RuleSimulation();
+                ruleSimulation.Initialize();
+
+                ruleSimulation.USL = usl;
+                ruleSimulation.LSL = lsl;
+                ruleSimulation.UCL = ucl;
+                ruleSimulation.LCL = lcl;
+                ruleSimulation.VALUETYPE = _sChartValueType;
+                ruleSimulation.CHART_DATA = dsChartData.Tables[0];
+
+                EESProgressBar.ShowProgress(this, this._lang.GetMessage(Definition.VALIDATING_RULE), true);
+
+                _alViolatedDataList = ruleSimulation.Simulate(sRuleNumber);
+                count = ruleSimulation.REAL_COUNT;
+            }
+            else
+            {
+                //Config Data 얻기, Start
+                LinkedList llparam = new LinkedList();
+                llparam.Add(Definition.COL_RAW_ID, _iRawIdForRuleOption);
+                byte[] baParam = llparam.GetSerialData();
+                DataSet dsConfig = _wsSPC.GetConfigInfoByRawId(baParam);
+                DataTable dtConfig = dsConfig.Tables[0];
+                //Config Data 얻기, End
+
+                RuleSimulationOptionPopup ruleSimOptPopup = new RuleSimulationOptionPopup();
+                ruleSimOptPopup.USL = usl;
+                ruleSimOptPopup.LSL = lsl;
+                ruleSimOptPopup.UCL = ucl;
+                ruleSimOptPopup.LCL = lcl;
+                ruleSimOptPopup.RULE_DESCRIPTION = bcboRule.Text;
+                ruleSimOptPopup.VALUETYPE = _sChartValueType;
+                ruleSimOptPopup.CHART_DATA = dsChartData.Tables[0];
+                ruleSimOptPopup.CONTROL_CALLING_THIS = this;
+
+                if (sRuleNumber.Equals("13") || sRuleNumber.Equals("14") || sRuleNumber.Equals("15") ||
+                    sRuleNumber.Equals("16") || sRuleNumber.Equals("17"))
+                {
+                    double dStd = 0.0;
+
+                    if (!double.TryParse(dtConfig.Rows[0][Definition.CHART_TYPE_ALIAS.STD].ToString(), out dStd))
+                    {
+                        MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_RULE_VALUE_NOT_SET", new string[] { Definition.CHART_TYPE_ALIAS.STD }, null);
+                    }
+
+                    ruleSimOptPopup.STD = dStd;
+                }
+                else if (sRuleNumber.Equals("41"))
+                {
+                    double dRawUCL = 0.0;
+
+                    if (!double.TryParse(dtConfig.Rows[0][Definition.CHART_COLUMN.RAW_UCL].ToString(), out dRawUCL))
+                    {
+                        MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_RULE_VALUE_NOT_SET", new string[] { Definition.CHART_COLUMN.RAW_UCL }, null);
+                    }
+
+                    ruleSimOptPopup.RAW_UCL = dRawUCL;
+                }
+                else if (sRuleNumber.Equals("42"))
+                {
+                    double dRawLCL = 0.0;
+
+                    if (!double.TryParse(dtConfig.Rows[0][Definition.CHART_COLUMN.RAW_LCL].ToString(), out dRawLCL))
+                    {
+                        MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_RULE_VALUE_NOT_SET", new string[] { Definition.CHART_COLUMN.RAW_LCL }, null);
+                    }
+
+                    ruleSimOptPopup.RAW_LCL = dRawLCL;
+                }
+                else if (sRuleNumber.Equals("43") || sRuleNumber.Equals("45"))
+                {
+                    double dUTL = 0.0;
+
+                    if (!double.TryParse(dtConfig.Rows[0][Definition.CHART_COLUMN.UPPER_TECHNICAL_LIMIT].ToString(), out dUTL))
+                    {
+                        MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_RULE_VALUE_NOT_SET", new string[] { Definition.CHART_COLUMN.UTL }, null);
+                    }
+
+                    ruleSimOptPopup.UTL = dUTL;
+                }
+                else if (sRuleNumber.Equals("44") || sRuleNumber.Equals("46"))
+                {
+                    double dLTL = 0.0;
+
+                    if (!double.TryParse(dtConfig.Rows[0][Definition.CHART_COLUMN.LOWER_TECHNICAL_LIMIT].ToString(), out dLTL))
+                    {
+                        MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_RULE_VALUE_NOT_SET", new string[] { Definition.CHART_COLUMN.LTL }, null);
+                    }
+
+                    ruleSimOptPopup.LTL = dLTL;
+                }
+                else if (sRuleNumber.Equals("9") || sRuleNumber.Equals("10") || sRuleNumber.Equals("47") ||
+                    sRuleNumber.Equals("48"))
+                {
+                    double dTrend = 0.0;
+
+                    llparam = new LinkedList();
+                    llparam.Add(Definition.COL_MODEL_CONFIG_RAWID, _iRawIdForRuleOption);
+                    llparam.Add(Definition.SPC_RULE_NO, sRuleNumber);
+                    llparam.Add(Definition.OPTION_NAME, Definition.CHART_COLUMN.TREND_LIMIT);
+                    byte[] badata = llparam.GetSerialData();
+
+                    DataSet dsRuleOption = _wsSPC.GetRuleOptionByRuleNo(badata);
+                    DataTable dtRuleOption = dsRuleOption.Tables[0];
+
+                    if (sRuleNumber.Equals("9") || sRuleNumber.Equals("10"))
+                    {
+                        if (dtRuleOption.Rows.Count <= 0)
+                        {
+                            MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_RULE_VALUE_NOT_SET", new string[] { Definition.CHART_COLUMN.TREND_LIMIT }, null);
+                        }
+                        else
+                        {
+                            if (!double.TryParse(dtRuleOption.Rows[0][Definition.RULE_OPTION_VALUE].ToString(), out dTrend))
+                            {
+                                MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_RULE_VALUE_NOT_SET", new string[] { Definition.CHART_COLUMN.TREND_LIMIT }, null);
+                            }
+                        }
+                    }
+
+                    ruleSimOptPopup.TREND_LIMIT = dTrend;
+                }
+
+                ruleSimOptPopup.InitializePopup();
+
+                if (ruleSimOptPopup.ShowDialog() == DialogResult.OK)
+                {
+                    _alViolatedDataList = ruleSimOptPopup.VIOLATED_DATA_LIST;
+                    count = ruleSimOptPopup.REAL_COUNT;
+                }
+                else
+                {
+                    return;
+                }
+            }
+
+            ////violatedDataIndexList와 rule 위반 count는 이미 구해놓음.
+            string probability = (Convert.ToDouble(count) / Convert.ToDouble(total) * 100).ToString("0.00");
+
+            if (probability.Equals("NaN"))
+            {
+                probability = "0";
+            }
+
+            this.blbRuleResult.Text = count + " / " + total + " (" + probability + "%)";
+
+            ArrayList alTempViolatedDataList = (ArrayList)_alViolatedDataList.Clone();
+            ChangeViolatedDataPointColor(alTempViolatedDataList); //Chart 내의 Point 빨갛게 하는 부분
+
+            EESProgressBar.CloseProgress(this);
+        }
+        //SPC-930, KBLEE, END
     }
 }

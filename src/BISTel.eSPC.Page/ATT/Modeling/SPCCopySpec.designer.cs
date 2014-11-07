@@ -38,13 +38,13 @@
             this.chkCControl = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
             this.chkRuleSelection = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
             this.btpnlOption = new BISTel.PeakPerformance.Client.BISTelControl.BTitlePanel();
-            this.bLabel1 = new BISTel.PeakPerformance.Client.BISTelControl.BLabel();
             this.chkSampleCounts = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
             this.chkPriority = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
             this.chkCalculatePpk = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
             this.chkParameterCategory = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
             this.chkDays = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
             this.chkDefaultChartToShow = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
+            this.bLabel1 = new BISTel.PeakPerformance.Client.BISTelControl.BLabel();
             this.btpnlAutoCalculation = new BISTel.PeakPerformance.Client.BISTelControl.BTitlePanel();
             this.gbxAutoCalcItem = new System.Windows.Forms.GroupBox();
             this.chkUControlLimit = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
@@ -79,16 +79,17 @@
             this.bLabel2 = new BISTel.PeakPerformance.Client.BISTelControl.BLabel();
             this.chkChartDesc = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
             this.btpnlContext = new BISTel.PeakPerformance.Client.BISTelControl.BTitlePanel();
+            this.chkContextInform = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
             this.chkGenerateSubChartWithAutoCalculation = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
             this.chkInterlock = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
             this.chkSampleCount = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
-            this.chkMode = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
-            this.chkAutoCalculation = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
-            this.chkAutoSetting = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
-            this.chkAutoGenerateSubChart = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
-            this.chkGenerateSubChartWithInterlock = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
-            this.chkActive = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
             this.chkInherittheSpecOfMain = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
+            this.chkAutoSetting = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
+            this.chkAutoCalculation = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
+            this.chkAutoGenerateSubChart = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
+            this.chkActive = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
+            this.chkMode = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
+            this.chkGenerateSubChartWithInterlock = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
             this.pnlContentsArea.SuspendLayout();
             this.btpnlRule.SuspendLayout();
             this.btpnlOption.SuspendLayout();
@@ -148,6 +149,7 @@
             this.btpnlRule.PopMaxHeight = 0;
             this.btpnlRule.PopMaxWidth = 0;
             this.btpnlRule.RightPadding = 5;
+            this.btpnlRule.SelectedColor = System.Drawing.Color.Blue;
             this.btpnlRule.ShowCloseButton = false;
             this.btpnlRule.ShowMaxNormalButton = false;
             this.btpnlRule.ShowMinButton = false;
@@ -280,6 +282,7 @@
             this.btpnlOption.PopMaxHeight = 0;
             this.btpnlOption.PopMaxWidth = 0;
             this.btpnlOption.RightPadding = 5;
+            this.btpnlOption.SelectedColor = System.Drawing.Color.Blue;
             this.btpnlOption.ShowCloseButton = false;
             this.btpnlOption.ShowMaxNormalButton = false;
             this.btpnlOption.ShowMinButton = false;
@@ -289,18 +292,6 @@
             this.btpnlOption.TitleColor = System.Drawing.Color.Black;
             this.btpnlOption.TitleFont = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.btpnlOption.TopPadding = 5;
-            // 
-            // bLabel1
-            // 
-            this.bLabel1.BssClass = "";
-            this.bLabel1.CustomTextAlign = "";
-            this.bLabel1.IsMultiLanguage = true;
-            this.bLabel1.Key = "";
-            this.bLabel1.Location = new System.Drawing.Point(4, 71);
-            this.bLabel1.Name = "bLabel1";
-            this.bLabel1.Size = new System.Drawing.Size(152, 23);
-            this.bLabel1.TabIndex = 11;
-            this.bLabel1.Text = "Restrict default samples to";
             // 
             // chkSampleCounts
             // 
@@ -374,6 +365,18 @@
             this.chkDefaultChartToShow.Text = "Default charts to show";
             this.chkDefaultChartToShow.UseVisualStyleBackColor = true;
             // 
+            // bLabel1
+            // 
+            this.bLabel1.BssClass = "";
+            this.bLabel1.CustomTextAlign = "";
+            this.bLabel1.IsMultiLanguage = true;
+            this.bLabel1.Key = "";
+            this.bLabel1.Location = new System.Drawing.Point(4, 71);
+            this.bLabel1.Name = "bLabel1";
+            this.bLabel1.Size = new System.Drawing.Size(152, 23);
+            this.bLabel1.TabIndex = 11;
+            this.bLabel1.Text = "Restrict default samples to";
+            // 
             // btpnlAutoCalculation
             // 
             this.btpnlAutoCalculation.BssClass = "TitlePanel";
@@ -416,6 +419,7 @@
             this.btpnlAutoCalculation.PopMaxHeight = 0;
             this.btpnlAutoCalculation.PopMaxWidth = 0;
             this.btpnlAutoCalculation.RightPadding = 5;
+            this.btpnlAutoCalculation.SelectedColor = System.Drawing.Color.Blue;
             this.btpnlAutoCalculation.ShowCloseButton = false;
             this.btpnlAutoCalculation.ShowMaxNormalButton = false;
             this.btpnlAutoCalculation.ShowMinButton = false;
@@ -784,6 +788,7 @@
             this.bTitlePanel4.PopMaxHeight = 0;
             this.bTitlePanel4.PopMaxWidth = 0;
             this.bTitlePanel4.RightPadding = 5;
+            this.bTitlePanel4.SelectedColor = System.Drawing.Color.Blue;
             this.bTitlePanel4.ShowCloseButton = false;
             this.bTitlePanel4.ShowMaxNormalButton = false;
             this.bTitlePanel4.ShowMinButton = false;
@@ -887,6 +892,7 @@
             // btpnlContext
             // 
             this.btpnlContext.BssClass = "TitlePanel";
+            this.btpnlContext.Controls.Add(this.chkContextInform);
             this.btpnlContext.Controls.Add(this.chkGenerateSubChartWithAutoCalculation);
             this.btpnlContext.Controls.Add(this.chkInterlock);
             this.btpnlContext.Controls.Add(this.chkSampleCount);
@@ -926,6 +932,7 @@
             this.btpnlContext.PopMaxHeight = 0;
             this.btpnlContext.PopMaxWidth = 0;
             this.btpnlContext.RightPadding = 5;
+            this.btpnlContext.SelectedColor = System.Drawing.Color.Blue;
             this.btpnlContext.ShowCloseButton = false;
             this.btpnlContext.ShowMaxNormalButton = false;
             this.btpnlContext.ShowMinButton = false;
@@ -935,6 +942,18 @@
             this.btpnlContext.TitleColor = System.Drawing.Color.Black;
             this.btpnlContext.TitleFont = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.btpnlContext.TopPadding = 5;
+            // 
+            // chkContextInform
+            // 
+            this.chkContextInform.BssClass = "";
+            this.chkContextInform.IsMultiLanguage = true;
+            this.chkContextInform.Key = "";
+            this.chkContextInform.Location = new System.Drawing.Point(517, 95);
+            this.chkContextInform.Name = "chkContextInform";
+            this.chkContextInform.Size = new System.Drawing.Size(133, 24);
+            this.chkContextInform.TabIndex = 20;
+            this.chkContextInform.Text = "Context Information";
+            this.chkContextInform.UseVisualStyleBackColor = true;
             // 
             // chkGenerateSubChartWithAutoCalculation
             // 
@@ -972,29 +991,17 @@
             this.chkSampleCount.Text = "Sample Count";
             this.chkSampleCount.UseVisualStyleBackColor = true;
             // 
-            // chkMode
+            // chkInherittheSpecOfMain
             // 
-            this.chkMode.BssClass = "";
-            this.chkMode.IsMultiLanguage = true;
-            this.chkMode.Key = "";
-            this.chkMode.Location = new System.Drawing.Point(519, 35);
-            this.chkMode.Name = "chkMode";
-            this.chkMode.Size = new System.Drawing.Size(61, 24);
-            this.chkMode.TabIndex = 19;
-            this.chkMode.Text = "Mode";
-            this.chkMode.UseVisualStyleBackColor = true;
-            // 
-            // chkAutoCalculation
-            // 
-            this.chkAutoCalculation.BssClass = "";
-            this.chkAutoCalculation.IsMultiLanguage = true;
-            this.chkAutoCalculation.Key = "";
-            this.chkAutoCalculation.Location = new System.Drawing.Point(108, 35);
-            this.chkAutoCalculation.Name = "chkAutoCalculation";
-            this.chkAutoCalculation.Size = new System.Drawing.Size(104, 24);
-            this.chkAutoCalculation.TabIndex = 16;
-            this.chkAutoCalculation.Text = "Auto Calculation";
-            this.chkAutoCalculation.UseVisualStyleBackColor = true;
+            this.chkInherittheSpecOfMain.BssClass = "";
+            this.chkInherittheSpecOfMain.IsMultiLanguage = true;
+            this.chkInherittheSpecOfMain.Key = "";
+            this.chkInherittheSpecOfMain.Location = new System.Drawing.Point(281, 95);
+            this.chkInherittheSpecOfMain.Name = "chkInherittheSpecOfMain";
+            this.chkInherittheSpecOfMain.Size = new System.Drawing.Size(246, 24);
+            this.chkInherittheSpecOfMain.TabIndex = 15;
+            this.chkInherittheSpecOfMain.Text = "Inherit the Spec/Rule of Main Config (S)";
+            this.chkInherittheSpecOfMain.UseVisualStyleBackColor = true;
             // 
             // chkAutoSetting
             // 
@@ -1008,6 +1015,18 @@
             this.chkAutoSetting.Text = "Auto Setting (M)";
             this.chkAutoSetting.UseVisualStyleBackColor = true;
             // 
+            // chkAutoCalculation
+            // 
+            this.chkAutoCalculation.BssClass = "";
+            this.chkAutoCalculation.IsMultiLanguage = true;
+            this.chkAutoCalculation.Key = "";
+            this.chkAutoCalculation.Location = new System.Drawing.Point(108, 35);
+            this.chkAutoCalculation.Name = "chkAutoCalculation";
+            this.chkAutoCalculation.Size = new System.Drawing.Size(104, 24);
+            this.chkAutoCalculation.TabIndex = 16;
+            this.chkAutoCalculation.Text = "Auto Calculation";
+            this.chkAutoCalculation.UseVisualStyleBackColor = true;
+            // 
             // chkAutoGenerateSubChart
             // 
             this.chkAutoGenerateSubChart.BssClass = "";
@@ -1019,18 +1038,6 @@
             this.chkAutoGenerateSubChart.TabIndex = 9;
             this.chkAutoGenerateSubChart.Text = "Auto Generate Sub Chart (M)";
             this.chkAutoGenerateSubChart.UseVisualStyleBackColor = true;
-            // 
-            // chkGenerateSubChartWithInterlock
-            // 
-            this.chkGenerateSubChartWithInterlock.BssClass = "";
-            this.chkGenerateSubChartWithInterlock.IsMultiLanguage = true;
-            this.chkGenerateSubChartWithInterlock.Key = "";
-            this.chkGenerateSubChartWithInterlock.Location = new System.Drawing.Point(247, 65);
-            this.chkGenerateSubChartWithInterlock.Name = "chkGenerateSubChartWithInterlock";
-            this.chkGenerateSubChartWithInterlock.Size = new System.Drawing.Size(212, 24);
-            this.chkGenerateSubChartWithInterlock.TabIndex = 14;
-            this.chkGenerateSubChartWithInterlock.Text = "Generate Sub Chart with Interlock (M)";
-            this.chkGenerateSubChartWithInterlock.UseVisualStyleBackColor = true;
             // 
             // chkActive
             // 
@@ -1044,17 +1051,29 @@
             this.chkActive.Text = "Active (M)";
             this.chkActive.UseVisualStyleBackColor = true;
             // 
-            // chkInherittheSpecOfMain
+            // chkMode
             // 
-            this.chkInherittheSpecOfMain.BssClass = "";
-            this.chkInherittheSpecOfMain.IsMultiLanguage = true;
-            this.chkInherittheSpecOfMain.Key = "";
-            this.chkInherittheSpecOfMain.Location = new System.Drawing.Point(281, 95);
-            this.chkInherittheSpecOfMain.Name = "chkInherittheSpecOfMain";
-            this.chkInherittheSpecOfMain.Size = new System.Drawing.Size(246, 24);
-            this.chkInherittheSpecOfMain.TabIndex = 15;
-            this.chkInherittheSpecOfMain.Text = "Inherit the Spec/Rule of Main Config (S)";
-            this.chkInherittheSpecOfMain.UseVisualStyleBackColor = true;
+            this.chkMode.BssClass = "";
+            this.chkMode.IsMultiLanguage = true;
+            this.chkMode.Key = "";
+            this.chkMode.Location = new System.Drawing.Point(519, 35);
+            this.chkMode.Name = "chkMode";
+            this.chkMode.Size = new System.Drawing.Size(61, 24);
+            this.chkMode.TabIndex = 19;
+            this.chkMode.Text = "Mode";
+            this.chkMode.UseVisualStyleBackColor = true;
+            // 
+            // chkGenerateSubChartWithInterlock
+            // 
+            this.chkGenerateSubChartWithInterlock.BssClass = "";
+            this.chkGenerateSubChartWithInterlock.IsMultiLanguage = true;
+            this.chkGenerateSubChartWithInterlock.Key = "";
+            this.chkGenerateSubChartWithInterlock.Location = new System.Drawing.Point(247, 65);
+            this.chkGenerateSubChartWithInterlock.Name = "chkGenerateSubChartWithInterlock";
+            this.chkGenerateSubChartWithInterlock.Size = new System.Drawing.Size(212, 24);
+            this.chkGenerateSubChartWithInterlock.TabIndex = 14;
+            this.chkGenerateSubChartWithInterlock.Text = "Generate Sub Chart with Interlock (M)";
+            this.chkGenerateSubChartWithInterlock.UseVisualStyleBackColor = true;
             // 
             // SPCCopySpec
             // 
@@ -1146,6 +1165,7 @@
         private BISTel.PeakPerformance.Client.BISTelControl.BCheckBox chkMode;
         private PeakPerformance.Client.BISTelControl.BCheckBox chkThresholdFuntionOff;
         private PeakPerformance.Client.BISTelControl.BCheckBox chkChartDesc;
+        private PeakPerformance.Client.BISTelControl.BCheckBox chkContextInform;
 
     }
 }

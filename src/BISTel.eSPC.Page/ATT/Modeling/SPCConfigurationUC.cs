@@ -511,6 +511,7 @@ namespace BISTel.eSPC.Page.ATT.Modeling
             _llstSearchCondition.Clear();
 
             string spcModelName = "";
+            DataSet dsTemp = new DataSet();
 
             switch (_cofingMode)
             {
@@ -647,6 +648,8 @@ namespace BISTel.eSPC.Page.ATT.Modeling
                     break;
 
                 case BISTel.eSPC.Common.ConfigMode.ROLLBACK :
+                    string version = _wsSPC.GetSPCLastestVersion(_sConfigRawID);
+                    dsTemp = _wsSPC.GetSPCModelVersionData(_sConfigRawID, version);
                     _dsSPCModelData = _wsSPC.GetATTSPCModelVersionData(_sConfigRawID, _sVersion);
                     break;
 
@@ -722,6 +725,34 @@ namespace BISTel.eSPC.Page.ATT.Modeling
 
                 sRuleOption = string.Empty;
                 sRuleOptionData = string.Empty;
+            }
+
+            if (_cofingMode == BISTel.eSPC.Common.ConfigMode.ROLLBACK)
+            {
+                _OridtModel = dsTemp.Tables[BISTel.eSPC.Common.TABLE.MODEL_MST_SPC].Copy();
+                _OridtConfig = dsTemp.Tables[BISTel.eSPC.Common.TABLE.MODEL_CONFIG_MST_SPC].Copy();
+                _OridtContext = dsTemp.Tables[BISTel.eSPC.Common.TABLE.MODEL_CONTEXT_MST_SPC].Copy();
+                _OridtConfigOpt = dsTemp.Tables[BISTel.eSPC.Common.TABLE.MODEL_CONFIG_OPT_MST_SPC].Copy();
+                _OridtAutoCalc = dsTemp.Tables[BISTel.eSPC.Common.TABLE.MODEL_AUTOCALC_MST_SPC].Copy();
+                _OridtRule = dsTemp.Tables[BISTel.eSPC.Common.TABLE.MODEL_RULE_MST_SPC].Copy();
+                _OridtRuleOpt = dsTemp.Tables[BISTel.eSPC.Common.TABLE.MODEL_RULE_OPT_MST_SPC].Copy();
+
+                foreach (DataRow drRule in _OridtRule.Rows)
+                {
+                    DataRow[] drRuleOpts = _OridtRuleOpt.Select(string.Format("{0} = '{1}'", BISTel.eSPC.Common.COLUMN.MODEL_RULE_RAWID, drRule[BISTel.eSPC.Common.COLUMN.RAWID]));
+
+                    foreach (DataRow drRuleOpt in drRuleOpts)
+                    {
+                        sRuleOption += string.Format("{0}={1};", drRuleOpt[BISTel.eSPC.Common.COLUMN.OPTION_NAME], drRuleOpt[BISTel.eSPC.Common.COLUMN.RULE_OPTION_VALUE]);
+                        sRuleOptionData += string.Format("{0}.{1}={2};", drRuleOpt[BISTel.eSPC.Common.COLUMN.RULE_OPTION_NO], drRuleOpt[BISTel.eSPC.Common.COLUMN.OPTION_NAME], drRuleOpt[BISTel.eSPC.Common.COLUMN.RULE_OPTION_VALUE]);
+                    }
+
+                    drRule[BISTel.eSPC.Common.COLUMN.RULE_OPTION] = sRuleOption;
+                    drRule[BISTel.eSPC.Common.COLUMN.RULE_OPTION_DATA] = sRuleOptionData;
+
+                    sRuleOption = string.Empty;
+                    sRuleOptionData = string.Empty;
+                }
             }
 
             this.btxtSPCModelName.DataBindings.Add("Text", _dtModel, BISTel.eSPC.Common.COLUMN.SPC_MODEL_NAME);

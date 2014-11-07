@@ -330,5 +330,79 @@ namespace BISTel.eSPC.Page.Common
             llstChartSeries.Add(Definition.COL_TOGGLE_YN, Definition.COL_TOGGLE_YN);
             return llstChartSeries;
         }
+
+        //SPC-929, KBLEE, START
+        public static LinkedList GetSummaryChartSeries(string _chartName, List<string> _lstRawColumn)
+        {
+            LinkedList llstChartSeries = new LinkedList();
+            switch (_chartName)
+            {
+                case Definition.CHART_TYPE.XBAR:
+                    llstChartSeries = CommonChart.CHART_XBAR_COLUMN;
+                    for (int j = 0; j < _lstRawColumn.Count; j++)
+                    {
+                        llstChartSeries.Add(_lstRawColumn[j].ToString(), _lstRawColumn[j].ToString());
+                    }
+                    break;
+                case Definition.CHART_TYPE.RANGE:
+                    llstChartSeries = CommonChart.CHART_RANGE_COLUMN;
+                    break;
+                case Definition.CHART_TYPE.STDDEV:
+                    llstChartSeries = CommonChart.CHART_STDDEV_COLUMN;
+                    break;
+                case Definition.CHART_TYPE.RAW:
+                    llstChartSeries = CommonChart.CHART_RAW_COLUMN;
+
+                    if (_lstRawColumn != null && _lstRawColumn.Count > 0)
+                    {
+                        for (int j = 0; j < _lstRawColumn.Count; j++)
+                        {
+                            llstChartSeries.Add(_lstRawColumn[j].ToString(), _lstRawColumn[j].ToString());
+                        }
+                    }
+                    break;
+                case Definition.CHART_TYPE.MA:
+                    llstChartSeries = CommonChart.CHART_MA_COLUMN;
+                    for (int j = 0; j < _lstRawColumn.Count; j++)
+                    {
+                        llstChartSeries.Add(_lstRawColumn[j].ToString(), _lstRawColumn[j].ToString());
+                    }
+                    break;
+                case Definition.CHART_TYPE.MSD:
+                    llstChartSeries = CommonChart.CHART_MSD_COLUMN;
+                    break;
+                case Definition.CHART_TYPE.MR:
+                    llstChartSeries = CommonChart.CHART_MR_COLUMN;
+                    break;
+                case Definition.CHART_TYPE.EWMA_MEAN:
+                    llstChartSeries = CommonChart.CHART_EWMA_MEAN_COLUMN;
+                    break;
+                case Definition.CHART_TYPE.EWMA_RANGE:
+                    llstChartSeries = CommonChart.CHART_EWMA_RANGE_COLUMN;
+                    break;
+                case Definition.CHART_TYPE.EWMA_STDDEV:
+                    llstChartSeries = CommonChart.CHART_EWMA_STDDEV_COLUMN;
+                    break;
+
+                case Definition.CHART_TYPE.BOX:
+                    llstChartSeries = CommonChart.CHART_EWMA_STDDEV_COLUMN;
+                    break;
+
+                case Definition.CHART_TYPE.DOT_PLOT:
+                    llstChartSeries = CommonChart.CHART_EWMA_STDDEV_COLUMN;
+                    break;
+
+                case Definition.CHART_TYPE.HISTOGRAM:
+                    llstChartSeries = CommonChart.CHART_EWMA_STDDEV_COLUMN;
+                    break;
+
+                case Definition.CHART_TYPE.RUN:
+                    llstChartSeries = CommonChart.CHART_EWMA_STDDEV_COLUMN;
+                    break;
+            }
+
+            return llstChartSeries;
+        }
+        //SPC-929, KBLEE, END
     }
 }

@@ -1262,13 +1262,28 @@ namespace BISTel.eSPC.Page.Common
 
             Series s = null;
 
-            if (pTitle == GetSeriesMultiLanguage(Definition.CHART_SERIES.AVG))
+            if (pTitle == GetSeriesMultiLanguage(Definition.CHART_SERIES.VAL))
             {
-                s = this.SPCChart.Chart.Series.WithTitle(Definition.CHART_COLUMN.AVG);
+                s = this.SPCChart.Chart.Series.WithTitle(this.NAME);
                 if (s != null) s.Active = bActive;
                 else
                 {
-                    s = this.SPCChart.Chart.Series.WithTitle(Definition.CHART_COLUMN.RAW);
+                    switch (this.NAME)
+                    {
+                        case Definition.CHART_TYPE.EWMA_STDDEV:
+                            s = this.SPCChart.Chart.Series.WithTitle(Definition.CHART_COLUMN.STDDEV);
+                            break;
+                        case Definition.CHART_TYPE.EWMA_MEAN:
+                            s = this.SPCChart.Chart.Series.WithTitle(Definition.CHART_COLUMN.AVG);
+                            break;
+                        case Definition.CHART_TYPE.EWMA_RANGE:
+                            s = this.SPCChart.Chart.Series.WithTitle(Definition.CHART_COLUMN.RANGE);
+                            break;
+                        default:
+                            s = this.SPCChart.Chart.Series.WithTitle(Definition.CHART_COLUMN.AVG);
+                            break;
+                    }
+                    //s = this.SPCChart.Chart.Series.WithTitle(Definition.CHART_COLUMN.AVG);
                     if (s != null) s.Active = bActive;
                 }
 

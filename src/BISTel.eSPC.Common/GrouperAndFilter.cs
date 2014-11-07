@@ -38,6 +38,7 @@ namespace BISTel.eSPC.Common
             return result;
         }
 
+
         /// <summary>
         /// Check the row of the raw table is needed to be added to the series
         /// </summary>

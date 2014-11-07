@@ -36,7 +36,19 @@ namespace BISTel.eSPC.Page.Common
             this.dtDataSource = new DataTable();
             this.dtDataSource.Columns.Add(CommonChart.COLUMN_NAME_SEQ_INDEX, typeof(int));
             CommonChart.llstChartColumn = new LinkedList();
-            LinkedList llstChartColumn = CommonChart.GetChartSeries(this._xBarChartType, lstRawColumn);
+            LinkedList llstChartColumn;
+
+            //SPC-929, KBLEE, START
+            if (ISSUMMARYDATA)
+            {
+                llstChartColumn = CommonChart.GetSummaryChartSeries(this._xBarChartType, lstRawColumn);
+            }
+            else
+            {
+                llstChartColumn = CommonChart.GetChartSeries(this._xBarChartType, lstRawColumn);
+            }
+            //SPC-929, KBLEE, END
+
             MakeDataTable(llstChartColumn);
         }
 

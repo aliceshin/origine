@@ -1448,5 +1448,26 @@ namespace BISTel.eSPC.Data.Server.Common
 
             return dsResult;
         }
+
+        public DataSet GetContextTypeData()
+        {
+            DataSet dsResult = new DataSet();
+            StringBuilder sb = new StringBuilder();
+
+            try
+            {
+                sb.Append("SELECT * FROM CODE_MST_PP ");
+                sb.Append(" WHERE CATEGORY = 'CONTEXT_TYPE' ");
+                sb.Append(" AND USE_YN = 'Y' ");
+
+                dsResult = base.Query(sb.ToString());
+            }
+            catch (Exception ex)
+            {
+                BISTel.PeakPerformance.Client.CommonLibrary.LogHandler.ExceptionLogWrite(Definition.APPLICATION_NAME, new string[] { ex.Message, ex.Source, ex.StackTrace });
+            }
+
+            return dsResult;
+        }
     }
 }

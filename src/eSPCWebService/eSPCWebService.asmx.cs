@@ -2640,6 +2640,149 @@ namespace eSPCWebService
         }
         //added end
 
+        //SPC-929, KBLEE, START
+        /// <summary>
+        /// Get Compressed Summary Data
+        /// </summary>
+        /// <param name="btdata"></param>
+        /// <returns></returns>
+        [WebMethod]
+        public DataSet GetEqpSummaryTrxFileData(byte[] badata)
+        {
+            BISTel.eSPC.Business.Server.Modeling.SPCModelBusiness sumBiz = new BISTel.eSPC.Business.Server.Modeling.SPCModelBusiness();
+
+            try
+            {
+                this._ds = sumBiz.GetEQPSummaryData(badata);
+            }
+            catch (Exception ex)
+            {
+                EESUtil.ThrowExceptionMessage(ex.Message, ex.StackTrace);
+            }
+
+            return this._ds;
+        }
+        //SPC-929, KBLEE, END
+
+        //SPC-929, KBLEE, START
+        [WebMethod]
+        public DataSet GetEqpModuleInfoByParamAlias(byte[] badata)
+        {
+            DataSet dsReturn = new DataSet();
+            BISTel.eSPC.Data.Server.Modeling.SPCModelData modelData = new BISTel.eSPC.Data.Server.Modeling.SPCModelData();
+
+            try
+            {
+                dsReturn = modelData.GetEqpModuleInfoByParamAlias(badata);
+            }
+            catch (Exception ex)
+            {
+                EESUtil.ThrowExceptionMessage(ex.Message, ex.StackTrace);
+            }
+
+            return dsReturn;
+        }
+        //SPC-929, KBLEE, END
+
+        //SPC-929, KBLEE, START
+        [WebMethod]
+        public DataSet GetRecipeStepByEqpModuleId(byte[] badata)
+        {
+            DataSet dsReturn = new DataSet();
+            BISTel.eSPC.Data.Server.Modeling.SPCModelData modelData = new BISTel.eSPC.Data.Server.Modeling.SPCModelData();
+
+            try
+            {
+                dsReturn = modelData.GetRecipeStepByEqpModuleId(badata);
+            }
+            catch (Exception ex)
+            {
+                EESUtil.ThrowExceptionMessage(ex.Message, ex.StackTrace);
+            }
+
+            return dsReturn;
+        }
+        //SPC-929, KBLEE, END
+
+        //SPC-929, KBLEE, START
+        [WebMethod]
+        public DataSet GetConfigInfoByRawId(byte[] badata)
+        {
+            DataSet dsReturn = new DataSet();
+            BISTel.eSPC.Data.Server.Modeling.SPCModelData modelData = new BISTel.eSPC.Data.Server.Modeling.SPCModelData();
+
+            try
+            {
+                dsReturn = modelData.GetConfigInfoByRawId(badata);
+            }
+            catch (Exception ex)
+            {
+                EESUtil.ThrowExceptionMessage(ex.Message, ex.StackTrace);
+            }
+
+            return dsReturn;
+        }
+        //SPC-929, KBLEE, END
+
+        //SPC-929, KBLEE, START
+        [WebMethod]
+        public DataSet GetModuleNameByModuleId(byte[] badata)
+        {
+            DataSet dsReturn = new DataSet();
+            BISTel.eSPC.Data.Server.Modeling.SPCModelData modelData = new BISTel.eSPC.Data.Server.Modeling.SPCModelData();
+
+            try
+            {
+                dsReturn = modelData.GetModuleNameByModuleId(badata);
+            }
+            catch (Exception ex)
+            {
+                EESUtil.ThrowExceptionMessage(ex.Message, ex.StackTrace);
+            }
+
+            return dsReturn;
+        }
+        //SPC-929, KBLEE, END
+
+        //SPC-930, KBLEE, START
+        [WebMethod]
+        public DataSet GetRuleListByChartType(byte[] badata)
+        {
+            DataSet dsReturn = new DataSet();
+            BISTel.eSPC.Data.Server.Modeling.SPCModelData modelData = new BISTel.eSPC.Data.Server.Modeling.SPCModelData();
+
+            try
+            {
+                dsReturn = modelData.GetRuleListByChartType(badata);
+            }
+            catch (Exception ex)
+            {
+                EESUtil.ThrowExceptionMessage(ex.Message, ex.StackTrace);
+            }
+
+            return dsReturn;
+        }
+        //SPC-930, KBLEE, END
+
+        //SPC-930, KBLEE, START
+        [WebMethod]
+        public DataSet GetRuleOptionByRuleNo(byte[] badata)
+        {
+            DataSet dsReturn = new DataSet();
+            BISTel.eSPC.Data.Server.Modeling.SPCModelData modelData = new BISTel.eSPC.Data.Server.Modeling.SPCModelData();
+
+            try
+            {
+                dsReturn = modelData.GetRuleOptionByRuleNo(badata);
+            }
+            catch (Exception ex)
+            {
+                EESUtil.ThrowExceptionMessage(ex.Message, ex.StackTrace);
+            }
+
+            return dsReturn;
+        }
+        //SPC-930, KBLEE, END
 
         ///////////////////////////////////////////////////////////////////////
         ///////////////////ATT SPC WEB SERVICE///////////////////////////////
@@ -3843,6 +3986,40 @@ namespace eSPCWebService
             {
                 BISTel.eSPC.Data.Server.Common.ConditionData conditionData = new BISTel.eSPC.Data.Server.Common.ConditionData();
                 _ds = conditionData.GetSPCModelListbyBaseInfo(baData);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return _ds;
+        }
+
+        [WebMethod]
+        public DataSet GetRestrictionFilter(string userRawid)
+        {
+            DataSet _ds = new DataSet();
+            try
+            {
+                BISTel.eSPC.Data.Server.Modeling.SPCModelData data = new BISTel.eSPC.Data.Server.Modeling.SPCModelData();
+                _ds = data.GetRestrictionFilter(userRawid);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return _ds;
+        }
+
+        [WebMethod]
+        public DataSet GetContextTypeData()
+        {
+            DataSet _ds = new DataSet();
+            try
+            {
+                BISTel.eSPC.Data.Server.Common.CommonData data = new BISTel.eSPC.Data.Server.Common.CommonData();
+                _ds = data.GetContextTypeData();
             }
             catch (Exception ex)
             {

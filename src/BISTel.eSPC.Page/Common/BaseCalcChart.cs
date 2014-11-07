@@ -67,6 +67,10 @@ namespace BISTel.eSPC.Page.Common
         private int _endPositionX = 0;
         private int _endPositionY = 0;
 
+        private string ParentName = string.Empty;
+        private DataSet _dsFilter;
+        private DataSet _dsContextData;
+
         public BaseCalcChart()
         {
             InitializeComponent();
@@ -380,6 +384,42 @@ namespace BISTel.eSPC.Page.Common
         {
             get { return this.bckbPointMarking.Checked; }
         }
+
+        public DataSet dsFilter
+        {
+            get
+            {
+                return _dsFilter;
+            }
+            set
+            {
+                this._dsFilter = value;
+            }
+        }
+
+        public DataSet dsContextData
+        {
+            get
+            {
+                return _dsContextData;
+            }
+            set
+            {
+                this._dsContextData = value;
+            }
+        }
+
+        public string PageName
+        {
+            get
+            {
+                return ParentName;
+            }
+            set
+            {
+                this.ParentName = value;
+            }
+        }
         #endregion
 
         #region ::: Override Method.
@@ -423,6 +463,40 @@ namespace BISTel.eSPC.Page.Common
                 }
                 else
                 {
+                    if (this.ParentName == "BISTel.eSPC.Page.Modeling.SPCDataRestrictionUC")
+                    {
+                        if (_dsFilter != null && _dsFilter.Tables.Count > 0 && _dsFilter.Tables[0].Rows.Count > 0)
+                        {
+                            DataRestriction restriction = new DataRestriction();
+                            
+                            DataTable dtFilterData = restriction.GetEQPFilterData(_dsFilter, _dsContextData, this.DataManager.RawDataTable);
+                            if (dtFilterData != null)
+                            {
+                                this.DataManager.RawDataTable = dtFilterData;
+                            }
+
+                            DataTable dtResult = restriction.GetIncludeFilterResultData(_dsFilter, _dsContextData, this.DataManager.RawDataTable);
+                            if (dtResult!=null)
+                            {
+                                this._dataManager.RawDataTable = dtResult.Copy();
+                            }
+                            else
+                            {
+                                this._dataManager.RawDataTable.Clear();
+                            }
+
+                            dtResult = restriction.GetExcludeFilterResultData(_dsFilter, _dsContextData, this.DataManager.RawDataTable);
+                            if (dtResult != null)
+                            {
+                                this._dataManager.RawDataTable = dtResult.Copy();
+                            }
+                            else
+                            {
+                                this._dataManager.RawDataTable.Clear();
+                            }
+                        }
+                    }
+
                     if (this.Name == Definition.CHART_TYPE.RAW)
                     {
                         for (int i = 0; i < this.DataManager.RawDataTable.Columns.Count; i++)

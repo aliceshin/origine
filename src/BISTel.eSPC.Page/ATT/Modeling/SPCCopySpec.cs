@@ -108,6 +108,13 @@ namespace BISTel.eSPC.Page.ATT.Modeling
         {
             get { return this.chkMode.Checked ? "Y" : "N"; }
         }
+
+        //SPC-1218, KBLEE. START
+        public string CONTEXT_CONTEXT_INFORMATION
+        {
+            get { return this.chkContextInform.Checked ? "Y" : "N"; }
+        }
+        //SPC-1218, KBLEE. END
         #endregion
         
         #region RULE Info.
@@ -352,6 +359,7 @@ namespace BISTel.eSPC.Page.ATT.Modeling
                 this.chkAutoSetting.Checked = this.chkAllContext.Checked;
                 this.chkGenerateSubChartWithInterlock.Checked = this.chkAllContext.Checked;
                 this.chkGenerateSubChartWithAutoCalculation.Checked = this.chkAllContext.Checked;
+                this.chkContextInform.Checked = this.chkAllContext.Checked; //SPC-1218, KBLEE
             }
             else
             {
@@ -399,6 +407,7 @@ namespace BISTel.eSPC.Page.ATT.Modeling
             this.chkAutoSetting.Enabled = isMain;
             this.chkGenerateSubChartWithInterlock.Enabled = isMain;
             this.chkGenerateSubChartWithAutoCalculation.Enabled = isMain;
+            this.chkContextInform.Enabled = isMain; //SPC-1218, KBLEE
 
             this.chkInherittheSpecOfMain.Enabled = !isMain;
 
@@ -413,6 +422,7 @@ namespace BISTel.eSPC.Page.ATT.Modeling
                 this.chkAutoSetting.Checked = false;
                 this.chkGenerateSubChartWithInterlock.Checked = false;
                 this.chkGenerateSubChartWithAutoCalculation.Checked = false;
+                this.chkContextInform.Checked = false; //SPC-1218, KBLEE
             }
         }
 

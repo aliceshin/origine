@@ -3958,6 +3958,26 @@ namespace eSPCWebService
             return bResult;
         }
 
+        //SPC-1306, KBLEE, START
+        [WebMethod]
+        public int GetTheNumberOfATTSubConfigOfModel(string modelConfigRawid)
+        {
+            BISTel.eSPC.Data.Server.Report.SPCATTControlChartData chart = new SPCATTControlChartData();
+
+            try
+            {
+                return chart.GetTheNumberOfATTSubConfigOfModel(modelConfigRawid);
+            }
+            catch (Exception ex)
+            {
+                EESUtil.ThrowExceptionMessage(ex.Message, ex.StackTrace);
+            }
+
+            return -1;
+        }
+        //SPC-1306, KBLEE, END
+
+
         #region TOSHIBA
 
         [WebMethod]

@@ -69,13 +69,20 @@
     <Compile Include="Common\ConditionData.cs" />
     <Compile Include="Common\InterfaceData.cs" />
     <Compile Include="Compare\SPCModelCompareData.cs" />
+    <Compile Include="Compare\SPCModelCompareDataCall.cs" />
+    <Compile Include="History\SPCModelHistoryDataCall.cs" />
     <Compile Include="Modeling\SPCModelData.cs" />
+    <Compile Include="Modeling\SPCModelDataCall.cs" />
     <Compile Include="OCAP\OCAPData.cs" />
+    <Compile Include="OCAP\OCAPDataCall.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Report\ProcessCapabilityData.cs" />
+    <Compile Include="Report\ProcessCapabilityDataCall.cs" />
     <Compile Include="Report\SPCControlChartData.cs" />
     <Compile Include="History\SPCModelHistoryData.cs" />
+    <Compile Include="Report\SPCControlChartDataCall.cs" />
     <Compile Include="Tool\SPCDataExport.cs" />
+    <Compile Include="Tool\SPCDataExportDataCall.cs" />
     <Compile Include="Tool\SPCMigrationData.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -22,12 +22,6 @@ namespace BISTel.eSPC.Common
             LotRecipeStep
         }
 
-        public ParseBLOB()
-        {
-
-
-        }
-
         protected LinkedList _llstLineInfo = null;
         protected LinkedList _llstParamName = null;
 
@@ -40,6 +34,15 @@ namespace BISTel.eSPC.Common
 
         private Dictionary<string, List<string[]>> _ColumnDatas = new Dictionary<string, List<string[]>>();
         private List<int> _DataCount = new List<int>();
+
+        //ATT쪽과 code 합치는데 ATT와의 구분을 위하여 만들어주는 변수, KBLEE
+        private bool isATT = false;
+
+        public ParseBLOB()
+        {
+            //ATT와의 중복률 관련 refactoring, KBLEE
+            isATT = this.GetType().FullName == "BISTel.eSPC.Common.ATT.ParseBLOB";
+        }
 
         #region Decompress
 
@@ -62,6 +65,7 @@ namespace BISTel.eSPC.Common
             DataSet dsReturn = null;
             DataTable dt = new DataTable();
             CommonUtility _comUtil = new CommonUtility();
+
             try
             {
                 if (_dtData != null && _dtData.Rows.Count > 0)
@@ -73,18 +77,23 @@ namespace BISTel.eSPC.Common
                     foreach (DataColumn col in _dtData.Columns)
                     {
                         if (col.ColumnName.ToString() != COLUMN.FILE_DATA)
+                        {
                             lstColumn.Add(col.ColumnName.ToString());
+                        }
                     }
 
                     BISTel.PeakPerformance.Client.CommonUtil.GZip gZip = new BISTel.PeakPerformance.Client.CommonUtil.GZip();
                     int iIndex = 0;
+
                     foreach (DataRow drData in _dtData.Rows)
                     {
                         lstData.Clear();
+
                         for (int i = 0; i < lstColumn.Count; i++)
                         {
                             lstData.Add(drData[lstColumn[i]].ToString());
                         }
+
                         //using (StreamReader sr = gZip.DecompressForStream(drData[COLUMN.FILE_DATA]))
                         using (StreamReader sr = CommonUtility.ConvertBLOBToStreamReader(drData[COLUMN.FILE_DATA]))
                         {
@@ -111,11 +120,8 @@ namespace BISTel.eSPC.Common
                             //}
                             //else
                             //    dt.Merge(this._dtDefault);
-
-
                         }
                     }
-
 
                     DataTable dtTable = new DataTable();
                     int iCol = 0;
@@ -146,13 +152,17 @@ namespace BISTel.eSPC.Common
                         for (int iRow = 0; iRow < _DataCount[i]; iRow++)
                         {
                             string[] sColumnData = new string[columnNames.Count];
+
                             for (int iColCount = 0; iColCount < _ColumnDatas.Count; iColCount++)
                             {
                                 if (_ColumnDatas[columnNames[iColCount]].Count > i)
                                 {
                                     string[] sData = _ColumnDatas[columnNames[iColCount]][i];
+
                                     if (sData != null && sData.Length > iRow && sData[iRow] != "NaN")
+                                    {
                                         sColumnData[iColCount] = sData[iRow];
+                                    }
                                 }
                             }
 
@@ -196,6 +206,7 @@ namespace BISTel.eSPC.Common
             {
                 string[] temp = null;
                 string toggle = "";
+
                 if (dt.Columns.Contains(Definition.COL_TOGGLE))
                 {
                     toggle = dt.Rows[i][Definition.COL_TOGGLE].ToString();
@@ -218,12 +229,16 @@ namespace BISTel.eSPC.Common
             {
                 DataRow dr = dt.Rows[i];
                 string toggle = dr[Definition.COL_TOGGLE_YN].ToString();
-                
-                if(string.IsNullOrEmpty(toggle))
-                    continue;
 
-                if(toggle == "Y")
+                if (string.IsNullOrEmpty(toggle))
+                {
+                    continue;
+                }
+
+                if (toggle == "Y")
+                {
                     dr.Delete();
+                }
             }
         }
 
@@ -299,6 +314,7 @@ namespace BISTel.eSPC.Common
                     return name_value[1].Split('\t');
                 }
             }
+
             return null;
         }
 
@@ -309,6 +325,7 @@ namespace BISTel.eSPC.Common
             while (sr.Peek() > -1)
             {
                 line = sr.ReadLine();
+
                 if (line.IndexOf(Definition.BLOB_FIELD_NAME.HEADER_CLOSING) > -1)
                 {
                     break;
@@ -324,16 +341,13 @@ namespace BISTel.eSPC.Common
             }
 
         }
-
-
-
+        
         /// <summary>
         /// 
         /// </summary>
         /// <param name="sr"></param>
         /// <param name="_llstInfo"></param>
         /// <param name="arrValue"></param>
-
         private void ParseContextLineInfo(int index, StreamReader sr, LinkedList _llstContextType, List<string> lstColumn, List<string> lstData)
         {
             string line = string.Empty;
@@ -345,14 +359,14 @@ namespace BISTel.eSPC.Common
             //this._dtDefault = new DataTable();
             this._llstLineInfo = new LinkedList();
             //SPCStruct.ContextTypeInfo mContextTypeInfo = null;
-
+            
             try
             {
-
                 for (int i = 0; i < arrLineInfo.Length + arrParamName.Length && sr.Peek() > -1; i++)
                 {
                     string strKey = "";
                     string strTempKey = "";
+
                     if (i < arrLineInfo.Length)
                     {
                         strKey = arrLineInfo[i].ToString();
@@ -361,7 +375,8 @@ namespace BISTel.eSPC.Common
                     else
                     {
                         strKey = arrParamName[i - arrLineInfo.Length].ToString();
-                        if (strKey == "raw")
+
+                        if (strKey == "raw" && !isATT) //ATT와의 중복률 관련 refactoring, KBLEE
                         {
                             int _iTemp = lstColumn.IndexOf(Definition.CHART_COLUMN.PARAM_ALIAS);
                             strTempKey = lstData[_iTemp].ToString();
@@ -371,36 +386,58 @@ namespace BISTel.eSPC.Common
                             strTempKey = strKey;
                         }
                     }
-                    if (string.IsNullOrEmpty(strTempKey)) continue;
 
-                    //modified by enkim 2012.05.11 SPC-851
-                    if (strTempKey.ToUpper().Equals(Definition.CHART_COLUMN.STDDEV_USL)
-                        || strTempKey.ToUpper().Equals(Definition.CHART_COLUMN.STDDEV_LSL)
-                        || strTempKey.ToUpper().Equals(Definition.CHART_COLUMN.RANGE_USL)
-                        || strTempKey.ToUpper().Equals(Definition.CHART_COLUMN.RANGE_LSL)
-                        || strTempKey.ToUpper().Equals(Definition.CHART_COLUMN.MA_USL)
-                        || strTempKey.ToUpper().Equals(Definition.CHART_COLUMN.MA_LSL)
-                        || strTempKey.ToUpper().Equals(Definition.CHART_COLUMN.MSD_USL)
-                        || strTempKey.ToUpper().Equals(Definition.CHART_COLUMN.MSD_LSL)
-                        || strTempKey.ToUpper().Equals(Definition.CHART_COLUMN.MR_USL)
-                        || strTempKey.ToUpper().Equals(Definition.CHART_COLUMN.MR_LSL)
-                        || strTempKey.ToUpper().Equals(Definition.CHART_COLUMN.EWMARANGE_USL)
-                        || strTempKey.ToUpper().Equals(Definition.CHART_COLUMN.EWMARANGE_LSL)
-                        || strTempKey.ToUpper().Equals(Definition.CHART_COLUMN.EWMAMEAN_USL)
-                        || strTempKey.ToUpper().Equals(Definition.CHART_COLUMN.EWMAMEAN_LSL)
-                        || strTempKey.ToUpper().Equals(Definition.CHART_COLUMN.EWMASTDDEV_USL)
-                        || strTempKey.ToUpper().Equals(Definition.CHART_COLUMN.EWMASTDDEV_LSL)
-                        )
+                    if (string.IsNullOrEmpty(strTempKey))
                     {
-                        line = sr.ReadLine();
                         continue;
                     }
-                    //modified end SPC-851
+
+                    //ATT와의 중복률 관련 refactoring, KBLEE
+                    if (isATT)
+                    {
+                        if (strTempKey.ToUpper().Equals(Definition.CHART_COLUMN.P_USL)
+                        || strTempKey.ToUpper().Equals(Definition.CHART_COLUMN.P_LSL)
+                        || strTempKey.ToUpper().Equals(Definition.CHART_COLUMN.U_USL)
+                        || strTempKey.ToUpper().Equals(Definition.CHART_COLUMN.U_LSL)
+                        )
+                        {
+                            line = sr.ReadLine();
+                            continue;
+                        }
+                    }
+                    else
+                    {
+                        //modified by enkim 2012.05.11 SPC-851
+                        if (strTempKey.ToUpper().Equals(Definition.CHART_COLUMN.STDDEV_USL)
+                            || strTempKey.ToUpper().Equals(Definition.CHART_COLUMN.STDDEV_LSL)
+                            || strTempKey.ToUpper().Equals(Definition.CHART_COLUMN.RANGE_USL)
+                            || strTempKey.ToUpper().Equals(Definition.CHART_COLUMN.RANGE_LSL)
+                            || strTempKey.ToUpper().Equals(Definition.CHART_COLUMN.MA_USL)
+                            || strTempKey.ToUpper().Equals(Definition.CHART_COLUMN.MA_LSL)
+                            || strTempKey.ToUpper().Equals(Definition.CHART_COLUMN.MSD_USL)
+                            || strTempKey.ToUpper().Equals(Definition.CHART_COLUMN.MSD_LSL)
+                            || strTempKey.ToUpper().Equals(Definition.CHART_COLUMN.MR_USL)
+                            || strTempKey.ToUpper().Equals(Definition.CHART_COLUMN.MR_LSL)
+                            || strTempKey.ToUpper().Equals(Definition.CHART_COLUMN.EWMARANGE_USL)
+                            || strTempKey.ToUpper().Equals(Definition.CHART_COLUMN.EWMARANGE_LSL)
+                            || strTempKey.ToUpper().Equals(Definition.CHART_COLUMN.EWMAMEAN_USL)
+                            || strTempKey.ToUpper().Equals(Definition.CHART_COLUMN.EWMAMEAN_LSL)
+                            || strTempKey.ToUpper().Equals(Definition.CHART_COLUMN.EWMASTDDEV_USL)
+                            || strTempKey.ToUpper().Equals(Definition.CHART_COLUMN.EWMASTDDEV_LSL)
+                            )
+                        {
+                            line = sr.ReadLine();
+                            continue;
+                        }
+                        //modified end SPC-851
+                    }
 
                     line = sr.ReadLine();
+
                     if (line.IndexOf(strTempKey) > -1)
                     {
                         arrInitStr = line.Split('\t');
+
                         if (arrInitStr.Length == 1)
                         {
                             continue;
@@ -411,6 +448,7 @@ namespace BISTel.eSPC.Common
                             if (arrInitStr.Length < arrStrRaw.Length + 1)
                             {
                                 arrStr = new string[arrStrRaw.Length];
+
                                 for (int _idxInit = 0; _idxInit < arrStrRaw.Length; _idxInit++)
                                 {
                                     if (_idxInit < arrStrRaw.Length + 1 - arrInitStr.Length)
@@ -426,6 +464,7 @@ namespace BISTel.eSPC.Common
                             else
                             {
                                 arrStr = new string[arrInitStr.Length - 1];
+
                                 for (int _idxInit = 1; _idxInit < arrInitStr.Length; _idxInit++)
                                 {
                                     arrStr[_idxInit - 1] = arrInitStr[_idxInit];
@@ -435,181 +474,205 @@ namespace BISTel.eSPC.Common
                         else
                         {
                             arrStr = new string[arrInitStr.Length - 1];
+
                             for (int _idxInit = 1; _idxInit < arrInitStr.Length; _idxInit++)
                             {
                                 arrStr[_idxInit - 1] = arrInitStr[_idxInit];
                             }
                         }
 
-
-
-                        if (strKey == "raw")
+                        if (!isATT)
                         {
-                            arrStrRaw = (string[])arrStr.Clone();
-                        }
-
-                        if (strTempKey.Equals(Definition.BLOB_FIELD_NAME.REF_PARAM_LIST))
-                        {
-                            arrStrRefParamList = (string[])arrStr.Clone();
-                        }
-                        else if (strTempKey.Equals(Definition.BLOB_FIELD_NAME.REF_DATA))
-                        {
-                            LinkedList lnkLstParamList = new LinkedList();
-
-                            for (int j = 0; j < arrStr.Length; j++)
+                            if (strKey == "raw")
                             {
-                                string[] strArrRefParamList = arrStrRefParamList[j].Split(';');
-                                string[] strArrRefDataList = arrStr[j].Split('@')[0].Split(';');
-
-                                for (int k = 0; k < strArrRefParamList.Length; k++)
-                                {
-                                    if (strArrRefParamList[k] == null || strArrRefParamList[k].Length == 0) continue;
-
-                                    if (lnkLstParamList.Contains(strArrRefParamList[k]))
-                                    {
-                                        ArrayList arrLstRawData = (ArrayList)lnkLstParamList[strArrRefParamList[k]];
-                                        int _iArrCount = arrLstRawData.Count;
-                                        for (int m = 0; m < j - _iArrCount; m++)
-                                        {
-                                            arrLstRawData.Add(null);
-                                        }
-                                        arrLstRawData.Add(strArrRefDataList[k]);
-                                        lnkLstParamList.Remove(strArrRefParamList[k]);
-                                        lnkLstParamList.Add(strArrRefParamList[k], arrLstRawData);
-                                    }
-                                    else
-                                    {
-                                        ArrayList arrLstRawData = new ArrayList();
-                                        for (int m = 0; m < j; m++)
-                                        {
-                                            arrLstRawData.Add(null);
-                                        }
-                                        arrLstRawData.Add(strArrRefDataList[k]);
-                                        lnkLstParamList.Add(strArrRefParamList[k], arrLstRawData);
-                                    }
-                                }
+                                arrStrRaw = (string[])arrStr.Clone();
                             }
 
-                            for (int j = 0; j < lnkLstParamList.Count; j++)
+                            if (strTempKey.Equals(Definition.BLOB_FIELD_NAME.REF_PARAM_LIST))
                             {
-                                string strParamKey = lnkLstParamList.GetKey(j).ToString();
-                                string[] strarrParamDataList = (string[])((ArrayList)lnkLstParamList.GetValue(j)).ToArray(typeof(string));
+                                arrStrRefParamList = (string[])arrStr.Clone();
+                            }
+                            else if (strTempKey.Equals(Definition.BLOB_FIELD_NAME.REF_DATA))
+                            {
+                                LinkedList lnkLstParamList = new LinkedList();
 
-                                if (_ColumnDatas.ContainsKey(strParamKey))
+                                for (int j = 0; j < arrStr.Length; j++)
                                 {
-                                    if (_ColumnDatas[strParamKey].Count == index)
+                                    string[] strArrRefParamList = arrStrRefParamList[j].Split(';');
+                                    string[] strArrRefDataList = arrStr[j].Split('@')[0].Split(';');
+
+                                    for (int k = 0; k < strArrRefParamList.Length; k++)
                                     {
-                                        _ColumnDatas[strParamKey].Add(strarrParamDataList);
+                                        if (strArrRefParamList[k] == null || strArrRefParamList[k].Length == 0)
+                                        {
+                                            continue;
+                                        }
+
+                                        if (lnkLstParamList.Contains(strArrRefParamList[k]))
+                                        {
+                                            ArrayList arrLstRawData = (ArrayList)lnkLstParamList[strArrRefParamList[k]];
+                                            int _iArrCount = arrLstRawData.Count;
+
+                                            for (int m = 0; m < j - _iArrCount; m++)
+                                            {
+                                                arrLstRawData.Add(null);
+                                            }
+
+                                            arrLstRawData.Add(strArrRefDataList[k]);
+                                            lnkLstParamList.Remove(strArrRefParamList[k]);
+                                            lnkLstParamList.Add(strArrRefParamList[k], arrLstRawData);
+                                        }
+                                        else
+                                        {
+                                            ArrayList arrLstRawData = new ArrayList();
+
+                                            for (int m = 0; m < j; m++)
+                                            {
+                                                arrLstRawData.Add(null);
+                                            }
+
+                                            arrLstRawData.Add(strArrRefDataList[k]);
+                                            lnkLstParamList.Add(strArrRefParamList[k], arrLstRawData);
+                                        }
+                                    }
+                                }
+
+                                for (int j = 0; j < lnkLstParamList.Count; j++)
+                                {
+                                    string strParamKey = lnkLstParamList.GetKey(j).ToString();
+                                    string[] strarrParamDataList = (string[])((ArrayList)lnkLstParamList.GetValue(j)).ToArray(typeof(string));
+
+                                    if (_ColumnDatas.ContainsKey(strParamKey))
+                                    {
+                                        if (_ColumnDatas[strParamKey].Count == index)
+                                        {
+                                            _ColumnDatas[strParamKey].Add(strarrParamDataList);
+                                        }
+                                        else
+                                        {
+                                            int iColumnDatasCnt = _ColumnDatas[strParamKey].Count;
+
+                                            for (int iColTemp = 0; iColTemp < index - iColumnDatasCnt; iColTemp++)
+                                            {
+                                                _ColumnDatas[strParamKey].Add(null);
+                                            }
+
+                                            _ColumnDatas[strParamKey].Add(strarrParamDataList);
+                                        }
                                     }
                                     else
                                     {
-                                        int iColumnDatasCnt = _ColumnDatas[strParamKey].Count;
-                                        for (int iColTemp = 0; iColTemp < index - iColumnDatasCnt; iColTemp++)
+                                        if (index > 0)
                                         {
-                                            _ColumnDatas[strParamKey].Add(null);
-                                        }
-                                        _ColumnDatas[strParamKey].Add(strarrParamDataList);
-                                    }
-                                }
-                                else
-                                {
-                                    if (index > 0)
-                                    {
-                                        List<string[]> data = new List<string[]>();
-                                        data.Add(null);
-                                        for (int iEmp = 0; iEmp < index - 1; iEmp++)
-                                        {
+                                            List<string[]> data = new List<string[]>();
                                             data.Add(null);
+
+                                            for (int iEmp = 0; iEmp < index - 1; iEmp++)
+                                            {
+                                                data.Add(null);
+                                            }
+
+                                            data.Add(strarrParamDataList);
+                                            _ColumnDatas.Add(strParamKey, data);
                                         }
-                                        data.Add(strarrParamDataList);
-                                        _ColumnDatas.Add(strParamKey, data);
-                                    }
-                                    else
-                                    {
-                                        List<string[]> data = new List<string[]>();
-                                        data.Add(strarrParamDataList);
-                                        _ColumnDatas.Add(strParamKey, data);
+                                        else
+                                        {
+                                            List<string[]> data = new List<string[]>();
+                                            data.Add(strarrParamDataList);
+                                            _ColumnDatas.Add(strParamKey, data);
+                                        }
                                     }
                                 }
                             }
-                        }
-                        else if (strTempKey.Equals(Definition.BLOB_FIELD_NAME.PARAM_LIST))
-                        {
-                            LinkedList lnkLstParamList = new LinkedList();
-
-                            for (int j = 0; j < arrStr.Length; j++)
+                            else if (strTempKey.Equals(Definition.BLOB_FIELD_NAME.PARAM_LIST))
                             {
-                                string[] strArrParamList = arrStr[j].Split(';');
-                                string[] strArrRawDataList = arrStrRaw[j].Split('@')[0].Split(';');
+                                LinkedList lnkLstParamList = new LinkedList();
 
-                                for (int k = 0; k < strArrParamList.Length; k++)
+                                for (int j = 0; j < arrStr.Length; j++)
                                 {
-                                    if (strArrParamList[k] == null || strArrParamList[k].Length == 0 || string.IsNullOrEmpty(strArrRawDataList[k])) continue;
+                                    string[] strArrParamList = arrStr[j].Split(';');
+                                    string[] strArrRawDataList = arrStrRaw[j].Split('@')[0].Split(';');
 
-                                    if (lnkLstParamList.Contains(strArrParamList[k]))
+                                    for (int k = 0; k < strArrParamList.Length; k++)
                                     {
-                                        ArrayList arrLstRawData = (ArrayList)lnkLstParamList[strArrParamList[k]];
-                                        int _iArrCount = arrLstRawData.Count;
-                                        for (int m = 0; m < j - _iArrCount; m++)
+                                        if (strArrParamList[k] == null || strArrParamList[k].Length == 0 || string.IsNullOrEmpty(strArrRawDataList[k]))
                                         {
-                                            arrLstRawData.Add(null);
+                                            continue;
                                         }
-                                        arrLstRawData.Add(strArrRawDataList[k]);
-                                        lnkLstParamList.Remove(strArrParamList[k]);
-                                        lnkLstParamList.Add(strArrParamList[k], arrLstRawData);
+
+                                        if (lnkLstParamList.Contains(strArrParamList[k]))
+                                        {
+                                            ArrayList arrLstRawData = (ArrayList)lnkLstParamList[strArrParamList[k]];
+                                            int _iArrCount = arrLstRawData.Count;
+
+                                            for (int m = 0; m < j - _iArrCount; m++)
+                                            {
+                                                arrLstRawData.Add(null);
+                                            }
+
+                                            arrLstRawData.Add(strArrRawDataList[k]);
+                                            lnkLstParamList.Remove(strArrParamList[k]);
+                                            lnkLstParamList.Add(strArrParamList[k], arrLstRawData);
+                                        }
+                                        else
+                                        {
+                                            ArrayList arrLstRawData = new ArrayList();
+
+                                            for (int m = 0; m < j; m++)
+                                            {
+                                                arrLstRawData.Add(null);
+                                            }
+
+                                            arrLstRawData.Add(strArrRawDataList[k]);
+                                            lnkLstParamList.Add(strArrParamList[k], arrLstRawData);
+                                        }
+                                    }
+                                }
+
+                                for (int j = 0; j < lnkLstParamList.Count; j++)
+                                {
+                                    string strParamKey = lnkLstParamList.GetKey(j).ToString();
+                                    string[] strarrParamDataList = (string[])((ArrayList)lnkLstParamList.GetValue(j)).ToArray(typeof(string));
+
+                                    if (_ColumnDatas.ContainsKey(strParamKey))
+                                    {
+                                        if (_ColumnDatas[strParamKey].Count == index)
+                                        {
+                                            _ColumnDatas[strParamKey].Add(strarrParamDataList);
+                                        }
+                                        else
+                                        {
+                                            int iColumnDatasCnt = _ColumnDatas[strParamKey].Count;
+
+                                            for (int iColTemp = 0; iColTemp < index - iColumnDatasCnt; iColTemp++)
+                                            {
+                                                _ColumnDatas[strParamKey].Add(null);
+                                            }
+
+                                            _ColumnDatas[strParamKey].Add(strarrParamDataList);
+                                        }
                                     }
                                     else
                                     {
-                                        ArrayList arrLstRawData = new ArrayList();
-                                        for (int m = 0; m < j; m++)
+                                        if (index > 0)
                                         {
-                                            arrLstRawData.Add(null);
-                                        }
-                                        arrLstRawData.Add(strArrRawDataList[k]);
-                                        lnkLstParamList.Add(strArrParamList[k], arrLstRawData);
-                                    }
-                                }
-                            }
-
-                            for (int j = 0; j < lnkLstParamList.Count; j++)
-                            {
-                                string strParamKey = lnkLstParamList.GetKey(j).ToString();
-                                string[] strarrParamDataList = (string[])((ArrayList)lnkLstParamList.GetValue(j)).ToArray(typeof(string));
-
-                                if (_ColumnDatas.ContainsKey(strParamKey))
-                                {
-                                    if (_ColumnDatas[strParamKey].Count == index)
-                                    {
-                                        _ColumnDatas[strParamKey].Add(strarrParamDataList);
-                                    }
-                                    else
-                                    {
-                                        int iColumnDatasCnt = _ColumnDatas[strParamKey].Count;
-                                        for (int iColTemp = 0; iColTemp < index - iColumnDatasCnt; iColTemp++)
-                                        {
-                                            _ColumnDatas[strParamKey].Add(null);
-                                        }
-                                        _ColumnDatas[strParamKey].Add(strarrParamDataList);
-                                    }
-                                }
-                                else
-                                {
-                                    if (index > 0)
-                                    {
-                                        List<string[]> data = new List<string[]>();
-                                        data.Add(null);
-                                        for (int iEmp = 0; iEmp < index - 1; iEmp++)
-                                        {
+                                            List<string[]> data = new List<string[]>();
                                             data.Add(null);
+
+                                            for (int iEmp = 0; iEmp < index - 1; iEmp++)
+                                            {
+                                                data.Add(null);
+                                            }
+
+                                            data.Add(strarrParamDataList);
+                                            _ColumnDatas.Add(strParamKey, data);
                                         }
-                                        data.Add(strarrParamDataList);
-                                        _ColumnDatas.Add(strParamKey, data);
-                                    }
-                                    else
-                                    {
-                                        List<string[]> data = new List<string[]>();
-                                        data.Add(strarrParamDataList);
-                                        _ColumnDatas.Add(strParamKey, data);
+                                        else
+                                        {
+                                            List<string[]> data = new List<string[]>();
+                                            data.Add(strarrParamDataList);
+                                            _ColumnDatas.Add(strParamKey, data);
+                                        }
                                     }
                                 }
                             }
@@ -618,13 +681,16 @@ namespace BISTel.eSPC.Common
                         if (i == 0)
                         {
                             _DataCount.Add(arrStr.Length);
+
                             for (int k = 0; k < lstColumn.Count; k++)
                             {
                                 string[] arrStrTemp = new string[arrStr.Length];
+
                                 for (int j = 0; j < arrStrTemp.Length; j++)
                                 {
                                     arrStrTemp[j] = lstData[k];
                                 }
+
                                 if (_ColumnDatas.ContainsKey(lstColumn[k]))
                                 {
                                     if (_ColumnDatas[lstColumn[k]].Count == index)
@@ -634,10 +700,12 @@ namespace BISTel.eSPC.Common
                                     else
                                     {
                                         int iColumnDatasCnt = _ColumnDatas[lstColumn[k]].Count;
+
                                         for (int iColTemp = 0; iColTemp < index - iColumnDatasCnt; iColTemp++)
                                         {
                                             _ColumnDatas[lstColumn[k]].Add(null);
                                         }
+
                                         _ColumnDatas[lstColumn[k]].Add(arrStrTemp);
                                     }
                                 }
@@ -647,10 +715,12 @@ namespace BISTel.eSPC.Common
                                     {
                                         List<string[]> data = new List<string[]>();
                                         data.Add(null);
+
                                         for (int iEmp = 0; iEmp < index - 1; iEmp++)
                                         {
                                             data.Add(null);
                                         }
+
                                         data.Add(arrStrTemp);
                                         _ColumnDatas.Add(lstColumn[k], data);
                                     }
@@ -664,10 +734,13 @@ namespace BISTel.eSPC.Common
                             }
                         }
 
-                        if (_llstContextType[strKey] != null)
+                        if (!isATT)
                         {
-                            SPCStruct.ContextTypeInfo mContextTypeInfo = _llstContextType[strKey] as SPCStruct.ContextTypeInfo;
-                            strKey = mContextTypeInfo.NAME.ToUpper();
+                            if (_llstContextType[strKey] != null)
+                            {
+                                SPCStruct.ContextTypeInfo mContextTypeInfo = _llstContextType[strKey] as SPCStruct.ContextTypeInfo;
+                                strKey = mContextTypeInfo.NAME.ToUpper();
+                            }
                         }
 
                         if (_ColumnDatas.ContainsKey(strKey))
@@ -679,10 +752,12 @@ namespace BISTel.eSPC.Common
                             else
                             {
                                 int iColumnDatasCnt = _ColumnDatas[strKey].Count;
+
                                 for (int iColTemp = 0; iColTemp < index - iColumnDatasCnt; iColTemp++)
                                 {
                                     _ColumnDatas[strKey].Add(null);
                                 }
+
                                 _ColumnDatas[strKey].Add(arrStr);
                             }
                         }
@@ -692,10 +767,12 @@ namespace BISTel.eSPC.Common
                             {
                                 List<string[]> data = new List<string[]>();
                                 data.Add(null);
+
                                 for (int iEmp = 0; iEmp < index - 1; iEmp++)
                                 {
                                     data.Add(null);
                                 }
+
                                 data.Add(arrStr);
                                 _ColumnDatas.Add(strKey, data);
                             }

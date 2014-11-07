@@ -235,7 +235,7 @@ namespace BISTel.eSPC.Page.ATT.Compare
         {
             bool hasSubConfigs = false;
 
-            if (this._ws.GetTheNumberOfSubConfigOfModel(targetChartID) > 0)
+            if (this._ws.GetTheNumberOfATTSubConfigOfModel(targetChartID) > 0) //SPC-1306, KBLEE
             {
                 hasSubConfigs = true;
             }
@@ -331,7 +331,7 @@ namespace BISTel.eSPC.Page.ATT.Compare
             spcConfigPopup.MAIN_YN = mainYN;
             spcConfigPopup.GROUP_NAME = groupName; //SPC-1292, KBLEE
 
-            if(_ws.GetTheNumberOfSubConfigOfModel(chartId) > 0)
+            if(_ws.GetTheNumberOfATTSubConfigOfModel(chartId) > 0)
                 spcConfigPopup.HAS_SUBCONFIGS = true;
             else
                 spcConfigPopup.HAS_SUBCONFIGS = false;

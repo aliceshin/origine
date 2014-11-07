@@ -290,7 +290,7 @@ namespace BISTel.eSPC.Page.ATT.History
             spcConfigPopup.VERSION = version;
             spcConfigPopup.GROUP_NAME = groupName; //SPC-1292, KBLEE
 
-            if(_ws.GetTheNumberOfSubConfigOfModel(chartId) > 0)
+            if(_ws.GetTheNumberOfATTSubConfigOfModel(chartId) > 0)
                 spcConfigPopup.HAS_SUBCONFIGS = true;
             else
                 spcConfigPopup.HAS_SUBCONFIGS = false;

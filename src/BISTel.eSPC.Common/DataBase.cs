@@ -63,6 +63,13 @@ namespace BISTel.eSPC.Common
         public const string SEQ_MODEL_RULE_OPT_ATT_MST_SPC = "SEQ_MODEL_RULE_OPT_ATT_MST_SPC";
         public const string SEQ_MODEL_AUTOCALC_ATT_MST_SPC = "SEQ_MODEL_AUTOCALC_ATT_MST_SPC"; //P2
 
+        public const string SEQ_DEF_CONFIG_ATT_MST_SPC = "SEQ_DEF_CONFIG_ATT_MST_SPC";
+        public const string SEQ_DEF_CONFIG_OPT_ATT_MST_SPC = "SEQ_DEF_CONFIG_OPT_ATT_MST_SPC";
+        public const string SEQ_DEF_CONTEXT_ATT_MST_SPC = "SEQ_DEF_CONTEXT_ATT_MST_SPC";
+        public const string SEQ_DEF_RULE_ATT_MST_SPC = "SEQ_DEF_RULE_ATT_MST_SPC";
+        public const string SEQ_DEF_RULE_OPT_ATT_MST_SPC = "SEQ_DEF_RULE_OPT_ATT_MST_SPC";
+        public const string SEQ_DEF_AUTOCALC_ATT_MST_SPC = "SEQ_DEF_AUTOCALC_ATT_MST_SPC";
+
         public const string SEQ_MODEL_GROUP_MST_SPC = "SEQ_MODEL_GROUP_MST_SPC"; 
     }
 
@@ -77,8 +84,11 @@ namespace BISTel.eSPC.Common
         public const string MODEL_CONFIG_OPT_MST_SPC = "MODEL_CONFIG_OPT_MST_SPC";
         public const string MODEL_CONTEXT_MST_SPC = "MODEL_CONTEXT_MST_SPC";
         public const string MODEL_RULE_MST_SPC = "MODEL_RULE_MST_SPC";
+        public const string MODEL_RULE_MSTH_SPC = "MODEL_RULE_MSTH_SPC";
         public const string MODEL_RULE_OPT_MST_SPC = "MODEL_RULE_OPT_MST_SPC";
+        public const string MODEL_RULE_OPT_MSTH_SPC = "MODEL_RULE_OPT_MSTH_SPC";
         public const string MODEL_AUTOCALC_MST_SPC = "MODEL_AUTOCALC_MST_SPC"; //P2
+        public const string MODEL_AUTOCALC_MSTH_SPC = "MODEL_AUTOCALC_MSTH_SPC";
         //public const string MODEL_FILTER_MST_SPC = "MODEL_FILTER_MST_SPC";
 
         public const string DEF_CONFIG_MST_SPC = "DEF_CONFIG_MST_SPC";
@@ -94,11 +104,15 @@ namespace BISTel.eSPC.Common
         public const string MODEL_ATT_MST_SPC = "MODEL_ATT_MST_SPC";
         public const string MODEL_CONFIG_ATT_MST_SPC = "MODEL_CONFIG_ATT_MST_SPC";
         public const string MODEL_CONFIG_ATT_MSTH_SPC = "MODEL_CONFIG_ATT_MSTH_SPC";
+        public const string MODEL_CONFIG_ATT_HST_SPC = "MODEL_CONFIG_ATT_HST_SPC";
         public const string MODEL_CONFIG_OPT_ATT_MST_SPC = "MODEL_CONFIG_OPT_ATT_MST_SPC";
         public const string MODEL_CONTEXT_ATT_MST_SPC = "MODEL_CONTEXT_ATT_MST_SPC";
         public const string MODEL_RULE_ATT_MST_SPC = "MODEL_RULE_ATT_MST_SPC";
+        public const string MODEL_RULE_ATT_MSTH_SPC = "MODEL_RULE_ATT_MSTH_SPC";
         public const string MODEL_RULE_OPT_ATT_MST_SPC = "MODEL_RULE_OPT_ATT_MST_SPC";
+        public const string MODEL_RULE_OPT_ATT_MSTH_SPC = "MODEL_RULE_OPT_ATT_MSTH_SPC";
         public const string MODEL_AUTOCALC_ATT_MST_SPC = "MODEL_AUTOCALC_ATT_MST_SPC"; //P2
+        public const string MODEL_AUTOCALC_ATT_MSTH_SPC = "MODEL_AUTOCALC_ATT_MSTH_SPC";
 
         public const string DEF_CONFIG_ATT_MST_SPC = "DEF_CONFIG_ATT_MST_SPC";
         public const string DEF_CONFIG_OPT_ATT_MST_SPC = "DEF_CONFIG_OPT_ATT_MST_SPC";

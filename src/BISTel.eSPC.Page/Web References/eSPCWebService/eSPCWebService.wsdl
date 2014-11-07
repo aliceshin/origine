@@ -715,6 +715,20 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetTheNumberOfATTSubConfigOfModel">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="modelConfigRawid" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTheNumberOfATTSubConfigOfModelResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetTheNumberOfATTSubConfigOfModelResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetBaseInfoWithEQPID">
         <s:complexType>
           <s:sequence>
@@ -4370,6 +4384,12 @@
   <wsdl:message name="SaveATTSPCModelMappingSoapOut">
     <wsdl:part name="parameters" element="tns:SaveATTSPCModelMappingResponse" />
   </wsdl:message>
+  <wsdl:message name="GetTheNumberOfATTSubConfigOfModelSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTheNumberOfATTSubConfigOfModel" />
+  </wsdl:message>
+  <wsdl:message name="GetTheNumberOfATTSubConfigOfModelSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTheNumberOfATTSubConfigOfModelResponse" />
+  </wsdl:message>
   <wsdl:message name="GetBaseInfoWithEQPIDSoapIn">
     <wsdl:part name="parameters" element="tns:GetBaseInfoWithEQPID" />
   </wsdl:message>
@@ -5549,6 +5569,10 @@
       <wsdl:input message="tns:SaveATTSPCModelMappingSoapIn" />
       <wsdl:output message="tns:SaveATTSPCModelMappingSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetTheNumberOfATTSubConfigOfModel">
+      <wsdl:input message="tns:GetTheNumberOfATTSubConfigOfModelSoapIn" />
+      <wsdl:output message="tns:GetTheNumberOfATTSubConfigOfModelSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetBaseInfoWithEQPID">
       <wsdl:input message="tns:GetBaseInfoWithEQPIDSoapIn" />
       <wsdl:output message="tns:GetBaseInfoWithEQPIDSoapOut" />
@@ -6553,6 +6577,15 @@
     </wsdl:operation>
     <wsdl:operation name="SaveATTSPCModelMapping">
       <soap:operation soapAction="http://tempuri.org/SaveATTSPCModelMapping" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTheNumberOfATTSubConfigOfModel">
+      <soap:operation soapAction="http://tempuri.org/GetTheNumberOfATTSubConfigOfModel" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -8428,6 +8461,15 @@
     </wsdl:operation>
     <wsdl:operation name="SaveATTSPCModelMapping">
       <soap12:operation soapAction="http://tempuri.org/SaveATTSPCModelMapping" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTheNumberOfATTSubConfigOfModel">
+      <soap12:operation soapAction="http://tempuri.org/GetTheNumberOfATTSubConfigOfModel" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

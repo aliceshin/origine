@@ -106,6 +106,8 @@ namespace BISTel.eSPC.Page.eSPCWebService {
         
         private System.Threading.SendOrPostCallback SaveATTSPCModelMappingOperationCompleted;
         
+        private System.Threading.SendOrPostCallback GetTheNumberOfATTSubConfigOfModelOperationCompleted;
+        
         private System.Threading.SendOrPostCallback GetBaseInfoWithEQPIDOperationCompleted;
         
         private System.Threading.SendOrPostCallback GetSPCModelListbyBaseInfoOperationCompleted;
@@ -603,6 +605,9 @@ namespace BISTel.eSPC.Page.eSPCWebService {
         
         /// <remarks/>
         public event SaveATTSPCModelMappingCompletedEventHandler SaveATTSPCModelMappingCompleted;
+        
+        /// <remarks/>
+        public event GetTheNumberOfATTSubConfigOfModelCompletedEventHandler GetTheNumberOfATTSubConfigOfModelCompleted;
         
         /// <remarks/>
         public event GetBaseInfoWithEQPIDCompletedEventHandler GetBaseInfoWithEQPIDCompleted;
@@ -2236,6 +2241,35 @@ namespace BISTel.eSPC.Page.eSPCWebService {
             if ((this.SaveATTSPCModelMappingCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.SaveATTSPCModelMappingCompleted(this, new SaveATTSPCModelMappingCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetTheNumberOfATTSubConfigOfModel", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public int GetTheNumberOfATTSubConfigOfModel(string modelConfigRawid) {
+            object[] results = this.Invoke("GetTheNumberOfATTSubConfigOfModel", new object[] {
+                        modelConfigRawid});
+            return ((int)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetTheNumberOfATTSubConfigOfModelAsync(string modelConfigRawid) {
+            this.GetTheNumberOfATTSubConfigOfModelAsync(modelConfigRawid, null);
+        }
+        
+        /// <remarks/>
+        public void GetTheNumberOfATTSubConfigOfModelAsync(string modelConfigRawid, object userState) {
+            if ((this.GetTheNumberOfATTSubConfigOfModelOperationCompleted == null)) {
+                this.GetTheNumberOfATTSubConfigOfModelOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetTheNumberOfATTSubConfigOfModelOperationCompleted);
+            }
+            this.InvokeAsync("GetTheNumberOfATTSubConfigOfModel", new object[] {
+                        modelConfigRawid}, this.GetTheNumberOfATTSubConfigOfModelOperationCompleted, userState);
+        }
+        
+        private void OnGetTheNumberOfATTSubConfigOfModelOperationCompleted(object arg) {
+            if ((this.GetTheNumberOfATTSubConfigOfModelCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetTheNumberOfATTSubConfigOfModelCompleted(this, new GetTheNumberOfATTSubConfigOfModelCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -8326,6 +8360,32 @@ namespace BISTel.eSPC.Page.eSPCWebService {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((bool)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.18408")]
+    public delegate void GetTheNumberOfATTSubConfigOfModelCompletedEventHandler(object sender, GetTheNumberOfATTSubConfigOfModelCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.18408")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetTheNumberOfATTSubConfigOfModelCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetTheNumberOfATTSubConfigOfModelCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public int Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((int)(this.results[0]));
             }
         }
     }

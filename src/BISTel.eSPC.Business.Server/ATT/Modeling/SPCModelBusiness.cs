@@ -131,7 +131,7 @@ namespace BISTel.eSPC.Business.Server.ATT.Modeling
                         }
                     }
 
-                    dsReturn = spcModelData.ModifyATTSPCSubModelContext(configRawID, dtContext, sUserID, bOnlyMainGroup);
+                    dsReturn = spcModelData.ModifyATTSPCSubModelContext(configRawID, dtContext, sUserID, bOnlyMainGroup, groupRawid);
 
                     if (_isGroup) //기존 Sub 전체 삭제.
                     {
@@ -752,6 +752,6 @@ namespace BISTel.eSPC.Business.Server.ATT.Modeling
             }
 
             return bResult;
-        }
+        }        
     }
 }

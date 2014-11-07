@@ -483,7 +483,7 @@ namespace BISTel.eSPC.Page.Modeling
 
                 //SPC-1335, KBLEE, START
                 //Trend Limit값이 숫자여야 한다는 Validation
-                if (this.bsprRuleOpt.ActiveSheet.Cells[i, this._ColIdx_RULE_OPTION_NAME].Text.ToUpper() == Definition.RULE_OPT_TREND_LIMIT.ToUpper())
+                if (this.bsprRuleOpt.ActiveSheet.Cells[i, this._ColIdx_RULE_OPTION_NAME].Text.ToUpper().Contains(Definition.RULE_OPT_TREND_LIMIT.ToUpper()))
                 {
                     double dTrendLimit = 0.0;
 

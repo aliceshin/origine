@@ -2418,6 +2418,14 @@ namespace BISTel.eSPC.Page.Report
             chartCalcPopup.URL = this.URL;
             chartCalcPopup.SessionData = this.sessionData;
             chartCalcPopup.SModelConfigRawID = ChartVariable.MODEL_CONFIG_RAWID;
+            //SPC-929, KBLEE, START
+            chartCalcPopup.SFab = mFab;
+            chartCalcPopup.SLine = mLine;
+            chartCalcPopup.SArea = mArea;
+            chartCalcPopup.SLineRawId = mLineRawID;
+            chartCalcPopup.SAreaRawId = mAreaRawID;
+            chartCalcPopup.SEQPModel = mEQPModel;
+            //SPC-929, KBLEE, END
             chartCalcPopup.InitializePopup();
             chartCalcPopup.ShowDialog(this);
         }

@@ -2027,6 +2027,7 @@ namespace BISTel.eSPC.Page.Modeling
                     chartCalcPopup.SArea = _sArea;
                     chartCalcPopup.SLineRawId = _sLineRawid;
                     chartCalcPopup.SAreaRawId = _sAreaRawid;
+                    chartCalcPopup.SEQPModel = _sEQPModel;
                     //SPC-929, KBLEE, END
                     //SPC-812
                     chartCalcPopup._sCalculation = false;

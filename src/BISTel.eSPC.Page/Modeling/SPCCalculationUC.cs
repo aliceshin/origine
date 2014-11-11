@@ -1809,10 +1809,10 @@ namespace BISTel.eSPC.Page.Modeling
             }
 
             //SPC-929, KBLEE, START
-            //if (bchkSummaryData.Checked)
-            //{
-            //    dtDataSource = _dataManager.RawDataTableOriginal;
-            //}
+            if (bchkSummaryData.Checked)
+            {
+                dtDataSource = _dataManager.RawDataTable;
+            }
             //SPC-929, KBLEE, END
 
             bool result = false;

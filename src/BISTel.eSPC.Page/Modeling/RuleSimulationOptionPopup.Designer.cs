@@ -77,7 +77,7 @@
             // 
             this.bbtnOk.AutoButtonSize = false;
             this.bbtnOk.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("bbtnOk.BackgroundImage")));
-            this.bbtnOk.BssClass = "";
+            this.bbtnOk.BssClass = "ConditionButton";
             this.bbtnOk.Dock = System.Windows.Forms.DockStyle.Right;
             this.bbtnOk.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.bbtnOk.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(97)))), ((int)(((byte)(133)))));
@@ -104,7 +104,7 @@
             // 
             this.bbtnCancel.AutoButtonSize = false;
             this.bbtnCancel.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("bbtnCancel.BackgroundImage")));
-            this.bbtnCancel.BssClass = "";
+            this.bbtnCancel.BssClass = "ConditionButton";
             this.bbtnCancel.Dock = System.Windows.Forms.DockStyle.Right;
             this.bbtnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.bbtnCancel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(97)))), ((int)(((byte)(133)))));

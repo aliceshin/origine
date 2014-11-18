@@ -3977,6 +3977,27 @@ namespace eSPCWebService
         }
         //SPC-1306, KBLEE, END
 
+        //SPC-1347, KBLEE, START
+        [WebMethod]
+        public DataSet GetSPCContextListByConfigRawId(byte[] baData)
+        {
+            BISTel.eSPC.Data.Server.Modeling.SPCModelData data = new BISTel.eSPC.Data.Server.Modeling.SPCModelData();
+
+            DataSet dsReturn = new DataSet();
+
+            try
+            {
+                dsReturn = data.GetSPCContextListByConfigRawId(baData);
+            }
+            catch (Exception ex)
+            {
+                EESUtil.ThrowExceptionMessage(ex.Message, ex.StackTrace);
+            }
+
+            return dsReturn;
+        }
+        //SPC-1347, KBLEE, END
+
 
         #region TOSHIBA
 

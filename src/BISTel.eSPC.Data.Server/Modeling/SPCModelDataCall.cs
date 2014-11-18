@@ -598,7 +598,7 @@ namespace BISTel.eSPC.Data.Server.Modeling
                 if (llstParam.Contains(Definition.CONDITION_KEY_MODEL_RAWID))
                 {
                     sb.Append("  AND model_config_rawid IN (SELECT rawid ");
-                    sb.Append("                             FROM + " + modelConfigMstTblName + " ");
+                    sb.Append("                             FROM " + modelConfigMstTblName + " ");
                     sb.Append("                             WHERE model_rawid = :MODEL_RAWID) ");
                 }
 
@@ -8175,7 +8175,7 @@ namespace BISTel.eSPC.Data.Server.Modeling
                 sql_Update_Model_Config_Mst_Spc_For_Subconfig = SQL_UPDATE_MODEL_CONFIG_ATT_MST_SPC_FOR_SUBCONFIG;
                 sql_Delete_Model_Rule_Opt_Mst_Spc_For_Subconfig = SQL_DELETE_MODEL_RULE_OPT_ATT_MST_SPC_FOR_SUBCONFIG;
                 sql_Delete_Model_Rule_Mst_Spc_For_Subconfig = SQL_DELETE_MODEL_RULE_ATT_MST_SPC_FOR_SUBCONFIG;
-                sql_Select_Sub_Config_Rawid = SQL_SELECT_SUB_CONFIG_RAWID;
+                sql_Select_Sub_Config_Rawid = SQL_SELECT_ATT_SUB_CONFIG_RAWID;
 
                 modelRuleMstTblName = TABLE.MODEL_RULE_ATT_MST_SPC;
                 modelRuleOptMstTblName = TABLE.MODEL_RULE_OPT_ATT_MST_SPC;
@@ -8188,7 +8188,7 @@ namespace BISTel.eSPC.Data.Server.Modeling
                 sql_Update_Model_Config_Mst_Spc_For_Subconfig = SQL_UPDATE_MODEL_CONFIG_MST_SPC_FOR_SUBCONFIG;
                 sql_Delete_Model_Rule_Opt_Mst_Spc_For_Subconfig = SQL_DELETE_MODEL_RULE_OPT_MST_SPC_FOR_SUBCONFIG;
                 sql_Delete_Model_Rule_Mst_Spc_For_Subconfig = SQL_DELETE_MODEL_RULE_MST_SPC_FOR_SUBCONFIG;
-                sql_Select_Sub_Config_Rawid = SQL_SELECT_ATT_SUB_CONFIG_RAWID;
+                sql_Select_Sub_Config_Rawid = SQL_SELECT_SUB_CONFIG_RAWID;
 
                 modelRuleMstTblName = TABLE.MODEL_RULE_MST_SPC;
                 modelRuleOptMstTblName = TABLE.MODEL_RULE_OPT_MST_SPC;
@@ -8430,14 +8430,14 @@ namespace BISTel.eSPC.Data.Server.Modeling
                 modelConfigMstTblName = TABLE.MODEL_CONFIG_ATT_MST_SPC;
                 modelContextMstTblName = TABLE.MODEL_CONTEXT_ATT_MST_SPC;
 
-                seqModelContextMst = TABLE.MODEL_CONTEXT_ATT_MST_SPC;
+                seqModelContextMst = SEQUENCE.SEQ_MODEL_CONTEXT_ATT_MST_SPC;
             }
             else
             {
                 modelConfigMstTblName = TABLE.MODEL_CONFIG_MST_SPC;
                 modelContextMstTblName = TABLE.MODEL_CONTEXT_MST_SPC;
 
-                seqModelContextMst = TABLE.MODEL_CONTEXT_MST_SPC;
+                seqModelContextMst = SEQUENCE.SEQ_MODEL_CONTEXT_MST_SPC;
             }
             //ATT에 따른 처리 by KBLEE, End
 
@@ -11789,7 +11789,7 @@ namespace BISTel.eSPC.Data.Server.Modeling
             StringBuilder sb = new StringBuilder();
             sb.Append("SELECT * ");
             sb.Append(" FROM MODEL_CONFIG_MST_SPC    ");
-            sb.Append(" WHERE 1=1                                                                    ");
+            sb.Append(" WHERE 1=1                    ");
 
             try
             {
@@ -12115,5 +12115,44 @@ namespace BISTel.eSPC.Data.Server.Modeling
             return dsReturn;
         }
         //SPC-930, KBLEE, END
+
+        //SPC-1347, KBLEE, START
+        public DataSet GetSPCContextListByConfigRawId(byte[] baData)
+        {
+            DataSet dsReturn = new DataSet();
+            LinkedList llparam = new LinkedList();
+            llparam.SetSerialData(baData);
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("SELECT model_config_rawid, context_key, context_value    ");
+            sb.Append("FROM MODEL_CONTEXT_MST_SPC                               ");
+            sb.Append(" WHERE 1 = 1                                             ");
+
+            try
+            {
+                LinkedList llstCondition = new LinkedList();
+
+                if (llparam[Definition.COL_MODEL_CONFIG_RAWID].ToString().Length > 0)
+                {
+                    llstCondition.Add(Definition.COL_MODEL_CONFIG_RAWID, llparam[Definition.COL_MODEL_CONFIG_RAWID]);
+
+                    sb.Append(" AND MODEL_CONFIG_RAWID = :MODEL_CONFIG_RAWID");
+                }
+
+                dsReturn = base.Query(sb.ToString(), llstCondition);
+
+                if (base.ErrorMessage.Length > 0)
+                {
+                    DSUtil.SetResult(dsReturn, 0, "", base.ErrorMessage);
+                }
+            }
+            catch (Exception ex)
+            {
+                BISTel.PeakPerformance.Client.CommonLibrary.LogHandler.ExceptionLogWrite(Definition.APPLICATION_NAME, new string[] { ex.Message, ex.Source, ex.StackTrace });
+            }
+
+            return dsReturn;
+        }
+        //SPC-1347, KBLEE, END
     }
 }

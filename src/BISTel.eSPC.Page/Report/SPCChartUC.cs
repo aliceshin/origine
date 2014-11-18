@@ -858,7 +858,138 @@ namespace BISTel.eSPC.Page.Report
             this.KeyOfPage = this.GetType().FullName; // 필수 입력 (Key값을 받은 후 DC을 Active해주기 때문이다.
             
             this.InitializeCommon();
+
+            bool bUseComponent = Configuration.GetConfig("configuration/general/componentcondition").GetAttribute("isuse", false);
+            if (bUseComponent)
+            {
+                this.InitializeCondition();
+            }
+
             this.InitializePage();
+        }
+
+        public void InitializeCondition()
+        {
+            //DCBar.
+            if (ComponentCondition.GetInstance().Count > 0)
+            {
+                DataTable dtTemp = new DataTable();
+                dtTemp.Columns.Add(Definition.CONDITION_SEARCH_KEY_VALUEDATA);
+                dtTemp.Columns.Add(Definition.CONDITION_SEARCH_KEY_DISPLAYDATA);
+                dtTemp.Columns.Add(Definition.CONDITION_SEARCH_KEY_CHECKED);
+
+                if (ComponentCondition.GetInstance().Contain(Definition.CONDITION_SEARCH_KEY_AREA))
+                {
+                    DataTable _dtArea = dtTemp.Clone();
+                    _dtArea.Columns.Add(Definition.CONDITION_KEY_AREA);
+                    _dtArea.Columns.Add(Definition.CONDITION_SEARCH_KEY_LINE);
+                    _dtArea.Columns.Add(Definition.CONDITION_SEARCH_KEY_FAB);
+                    _dtArea.Columns.Add(Definition.CONDITION_SEARCH_KEY_SITE);
+
+                    DataRow dr = _dtArea.NewRow();
+                    dr[Definition.CONDITION_SEARCH_KEY_VALUEDATA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_LINE_RAWID);
+                    dr[Definition.CONDITION_SEARCH_KEY_DISPLAYDATA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_AREA);
+                    dr[Definition.CONDITION_SEARCH_KEY_CHECKED] = "T";
+                    dr[Definition.CONDITION_KEY_AREA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_AREA);
+                    dr[Definition.CONDITION_SEARCH_KEY_LINE] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_LINE_RAWID);
+                    dr[Definition.CONDITION_SEARCH_KEY_FAB] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_FAB);
+                    dr[Definition.CONDITION_SEARCH_KEY_SITE] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_SITE);
+                    _dtArea.Rows.Add(dr);
+
+                    mllstSearchCondition.Add(Definition.CONDITION_SEARCH_KEY_AREA, _dtArea);
+                }
+
+                if (ComponentCondition.GetInstance().Contain(Definition.CONDITION_SEARCH_KEY_EQPMODEL))
+                {
+                    DataTable dtEQPModel = dtTemp.Clone();
+                    dtEQPModel.Columns.Add(Definition.CONDITION_KEY_EQPMODEL);
+                    dtEQPModel.Columns.Add(Definition.CONDITION_SEARCH_KEY_AREA);
+                    dtEQPModel.Columns.Add(Definition.CONDITION_SEARCH_KEY_LINE);
+                    dtEQPModel.Columns.Add(Definition.CONDITION_SEARCH_KEY_FAB);
+                    dtEQPModel.Columns.Add(Definition.CONDITION_SEARCH_KEY_SITE);
+
+                    DataRow dr = dtEQPModel.NewRow();
+                    dr[Definition.CONDITION_SEARCH_KEY_VALUEDATA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_EQPMODEL);
+                    dr[Definition.CONDITION_SEARCH_KEY_DISPLAYDATA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_EQPMODEL);
+                    dr[Definition.CONDITION_SEARCH_KEY_CHECKED] = "T";
+                    dr[Definition.CONDITION_KEY_EQPMODEL] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_EQPMODEL);
+                    dr[Definition.CONDITION_SEARCH_KEY_AREA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_AREA_RAWID);
+                    dr[Definition.CONDITION_SEARCH_KEY_LINE] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_LINE_RAWID);
+                    dr[Definition.CONDITION_SEARCH_KEY_FAB] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_FAB);
+                    dr[Definition.CONDITION_SEARCH_KEY_SITE] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_SITE);
+                    dtEQPModel.Rows.Add(dr);
+
+                    mllstSearchCondition.Add(Definition.CONDITION_SEARCH_KEY_EQPMODEL, dtEQPModel);
+                }
+
+                if (ComponentCondition.GetInstance().Contain(Definition.CONDITION_SEARCH_KEY_FILTER))
+                {
+                    DataTable _dtFilter = new DataTable();
+                    _dtFilter.Columns.Add(Definition.CONDITION_SEARCH_KEY_VALUEDATA);
+                    _dtFilter.Columns.Add(Definition.CONDITION_SEARCH_KEY_DISPLAYDATA);
+
+                    DataRow dr = _dtFilter.NewRow();
+                    dr[Definition.CONDITION_SEARCH_KEY_VALUEDATA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_FILTER);
+                    dr[Definition.CONDITION_SEARCH_KEY_DISPLAYDATA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_FILTER);
+                    _dtFilter.Rows.Add(dr);
+
+                    mllstSearchCondition.Add(Definition.CONDITION_KEY_FILTER, _dtFilter);
+                }
+
+                //if (ComponentCondition.GetInstance().Contain(Definition.CONDITION_SEARCH_KEY_SPC_MODEL_LIST))
+                //{
+                DataTable dtSPCModelList = dtTemp.Clone();
+
+                DataRow row = dtSPCModelList.NewRow();
+                row[Definition.CONDITION_SEARCH_KEY_VALUEDATA] = "SPC MODEL LIST";
+                row[Definition.CONDITION_SEARCH_KEY_DISPLAYDATA] = "SPC MODEL LIST";
+                row[Definition.CONDITION_SEARCH_KEY_CHECKED] = "F";
+
+                dtSPCModelList.Rows.Add(row);
+
+                mllstSearchCondition.Add("SPC MODEL LIST", dtSPCModelList);
+                //}
+
+                if (ComponentCondition.GetInstance().Contain(Definition.CONDITION_SEARCH_KEY_GROUP_NAME))
+                {
+                    DataTable dtGroup = dtTemp.Clone();
+                    dtGroup.Columns.Add("SPC MODEL LIST");
+
+                    DataRow dr = dtGroup.NewRow();
+                    dr[Definition.CONDITION_SEARCH_KEY_VALUEDATA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_GROUP_NAME);
+                    dr[Definition.CONDITION_SEARCH_KEY_DISPLAYDATA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_GROUP_NAME);
+                    dr[Definition.CONDITION_SEARCH_KEY_CHECKED] = "F";
+                    dr["SPC MODEL LIST"] = "SPC MODEL LIST";
+
+                    dtGroup.Rows.Add(dr);
+
+                    mllstSearchCondition.Add(Definition.CONDITION_KEY_GROUP_NAME, dtGroup);
+                }
+
+                if (ComponentCondition.GetInstance().Contain(Definition.CONDITION_SEARCH_KEY_SPCMODEL))
+                {
+                    DataTable dtSPCModel = dtTemp.Clone();
+                    dtSPCModel.Columns.Add(Definition.CONDITION_KEY_LOCATION_RAWID);
+                    dtSPCModel.Columns.Add(Definition.CONDITION_KEY_AREA_RAWID);
+                    dtSPCModel.Columns.Add(Definition.CONDITION_KEY_GROUP_NAME);
+                    dtSPCModel.Columns.Add("SPC MODEL LIST");
+
+                    DataRow dr = dtSPCModel.NewRow();
+                    dr[Definition.CONDITION_SEARCH_KEY_VALUEDATA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_MODEL_CONFIG_RAWID);
+                    dr[Definition.CONDITION_SEARCH_KEY_DISPLAYDATA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_SPCMODEL);
+                    dr[Definition.CONDITION_SEARCH_KEY_CHECKED] = "T";
+                    dr[Definition.CONDITION_KEY_LOCATION_RAWID] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_LINE_RAWID);
+                    dr[Definition.CONDITION_KEY_AREA_RAWID] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_AREA_RAWID);
+                    dr[Definition.CONDITION_KEY_GROUP_NAME] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_GROUP_NAME);
+                    dr["SPC MODEL LIST"] = "SPC MODEL LIST";
+
+                    dtSPCModel.Rows.Add(dr);
+
+                    mllstSearchCondition.Add(Definition.CONDITION_SEARCH_KEY_SPCMODEL, dtSPCModel);
+                }
+            }
+
+            this.RefreshConditions(this.mllstSearchCondition);
         }
 
         public override void PageSearch(LinkedList llstCondition)
@@ -943,6 +1074,7 @@ namespace BISTel.eSPC.Page.Report
                     {
                         dt = (DataTable)llstCondition[Definition.DynamicCondition_Search_key.SITE];
                         this.mSite = DCUtil.GetValueData(dt);
+                        ComponentCondition.GetInstance().Set(Definition.CONDITION_SEARCH_KEY_SITE, mSite);
                     }
                     else
                         this.mSite = null;
@@ -951,6 +1083,7 @@ namespace BISTel.eSPC.Page.Report
                     {
                         dt = (DataTable)llstCondition[Definition.DynamicCondition_Search_key.FAB];
                         this.mFab = DCUtil.GetValueData(dt);
+                        ComponentCondition.GetInstance().Set(Definition.CONDITION_SEARCH_KEY_FAB, mFab);
                     }
                     else
                         this.mFab = null;
@@ -961,6 +1094,17 @@ namespace BISTel.eSPC.Page.Report
                         this.mLineRawID = DCUtil.GetValueData(dt);
                         this.mLine = DataUtil.GetDisplayData(dt);
                         mChartVariable.LINE = this.mLine;
+                        ComponentCondition.GetInstance().Set(Definition.CONDITION_SEARCH_KEY_LINE, mLine);
+                        ComponentCondition.GetInstance().Set(Definition.CONDITION_SEARCH_KEY_LINE_RAWID, mLineRawID);
+                    }
+                    else
+                        this.mLine = null;
+
+                    if (llstCondition[Definition.DynamicCondition_Search_key.EQPMODEL] != null)
+                    {
+                        dt = (DataTable)llstCondition[Definition.DynamicCondition_Search_key.EQPMODEL];
+                        this.mEQPModel = DCUtil.GetValueData(dt);
+                        ComponentCondition.GetInstance().Set(Definition.CONDITION_SEARCH_KEY_EQPMODEL, mEQPModel);
                     }
                     else
                         this.mLine = null;
@@ -970,6 +1114,10 @@ namespace BISTel.eSPC.Page.Report
                         dt = (DataTable)llstCondition[Definition.DynamicCondition_Search_key.SPCMODEL];
                         mChartVariable.SPC_MODEL = DataUtil.GetDisplayData(dt);
                         mChartVariable.SPC_MODEL_RAWID = DCUtil.GetValueData(dt);
+
+
+                        ComponentCondition.GetInstance().Set(Definition.CONDITION_SEARCH_KEY_MODEL_CONFIG_RAWID, mChartVariable.SPC_MODEL_RAWID);
+                        ComponentCondition.GetInstance().Set(Definition.CONDITION_SEARCH_KEY_SPCMODEL, mChartVariable.SPC_MODEL);
                     }
 
                     if (!base.ApplyAuthory(this.bbtnListChart, this.mSite, this.mFab, this.mLine, DataUtil.GetConditionKeyData(dt, Definition.DynamicCondition_Condition_key.DISPLAYDATA)))
@@ -999,6 +1147,9 @@ namespace BISTel.eSPC.Page.Report
                         mChartVariable.EQP_MODEL = DataUtil.GetConditionKeyData(dt, Definition.DynamicCondition_Condition_key.EQP_MODEL);
                         this.mAreaRawID = DataUtil.GetConditionKeyData(dt, Definition.DynamicCondition_Condition_key.AREA_RAWID);
                         this.mArea = mChartVariable.AREA;
+
+                        ComponentCondition.GetInstance().Set(Definition.CONDITION_SEARCH_KEY_AREA, mArea);
+                        ComponentCondition.GetInstance().Set(Definition.CONDITION_SEARCH_KEY_AREA_RAWID, mAreaRawID);
 
                         LinkedList lnkTemp = new LinkedList();
                         DataSet dsTempChartID = new DataSet();
@@ -1074,6 +1225,7 @@ namespace BISTel.eSPC.Page.Report
                 {
                     dt = (DataTable)llstCondition[COLUMN.GROUP_NAME];
                     this._sGroupName = dt.Rows[0][Definition.DynamicCondition_Condition_key.VALUEDATA].ToString();
+                    ComponentCondition.GetInstance().Set(Definition.CONDITION_SEARCH_KEY_GROUP_NAME, _sGroupName);
                 }
 
                 PROC_DataBinding();

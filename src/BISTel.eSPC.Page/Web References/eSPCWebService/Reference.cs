@@ -108,6 +108,8 @@ namespace BISTel.eSPC.Page.eSPCWebService {
         
         private System.Threading.SendOrPostCallback GetTheNumberOfATTSubConfigOfModelOperationCompleted;
         
+        private System.Threading.SendOrPostCallback GetSPCContextListByConfigRawIdOperationCompleted;
+        
         private System.Threading.SendOrPostCallback GetBaseInfoWithEQPIDOperationCompleted;
         
         private System.Threading.SendOrPostCallback GetSPCModelListbyBaseInfoOperationCompleted;
@@ -608,6 +610,9 @@ namespace BISTel.eSPC.Page.eSPCWebService {
         
         /// <remarks/>
         public event GetTheNumberOfATTSubConfigOfModelCompletedEventHandler GetTheNumberOfATTSubConfigOfModelCompleted;
+        
+        /// <remarks/>
+        public event GetSPCContextListByConfigRawIdCompletedEventHandler GetSPCContextListByConfigRawIdCompleted;
         
         /// <remarks/>
         public event GetBaseInfoWithEQPIDCompletedEventHandler GetBaseInfoWithEQPIDCompleted;
@@ -2270,6 +2275,35 @@ namespace BISTel.eSPC.Page.eSPCWebService {
             if ((this.GetTheNumberOfATTSubConfigOfModelCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.GetTheNumberOfATTSubConfigOfModelCompleted(this, new GetTheNumberOfATTSubConfigOfModelCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetSPCContextListByConfigRawId", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.Data.DataSet GetSPCContextListByConfigRawId([System.Xml.Serialization.XmlElementAttribute(DataType="base64Binary")] byte[] baData) {
+            object[] results = this.Invoke("GetSPCContextListByConfigRawId", new object[] {
+                        baData});
+            return ((System.Data.DataSet)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetSPCContextListByConfigRawIdAsync(byte[] baData) {
+            this.GetSPCContextListByConfigRawIdAsync(baData, null);
+        }
+        
+        /// <remarks/>
+        public void GetSPCContextListByConfigRawIdAsync(byte[] baData, object userState) {
+            if ((this.GetSPCContextListByConfigRawIdOperationCompleted == null)) {
+                this.GetSPCContextListByConfigRawIdOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetSPCContextListByConfigRawIdOperationCompleted);
+            }
+            this.InvokeAsync("GetSPCContextListByConfigRawId", new object[] {
+                        baData}, this.GetSPCContextListByConfigRawIdOperationCompleted, userState);
+        }
+        
+        private void OnGetSPCContextListByConfigRawIdOperationCompleted(object arg) {
+            if ((this.GetSPCContextListByConfigRawIdCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetSPCContextListByConfigRawIdCompleted(this, new GetSPCContextListByConfigRawIdCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -8386,6 +8420,32 @@ namespace BISTel.eSPC.Page.eSPCWebService {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((int)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.18408")]
+    public delegate void GetSPCContextListByConfigRawIdCompletedEventHandler(object sender, GetSPCContextListByConfigRawIdCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.18408")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetSPCContextListByConfigRawIdCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetSPCContextListByConfigRawIdCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public System.Data.DataSet Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((System.Data.DataSet)(this.results[0]));
             }
         }
     }

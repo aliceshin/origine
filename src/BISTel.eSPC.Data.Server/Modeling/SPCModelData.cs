@@ -240,7 +240,7 @@ namespace BISTel.eSPC.Data.Server.Modeling
         {
             _dataCall.ParentSQLHandler = this;
 
-            DataSet dsResult = _dataCall.ModifySPCSubModel(sConfigRawid, dtRule, dtRuleOpt, sUserID, ref sConfigRawid, _isATT);
+            DataSet dsResult = _dataCall.ModifySPCSubModel(sConfigRawID, dtRule, dtRuleOpt, sUserID, ref sConfigRawid, _isATT);
 
             return dsResult;
         }
@@ -499,6 +499,15 @@ namespace BISTel.eSPC.Data.Server.Modeling
 
             return dsReturn;
         }
+
+        //SPC-1347, KBLEE, START
+        public DataSet GetSPCContextListByConfigRawId(byte[] baData)
+        {
+            DataSet dsReturn = _dataCall.GetSPCContextListByConfigRawId(baData);
+
+            return dsReturn;
+        }
+        //SPC-1347, KBLEE, END
     }
 
     public class SPCATTModelData : DataBase

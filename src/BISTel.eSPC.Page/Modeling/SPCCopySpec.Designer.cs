@@ -68,17 +68,6 @@
             this.chkMeanControlLimit = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
             this.chkEWMAMeanControlLimit = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
             this.chkRawControlLimit = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
-            this.chkMinimumSamplesToUse = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
-            this.chkAutoCalculationCount = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
-            this.chkAutoCalculationPeriod = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
-            this.chkMaximumPeriodToUse = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
-            this.chkControlLimitToUse = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
-            this.chkControlLimitThreshold = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
-            this.chkDefaultPeriod = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
-            this.chkThresholdFuntionOff = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
-            this.chkCompensation = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
-            this.chkGlobal = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
-            this.chkIQRFilter = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
             this.bapnlBottom = new BISTel.PeakPerformance.Client.BISTelControl.BArrangePanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.chkAllRule = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
@@ -97,20 +86,35 @@
             this.bLabel2 = new BISTel.PeakPerformance.Client.BISTelControl.BLabel();
             this.chkChartDesc = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
             this.btpnlContext = new BISTel.PeakPerformance.Client.BISTelControl.BTitlePanel();
+            this.pnlContextLineThird = new System.Windows.Forms.Panel();
             this.chkContextInform = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
             this.chkUseNorm = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
-            this.chkGenerateSubChartWithAutoCalculation = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
-            this.chkInterlock = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
-            this.chkSampleCount = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
-            this.chkManageType = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
-            this.chkUseExternalSpecLimit = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
-            this.chkMode = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
-            this.chkAutoCalculation = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
-            this.chkAutoSetting = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
-            this.chkAutoGenerateSubChart = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
-            this.chkGenerateSubChartWithInterlock = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
-            this.chkActive = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
             this.chkInherittheSpecOfMain = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
+            this.chkGenerateSubChartWithAutoCalculation = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
+            this.pnlContextLineSecond = new System.Windows.Forms.Panel();
+            this.chkGenerateSubChartWithInterlock = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
+            this.chkAutoSetting = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
+            this.chkManageType = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
+            this.chkSampleCount = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
+            this.pnlContextLineFirst = new System.Windows.Forms.Panel();
+            this.chkMode = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
+            this.chkActive = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
+            this.chkAutoGenerateSubChart = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
+            this.chkAutoCalculation = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
+            this.chkUseExternalSpecLimit = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
+            this.chkInterlock = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.chkGlobal = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
+            this.chkIQRFilter = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
+            this.chkCompensation = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
+            this.chkThresholdFuntionOff = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
+            this.chkDefaultPeriod = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
+            this.chkControlLimitThreshold = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
+            this.chkControlLimitToUse = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
+            this.chkMaximumPeriodToUse = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
+            this.chkMinimumSamplesToUse = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
+            this.chkAutoCalculationPeriod = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
+            this.chkAutoCalculationCount = new BISTel.PeakPerformance.Client.BISTelControl.BCheckBox();
             this.pnlContentsArea.SuspendLayout();
             this.btpnlRule.SuspendLayout();
             this.btpnlOption.SuspendLayout();
@@ -120,6 +124,9 @@
             this.panel1.SuspendLayout();
             this.bTitlePanel4.SuspendLayout();
             this.btpnlContext.SuspendLayout();
+            this.pnlContextLineThird.SuspendLayout();
+            this.pnlContextLineSecond.SuspendLayout();
+            this.pnlContextLineFirst.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlContentsArea
@@ -130,7 +137,7 @@
             this.pnlContentsArea.Controls.Add(this.btpnlContext);
             this.pnlContentsArea.Controls.Add(this.bTitlePanel4);
             this.pnlContentsArea.Controls.Add(this.bapnlBottom);
-            this.pnlContentsArea.Size = new System.Drawing.Size(738, 777);
+            this.pnlContentsArea.Size = new System.Drawing.Size(696, 731);
             // 
             // btpnlRule
             // 
@@ -171,7 +178,7 @@
             this.btpnlRule.IsPopupMax = false;
             this.btpnlRule.IsSelected = false;
             this.btpnlRule.Key = "";
-            this.btpnlRule.Location = new System.Drawing.Point(3, 275);
+            this.btpnlRule.Location = new System.Drawing.Point(3, 242);
             this.btpnlRule.MaxControlName = "";
             this.btpnlRule.MaxResizable = false;
             this.btpnlRule.MaxVisibleStateForMaxNormal = false;
@@ -185,7 +192,7 @@
             this.btpnlRule.ShowCloseButton = false;
             this.btpnlRule.ShowMaxNormalButton = false;
             this.btpnlRule.ShowMinButton = false;
-            this.btpnlRule.Size = new System.Drawing.Size(732, 125);
+            this.btpnlRule.Size = new System.Drawing.Size(690, 125);
             this.btpnlRule.TabIndex = 0;
             this.btpnlRule.Title = "Rule";
             this.btpnlRule.TitleColor = System.Drawing.Color.Black;
@@ -197,7 +204,7 @@
             this.chkMR.BssClass = "";
             this.chkMR.IsMultiLanguage = true;
             this.chkMR.Key = "";
-            this.chkMR.Location = new System.Drawing.Point(354, 65);
+            this.chkMR.Location = new System.Drawing.Point(355, 65);
             this.chkMR.Name = "chkMR";
             this.chkMR.Size = new System.Drawing.Size(65, 24);
             this.chkMR.TabIndex = 23;
@@ -269,7 +276,7 @@
             this.chkEWMASTD.BssClass = "";
             this.chkEWMASTD.IsMultiLanguage = true;
             this.chkEWMASTD.Key = "";
-            this.chkEWMASTD.Location = new System.Drawing.Point(9, 65);
+            this.chkEWMASTD.Location = new System.Drawing.Point(7, 65);
             this.chkEWMASTD.Name = "chkEWMASTD";
             this.chkEWMASTD.Size = new System.Drawing.Size(100, 24);
             this.chkEWMASTD.TabIndex = 12;
@@ -355,7 +362,7 @@
             this.chkRuleSelection.Key = "";
             this.chkRuleSelection.Location = new System.Drawing.Point(392, 93);
             this.chkRuleSelection.Name = "chkRuleSelection";
-            this.chkRuleSelection.Size = new System.Drawing.Size(287, 24);
+            this.chkRuleSelection.Size = new System.Drawing.Size(280, 24);
             this.chkRuleSelection.TabIndex = 21;
             this.chkRuleSelection.Text = "Rule Selection [SPC Rule NO / Rule Option / OCAP]";
             this.chkRuleSelection.UseVisualStyleBackColor = true;
@@ -436,7 +443,7 @@
             this.btpnlOption.IsPopupMax = false;
             this.btpnlOption.IsSelected = false;
             this.btpnlOption.Key = "";
-            this.btpnlOption.Location = new System.Drawing.Point(3, 400);
+            this.btpnlOption.Location = new System.Drawing.Point(3, 367);
             this.btpnlOption.MaxControlName = "";
             this.btpnlOption.MaxResizable = false;
             this.btpnlOption.MaxVisibleStateForMaxNormal = false;
@@ -450,7 +457,7 @@
             this.btpnlOption.ShowCloseButton = false;
             this.btpnlOption.ShowMaxNormalButton = false;
             this.btpnlOption.ShowMinButton = false;
-            this.btpnlOption.Size = new System.Drawing.Size(732, 97);
+            this.btpnlOption.Size = new System.Drawing.Size(690, 97);
             this.btpnlOption.TabIndex = 1;
             this.btpnlOption.Title = "Option";
             this.btpnlOption.TitleColor = System.Drawing.Color.Black;
@@ -544,18 +551,18 @@
             // btpnlAutoCalculation
             // 
             this.btpnlAutoCalculation.BssClass = "TitlePanel";
-            this.btpnlAutoCalculation.Controls.Add(this.gbxAutoCalcItem);
-            this.btpnlAutoCalculation.Controls.Add(this.chkMinimumSamplesToUse);
-            this.btpnlAutoCalculation.Controls.Add(this.chkAutoCalculationCount);
-            this.btpnlAutoCalculation.Controls.Add(this.chkAutoCalculationPeriod);
-            this.btpnlAutoCalculation.Controls.Add(this.chkMaximumPeriodToUse);
-            this.btpnlAutoCalculation.Controls.Add(this.chkControlLimitToUse);
-            this.btpnlAutoCalculation.Controls.Add(this.chkControlLimitThreshold);
+            this.btpnlAutoCalculation.Controls.Add(this.chkGlobal);
             this.btpnlAutoCalculation.Controls.Add(this.chkDefaultPeriod);
+            this.btpnlAutoCalculation.Controls.Add(this.chkIQRFilter);
             this.btpnlAutoCalculation.Controls.Add(this.chkThresholdFuntionOff);
             this.btpnlAutoCalculation.Controls.Add(this.chkCompensation);
-            this.btpnlAutoCalculation.Controls.Add(this.chkGlobal);
-            this.btpnlAutoCalculation.Controls.Add(this.chkIQRFilter);
+            this.btpnlAutoCalculation.Controls.Add(this.chkControlLimitThreshold);
+            this.btpnlAutoCalculation.Controls.Add(this.chkControlLimitToUse);
+            this.btpnlAutoCalculation.Controls.Add(this.gbxAutoCalcItem);
+            this.btpnlAutoCalculation.Controls.Add(this.chkMaximumPeriodToUse);
+            this.btpnlAutoCalculation.Controls.Add(this.chkAutoCalculationCount);
+            this.btpnlAutoCalculation.Controls.Add(this.chkMinimumSamplesToUse);
+            this.btpnlAutoCalculation.Controls.Add(this.chkAutoCalculationPeriod);
             this.btpnlAutoCalculation.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btpnlAutoCalculation.ImageBottom = null;
             this.btpnlAutoCalculation.ImageBottomRight = null;
@@ -574,7 +581,7 @@
             this.btpnlAutoCalculation.IsPopupMax = false;
             this.btpnlAutoCalculation.IsSelected = false;
             this.btpnlAutoCalculation.Key = "";
-            this.btpnlAutoCalculation.Location = new System.Drawing.Point(3, 497);
+            this.btpnlAutoCalculation.Location = new System.Drawing.Point(3, 464);
             this.btpnlAutoCalculation.MaxControlName = "";
             this.btpnlAutoCalculation.MaxResizable = false;
             this.btpnlAutoCalculation.MaxVisibleStateForMaxNormal = false;
@@ -588,7 +595,7 @@
             this.btpnlAutoCalculation.ShowCloseButton = false;
             this.btpnlAutoCalculation.ShowMaxNormalButton = false;
             this.btpnlAutoCalculation.ShowMinButton = false;
-            this.btpnlAutoCalculation.Size = new System.Drawing.Size(732, 240);
+            this.btpnlAutoCalculation.Size = new System.Drawing.Size(690, 227);
             this.btpnlAutoCalculation.TabIndex = 2;
             this.btpnlAutoCalculation.Title = "Auto Calculation";
             this.btpnlAutoCalculation.TitleColor = System.Drawing.Color.Black;
@@ -608,9 +615,9 @@
             this.gbxAutoCalcItem.Controls.Add(this.chkEWMAMeanControlLimit);
             this.gbxAutoCalcItem.Controls.Add(this.chkRawControlLimit);
             this.gbxAutoCalcItem.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.gbxAutoCalcItem.Location = new System.Drawing.Point(0, 130);
+            this.gbxAutoCalcItem.Location = new System.Drawing.Point(0, 129);
             this.gbxAutoCalcItem.Name = "gbxAutoCalcItem";
-            this.gbxAutoCalcItem.Size = new System.Drawing.Size(732, 110);
+            this.gbxAutoCalcItem.Size = new System.Drawing.Size(690, 98);
             this.gbxAutoCalcItem.TabIndex = 15;
             this.gbxAutoCalcItem.TabStop = false;
             this.gbxAutoCalcItem.Text = "Set Auto Calculation Item";
@@ -620,7 +627,7 @@
             this.chkMRControlLimit.BssClass = "";
             this.chkMRControlLimit.IsMultiLanguage = true;
             this.chkMRControlLimit.Key = "";
-            this.chkMRControlLimit.Location = new System.Drawing.Point(317, 80);
+            this.chkMRControlLimit.Location = new System.Drawing.Point(317, 73);
             this.chkMRControlLimit.Name = "chkMRControlLimit";
             this.chkMRControlLimit.Size = new System.Drawing.Size(150, 21);
             this.chkMRControlLimit.TabIndex = 23;
@@ -632,7 +639,7 @@
             this.chkMSControlLimit.BssClass = "";
             this.chkMSControlLimit.IsMultiLanguage = true;
             this.chkMSControlLimit.Key = "";
-            this.chkMSControlLimit.Location = new System.Drawing.Point(162, 80);
+            this.chkMSControlLimit.Location = new System.Drawing.Point(162, 73);
             this.chkMSControlLimit.Name = "chkMSControlLimit";
             this.chkMSControlLimit.Size = new System.Drawing.Size(149, 24);
             this.chkMSControlLimit.TabIndex = 22;
@@ -644,7 +651,7 @@
             this.chkMAControlLimit.BssClass = "";
             this.chkMAControlLimit.IsMultiLanguage = true;
             this.chkMAControlLimit.Key = "";
-            this.chkMAControlLimit.Location = new System.Drawing.Point(7, 80);
+            this.chkMAControlLimit.Location = new System.Drawing.Point(7, 73);
             this.chkMAControlLimit.Name = "chkMAControlLimit";
             this.chkMAControlLimit.Size = new System.Drawing.Size(149, 24);
             this.chkMAControlLimit.TabIndex = 21;
@@ -656,7 +663,7 @@
             this.chkEWMARangeControlLimit.BssClass = "";
             this.chkEWMARangeControlLimit.IsMultiLanguage = true;
             this.chkEWMARangeControlLimit.Key = "";
-            this.chkEWMARangeControlLimit.Location = new System.Drawing.Point(317, 50);
+            this.chkEWMARangeControlLimit.Location = new System.Drawing.Point(317, 46);
             this.chkEWMARangeControlLimit.Name = "chkEWMARangeControlLimit";
             this.chkEWMARangeControlLimit.Size = new System.Drawing.Size(163, 24);
             this.chkEWMARangeControlLimit.TabIndex = 20;
@@ -668,7 +675,7 @@
             this.chkEWMASTDControlLimit.BssClass = "";
             this.chkEWMASTDControlLimit.IsMultiLanguage = true;
             this.chkEWMASTDControlLimit.Key = "";
-            this.chkEWMASTDControlLimit.Location = new System.Drawing.Point(162, 50);
+            this.chkEWMASTDControlLimit.Location = new System.Drawing.Point(162, 46);
             this.chkEWMASTDControlLimit.Name = "chkEWMASTDControlLimit";
             this.chkEWMASTDControlLimit.Size = new System.Drawing.Size(149, 24);
             this.chkEWMASTDControlLimit.TabIndex = 19;
@@ -680,7 +687,7 @@
             this.chkRangeControlLimit.BssClass = "";
             this.chkRangeControlLimit.IsMultiLanguage = true;
             this.chkRangeControlLimit.Key = "";
-            this.chkRangeControlLimit.Location = new System.Drawing.Point(479, 20);
+            this.chkRangeControlLimit.Location = new System.Drawing.Point(479, 19);
             this.chkRangeControlLimit.Name = "chkRangeControlLimit";
             this.chkRangeControlLimit.Size = new System.Drawing.Size(149, 24);
             this.chkRangeControlLimit.TabIndex = 18;
@@ -692,7 +699,7 @@
             this.chkSTDControlLimit.BssClass = "";
             this.chkSTDControlLimit.IsMultiLanguage = true;
             this.chkSTDControlLimit.Key = "";
-            this.chkSTDControlLimit.Location = new System.Drawing.Point(317, 20);
+            this.chkSTDControlLimit.Location = new System.Drawing.Point(317, 19);
             this.chkSTDControlLimit.Name = "chkSTDControlLimit";
             this.chkSTDControlLimit.Size = new System.Drawing.Size(149, 24);
             this.chkSTDControlLimit.TabIndex = 17;
@@ -704,7 +711,7 @@
             this.chkMeanControlLimit.BssClass = "";
             this.chkMeanControlLimit.IsMultiLanguage = true;
             this.chkMeanControlLimit.Key = "";
-            this.chkMeanControlLimit.Location = new System.Drawing.Point(162, 20);
+            this.chkMeanControlLimit.Location = new System.Drawing.Point(162, 19);
             this.chkMeanControlLimit.Name = "chkMeanControlLimit";
             this.chkMeanControlLimit.Size = new System.Drawing.Size(149, 24);
             this.chkMeanControlLimit.TabIndex = 16;
@@ -716,7 +723,7 @@
             this.chkEWMAMeanControlLimit.BssClass = "";
             this.chkEWMAMeanControlLimit.IsMultiLanguage = true;
             this.chkEWMAMeanControlLimit.Key = "";
-            this.chkEWMAMeanControlLimit.Location = new System.Drawing.Point(7, 50);
+            this.chkEWMAMeanControlLimit.Location = new System.Drawing.Point(7, 46);
             this.chkEWMAMeanControlLimit.Name = "chkEWMAMeanControlLimit";
             this.chkEWMAMeanControlLimit.Size = new System.Drawing.Size(158, 24);
             this.chkEWMAMeanControlLimit.TabIndex = 15;
@@ -728,144 +735,12 @@
             this.chkRawControlLimit.BssClass = "";
             this.chkRawControlLimit.IsMultiLanguage = true;
             this.chkRawControlLimit.Key = "";
-            this.chkRawControlLimit.Location = new System.Drawing.Point(7, 20);
+            this.chkRawControlLimit.Location = new System.Drawing.Point(7, 19);
             this.chkRawControlLimit.Name = "chkRawControlLimit";
             this.chkRawControlLimit.Size = new System.Drawing.Size(149, 24);
             this.chkRawControlLimit.TabIndex = 14;
             this.chkRawControlLimit.Text = "Raw Control Limit";
             this.chkRawControlLimit.UseVisualStyleBackColor = true;
-            // 
-            // chkMinimumSamplesToUse
-            // 
-            this.chkMinimumSamplesToUse.BssClass = "";
-            this.chkMinimumSamplesToUse.IsMultiLanguage = true;
-            this.chkMinimumSamplesToUse.Key = "";
-            this.chkMinimumSamplesToUse.Location = new System.Drawing.Point(317, 35);
-            this.chkMinimumSamplesToUse.Name = "chkMinimumSamplesToUse";
-            this.chkMinimumSamplesToUse.Size = new System.Drawing.Size(149, 24);
-            this.chkMinimumSamplesToUse.TabIndex = 10;
-            this.chkMinimumSamplesToUse.Text = "Minimum samples to use";
-            this.chkMinimumSamplesToUse.UseVisualStyleBackColor = true;
-            // 
-            // chkAutoCalculationCount
-            // 
-            this.chkAutoCalculationCount.BssClass = "";
-            this.chkAutoCalculationCount.IsMultiLanguage = true;
-            this.chkAutoCalculationCount.Key = "";
-            this.chkAutoCalculationCount.Location = new System.Drawing.Point(162, 35);
-            this.chkAutoCalculationCount.Name = "chkAutoCalculationCount";
-            this.chkAutoCalculationCount.Size = new System.Drawing.Size(149, 24);
-            this.chkAutoCalculationCount.TabIndex = 9;
-            this.chkAutoCalculationCount.Text = "Auto Calculation Count";
-            this.chkAutoCalculationCount.UseVisualStyleBackColor = true;
-            // 
-            // chkAutoCalculationPeriod
-            // 
-            this.chkAutoCalculationPeriod.BssClass = "";
-            this.chkAutoCalculationPeriod.IsMultiLanguage = true;
-            this.chkAutoCalculationPeriod.Key = "";
-            this.chkAutoCalculationPeriod.Location = new System.Drawing.Point(7, 35);
-            this.chkAutoCalculationPeriod.Name = "chkAutoCalculationPeriod";
-            this.chkAutoCalculationPeriod.Size = new System.Drawing.Size(149, 24);
-            this.chkAutoCalculationPeriod.TabIndex = 8;
-            this.chkAutoCalculationPeriod.Text = "Auto Calculation Period";
-            this.chkAutoCalculationPeriod.UseVisualStyleBackColor = true;
-            // 
-            // chkMaximumPeriodToUse
-            // 
-            this.chkMaximumPeriodToUse.BssClass = "";
-            this.chkMaximumPeriodToUse.IsMultiLanguage = true;
-            this.chkMaximumPeriodToUse.Key = "";
-            this.chkMaximumPeriodToUse.Location = new System.Drawing.Point(7, 65);
-            this.chkMaximumPeriodToUse.Name = "chkMaximumPeriodToUse";
-            this.chkMaximumPeriodToUse.Size = new System.Drawing.Size(149, 24);
-            this.chkMaximumPeriodToUse.TabIndex = 12;
-            this.chkMaximumPeriodToUse.Text = "Maximum period to use";
-            this.chkMaximumPeriodToUse.UseVisualStyleBackColor = true;
-            // 
-            // chkControlLimitToUse
-            // 
-            this.chkControlLimitToUse.BssClass = "";
-            this.chkControlLimitToUse.IsMultiLanguage = true;
-            this.chkControlLimitToUse.Key = "";
-            this.chkControlLimitToUse.Location = new System.Drawing.Point(162, 65);
-            this.chkControlLimitToUse.Name = "chkControlLimitToUse";
-            this.chkControlLimitToUse.Size = new System.Drawing.Size(149, 24);
-            this.chkControlLimitToUse.TabIndex = 13;
-            this.chkControlLimitToUse.Text = "Control Limit to use";
-            this.chkControlLimitToUse.UseVisualStyleBackColor = true;
-            // 
-            // chkControlLimitThreshold
-            // 
-            this.chkControlLimitThreshold.BssClass = "";
-            this.chkControlLimitThreshold.IsMultiLanguage = true;
-            this.chkControlLimitThreshold.Key = "";
-            this.chkControlLimitThreshold.Location = new System.Drawing.Point(317, 65);
-            this.chkControlLimitThreshold.Name = "chkControlLimitThreshold";
-            this.chkControlLimitThreshold.Size = new System.Drawing.Size(149, 24);
-            this.chkControlLimitThreshold.TabIndex = 14;
-            this.chkControlLimitThreshold.Text = "Control Limit Threshold";
-            this.chkControlLimitThreshold.UseVisualStyleBackColor = true;
-            // 
-            // chkDefaultPeriod
-            // 
-            this.chkDefaultPeriod.BssClass = "";
-            this.chkDefaultPeriod.IsMultiLanguage = true;
-            this.chkDefaultPeriod.Key = "";
-            this.chkDefaultPeriod.Location = new System.Drawing.Point(479, 35);
-            this.chkDefaultPeriod.Name = "chkDefaultPeriod";
-            this.chkDefaultPeriod.Size = new System.Drawing.Size(149, 24);
-            this.chkDefaultPeriod.TabIndex = 11;
-            this.chkDefaultPeriod.Text = "Default Period";
-            this.chkDefaultPeriod.UseVisualStyleBackColor = true;
-            // 
-            // chkThresholdFuntionOff
-            // 
-            this.chkThresholdFuntionOff.BssClass = "";
-            this.chkThresholdFuntionOff.IsMultiLanguage = true;
-            this.chkThresholdFuntionOff.Key = "";
-            this.chkThresholdFuntionOff.Location = new System.Drawing.Point(479, 65);
-            this.chkThresholdFuntionOff.Name = "chkThresholdFuntionOff";
-            this.chkThresholdFuntionOff.Size = new System.Drawing.Size(149, 24);
-            this.chkThresholdFuntionOff.TabIndex = 18;
-            this.chkThresholdFuntionOff.Text = "Threshold Funtion Off";
-            this.chkThresholdFuntionOff.UseVisualStyleBackColor = true;
-            // 
-            // chkCompensation
-            // 
-            this.chkCompensation.BssClass = "";
-            this.chkCompensation.IsMultiLanguage = true;
-            this.chkCompensation.Key = "";
-            this.chkCompensation.Location = new System.Drawing.Point(162, 95);
-            this.chkCompensation.Name = "chkCompensation";
-            this.chkCompensation.Size = new System.Drawing.Size(219, 24);
-            this.chkCompensation.TabIndex = 16;
-            this.chkCompensation.Text = "Auto calculation with shift compensation";
-            this.chkCompensation.UseVisualStyleBackColor = true;
-            // 
-            // chkGlobal
-            // 
-            this.chkGlobal.BssClass = "";
-            this.chkGlobal.IsMultiLanguage = true;
-            this.chkGlobal.Key = "";
-            this.chkGlobal.Location = new System.Drawing.Point(7, 98);
-            this.chkGlobal.Name = "chkGlobal";
-            this.chkGlobal.Size = new System.Drawing.Size(135, 19);
-            this.chkGlobal.TabIndex = 19;
-            this.chkGlobal.Text = "Use Global";
-            this.chkGlobal.UseVisualStyleBackColor = true;
-            // 
-            // chkIQRFilter
-            // 
-            this.chkIQRFilter.BssClass = "";
-            this.chkIQRFilter.IsMultiLanguage = true;
-            this.chkIQRFilter.Key = "";
-            this.chkIQRFilter.Location = new System.Drawing.Point(479, 95);
-            this.chkIQRFilter.Name = "chkIQRFilter";
-            this.chkIQRFilter.Size = new System.Drawing.Size(219, 24);
-            this.chkIQRFilter.TabIndex = 17;
-            this.chkIQRFilter.Text = "Auto calculation without IQR Filter";
-            this.chkIQRFilter.UseVisualStyleBackColor = true;
             // 
             // bapnlBottom
             // 
@@ -877,13 +752,13 @@
             this.bapnlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.bapnlBottom.IsCondition = false;
             this.bapnlBottom.Key = "";
-            this.bapnlBottom.Location = new System.Drawing.Point(3, 737);
+            this.bapnlBottom.Location = new System.Drawing.Point(3, 691);
             this.bapnlBottom.Name = "bapnlBottom";
             this.bapnlBottom.Padding_Bottom = 5;
             this.bapnlBottom.Padding_Left = 5;
             this.bapnlBottom.Padding_Right = 5;
             this.bapnlBottom.Padding_Top = 5;
-            this.bapnlBottom.Size = new System.Drawing.Size(732, 37);
+            this.bapnlBottom.Size = new System.Drawing.Size(690, 37);
             this.bapnlBottom.Space = 5;
             this.bapnlBottom.TabIndex = 6;
             this.bapnlBottom.Title = "";
@@ -977,7 +852,7 @@
             this.bbtnCancel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(97)))), ((int)(((byte)(133)))));
             this.bbtnCancel.IsMultiLanguage = true;
             this.bbtnCancel.Key = "SPC_BUTTON_CANCEL";
-            this.bbtnCancel.Location = new System.Drawing.Point(644, 6);
+            this.bbtnCancel.Location = new System.Drawing.Point(602, 6);
             this.bbtnCancel.Name = "bbtnCancel";
             this.bbtnCancel.Size = new System.Drawing.Size(80, 25);
             this.bbtnCancel.TabIndex = 1;
@@ -997,7 +872,7 @@
             this.bbtnOK.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(97)))), ((int)(((byte)(133)))));
             this.bbtnOK.IsMultiLanguage = true;
             this.bbtnOK.Key = "SPC_BUTTON_OK";
-            this.bbtnOK.Location = new System.Drawing.Point(559, 6);
+            this.bbtnOK.Location = new System.Drawing.Point(517, 6);
             this.bbtnOK.Name = "bbtnOK";
             this.bbtnOK.Size = new System.Drawing.Size(80, 25);
             this.bbtnOK.TabIndex = 0;
@@ -1047,7 +922,7 @@
             this.bTitlePanel4.ShowCloseButton = false;
             this.bTitlePanel4.ShowMaxNormalButton = false;
             this.bTitlePanel4.ShowMinButton = false;
-            this.bTitlePanel4.Size = new System.Drawing.Size(732, 112);
+            this.bTitlePanel4.Size = new System.Drawing.Size(690, 112);
             this.bTitlePanel4.TabIndex = 7;
             this.bTitlePanel4.Title = "SPC Model Info";
             this.bTitlePanel4.TitleColor = System.Drawing.Color.Black;
@@ -1135,11 +1010,12 @@
             // chkChartDesc
             // 
             this.chkChartDesc.BssClass = "";
+            this.chkChartDesc.Dock = System.Windows.Forms.DockStyle.Left;
             this.chkChartDesc.IsMultiLanguage = true;
             this.chkChartDesc.Key = "";
-            this.chkChartDesc.Location = new System.Drawing.Point(540, 65);
+            this.chkChartDesc.Location = new System.Drawing.Point(565, 0);
             this.chkChartDesc.Name = "chkChartDesc";
-            this.chkChartDesc.Size = new System.Drawing.Size(116, 24);
+            this.chkChartDesc.Size = new System.Drawing.Size(116, 29);
             this.chkChartDesc.TabIndex = 18;
             this.chkChartDesc.Text = "Chart Description";
             this.chkChartDesc.UseVisualStyleBackColor = true;
@@ -1147,21 +1023,10 @@
             // btpnlContext
             // 
             this.btpnlContext.BssClass = "TitlePanel";
-            this.btpnlContext.Controls.Add(this.chkContextInform);
-            this.btpnlContext.Controls.Add(this.chkUseNorm);
-            this.btpnlContext.Controls.Add(this.chkGenerateSubChartWithAutoCalculation);
-            this.btpnlContext.Controls.Add(this.chkInterlock);
-            this.btpnlContext.Controls.Add(this.chkSampleCount);
-            this.btpnlContext.Controls.Add(this.chkManageType);
-            this.btpnlContext.Controls.Add(this.chkUseExternalSpecLimit);
-            this.btpnlContext.Controls.Add(this.chkChartDesc);
-            this.btpnlContext.Controls.Add(this.chkMode);
-            this.btpnlContext.Controls.Add(this.chkAutoCalculation);
-            this.btpnlContext.Controls.Add(this.chkAutoSetting);
-            this.btpnlContext.Controls.Add(this.chkAutoGenerateSubChart);
-            this.btpnlContext.Controls.Add(this.chkGenerateSubChartWithInterlock);
-            this.btpnlContext.Controls.Add(this.chkActive);
-            this.btpnlContext.Controls.Add(this.chkInherittheSpecOfMain);
+            this.btpnlContext.Controls.Add(this.pnlContextLineThird);
+            this.btpnlContext.Controls.Add(this.pnlContextLineSecond);
+            this.btpnlContext.Controls.Add(this.pnlContextLineFirst);
+            this.btpnlContext.Controls.Add(this.panel4);
             this.btpnlContext.Dock = System.Windows.Forms.DockStyle.Top;
             this.btpnlContext.ImageBottom = null;
             this.btpnlContext.ImageBottomRight = null;
@@ -1194,186 +1059,381 @@
             this.btpnlContext.ShowCloseButton = false;
             this.btpnlContext.ShowMaxNormalButton = false;
             this.btpnlContext.ShowMinButton = false;
-            this.btpnlContext.Size = new System.Drawing.Size(732, 160);
+            this.btpnlContext.Size = new System.Drawing.Size(690, 127);
             this.btpnlContext.TabIndex = 8;
             this.btpnlContext.Title = "Context";
             this.btpnlContext.TitleColor = System.Drawing.Color.Black;
             this.btpnlContext.TitleFont = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.btpnlContext.TopPadding = 5;
             // 
+            // pnlContextLineThird
+            // 
+            this.pnlContextLineThird.Controls.Add(this.chkContextInform);
+            this.pnlContextLineThird.Controls.Add(this.chkUseNorm);
+            this.pnlContextLineThird.Controls.Add(this.chkInherittheSpecOfMain);
+            this.pnlContextLineThird.Controls.Add(this.chkGenerateSubChartWithAutoCalculation);
+            this.pnlContextLineThird.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlContextLineThird.Location = new System.Drawing.Point(5, 94);
+            this.pnlContextLineThird.Name = "pnlContextLineThird";
+            this.pnlContextLineThird.Size = new System.Drawing.Size(685, 33);
+            this.pnlContextLineThird.TabIndex = 20;
+            // 
             // chkContextInform
             // 
             this.chkContextInform.BssClass = "";
+            this.chkContextInform.Dock = System.Windows.Forms.DockStyle.Left;
             this.chkContextInform.IsMultiLanguage = true;
             this.chkContextInform.Key = "";
-            this.chkContextInform.Location = new System.Drawing.Point(7, 127);
+            this.chkContextInform.Location = new System.Drawing.Point(626, 0);
             this.chkContextInform.Name = "chkContextInform";
-            this.chkContextInform.Size = new System.Drawing.Size(144, 24);
+            this.chkContextInform.Size = new System.Drawing.Size(144, 33);
             this.chkContextInform.TabIndex = 20;
-            this.chkContextInform.Text = "Context Information";
+            this.chkContextInform.Text = "Context Information (M)";
             this.chkContextInform.UseVisualStyleBackColor = true;
             // 
             // chkUseNorm
             // 
             this.chkUseNorm.BssClass = "";
+            this.chkUseNorm.Dock = System.Windows.Forms.DockStyle.Left;
             this.chkUseNorm.IsMultiLanguage = true;
             this.chkUseNorm.Key = "";
-            this.chkUseNorm.Location = new System.Drawing.Point(516, 95);
+            this.chkUseNorm.Location = new System.Drawing.Point(482, 0);
             this.chkUseNorm.Name = "chkUseNorm";
-            this.chkUseNorm.Size = new System.Drawing.Size(144, 24);
+            this.chkUseNorm.Size = new System.Drawing.Size(144, 33);
             this.chkUseNorm.TabIndex = 18;
             this.chkUseNorm.Text = "Use Normalization Value";
             this.chkUseNorm.UseVisualStyleBackColor = true;
             // 
+            // chkInherittheSpecOfMain
+            // 
+            this.chkInherittheSpecOfMain.BssClass = "";
+            this.chkInherittheSpecOfMain.Dock = System.Windows.Forms.DockStyle.Left;
+            this.chkInherittheSpecOfMain.IsMultiLanguage = true;
+            this.chkInherittheSpecOfMain.Key = "";
+            this.chkInherittheSpecOfMain.Location = new System.Drawing.Point(255, 0);
+            this.chkInherittheSpecOfMain.Name = "chkInherittheSpecOfMain";
+            this.chkInherittheSpecOfMain.Size = new System.Drawing.Size(227, 33);
+            this.chkInherittheSpecOfMain.TabIndex = 15;
+            this.chkInherittheSpecOfMain.Text = "Inherit the Spec/Rule of Main Config (S)";
+            this.chkInherittheSpecOfMain.UseVisualStyleBackColor = true;
+            // 
             // chkGenerateSubChartWithAutoCalculation
             // 
             this.chkGenerateSubChartWithAutoCalculation.BssClass = "";
+            this.chkGenerateSubChartWithAutoCalculation.Dock = System.Windows.Forms.DockStyle.Left;
             this.chkGenerateSubChartWithAutoCalculation.IsMultiLanguage = true;
             this.chkGenerateSubChartWithAutoCalculation.Key = "";
-            this.chkGenerateSubChartWithAutoCalculation.Location = new System.Drawing.Point(7, 95);
+            this.chkGenerateSubChartWithAutoCalculation.Location = new System.Drawing.Point(0, 0);
             this.chkGenerateSubChartWithAutoCalculation.Name = "chkGenerateSubChartWithAutoCalculation";
-            this.chkGenerateSubChartWithAutoCalculation.Size = new System.Drawing.Size(255, 24);
+            this.chkGenerateSubChartWithAutoCalculation.Size = new System.Drawing.Size(255, 33);
             this.chkGenerateSubChartWithAutoCalculation.TabIndex = 17;
             this.chkGenerateSubChartWithAutoCalculation.Text = "Generate Sub Chart with Auto Calculation (M)";
             this.chkGenerateSubChartWithAutoCalculation.UseVisualStyleBackColor = true;
             // 
-            // chkInterlock
+            // pnlContextLineSecond
             // 
-            this.chkInterlock.BssClass = "";
-            this.chkInterlock.IsMultiLanguage = true;
-            this.chkInterlock.Key = "";
-            this.chkInterlock.Location = new System.Drawing.Point(7, 35);
-            this.chkInterlock.Name = "chkInterlock";
-            this.chkInterlock.Size = new System.Drawing.Size(68, 24);
-            this.chkInterlock.TabIndex = 7;
-            this.chkInterlock.Text = "Interlock";
-            this.chkInterlock.UseVisualStyleBackColor = true;
-            // 
-            // chkSampleCount
-            // 
-            this.chkSampleCount.BssClass = "";
-            this.chkSampleCount.IsMultiLanguage = true;
-            this.chkSampleCount.Key = "";
-            this.chkSampleCount.Location = new System.Drawing.Point(7, 65);
-            this.chkSampleCount.Name = "chkSampleCount";
-            this.chkSampleCount.Size = new System.Drawing.Size(95, 24);
-            this.chkSampleCount.TabIndex = 11;
-            this.chkSampleCount.Text = "Sample Count";
-            this.chkSampleCount.UseVisualStyleBackColor = true;
-            // 
-            // chkManageType
-            // 
-            this.chkManageType.BssClass = "";
-            this.chkManageType.IsMultiLanguage = true;
-            this.chkManageType.Key = "";
-            this.chkManageType.Location = new System.Drawing.Point(104, 65);
-            this.chkManageType.Name = "chkManageType";
-            this.chkManageType.Size = new System.Drawing.Size(100, 24);
-            this.chkManageType.TabIndex = 12;
-            this.chkManageType.Text = "Manage Type";
-            this.chkManageType.UseVisualStyleBackColor = true;
-            // 
-            // chkUseExternalSpecLimit
-            // 
-            this.chkUseExternalSpecLimit.BssClass = "";
-            this.chkUseExternalSpecLimit.IsMultiLanguage = true;
-            this.chkUseExternalSpecLimit.Key = "";
-            this.chkUseExternalSpecLimit.Location = new System.Drawing.Point(84, 35);
-            this.chkUseExternalSpecLimit.Name = "chkUseExternalSpecLimit";
-            this.chkUseExternalSpecLimit.Size = new System.Drawing.Size(142, 24);
-            this.chkUseExternalSpecLimit.TabIndex = 8;
-            this.chkUseExternalSpecLimit.Text = "Use External Spec Limit";
-            this.chkUseExternalSpecLimit.UseVisualStyleBackColor = true;
-            // 
-            // chkMode
-            // 
-            this.chkMode.BssClass = "";
-            this.chkMode.IsMultiLanguage = true;
-            this.chkMode.Key = "";
-            this.chkMode.Location = new System.Drawing.Point(589, 35);
-            this.chkMode.Name = "chkMode";
-            this.chkMode.Size = new System.Drawing.Size(61, 24);
-            this.chkMode.TabIndex = 19;
-            this.chkMode.Text = "Mode";
-            this.chkMode.UseVisualStyleBackColor = true;
-            // 
-            // chkAutoCalculation
-            // 
-            this.chkAutoCalculation.BssClass = "";
-            this.chkAutoCalculation.IsMultiLanguage = true;
-            this.chkAutoCalculation.Key = "";
-            this.chkAutoCalculation.Location = new System.Drawing.Point(226, 35);
-            this.chkAutoCalculation.Name = "chkAutoCalculation";
-            this.chkAutoCalculation.Size = new System.Drawing.Size(104, 24);
-            this.chkAutoCalculation.TabIndex = 16;
-            this.chkAutoCalculation.Text = "Auto Calculation";
-            this.chkAutoCalculation.UseVisualStyleBackColor = true;
-            // 
-            // chkAutoSetting
-            // 
-            this.chkAutoSetting.BssClass = "";
-            this.chkAutoSetting.IsMultiLanguage = true;
-            this.chkAutoSetting.Key = "";
-            this.chkAutoSetting.Location = new System.Drawing.Point(206, 65);
-            this.chkAutoSetting.Name = "chkAutoSetting";
-            this.chkAutoSetting.Size = new System.Drawing.Size(116, 24);
-            this.chkAutoSetting.TabIndex = 13;
-            this.chkAutoSetting.Text = "Auto Setting (M)";
-            this.chkAutoSetting.UseVisualStyleBackColor = true;
-            // 
-            // chkAutoGenerateSubChart
-            // 
-            this.chkAutoGenerateSubChart.BssClass = "";
-            this.chkAutoGenerateSubChart.IsMultiLanguage = true;
-            this.chkAutoGenerateSubChart.Key = "";
-            this.chkAutoGenerateSubChart.Location = new System.Drawing.Point(335, 35);
-            this.chkAutoGenerateSubChart.Name = "chkAutoGenerateSubChart";
-            this.chkAutoGenerateSubChart.Size = new System.Drawing.Size(167, 24);
-            this.chkAutoGenerateSubChart.TabIndex = 9;
-            this.chkAutoGenerateSubChart.Text = "Auto Generate Sub Chart (M)";
-            this.chkAutoGenerateSubChart.UseVisualStyleBackColor = true;
+            this.pnlContextLineSecond.Controls.Add(this.chkChartDesc);
+            this.pnlContextLineSecond.Controls.Add(this.chkGenerateSubChartWithInterlock);
+            this.pnlContextLineSecond.Controls.Add(this.chkAutoSetting);
+            this.pnlContextLineSecond.Controls.Add(this.chkManageType);
+            this.pnlContextLineSecond.Controls.Add(this.chkSampleCount);
+            this.pnlContextLineSecond.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlContextLineSecond.Location = new System.Drawing.Point(5, 65);
+            this.pnlContextLineSecond.Name = "pnlContextLineSecond";
+            this.pnlContextLineSecond.Size = new System.Drawing.Size(685, 29);
+            this.pnlContextLineSecond.TabIndex = 18;
             // 
             // chkGenerateSubChartWithInterlock
             // 
             this.chkGenerateSubChartWithInterlock.BssClass = "";
+            this.chkGenerateSubChartWithInterlock.Dock = System.Windows.Forms.DockStyle.Left;
             this.chkGenerateSubChartWithInterlock.IsMultiLanguage = true;
             this.chkGenerateSubChartWithInterlock.Key = "";
-            this.chkGenerateSubChartWithInterlock.Location = new System.Drawing.Point(322, 65);
+            this.chkGenerateSubChartWithInterlock.Location = new System.Drawing.Point(353, 0);
             this.chkGenerateSubChartWithInterlock.Name = "chkGenerateSubChartWithInterlock";
-            this.chkGenerateSubChartWithInterlock.Size = new System.Drawing.Size(212, 24);
+            this.chkGenerateSubChartWithInterlock.Size = new System.Drawing.Size(212, 29);
             this.chkGenerateSubChartWithInterlock.TabIndex = 14;
             this.chkGenerateSubChartWithInterlock.Text = "Generate Sub Chart with Interlock (M)";
             this.chkGenerateSubChartWithInterlock.UseVisualStyleBackColor = true;
             // 
+            // chkAutoSetting
+            // 
+            this.chkAutoSetting.BssClass = "";
+            this.chkAutoSetting.Dock = System.Windows.Forms.DockStyle.Left;
+            this.chkAutoSetting.IsMultiLanguage = true;
+            this.chkAutoSetting.Key = "";
+            this.chkAutoSetting.Location = new System.Drawing.Point(237, 0);
+            this.chkAutoSetting.Name = "chkAutoSetting";
+            this.chkAutoSetting.Size = new System.Drawing.Size(116, 29);
+            this.chkAutoSetting.TabIndex = 13;
+            this.chkAutoSetting.Text = "Auto Setting (M)";
+            this.chkAutoSetting.UseVisualStyleBackColor = true;
+            // 
+            // chkManageType
+            // 
+            this.chkManageType.BssClass = "";
+            this.chkManageType.Dock = System.Windows.Forms.DockStyle.Left;
+            this.chkManageType.IsMultiLanguage = true;
+            this.chkManageType.Key = "";
+            this.chkManageType.Location = new System.Drawing.Point(95, 0);
+            this.chkManageType.Name = "chkManageType";
+            this.chkManageType.Size = new System.Drawing.Size(142, 29);
+            this.chkManageType.TabIndex = 12;
+            this.chkManageType.Text = "Manage Type";
+            this.chkManageType.UseVisualStyleBackColor = true;
+            // 
+            // chkSampleCount
+            // 
+            this.chkSampleCount.BssClass = "";
+            this.chkSampleCount.Dock = System.Windows.Forms.DockStyle.Left;
+            this.chkSampleCount.IsMultiLanguage = true;
+            this.chkSampleCount.Key = "";
+            this.chkSampleCount.Location = new System.Drawing.Point(0, 0);
+            this.chkSampleCount.Name = "chkSampleCount";
+            this.chkSampleCount.Size = new System.Drawing.Size(95, 29);
+            this.chkSampleCount.TabIndex = 11;
+            this.chkSampleCount.Text = "Sample Count";
+            this.chkSampleCount.UseVisualStyleBackColor = true;
+            // 
+            // pnlContextLineFirst
+            // 
+            this.pnlContextLineFirst.Controls.Add(this.chkMode);
+            this.pnlContextLineFirst.Controls.Add(this.chkActive);
+            this.pnlContextLineFirst.Controls.Add(this.chkAutoGenerateSubChart);
+            this.pnlContextLineFirst.Controls.Add(this.chkAutoCalculation);
+            this.pnlContextLineFirst.Controls.Add(this.chkUseExternalSpecLimit);
+            this.pnlContextLineFirst.Controls.Add(this.chkInterlock);
+            this.pnlContextLineFirst.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlContextLineFirst.Location = new System.Drawing.Point(5, 32);
+            this.pnlContextLineFirst.Name = "pnlContextLineFirst";
+            this.pnlContextLineFirst.Size = new System.Drawing.Size(685, 33);
+            this.pnlContextLineFirst.TabIndex = 21;
+            // 
+            // chkMode
+            // 
+            this.chkMode.BssClass = "";
+            this.chkMode.Dock = System.Windows.Forms.DockStyle.Left;
+            this.chkMode.IsMultiLanguage = true;
+            this.chkMode.Key = "";
+            this.chkMode.Location = new System.Drawing.Point(620, 0);
+            this.chkMode.Name = "chkMode";
+            this.chkMode.Size = new System.Drawing.Size(61, 33);
+            this.chkMode.TabIndex = 19;
+            this.chkMode.Text = "Mode";
+            this.chkMode.UseVisualStyleBackColor = true;
+            // 
             // chkActive
             // 
             this.chkActive.BssClass = "";
+            this.chkActive.Dock = System.Windows.Forms.DockStyle.Left;
             this.chkActive.IsMultiLanguage = true;
             this.chkActive.Key = "";
-            this.chkActive.Location = new System.Drawing.Point(513, 35);
+            this.chkActive.Location = new System.Drawing.Point(533, 0);
             this.chkActive.Name = "chkActive";
-            this.chkActive.Size = new System.Drawing.Size(76, 24);
+            this.chkActive.Size = new System.Drawing.Size(87, 33);
             this.chkActive.TabIndex = 10;
             this.chkActive.Text = "Active (M)";
             this.chkActive.UseVisualStyleBackColor = true;
             // 
-            // chkInherittheSpecOfMain
+            // chkAutoGenerateSubChart
             // 
-            this.chkInherittheSpecOfMain.BssClass = "";
-            this.chkInherittheSpecOfMain.IsMultiLanguage = true;
-            this.chkInherittheSpecOfMain.Key = "";
-            this.chkInherittheSpecOfMain.Location = new System.Drawing.Point(281, 95);
-            this.chkInherittheSpecOfMain.Name = "chkInherittheSpecOfMain";
-            this.chkInherittheSpecOfMain.Size = new System.Drawing.Size(246, 24);
-            this.chkInherittheSpecOfMain.TabIndex = 15;
-            this.chkInherittheSpecOfMain.Text = "Inherit the Spec/Rule of Main Config (S)";
-            this.chkInherittheSpecOfMain.UseVisualStyleBackColor = true;
+            this.chkAutoGenerateSubChart.BssClass = "";
+            this.chkAutoGenerateSubChart.Dock = System.Windows.Forms.DockStyle.Left;
+            this.chkAutoGenerateSubChart.IsMultiLanguage = true;
+            this.chkAutoGenerateSubChart.Key = "";
+            this.chkAutoGenerateSubChart.Location = new System.Drawing.Point(353, 0);
+            this.chkAutoGenerateSubChart.Name = "chkAutoGenerateSubChart";
+            this.chkAutoGenerateSubChart.Size = new System.Drawing.Size(180, 33);
+            this.chkAutoGenerateSubChart.TabIndex = 9;
+            this.chkAutoGenerateSubChart.Text = "Auto Generate Sub Chart (M)";
+            this.chkAutoGenerateSubChart.UseVisualStyleBackColor = true;
+            // 
+            // chkAutoCalculation
+            // 
+            this.chkAutoCalculation.BssClass = "";
+            this.chkAutoCalculation.Dock = System.Windows.Forms.DockStyle.Left;
+            this.chkAutoCalculation.IsMultiLanguage = true;
+            this.chkAutoCalculation.Key = "";
+            this.chkAutoCalculation.Location = new System.Drawing.Point(237, 0);
+            this.chkAutoCalculation.Name = "chkAutoCalculation";
+            this.chkAutoCalculation.Size = new System.Drawing.Size(116, 33);
+            this.chkAutoCalculation.TabIndex = 16;
+            this.chkAutoCalculation.Text = "Auto Calculation";
+            this.chkAutoCalculation.UseVisualStyleBackColor = true;
+            // 
+            // chkUseExternalSpecLimit
+            // 
+            this.chkUseExternalSpecLimit.BssClass = "";
+            this.chkUseExternalSpecLimit.Dock = System.Windows.Forms.DockStyle.Left;
+            this.chkUseExternalSpecLimit.IsMultiLanguage = true;
+            this.chkUseExternalSpecLimit.Key = "";
+            this.chkUseExternalSpecLimit.Location = new System.Drawing.Point(95, 0);
+            this.chkUseExternalSpecLimit.Name = "chkUseExternalSpecLimit";
+            this.chkUseExternalSpecLimit.Size = new System.Drawing.Size(142, 33);
+            this.chkUseExternalSpecLimit.TabIndex = 8;
+            this.chkUseExternalSpecLimit.Text = "Use External Spec Limit";
+            this.chkUseExternalSpecLimit.UseVisualStyleBackColor = true;
+            // 
+            // chkInterlock
+            // 
+            this.chkInterlock.BssClass = "";
+            this.chkInterlock.Dock = System.Windows.Forms.DockStyle.Left;
+            this.chkInterlock.IsMultiLanguage = true;
+            this.chkInterlock.Key = "";
+            this.chkInterlock.Location = new System.Drawing.Point(0, 0);
+            this.chkInterlock.Name = "chkInterlock";
+            this.chkInterlock.Size = new System.Drawing.Size(95, 33);
+            this.chkInterlock.TabIndex = 7;
+            this.chkInterlock.Text = "Interlock";
+            this.chkInterlock.UseVisualStyleBackColor = true;
+            // 
+            // panel4
+            // 
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel4.Location = new System.Drawing.Point(0, 32);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(5, 95);
+            this.panel4.TabIndex = 22;
+            // 
+            // chkGlobal
+            // 
+            this.chkGlobal.BssClass = "";
+            this.chkGlobal.IsMultiLanguage = true;
+            this.chkGlobal.Key = "";
+            this.chkGlobal.Location = new System.Drawing.Point(8, 94);
+            this.chkGlobal.Name = "chkGlobal";
+            this.chkGlobal.Size = new System.Drawing.Size(135, 19);
+            this.chkGlobal.TabIndex = 34;
+            this.chkGlobal.Text = "Use Global";
+            this.chkGlobal.UseVisualStyleBackColor = true;
+            // 
+            // chkIQRFilter
+            // 
+            this.chkIQRFilter.BssClass = "";
+            this.chkIQRFilter.IsMultiLanguage = true;
+            this.chkIQRFilter.Key = "";
+            this.chkIQRFilter.Location = new System.Drawing.Point(480, 91);
+            this.chkIQRFilter.Name = "chkIQRFilter";
+            this.chkIQRFilter.Size = new System.Drawing.Size(198, 24);
+            this.chkIQRFilter.TabIndex = 32;
+            this.chkIQRFilter.Text = "Auto calculation without IQR Filter";
+            this.chkIQRFilter.UseVisualStyleBackColor = true;
+            // 
+            // chkCompensation
+            // 
+            this.chkCompensation.BssClass = "";
+            this.chkCompensation.IsMultiLanguage = true;
+            this.chkCompensation.Key = "";
+            this.chkCompensation.Location = new System.Drawing.Point(163, 91);
+            this.chkCompensation.Name = "chkCompensation";
+            this.chkCompensation.Size = new System.Drawing.Size(219, 24);
+            this.chkCompensation.TabIndex = 31;
+            this.chkCompensation.Text = "Auto calculation with shift compensation";
+            this.chkCompensation.UseVisualStyleBackColor = true;
+            // 
+            // chkThresholdFuntionOff
+            // 
+            this.chkThresholdFuntionOff.BssClass = "";
+            this.chkThresholdFuntionOff.IsMultiLanguage = true;
+            this.chkThresholdFuntionOff.Key = "";
+            this.chkThresholdFuntionOff.Location = new System.Drawing.Point(480, 65);
+            this.chkThresholdFuntionOff.Name = "chkThresholdFuntionOff";
+            this.chkThresholdFuntionOff.Size = new System.Drawing.Size(149, 24);
+            this.chkThresholdFuntionOff.TabIndex = 33;
+            this.chkThresholdFuntionOff.Text = "Threshold Funtion Off";
+            this.chkThresholdFuntionOff.UseVisualStyleBackColor = true;
+            // 
+            // chkDefaultPeriod
+            // 
+            this.chkDefaultPeriod.BssClass = "";
+            this.chkDefaultPeriod.IsMultiLanguage = true;
+            this.chkDefaultPeriod.Key = "";
+            this.chkDefaultPeriod.Location = new System.Drawing.Point(480, 39);
+            this.chkDefaultPeriod.Name = "chkDefaultPeriod";
+            this.chkDefaultPeriod.Size = new System.Drawing.Size(149, 24);
+            this.chkDefaultPeriod.TabIndex = 27;
+            this.chkDefaultPeriod.Text = "Default Period";
+            this.chkDefaultPeriod.UseVisualStyleBackColor = true;
+            // 
+            // chkControlLimitThreshold
+            // 
+            this.chkControlLimitThreshold.BssClass = "";
+            this.chkControlLimitThreshold.IsMultiLanguage = true;
+            this.chkControlLimitThreshold.Key = "";
+            this.chkControlLimitThreshold.Location = new System.Drawing.Point(318, 65);
+            this.chkControlLimitThreshold.Name = "chkControlLimitThreshold";
+            this.chkControlLimitThreshold.Size = new System.Drawing.Size(149, 24);
+            this.chkControlLimitThreshold.TabIndex = 30;
+            this.chkControlLimitThreshold.Text = "Control Limit Threshold";
+            this.chkControlLimitThreshold.UseVisualStyleBackColor = true;
+            // 
+            // chkControlLimitToUse
+            // 
+            this.chkControlLimitToUse.BssClass = "";
+            this.chkControlLimitToUse.IsMultiLanguage = true;
+            this.chkControlLimitToUse.Key = "";
+            this.chkControlLimitToUse.Location = new System.Drawing.Point(163, 65);
+            this.chkControlLimitToUse.Name = "chkControlLimitToUse";
+            this.chkControlLimitToUse.Size = new System.Drawing.Size(149, 24);
+            this.chkControlLimitToUse.TabIndex = 29;
+            this.chkControlLimitToUse.Text = "Control Limit to use";
+            this.chkControlLimitToUse.UseVisualStyleBackColor = true;
+            // 
+            // chkMaximumPeriodToUse
+            // 
+            this.chkMaximumPeriodToUse.BssClass = "";
+            this.chkMaximumPeriodToUse.IsMultiLanguage = true;
+            this.chkMaximumPeriodToUse.Key = "";
+            this.chkMaximumPeriodToUse.Location = new System.Drawing.Point(8, 65);
+            this.chkMaximumPeriodToUse.Name = "chkMaximumPeriodToUse";
+            this.chkMaximumPeriodToUse.Size = new System.Drawing.Size(149, 24);
+            this.chkMaximumPeriodToUse.TabIndex = 28;
+            this.chkMaximumPeriodToUse.Text = "Maximum period to use";
+            this.chkMaximumPeriodToUse.UseVisualStyleBackColor = true;
+            // 
+            // chkMinimumSamplesToUse
+            // 
+            this.chkMinimumSamplesToUse.BssClass = "";
+            this.chkMinimumSamplesToUse.IsMultiLanguage = true;
+            this.chkMinimumSamplesToUse.Key = "";
+            this.chkMinimumSamplesToUse.Location = new System.Drawing.Point(318, 39);
+            this.chkMinimumSamplesToUse.Name = "chkMinimumSamplesToUse";
+            this.chkMinimumSamplesToUse.Size = new System.Drawing.Size(149, 24);
+            this.chkMinimumSamplesToUse.TabIndex = 26;
+            this.chkMinimumSamplesToUse.Text = "Minimum samples to use";
+            this.chkMinimumSamplesToUse.UseVisualStyleBackColor = true;
+            // 
+            // chkAutoCalculationPeriod
+            // 
+            this.chkAutoCalculationPeriod.BssClass = "";
+            this.chkAutoCalculationPeriod.IsMultiLanguage = true;
+            this.chkAutoCalculationPeriod.Key = "";
+            this.chkAutoCalculationPeriod.Location = new System.Drawing.Point(8, 39);
+            this.chkAutoCalculationPeriod.Name = "chkAutoCalculationPeriod";
+            this.chkAutoCalculationPeriod.Size = new System.Drawing.Size(149, 24);
+            this.chkAutoCalculationPeriod.TabIndex = 24;
+            this.chkAutoCalculationPeriod.Text = "Auto Calculation Period";
+            this.chkAutoCalculationPeriod.UseVisualStyleBackColor = true;
+            // 
+            // chkAutoCalculationCount
+            // 
+            this.chkAutoCalculationCount.BssClass = "";
+            this.chkAutoCalculationCount.IsMultiLanguage = true;
+            this.chkAutoCalculationCount.Key = "";
+            this.chkAutoCalculationCount.Location = new System.Drawing.Point(163, 39);
+            this.chkAutoCalculationCount.Name = "chkAutoCalculationCount";
+            this.chkAutoCalculationCount.Size = new System.Drawing.Size(149, 24);
+            this.chkAutoCalculationCount.TabIndex = 25;
+            this.chkAutoCalculationCount.Text = "Auto Calculation Count";
+            this.chkAutoCalculationCount.UseVisualStyleBackColor = true;
             // 
             // SPCCopySpec
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(750, 810);
+            this.ClientSize = new System.Drawing.Size(708, 764);
+            this.ContentsAreaMinHeight = 725;
+            this.ContentsAreaMinWidth = 690;
             this.Name = "SPCCopySpec";
             this.Text = "SPCCopySpec";
             this.Title = "SPC Model Copy";
@@ -1393,6 +1453,9 @@
             this.bTitlePanel4.PerformLayout();
             this.btpnlContext.ResumeLayout(false);
             this.btpnlContext.PerformLayout();
+            this.pnlContextLineThird.ResumeLayout(false);
+            this.pnlContextLineSecond.ResumeLayout(false);
+            this.pnlContextLineFirst.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1419,7 +1482,6 @@
         private BISTel.PeakPerformance.Client.BISTelControl.BCheckBox chkSTD;
         private BISTel.PeakPerformance.Client.BISTelControl.BCheckBox chkMean;
         private BISTel.PeakPerformance.Client.BISTelControl.BCheckBox chkRaw;
-        private BISTel.PeakPerformance.Client.BISTelControl.BCheckBox chkAutoCalculationPeriod;
         private BISTel.PeakPerformance.Client.BISTelControl.BCheckBox chkDefaultChartToShow;
         private BISTel.PeakPerformance.Client.BISTelControl.BCheckBox chkDays;
         private BISTel.PeakPerformance.Client.BISTelControl.BLabel bLabel1;
@@ -1432,12 +1494,6 @@
         private BISTel.PeakPerformance.Client.BISTelControl.BCheckBox chkMeanControlLimit;
         private BISTel.PeakPerformance.Client.BISTelControl.BCheckBox chkEWMAMeanControlLimit;
         private BISTel.PeakPerformance.Client.BISTelControl.BCheckBox chkRawControlLimit;
-        private BISTel.PeakPerformance.Client.BISTelControl.BCheckBox chkControlLimitThreshold;
-        private BISTel.PeakPerformance.Client.BISTelControl.BCheckBox chkControlLimitToUse;
-        private BISTel.PeakPerformance.Client.BISTelControl.BCheckBox chkMaximumPeriodToUse;
-        private BISTel.PeakPerformance.Client.BISTelControl.BCheckBox chkDefaultPeriod;
-        private BISTel.PeakPerformance.Client.BISTelControl.BCheckBox chkMinimumSamplesToUse;
-        private BISTel.PeakPerformance.Client.BISTelControl.BCheckBox chkAutoCalculationCount;
         private BISTel.PeakPerformance.Client.BISTelControl.BCheckBox chkMSControlLimit;
         private BISTel.PeakPerformance.Client.BISTelControl.BCheckBox chkMAControlLimit;
         private BISTel.PeakPerformance.Client.BISTelControl.BCheckBox chkEWMARangeControlLimit;
@@ -1471,17 +1527,28 @@
         private BISTel.PeakPerformance.Client.BISTelControl.BLabel bLabel3;
         private BISTel.PeakPerformance.Client.BISTelControl.BCheckBox chkAllRule;
         private BISTel.PeakPerformance.Client.BISTelControl.BCheckBox chkTechLimit;
-        private BISTel.PeakPerformance.Client.BISTelControl.BCheckBox chkCompensation;
         private BISTel.PeakPerformance.Client.BISTelControl.BCheckBox chkGenerateSubChartWithAutoCalculation;
         private BISTel.PeakPerformance.Client.BISTelControl.BCheckBox chkUseNorm;
-        private BISTel.PeakPerformance.Client.BISTelControl.BCheckBox chkIQRFilter;
         private BISTel.PeakPerformance.Client.BISTelControl.BCheckBox chkMode;
-        private PeakPerformance.Client.BISTelControl.BCheckBox chkThresholdFuntionOff;
         private PeakPerformance.Client.BISTelControl.BCheckBox chkChartDesc;
         private PeakPerformance.Client.BISTelControl.BCheckBox chkMR;
         private PeakPerformance.Client.BISTelControl.BCheckBox chkMRControlLimit;
-        private PeakPerformance.Client.BISTelControl.BCheckBox chkGlobal;
         private PeakPerformance.Client.BISTelControl.BCheckBox chkContextInform;
+        private System.Windows.Forms.Panel pnlContextLineFirst;
+        private System.Windows.Forms.Panel pnlContextLineThird;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Panel pnlContextLineSecond;
+        private PeakPerformance.Client.BISTelControl.BCheckBox chkGlobal;
+        private PeakPerformance.Client.BISTelControl.BCheckBox chkDefaultPeriod;
+        private PeakPerformance.Client.BISTelControl.BCheckBox chkIQRFilter;
+        private PeakPerformance.Client.BISTelControl.BCheckBox chkThresholdFuntionOff;
+        private PeakPerformance.Client.BISTelControl.BCheckBox chkCompensation;
+        private PeakPerformance.Client.BISTelControl.BCheckBox chkControlLimitThreshold;
+        private PeakPerformance.Client.BISTelControl.BCheckBox chkControlLimitToUse;
+        private PeakPerformance.Client.BISTelControl.BCheckBox chkMaximumPeriodToUse;
+        private PeakPerformance.Client.BISTelControl.BCheckBox chkAutoCalculationCount;
+        private PeakPerformance.Client.BISTelControl.BCheckBox chkMinimumSamplesToUse;
+        private PeakPerformance.Client.BISTelControl.BCheckBox chkAutoCalculationPeriod;
 
     }
 }

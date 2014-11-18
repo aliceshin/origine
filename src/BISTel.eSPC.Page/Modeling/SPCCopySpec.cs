@@ -396,7 +396,7 @@ namespace BISTel.eSPC.Page.Modeling
 
             this._ws = new WebServiceController<eSPCWebService.eSPCWebService>().Create();
 
-            this.ContentsAreaMinWidth = 660;
+            this.ContentsAreaMinWidth = 690;
             this.ContentsAreaMinHeight = 725;
         }
 
@@ -474,7 +474,9 @@ namespace BISTel.eSPC.Page.Modeling
             if (ValidateChange())
             {
                 LinkedList llCheckItems = new LinkedList();
-                this.SetOldCopyInfo(this.btpnlContext, llCheckItems, this._contextCount, this.chkAllContext);
+                this.SetOldCopyInfo(this.pnlContextLineFirst, llCheckItems, this._contextCount, this.chkAllContext); //SPC-1349
+                this.SetOldCopyInfo(this.pnlContextLineSecond, llCheckItems, this._contextCount, this.chkAllContext); //SPC-1349
+                this.SetOldCopyInfo(this.pnlContextLineThird, llCheckItems, this._contextCount, this.chkAllContext); //SPC-1349
                 this.SetOldCopyInfo(this.btpnlRule, llCheckItems, this._ruleCount, this.chkAllRule);
                 this.SetOldCopyInfo(this.btpnlOption, llCheckItems, this._optionCount, this.chkAllOption);
                 this.SetOldCopyInfo(this.btpnlAutoCalculation, llCheckItems, this._autoCalcCount, this.chkAllAutoCalculation);
@@ -499,7 +501,8 @@ namespace BISTel.eSPC.Page.Modeling
 
         public void InitializePopup()
         {
-            this._contextCount = InitializeCopyItemCount(this.btpnlContext);
+            this._contextCount = InitializeCopyItemCount(this.pnlContextLineFirst) +
+                InitializeCopyItemCount(this.pnlContextLineSecond) + InitializeCopyItemCount(this.pnlContextLineThird); //SPC-1349, KBLEE
             this._ruleCount= InitializeCopyItemCount(this.btpnlRule);
             this._optionCount = InitializeCopyItemCount(this.btpnlOption);
             this._autoCalcCount = InitializeCopyItemCount(this.btpnlAutoCalculation);
@@ -517,7 +520,10 @@ namespace BISTel.eSPC.Page.Modeling
 
             if (_oldSpcModelInfo != null && this._configRawID == this._oldSpcModelInfo.CONFIG_RAW_ID)
             {
-                InitailizeOldCopyInfo(this.btpnlContext);
+                //InitailizeOldCopyInfo(this.btpnlContext);
+                InitailizeOldCopyInfo(this.pnlContextLineFirst);
+                InitailizeOldCopyInfo(this.pnlContextLineSecond);
+                InitailizeOldCopyInfo(this.pnlContextLineThird);
                 InitailizeOldCopyInfo(this.btpnlRule);
                 InitailizeOldCopyInfo(this.btpnlOption);
                 InitailizeOldCopyInfo(this.btpnlAutoCalculation);
@@ -672,7 +678,17 @@ namespace BISTel.eSPC.Page.Modeling
             this.chkUseNorm.Enabled = isMain;
             this.chkContextInform.Enabled = isMain; //SPC-1218, KBLEE
 
-            this.chkInherittheSpecOfMain.Enabled = !isMain;
+            //SPC-1349, KBLEE, START
+            this.chkAutoGenerateSubChart.Visible = isMain;
+            this.chkActive.Visible = isMain;
+            this.chkAutoSetting.Visible = isMain;
+            this.chkGenerateSubChartWithInterlock.Visible = isMain;
+            this.chkGenerateSubChartWithAutoCalculation.Visible = isMain;
+            this.chkUseNorm.Visible = isMain;
+            this.chkContextInform.Visible = isMain;
+            //SPC-1349, KBLEE, END
+
+            this.chkInherittheSpecOfMain.Visible = !isMain;
 
             if (isMain)
             {
@@ -708,7 +724,9 @@ namespace BISTel.eSPC.Page.Modeling
         {
             bool bResult = false;
 
-            if (ValidateControlChange(btpnlContext) ||
+            if (ValidateControlChange(pnlContextLineFirst) ||
+                ValidateControlChange(pnlContextLineSecond) ||
+                ValidateControlChange(pnlContextLineThird) ||
                 ValidateControlChange(btpnlRule) ||
                 ValidateControlChange(btpnlOption) ||
                 ValidateControlChange(btpnlAutoCalculation) ||

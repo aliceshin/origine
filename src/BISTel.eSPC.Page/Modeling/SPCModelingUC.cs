@@ -4460,6 +4460,68 @@ namespace BISTel.eSPC.Page.Modeling
                         sbResult.AppendLine(MSGHandler.GetMessage(Definition.MSG_KEY_FAIL_SAVE_CHANGE_DATA));
                     }
 
+                    //SPC-1347, KBLEE, START
+                    bool isSameContextExist = false;
+                    bool isContextCopyMode = false;
+
+                    for (int i = 0; i < llstTotalConfigInfo.Count; i++)
+                    {
+                        LinkedList llstTemp = (LinkedList)llstTotalConfigInfo[i];
+
+                        if (llstTemp[Definition.COPY_MODEL.CONTEXT_CONTEXT_INFORMATION].ToString().Equals("Y"))
+                        {
+                            LinkedList llstParam = new LinkedList();
+                            llstParam.Add(Definition.COL_MODEL_CONFIG_RAWID, sourceConfigRawID);
+                            byte[] baParam = llstParam.GetSerialData();
+
+                            DataSet dsSourceContext = _wsSPC.GetSPCContextListByConfigRawId(baParam);
+                            DataTable dtSourceContext = dsSourceContext.Tables[0];
+
+                            llstParam.Clear();
+                            llstParam.Add(Definition.COL_MODEL_CONFIG_RAWID, llstTemp[Definition.COPY_MODEL.TARGET_MODEL_CONFIG_RAWID].ToString());
+                            baParam = llstParam.GetSerialData();
+
+                            DataSet dsTargetContext = _wsSPC.GetSPCContextListByConfigRawId(baParam);
+                            DataTable dtTargetContext = dsTargetContext.Tables[0];
+
+                            for (int j = 0; j < dtSourceContext.Rows.Count; j++)
+                            {
+                                DataRow drSource = dtSourceContext.Rows[j];
+                                string contextValueSource = drSource[Definition.CONTEXT_TYPE_CONTEXT_KEY].ToString();
+
+                                for (int k = 0; k < dtTargetContext.Rows.Count; k++)
+                                {
+                                    DataRow drTarget = dtTargetContext.Rows[k];
+                                    string contextValueTarget = drTarget[Definition.CONTEXT_TYPE_CONTEXT_KEY].ToString();
+
+                                    if (contextValueSource.Equals(contextValueTarget))
+                                    {
+                                        isSameContextExist = true;
+                                        break;
+                                    }
+                                }
+
+                                isContextCopyMode = true;
+
+                                if (isSameContextExist)
+                                {
+                                    break;
+                                }
+                            }
+                        }
+
+                        if (isSameContextExist)
+                        {
+                            break;
+                        }
+                    }
+
+                    if (!isSameContextExist && isContextCopyMode)
+                    {
+                        MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_NO_SAME_CONTEXT", null, null);
+                    }                 
+                    //SPC-1347, KBLEE, END
+
                     this.ConfigListDataBinding();
 
                     Panel pnlDumy = new Panel();

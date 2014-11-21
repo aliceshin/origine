@@ -433,7 +433,7 @@ namespace BISTel.eSPC.Page.Modeling
                 dt = (DataTable)llCondition[Definition.CONDITION_SEARCH_KEY_EQPMODEL];
                 this._sEQPModel = dt.Rows[0][DCUtil.VALUE_FIELD].ToString();
                 ComponentCondition.GetInstance().Set(Definition.CONDITION_SEARCH_KEY_EQPMODEL, this._sEQPModel);
-                
+
                 if (!llCondition.Contains(Definition.CONDITION_SEARCH_KEY_SPCMODEL))
                 {
                     MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_SELECT_MODEL", null, null);
@@ -452,7 +452,7 @@ namespace BISTel.eSPC.Page.Modeling
             else
             {
                 this._sEQPModel = "";
-                ComponentCondition.GetInstance().Set(Definition.CONDITION_SEARCH_KEY_EQPMODEL, this._sEQPModel);
+                //ComponentCondition.GetInstance().Set(Definition.CONDITION_SEARCH_KEY_EQPMODEL, this._sEQPModel);
                 if (!llCondition.Contains(Definition.CONDITION_SEARCH_KEY_SPCMODEL))
                 {
                     MSGHandler.DisplayMessage(MSGType.Information, "SPC_INFO_SELECT_MODEL", null, null);
@@ -506,7 +506,7 @@ namespace BISTel.eSPC.Page.Modeling
                     return;
                 }
             }
-            
+
 
             //if (llCondition.Contains(Definition.DynamicCondition_Condition_key.EQP_ID))
             //{

@@ -10722,11 +10722,11 @@ namespace BISTel.eSPC.Data.Server.Modeling
 
                     if (isMET)
                     {
-                        sb.Append(" AND A.PARAM_TYPE_CD = 'MET'                                      ");
+                        sb.Append(" AND c.PARAM_TYPE_CD = 'MET'                                      ");
                     }
                     else
                     {
-                        sb.Append(" AND A.PARAM_TYPE_CD != 'MET'                                     ");
+                        sb.Append(" AND c.PARAM_TYPE_CD != 'MET'                                     ");
                     }
 
                     sb.Append("AND b.location_rawid = d.location_rawid(+) ");

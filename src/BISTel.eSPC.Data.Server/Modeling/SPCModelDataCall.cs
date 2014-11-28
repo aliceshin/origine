@@ -12021,6 +12021,123 @@ namespace BISTel.eSPC.Data.Server.Modeling
             return dsResult;
         }
 
+        public DataSet GetEQPModelFilter(string userRawid)
+        {
+            DataSet dsResult = new DataSet();
+            StringBuilder sb = new StringBuilder();
+
+            try
+            {
+                sb.Append(" SELECT B.* FROM                                                           ");
+                sb.Append("     (SELECT A.RAWID, ZZ.GROUP_RAWID, A.USER_ID, ZZ.GROUP_ID               ");
+                sb.Append("     FROM USER_MST_PP A, LOCATION_MST_PP E, AREA_MST_PP F,                 ");
+                sb.Append("          (SELECT USER_RAWID, GROUP_ID, D.RAWID AS GROUP_RAWID             ");
+                sb.Append("           FROM USER_GROUP_LINK_MST_PP B, USER_COND_GROUPSET_MST_PP C,     ");
+                sb.Append("            USER_GROUP_MST_PP D                                            ");
+                sb.Append("           WHERE B.END_DTTS > SYSTIMESTAMP                                 ");
+                sb.Append("              AND C.USER_COND_RAWID = B.RAWID                              ");
+                sb.Append("              AND C.GROUP_RAWID = D.RAWID                                  ");
+                sb.Append("              AND C.END_DTTS > SYSTIMESTAMP ) ZZ                           ");
+                sb.Append("      WHERE ZZ.USER_RAWID(+) = A.RAWID AND A.LOCATION_RAWID = E.RAWID(+)   ");
+                sb.Append("          AND A.AREA_RAWID = F.RAWID(+)                                    ");
+                sb.Append(string.Format("     AND A.RAWID = {0}                           ", userRawid));
+                sb.Append("          ORDER BY A.USER_ID) A, DATA_RESTRICT_MST_FDC B                   ");
+                sb.Append("  WHERE B.USER_GROUP_RAWID = A.GROUP_RAWID                                 ");
+                sb.Append("  AND RESTRICT_TYPE_CD = 'EQ'                                              ");
+
+                dsResult = base.Query(sb.ToString());
+
+                if (dsResult != null && dsResult.Tables.Count > 0 && dsResult.Tables[0].Rows.Count > 0)
+                {
+                    ArrayList arrEqp = new ArrayList();
+                    
+                    foreach (DataRow dr in dsResult.Tables[0].Rows)
+                    {
+                        string[] strValues = dr[Definition.DATA_FILTER].ToString().Split('=')[1].Split(',');
+
+                        for (int i = 0; i < strValues.Length; i++)
+                        {
+                            if (!arrEqp.Contains(strValues[i]))
+                            {
+                                arrEqp.Add(strValues[i].ToString());
+                            }
+                        }
+                    }
+
+                    if (arrEqp.Count > 0)
+                    {
+                        sb.Remove(0, sb.Length);
+                        sb.Append(" SELECT DISTINCT location_rawid AS line_rawid, area_rawid, eqp_model , eqp_id    ");
+                        sb.Append("  FROM eqp_mst_pp emp                                                            ");
+                        sb.Append(" where ( eqp_id IN (");
+
+                        int cnt = (int)arrEqp.Count / 1000;
+                        int mod = arrEqp.Count % 1000;
+
+                        if (cnt != 0)
+                        {
+                            for (int i = 0; i < cnt; i++)
+                            {
+                                for (int j = i * 1000; j < i * 1000 + 1000; j++)
+                                {
+                                    if (j == (i * 1000 + 1000) - 1)
+                                    {
+                                        sb.Append("'" + arrEqp[j] + "'");
+                                    }
+                                    else
+                                    {
+                                        sb.Append("'" + arrEqp[j] + "',");
+                                    }
+                                }
+                                if (i < cnt)
+                                {
+                                    sb.Append(") OR eqp_id IN (");
+                                }
+                            }
+
+                            sb.Append(") ");
+                        }
+
+                        if (mod != 0)
+                        {
+                            if (cnt != 0)
+                            {
+                                sb.Append(" OR eqp_id IN (");
+                            }
+
+                            for (int i = (1000 * cnt); i < (1000 * cnt) + mod; i++)
+                            {
+                                if (i == (1000 * cnt) + mod - 1)
+                                {
+                                    sb.Append("'" + arrEqp[i] + "'");
+                                }
+                                else
+                                {
+                                    sb.Append("'" + arrEqp[i] + "',");
+                                }
+                            }
+                        }
+
+                        sb.Append(") ");
+                        sb.Append(") ORDER BY line_rawid, area_rawid, eqp_model                                     ");
+
+                        dsResult = base.Query(sb.ToString());
+                    }
+                }
+                else
+                {
+                    dsResult = null;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                BISTel.PeakPerformance.Client.CommonLibrary.LogHandler.ExceptionLogWrite(Definition.APPLICATION_NAME, new string[] { ex.Message, ex.Source, ex.StackTrace });
+            }
+
+            return dsResult;
+        }
+
         //SPC-930, KBLEE, START
         public DataSet GetRuleListByChartType(byte[] baData)
         {

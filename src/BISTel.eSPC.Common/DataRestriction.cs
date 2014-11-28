@@ -208,7 +208,7 @@ namespace BISTel.eSPC.Common
                         strInclude += "'" + sValue + "',";
                     }
 
-                    strInclude = strInclude.Remove(strInclude.Length - 1, 1) + ") AND ";
+                    strInclude = strInclude.Remove(strInclude.Length - 1, 1) + ") OR ";
                     
                 }
             }
@@ -216,7 +216,7 @@ namespace BISTel.eSPC.Common
             if (strInclude.Length == 0)
                 return string.Empty;
 
-            strInclude = strInclude.Remove(strInclude.Length - 5, 5);
+            strInclude = strInclude.Remove(strInclude.Length - 4, 4);
 
             return strInclude;
         }

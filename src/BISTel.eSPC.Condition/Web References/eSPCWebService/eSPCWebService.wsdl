@@ -2,6 +2,151 @@
 <wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="GetATTSPCControlChartData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="baData" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetATTSPCControlChartDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetATTSPCControlChartDataResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetATTLastTRXDataDTTs">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="modelConfigRawid" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetATTLastTRXDataDTTsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetATTLastTRXDataDTTsResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetATTSPCModelHistoryInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="baData" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetATTSPCModelHistoryInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetATTSPCModelHistoryInfoResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetATTSPCModelContextInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="baData" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetATTSPCModelContextInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetATTSPCModelContextInfoResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetATTGroupInfoByChartId">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="chartId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetATTGroupInfoByChartIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetATTGroupInfoByChartIdResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveATTSPCCalcModelData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="param" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveATTSPCCalcModelDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SaveATTSPCCalcModelDataResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetATTTargetConfigSpecData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="targetList" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetATTTargetConfigSpecDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetATTTargetConfigSpecDataResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetATTSourseConfigSpecData">
         <s:complexType>
           <s:sequence>
@@ -626,6 +771,41 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetTheNumberOfATTSubConfigOfModel">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="modelConfigRawid" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTheNumberOfATTSubConfigOfModelResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetTheNumberOfATTSubConfigOfModelResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSPCContextListByConfigRawId">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="baData" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSPCContextListByConfigRawIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSPCContextListByConfigRawIdResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetBaseInfoWithEQPID">
         <s:complexType>
           <s:sequence>
@@ -668,6 +848,65 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetRestrictionFilter">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userRawid" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRestrictionFilterResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetRestrictionFilterResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetEQPModelFilter">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userRawid" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetEQPModelFilterResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetEQPModelFilterResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetContextTypeData">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetContextTypeDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetContextTypeDataResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="SaveToggleInformation">
         <s:complexType>
           <s:sequence>
@@ -679,11 +918,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="ArrayOfString">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="SaveToggleInformationResponse">
         <s:complexType>
           <s:sequence>
@@ -1588,6 +1822,153 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetEqpSummaryTrxFileData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="badata" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetEqpSummaryTrxFileDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetEqpSummaryTrxFileDataResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetEqpModuleInfoByParamAlias">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="badata" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetEqpModuleInfoByParamAliasResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetEqpModuleInfoByParamAliasResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRecipeStepByEqpModuleId">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="badata" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRecipeStepByEqpModuleIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetRecipeStepByEqpModuleIdResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetConfigInfoByRawId">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="badata" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetConfigInfoByRawIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetConfigInfoByRawIdResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetModuleNameByModuleId">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="badata" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetModuleNameByModuleIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetModuleNameByModuleIdResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRuleListByChartType">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="badata" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRuleListByChartTypeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetRuleListByChartTypeResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRuleOptionByRuleNo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="badata" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRuleOptionByRuleNoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetRuleOptionByRuleNoResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetATTCodeData">
         <s:complexType>
           <s:sequence>
@@ -2179,146 +2560,6 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="GetATTSPCCalcModelDataPopupResult">
-              <s:complexType>
-                <s:sequence>
-                  <s:element ref="s:schema" />
-                  <s:any />
-                </s:sequence>
-              </s:complexType>
-            </s:element>
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetATTSPCControlChartData">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="baData" type="s:base64Binary" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetATTSPCControlChartDataResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetATTSPCControlChartDataResult">
-              <s:complexType>
-                <s:sequence>
-                  <s:element ref="s:schema" />
-                  <s:any />
-                </s:sequence>
-              </s:complexType>
-            </s:element>
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetATTLastTRXDataDTTs">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="modelConfigRawid" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetATTLastTRXDataDTTsResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetATTLastTRXDataDTTsResult">
-              <s:complexType>
-                <s:sequence>
-                  <s:element ref="s:schema" />
-                  <s:any />
-                </s:sequence>
-              </s:complexType>
-            </s:element>
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetATTSPCModelHistoryInfo">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="baData" type="s:base64Binary" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetATTSPCModelHistoryInfoResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetATTSPCModelHistoryInfoResult">
-              <s:complexType>
-                <s:sequence>
-                  <s:element ref="s:schema" />
-                  <s:any />
-                </s:sequence>
-              </s:complexType>
-            </s:element>
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetATTSPCModelContextInfo">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="baData" type="s:base64Binary" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetATTSPCModelContextInfoResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetATTSPCModelContextInfoResult">
-              <s:complexType>
-                <s:sequence>
-                  <s:element ref="s:schema" />
-                  <s:any />
-                </s:sequence>
-              </s:complexType>
-            </s:element>
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetATTGroupInfoByChartId">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="chartId" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetATTGroupInfoByChartIdResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetATTGroupInfoByChartIdResult">
-              <s:complexType>
-                <s:sequence>
-                  <s:element ref="s:schema" />
-                  <s:any />
-                </s:sequence>
-              </s:complexType>
-            </s:element>
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="SaveATTSPCCalcModelData">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="param" type="s:base64Binary" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="SaveATTSPCCalcModelDataResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="SaveATTSPCCalcModelDataResult" type="s:boolean" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetATTTargetConfigSpecData">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="targetList" type="tns:ArrayOfString" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetATTTargetConfigSpecDataResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetATTTargetConfigSpecDataResult">
               <s:complexType>
                 <s:sequence>
                   <s:element ref="s:schema" />
@@ -4031,6 +4272,48 @@
       </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="GetATTSPCControlChartDataSoapIn">
+    <wsdl:part name="parameters" element="tns:GetATTSPCControlChartData" />
+  </wsdl:message>
+  <wsdl:message name="GetATTSPCControlChartDataSoapOut">
+    <wsdl:part name="parameters" element="tns:GetATTSPCControlChartDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetATTLastTRXDataDTTsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetATTLastTRXDataDTTs" />
+  </wsdl:message>
+  <wsdl:message name="GetATTLastTRXDataDTTsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetATTLastTRXDataDTTsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetATTSPCModelHistoryInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetATTSPCModelHistoryInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetATTSPCModelHistoryInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetATTSPCModelHistoryInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetATTSPCModelContextInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetATTSPCModelContextInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetATTSPCModelContextInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetATTSPCModelContextInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetATTGroupInfoByChartIdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetATTGroupInfoByChartId" />
+  </wsdl:message>
+  <wsdl:message name="GetATTGroupInfoByChartIdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetATTGroupInfoByChartIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="SaveATTSPCCalcModelDataSoapIn">
+    <wsdl:part name="parameters" element="tns:SaveATTSPCCalcModelData" />
+  </wsdl:message>
+  <wsdl:message name="SaveATTSPCCalcModelDataSoapOut">
+    <wsdl:part name="parameters" element="tns:SaveATTSPCCalcModelDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetATTTargetConfigSpecDataSoapIn">
+    <wsdl:part name="parameters" element="tns:GetATTTargetConfigSpecData" />
+  </wsdl:message>
+  <wsdl:message name="GetATTTargetConfigSpecDataSoapOut">
+    <wsdl:part name="parameters" element="tns:GetATTTargetConfigSpecDataResponse" />
+  </wsdl:message>
   <wsdl:message name="GetATTSourseConfigSpecDataSoapIn">
     <wsdl:part name="parameters" element="tns:GetATTSourseConfigSpecData" />
   </wsdl:message>
@@ -4217,6 +4500,18 @@
   <wsdl:message name="SaveATTSPCModelMappingSoapOut">
     <wsdl:part name="parameters" element="tns:SaveATTSPCModelMappingResponse" />
   </wsdl:message>
+  <wsdl:message name="GetTheNumberOfATTSubConfigOfModelSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTheNumberOfATTSubConfigOfModel" />
+  </wsdl:message>
+  <wsdl:message name="GetTheNumberOfATTSubConfigOfModelSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTheNumberOfATTSubConfigOfModelResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSPCContextListByConfigRawIdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSPCContextListByConfigRawId" />
+  </wsdl:message>
+  <wsdl:message name="GetSPCContextListByConfigRawIdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSPCContextListByConfigRawIdResponse" />
+  </wsdl:message>
   <wsdl:message name="GetBaseInfoWithEQPIDSoapIn">
     <wsdl:part name="parameters" element="tns:GetBaseInfoWithEQPID" />
   </wsdl:message>
@@ -4228,6 +4523,24 @@
   </wsdl:message>
   <wsdl:message name="GetSPCModelListbyBaseInfoSoapOut">
     <wsdl:part name="parameters" element="tns:GetSPCModelListbyBaseInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetRestrictionFilterSoapIn">
+    <wsdl:part name="parameters" element="tns:GetRestrictionFilter" />
+  </wsdl:message>
+  <wsdl:message name="GetRestrictionFilterSoapOut">
+    <wsdl:part name="parameters" element="tns:GetRestrictionFilterResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetEQPModelFilterSoapIn">
+    <wsdl:part name="parameters" element="tns:GetEQPModelFilter" />
+  </wsdl:message>
+  <wsdl:message name="GetEQPModelFilterSoapOut">
+    <wsdl:part name="parameters" element="tns:GetEQPModelFilterResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetContextTypeDataSoapIn">
+    <wsdl:part name="parameters" element="tns:GetContextTypeData" />
+  </wsdl:message>
+  <wsdl:message name="GetContextTypeDataSoapOut">
+    <wsdl:part name="parameters" element="tns:GetContextTypeDataResponse" />
   </wsdl:message>
   <wsdl:message name="SaveToggleInformationSoapIn">
     <wsdl:part name="parameters" element="tns:SaveToggleInformation" />
@@ -4517,6 +4830,48 @@
   <wsdl:message name="GetParamAliasSoapOut">
     <wsdl:part name="parameters" element="tns:GetParamAliasResponse" />
   </wsdl:message>
+  <wsdl:message name="GetEqpSummaryTrxFileDataSoapIn">
+    <wsdl:part name="parameters" element="tns:GetEqpSummaryTrxFileData" />
+  </wsdl:message>
+  <wsdl:message name="GetEqpSummaryTrxFileDataSoapOut">
+    <wsdl:part name="parameters" element="tns:GetEqpSummaryTrxFileDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetEqpModuleInfoByParamAliasSoapIn">
+    <wsdl:part name="parameters" element="tns:GetEqpModuleInfoByParamAlias" />
+  </wsdl:message>
+  <wsdl:message name="GetEqpModuleInfoByParamAliasSoapOut">
+    <wsdl:part name="parameters" element="tns:GetEqpModuleInfoByParamAliasResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetRecipeStepByEqpModuleIdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetRecipeStepByEqpModuleId" />
+  </wsdl:message>
+  <wsdl:message name="GetRecipeStepByEqpModuleIdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetRecipeStepByEqpModuleIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetConfigInfoByRawIdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetConfigInfoByRawId" />
+  </wsdl:message>
+  <wsdl:message name="GetConfigInfoByRawIdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetConfigInfoByRawIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetModuleNameByModuleIdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetModuleNameByModuleId" />
+  </wsdl:message>
+  <wsdl:message name="GetModuleNameByModuleIdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetModuleNameByModuleIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetRuleListByChartTypeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetRuleListByChartType" />
+  </wsdl:message>
+  <wsdl:message name="GetRuleListByChartTypeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetRuleListByChartTypeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetRuleOptionByRuleNoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetRuleOptionByRuleNo" />
+  </wsdl:message>
+  <wsdl:message name="GetRuleOptionByRuleNoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetRuleOptionByRuleNoResponse" />
+  </wsdl:message>
   <wsdl:message name="GetATTCodeDataSoapIn">
     <wsdl:part name="parameters" element="tns:GetATTCodeData" />
   </wsdl:message>
@@ -4696,48 +5051,6 @@
   </wsdl:message>
   <wsdl:message name="GetATTSPCCalcModelDataPopupSoapOut">
     <wsdl:part name="parameters" element="tns:GetATTSPCCalcModelDataPopupResponse" />
-  </wsdl:message>
-  <wsdl:message name="GetATTSPCControlChartDataSoapIn">
-    <wsdl:part name="parameters" element="tns:GetATTSPCControlChartData" />
-  </wsdl:message>
-  <wsdl:message name="GetATTSPCControlChartDataSoapOut">
-    <wsdl:part name="parameters" element="tns:GetATTSPCControlChartDataResponse" />
-  </wsdl:message>
-  <wsdl:message name="GetATTLastTRXDataDTTsSoapIn">
-    <wsdl:part name="parameters" element="tns:GetATTLastTRXDataDTTs" />
-  </wsdl:message>
-  <wsdl:message name="GetATTLastTRXDataDTTsSoapOut">
-    <wsdl:part name="parameters" element="tns:GetATTLastTRXDataDTTsResponse" />
-  </wsdl:message>
-  <wsdl:message name="GetATTSPCModelHistoryInfoSoapIn">
-    <wsdl:part name="parameters" element="tns:GetATTSPCModelHistoryInfo" />
-  </wsdl:message>
-  <wsdl:message name="GetATTSPCModelHistoryInfoSoapOut">
-    <wsdl:part name="parameters" element="tns:GetATTSPCModelHistoryInfoResponse" />
-  </wsdl:message>
-  <wsdl:message name="GetATTSPCModelContextInfoSoapIn">
-    <wsdl:part name="parameters" element="tns:GetATTSPCModelContextInfo" />
-  </wsdl:message>
-  <wsdl:message name="GetATTSPCModelContextInfoSoapOut">
-    <wsdl:part name="parameters" element="tns:GetATTSPCModelContextInfoResponse" />
-  </wsdl:message>
-  <wsdl:message name="GetATTGroupInfoByChartIdSoapIn">
-    <wsdl:part name="parameters" element="tns:GetATTGroupInfoByChartId" />
-  </wsdl:message>
-  <wsdl:message name="GetATTGroupInfoByChartIdSoapOut">
-    <wsdl:part name="parameters" element="tns:GetATTGroupInfoByChartIdResponse" />
-  </wsdl:message>
-  <wsdl:message name="SaveATTSPCCalcModelDataSoapIn">
-    <wsdl:part name="parameters" element="tns:SaveATTSPCCalcModelData" />
-  </wsdl:message>
-  <wsdl:message name="SaveATTSPCCalcModelDataSoapOut">
-    <wsdl:part name="parameters" element="tns:SaveATTSPCCalcModelDataResponse" />
-  </wsdl:message>
-  <wsdl:message name="GetATTTargetConfigSpecDataSoapIn">
-    <wsdl:part name="parameters" element="tns:GetATTTargetConfigSpecData" />
-  </wsdl:message>
-  <wsdl:message name="GetATTTargetConfigSpecDataSoapOut">
-    <wsdl:part name="parameters" element="tns:GetATTTargetConfigSpecDataResponse" />
   </wsdl:message>
   <wsdl:message name="HelloWorldSoapIn">
     <wsdl:part name="parameters" element="tns:HelloWorld" />
@@ -5244,6 +5557,34 @@
     <wsdl:part name="parameters" element="tns:GetMetEQPDataResponse" />
   </wsdl:message>
   <wsdl:portType name="eSPCWebServiceSoap">
+    <wsdl:operation name="GetATTSPCControlChartData">
+      <wsdl:input message="tns:GetATTSPCControlChartDataSoapIn" />
+      <wsdl:output message="tns:GetATTSPCControlChartDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetATTLastTRXDataDTTs">
+      <wsdl:input message="tns:GetATTLastTRXDataDTTsSoapIn" />
+      <wsdl:output message="tns:GetATTLastTRXDataDTTsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetATTSPCModelHistoryInfo">
+      <wsdl:input message="tns:GetATTSPCModelHistoryInfoSoapIn" />
+      <wsdl:output message="tns:GetATTSPCModelHistoryInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetATTSPCModelContextInfo">
+      <wsdl:input message="tns:GetATTSPCModelContextInfoSoapIn" />
+      <wsdl:output message="tns:GetATTSPCModelContextInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetATTGroupInfoByChartId">
+      <wsdl:input message="tns:GetATTGroupInfoByChartIdSoapIn" />
+      <wsdl:output message="tns:GetATTGroupInfoByChartIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveATTSPCCalcModelData">
+      <wsdl:input message="tns:SaveATTSPCCalcModelDataSoapIn" />
+      <wsdl:output message="tns:SaveATTSPCCalcModelDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetATTTargetConfigSpecData">
+      <wsdl:input message="tns:GetATTTargetConfigSpecDataSoapIn" />
+      <wsdl:output message="tns:GetATTTargetConfigSpecDataSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetATTSourseConfigSpecData">
       <wsdl:input message="tns:GetATTSourseConfigSpecDataSoapIn" />
       <wsdl:output message="tns:GetATTSourseConfigSpecDataSoapOut" />
@@ -5368,6 +5709,14 @@
       <wsdl:input message="tns:SaveATTSPCModelMappingSoapIn" />
       <wsdl:output message="tns:SaveATTSPCModelMappingSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetTheNumberOfATTSubConfigOfModel">
+      <wsdl:input message="tns:GetTheNumberOfATTSubConfigOfModelSoapIn" />
+      <wsdl:output message="tns:GetTheNumberOfATTSubConfigOfModelSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSPCContextListByConfigRawId">
+      <wsdl:input message="tns:GetSPCContextListByConfigRawIdSoapIn" />
+      <wsdl:output message="tns:GetSPCContextListByConfigRawIdSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetBaseInfoWithEQPID">
       <wsdl:input message="tns:GetBaseInfoWithEQPIDSoapIn" />
       <wsdl:output message="tns:GetBaseInfoWithEQPIDSoapOut" />
@@ -5375,6 +5724,18 @@
     <wsdl:operation name="GetSPCModelListbyBaseInfo">
       <wsdl:input message="tns:GetSPCModelListbyBaseInfoSoapIn" />
       <wsdl:output message="tns:GetSPCModelListbyBaseInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRestrictionFilter">
+      <wsdl:input message="tns:GetRestrictionFilterSoapIn" />
+      <wsdl:output message="tns:GetRestrictionFilterSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEQPModelFilter">
+      <wsdl:input message="tns:GetEQPModelFilterSoapIn" />
+      <wsdl:output message="tns:GetEQPModelFilterSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetContextTypeData">
+      <wsdl:input message="tns:GetContextTypeDataSoapIn" />
+      <wsdl:output message="tns:GetContextTypeDataSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="SaveToggleInformation">
       <wsdl:input message="tns:SaveToggleInformationSoapIn" />
@@ -5568,6 +5929,34 @@
       <wsdl:input message="tns:GetParamAliasSoapIn" />
       <wsdl:output message="tns:GetParamAliasSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetEqpSummaryTrxFileData">
+      <wsdl:input message="tns:GetEqpSummaryTrxFileDataSoapIn" />
+      <wsdl:output message="tns:GetEqpSummaryTrxFileDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEqpModuleInfoByParamAlias">
+      <wsdl:input message="tns:GetEqpModuleInfoByParamAliasSoapIn" />
+      <wsdl:output message="tns:GetEqpModuleInfoByParamAliasSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRecipeStepByEqpModuleId">
+      <wsdl:input message="tns:GetRecipeStepByEqpModuleIdSoapIn" />
+      <wsdl:output message="tns:GetRecipeStepByEqpModuleIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetConfigInfoByRawId">
+      <wsdl:input message="tns:GetConfigInfoByRawIdSoapIn" />
+      <wsdl:output message="tns:GetConfigInfoByRawIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetModuleNameByModuleId">
+      <wsdl:input message="tns:GetModuleNameByModuleIdSoapIn" />
+      <wsdl:output message="tns:GetModuleNameByModuleIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRuleListByChartType">
+      <wsdl:input message="tns:GetRuleListByChartTypeSoapIn" />
+      <wsdl:output message="tns:GetRuleListByChartTypeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRuleOptionByRuleNo">
+      <wsdl:input message="tns:GetRuleOptionByRuleNoSoapIn" />
+      <wsdl:output message="tns:GetRuleOptionByRuleNoSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetATTCodeData">
       <wsdl:input message="tns:GetATTCodeDataSoapIn" />
       <wsdl:output message="tns:GetATTCodeDataSoapOut" />
@@ -5687,34 +6076,6 @@
     <wsdl:operation name="GetATTSPCCalcModelDataPopup">
       <wsdl:input message="tns:GetATTSPCCalcModelDataPopupSoapIn" />
       <wsdl:output message="tns:GetATTSPCCalcModelDataPopupSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetATTSPCControlChartData">
-      <wsdl:input message="tns:GetATTSPCControlChartDataSoapIn" />
-      <wsdl:output message="tns:GetATTSPCControlChartDataSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetATTLastTRXDataDTTs">
-      <wsdl:input message="tns:GetATTLastTRXDataDTTsSoapIn" />
-      <wsdl:output message="tns:GetATTLastTRXDataDTTsSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetATTSPCModelHistoryInfo">
-      <wsdl:input message="tns:GetATTSPCModelHistoryInfoSoapIn" />
-      <wsdl:output message="tns:GetATTSPCModelHistoryInfoSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetATTSPCModelContextInfo">
-      <wsdl:input message="tns:GetATTSPCModelContextInfoSoapIn" />
-      <wsdl:output message="tns:GetATTSPCModelContextInfoSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetATTGroupInfoByChartId">
-      <wsdl:input message="tns:GetATTGroupInfoByChartIdSoapIn" />
-      <wsdl:output message="tns:GetATTGroupInfoByChartIdSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="SaveATTSPCCalcModelData">
-      <wsdl:input message="tns:SaveATTSPCCalcModelDataSoapIn" />
-      <wsdl:output message="tns:SaveATTSPCCalcModelDataSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetATTTargetConfigSpecData">
-      <wsdl:input message="tns:GetATTTargetConfigSpecDataSoapIn" />
-      <wsdl:output message="tns:GetATTTargetConfigSpecDataSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="HelloWorld">
       <wsdl:input message="tns:HelloWorldSoapIn" />
@@ -6056,6 +6417,69 @@
   </wsdl:portType>
   <wsdl:binding name="eSPCWebServiceSoap" type="tns:eSPCWebServiceSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetATTSPCControlChartData">
+      <soap:operation soapAction="http://tempuri.org/GetATTSPCControlChartData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetATTLastTRXDataDTTs">
+      <soap:operation soapAction="http://tempuri.org/GetATTLastTRXDataDTTs" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetATTSPCModelHistoryInfo">
+      <soap:operation soapAction="http://tempuri.org/GetATTSPCModelHistoryInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetATTSPCModelContextInfo">
+      <soap:operation soapAction="http://tempuri.org/GetATTSPCModelContextInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetATTGroupInfoByChartId">
+      <soap:operation soapAction="http://tempuri.org/GetATTGroupInfoByChartId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveATTSPCCalcModelData">
+      <soap:operation soapAction="http://tempuri.org/SaveATTSPCCalcModelData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetATTTargetConfigSpecData">
+      <soap:operation soapAction="http://tempuri.org/GetATTTargetConfigSpecData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetATTSourseConfigSpecData">
       <soap:operation soapAction="http://tempuri.org/GetATTSourseConfigSpecData" style="document" />
       <wsdl:input>
@@ -6335,6 +6759,24 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetTheNumberOfATTSubConfigOfModel">
+      <soap:operation soapAction="http://tempuri.org/GetTheNumberOfATTSubConfigOfModel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSPCContextListByConfigRawId">
+      <soap:operation soapAction="http://tempuri.org/GetSPCContextListByConfigRawId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetBaseInfoWithEQPID">
       <soap:operation soapAction="http://tempuri.org/GetBaseInfoWithEQPID" style="document" />
       <wsdl:input>
@@ -6346,6 +6788,33 @@
     </wsdl:operation>
     <wsdl:operation name="GetSPCModelListbyBaseInfo">
       <soap:operation soapAction="http://tempuri.org/GetSPCModelListbyBaseInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRestrictionFilter">
+      <soap:operation soapAction="http://tempuri.org/GetRestrictionFilter" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEQPModelFilter">
+      <soap:operation soapAction="http://tempuri.org/GetEQPModelFilter" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetContextTypeData">
+      <soap:operation soapAction="http://tempuri.org/GetContextTypeData" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -6785,6 +7254,69 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetEqpSummaryTrxFileData">
+      <soap:operation soapAction="http://tempuri.org/GetEqpSummaryTrxFileData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEqpModuleInfoByParamAlias">
+      <soap:operation soapAction="http://tempuri.org/GetEqpModuleInfoByParamAlias" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRecipeStepByEqpModuleId">
+      <soap:operation soapAction="http://tempuri.org/GetRecipeStepByEqpModuleId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConfigInfoByRawId">
+      <soap:operation soapAction="http://tempuri.org/GetConfigInfoByRawId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetModuleNameByModuleId">
+      <soap:operation soapAction="http://tempuri.org/GetModuleNameByModuleId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRuleListByChartType">
+      <soap:operation soapAction="http://tempuri.org/GetRuleListByChartType" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRuleOptionByRuleNo">
+      <soap:operation soapAction="http://tempuri.org/GetRuleOptionByRuleNo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetATTCodeData">
       <soap:operation soapAction="http://tempuri.org/GetATTCodeData" style="document" />
       <wsdl:input>
@@ -7048,69 +7580,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetATTSPCCalcModelDataPopup">
       <soap:operation soapAction="http://tempuri.org/GetATTSPCCalcModelDataPopup" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetATTSPCControlChartData">
-      <soap:operation soapAction="http://tempuri.org/GetATTSPCControlChartData" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetATTLastTRXDataDTTs">
-      <soap:operation soapAction="http://tempuri.org/GetATTLastTRXDataDTTs" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetATTSPCModelHistoryInfo">
-      <soap:operation soapAction="http://tempuri.org/GetATTSPCModelHistoryInfo" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetATTSPCModelContextInfo">
-      <soap:operation soapAction="http://tempuri.org/GetATTSPCModelContextInfo" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetATTGroupInfoByChartId">
-      <soap:operation soapAction="http://tempuri.org/GetATTGroupInfoByChartId" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="SaveATTSPCCalcModelData">
-      <soap:operation soapAction="http://tempuri.org/SaveATTSPCCalcModelData" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetATTTargetConfigSpecData">
-      <soap:operation soapAction="http://tempuri.org/GetATTTargetConfigSpecData" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -7877,6 +8346,69 @@
   </wsdl:binding>
   <wsdl:binding name="eSPCWebServiceSoap12" type="tns:eSPCWebServiceSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetATTSPCControlChartData">
+      <soap12:operation soapAction="http://tempuri.org/GetATTSPCControlChartData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetATTLastTRXDataDTTs">
+      <soap12:operation soapAction="http://tempuri.org/GetATTLastTRXDataDTTs" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetATTSPCModelHistoryInfo">
+      <soap12:operation soapAction="http://tempuri.org/GetATTSPCModelHistoryInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetATTSPCModelContextInfo">
+      <soap12:operation soapAction="http://tempuri.org/GetATTSPCModelContextInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetATTGroupInfoByChartId">
+      <soap12:operation soapAction="http://tempuri.org/GetATTGroupInfoByChartId" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveATTSPCCalcModelData">
+      <soap12:operation soapAction="http://tempuri.org/SaveATTSPCCalcModelData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetATTTargetConfigSpecData">
+      <soap12:operation soapAction="http://tempuri.org/GetATTTargetConfigSpecData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetATTSourseConfigSpecData">
       <soap12:operation soapAction="http://tempuri.org/GetATTSourseConfigSpecData" style="document" />
       <wsdl:input>
@@ -8156,6 +8688,24 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetTheNumberOfATTSubConfigOfModel">
+      <soap12:operation soapAction="http://tempuri.org/GetTheNumberOfATTSubConfigOfModel" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSPCContextListByConfigRawId">
+      <soap12:operation soapAction="http://tempuri.org/GetSPCContextListByConfigRawId" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetBaseInfoWithEQPID">
       <soap12:operation soapAction="http://tempuri.org/GetBaseInfoWithEQPID" style="document" />
       <wsdl:input>
@@ -8167,6 +8717,33 @@
     </wsdl:operation>
     <wsdl:operation name="GetSPCModelListbyBaseInfo">
       <soap12:operation soapAction="http://tempuri.org/GetSPCModelListbyBaseInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRestrictionFilter">
+      <soap12:operation soapAction="http://tempuri.org/GetRestrictionFilter" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEQPModelFilter">
+      <soap12:operation soapAction="http://tempuri.org/GetEQPModelFilter" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetContextTypeData">
+      <soap12:operation soapAction="http://tempuri.org/GetContextTypeData" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -8606,6 +9183,69 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetEqpSummaryTrxFileData">
+      <soap12:operation soapAction="http://tempuri.org/GetEqpSummaryTrxFileData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEqpModuleInfoByParamAlias">
+      <soap12:operation soapAction="http://tempuri.org/GetEqpModuleInfoByParamAlias" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRecipeStepByEqpModuleId">
+      <soap12:operation soapAction="http://tempuri.org/GetRecipeStepByEqpModuleId" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConfigInfoByRawId">
+      <soap12:operation soapAction="http://tempuri.org/GetConfigInfoByRawId" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetModuleNameByModuleId">
+      <soap12:operation soapAction="http://tempuri.org/GetModuleNameByModuleId" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRuleListByChartType">
+      <soap12:operation soapAction="http://tempuri.org/GetRuleListByChartType" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRuleOptionByRuleNo">
+      <soap12:operation soapAction="http://tempuri.org/GetRuleOptionByRuleNo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetATTCodeData">
       <soap12:operation soapAction="http://tempuri.org/GetATTCodeData" style="document" />
       <wsdl:input>
@@ -8869,69 +9509,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetATTSPCCalcModelDataPopup">
       <soap12:operation soapAction="http://tempuri.org/GetATTSPCCalcModelDataPopup" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetATTSPCControlChartData">
-      <soap12:operation soapAction="http://tempuri.org/GetATTSPCControlChartData" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetATTLastTRXDataDTTs">
-      <soap12:operation soapAction="http://tempuri.org/GetATTLastTRXDataDTTs" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetATTSPCModelHistoryInfo">
-      <soap12:operation soapAction="http://tempuri.org/GetATTSPCModelHistoryInfo" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetATTSPCModelContextInfo">
-      <soap12:operation soapAction="http://tempuri.org/GetATTSPCModelContextInfo" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetATTGroupInfoByChartId">
-      <soap12:operation soapAction="http://tempuri.org/GetATTGroupInfoByChartId" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="SaveATTSPCCalcModelData">
-      <soap12:operation soapAction="http://tempuri.org/SaveATTSPCCalcModelData" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetATTTargetConfigSpecData">
-      <soap12:operation soapAction="http://tempuri.org/GetATTTargetConfigSpecData" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

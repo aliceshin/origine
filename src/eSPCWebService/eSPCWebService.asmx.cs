@@ -4054,6 +4054,23 @@ namespace eSPCWebService
         }
 
         [WebMethod]
+        public DataSet GetEQPModelFilter(string userRawid)
+        {
+            DataSet _ds = new DataSet();
+            try
+            {
+                BISTel.eSPC.Data.Server.Modeling.SPCModelDataCall data = new BISTel.eSPC.Data.Server.Modeling.SPCModelDataCall();
+                _ds = data.GetEQPModelFilter(userRawid);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return _ds;
+        }
+
+        [WebMethod]
         public DataSet GetContextTypeData()
         {
             DataSet _ds = new DataSet();

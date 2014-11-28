@@ -96,7 +96,7 @@ namespace BISTel.eSPC.Condition.Controls.ComboTree
                 dtTemp.Columns.Add(Definition.CONDITION_SEARCH_KEY_DISPLAYDATA);
                 dtTemp.Columns.Add(Definition.CONDITION_SEARCH_KEY_CHECKED);
 
-                if (ComponentCondition.GetInstance().Contain(Definition.CONDITION_SEARCH_KEY_SITE))
+                if (ComponentCondition.GetInstance().Contains(Definition.CONDITION_SEARCH_KEY_SITE))
                 {
                     DataTable dtSite = dtTemp.Clone();
                     dtSite.Columns.Add(Definition.CONDITION_KEY_SITE);
@@ -111,7 +111,7 @@ namespace BISTel.eSPC.Condition.Controls.ComboTree
                     llParentValue.Add(Definition.DynamicCondition_Search_key.SITE, dtSite);
                 }
 
-                if (ComponentCondition.GetInstance().Contain(Definition.CONDITION_SEARCH_KEY_FAB))
+                if (ComponentCondition.GetInstance().Contains(Definition.CONDITION_SEARCH_KEY_FAB))
                 {
                     DataTable dtFab = dtTemp.Clone();
                     dtFab.Columns.Add(Definition.CONDITION_KEY_FAB);
@@ -128,7 +128,7 @@ namespace BISTel.eSPC.Condition.Controls.ComboTree
                     llParentValue.Add(Definition.DynamicCondition_Search_key.FAB, dtFab);
                 }
 
-                if (ComponentCondition.GetInstance().Contain(Definition.CONDITION_SEARCH_KEY_LINE))
+                if (ComponentCondition.GetInstance().Contains(Definition.CONDITION_SEARCH_KEY_LINE))
                 {
                     DataTable dtLine = dtTemp.Clone();
                     dtLine.Columns.Add(Definition.CONDITION_KEY_LINE);
@@ -147,7 +147,7 @@ namespace BISTel.eSPC.Condition.Controls.ComboTree
                     llParentValue.Add(Definition.DynamicCondition_Search_key.LINE, dtLine);
                 }
 
-                if (ComponentCondition.GetInstance().Contain(Definition.CONDITION_SEARCH_KEY_AREA))
+                if (ComponentCondition.GetInstance().Contains(Definition.CONDITION_SEARCH_KEY_AREA))
                 {
                     DataTable _dtArea = dtTemp.Clone();
                     _dtArea.Columns.Add(Definition.CONDITION_KEY_AREA);
@@ -168,7 +168,7 @@ namespace BISTel.eSPC.Condition.Controls.ComboTree
                     llParentValue.Add(Definition.DynamicCondition_Search_key.AREA, _dtArea);
                 }
 
-                if (ComponentCondition.GetInstance().Contain(Definition.CONDITION_SEARCH_KEY_EQPMODEL))
+                if (ComponentCondition.GetInstance().Contains(Definition.CONDITION_SEARCH_KEY_EQPMODEL))
                 {
                     DataTable dtEQPModel = dtTemp.Clone();
                     dtEQPModel.Columns.Add(Definition.CONDITION_KEY_EQPMODEL);
@@ -191,7 +191,7 @@ namespace BISTel.eSPC.Condition.Controls.ComboTree
                     llParentValue.Add(Definition.CONDITION_SEARCH_KEY_EQPMODEL, dtEQPModel);
                 }
 
-                if (ComponentCondition.GetInstance().Contain(Definition.CONDITION_SEARCH_KEY_FILTER))
+                if (ComponentCondition.GetInstance().Contains(Definition.CONDITION_SEARCH_KEY_FILTER))
                 {
                     DataTable _dtFilter = new DataTable();
                     _dtFilter.Columns.Add(Definition.CONDITION_SEARCH_KEY_VALUEDATA);
@@ -205,7 +205,7 @@ namespace BISTel.eSPC.Condition.Controls.ComboTree
                     llParentValue.Add(Definition.CONDITION_KEY_FILTER, _dtFilter);
                 }
 
-                if (ComponentCondition.GetInstance().Contain(Definition.CONDITION_SEARCH_KEY_SPC_MODEL_LIST))
+                if (ComponentCondition.GetInstance().Contains(Definition.CONDITION_SEARCH_KEY_SPC_MODEL_LIST))
                 {
                     DataTable dtSPCModelList = dtTemp.Clone();
 
@@ -219,7 +219,7 @@ namespace BISTel.eSPC.Condition.Controls.ComboTree
                     llParentValue.Add("SPC MODEL LIST", dtSPCModelList);
                 }
 
-                if (ComponentCondition.GetInstance().Contain(Definition.CONDITION_SEARCH_KEY_GROUP_NAME))
+                if (ComponentCondition.GetInstance().Contains(Definition.CONDITION_SEARCH_KEY_GROUP_NAME))
                 {
                     DataTable dtGroup = dtTemp.Clone();
                     dtGroup.Columns.Add("SPC MODEL LIST");
@@ -235,7 +235,7 @@ namespace BISTel.eSPC.Condition.Controls.ComboTree
                     llParentValue.Add(Definition.CONDITION_KEY_GROUP_NAME, dtGroup);
                 }
 
-                if (ComponentCondition.GetInstance().Contain(Definition.CONDITION_SEARCH_KEY_SPCMODEL))
+                if (ComponentCondition.GetInstance().Contains(Definition.CONDITION_SEARCH_KEY_SPCMODEL))
                 {
                     DataTable dtSPCModel = dtTemp.Clone();
                     dtSPCModel.Columns.Add(Definition.CONDITION_KEY_LOCATION_RAWID);

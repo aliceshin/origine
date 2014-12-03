@@ -514,7 +514,7 @@ namespace BISTel.eSPC.Page.Modeling
 
             if (this.GetType().FullName == "BISTel.eSPC.Page.Modeling.SPCDataRestrictionUC")
             {
-                if (this._spcModelLevel == Definition.CONDITION_KEY_EQP_MODEL)
+                if (this._spcModelLevel == Definition.CONDITION_KEY_EQP_MODEL && _llstSearchCondition.Contains(Definition.CONDITION_SEARCH_KEY_EQPMODEL))
                 {
                     DataTable dt = _llstSearchCondition[Definition.CONDITION_SEARCH_KEY_EQPMODEL] as DataTable;
                     string sEQPModel = DCUtil.GetValueData(dt);

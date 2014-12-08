@@ -1720,6 +1720,8 @@ namespace BISTel.eSPC.Page.Modeling
                         this.bsprData.ActiveSheet.Columns[cIdx].CellType = tc;
                     }
                 }
+
+                this.bcboChartType_SelectedIndexChanged(this.bcboChartType, new EventArgs());
             }
             catch (Exception ex)
             {
@@ -4965,7 +4967,7 @@ namespace BISTel.eSPC.Page.Modeling
         {
             if (bchkSampling.Checked)
             {
-                if (bcboChartType.Text == "RAW")
+                if (bcboChartType.Text == "RAW" && this._sParamTypeCD == "TRS")
                 {
                     this.btxtWSampleCnt.Enabled = true;
                 }
@@ -4977,7 +4979,7 @@ namespace BISTel.eSPC.Page.Modeling
             }
 
             //SPC-929, KBLEE, Start
-            if (bcboChartType.Text == "RAW")
+            if (bcboChartType.Text == "RAW" && this._sParamTypeCD == "TRS")
             {
                 this.bchkSummaryData.Enabled = true;
             }

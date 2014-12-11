@@ -236,7 +236,7 @@ namespace BISTel.eSPC.Page.Modeling
 
         public override void PageInit()
         {
-            this._wsSPC = new WebServiceController<eSPCWebService.eSPCWebService>().Create();
+            this.InitializePage();
 
             BISTel.PeakPerformance.Client.CommonLibrary.GlobalDefinition.IsDeveloping = true;
             //this.KeyOfPage = this.GetType().FullName;
@@ -282,8 +282,6 @@ namespace BISTel.eSPC.Page.Modeling
             {
                 this.InitializeCondition();
             }
-
-            this.InitializePage();
         }
 
         void btv_AfterExpand(object sender, TreeViewEventArgs e)
@@ -752,7 +750,7 @@ namespace BISTel.eSPC.Page.Modeling
 
         public void InitializePage()
         {
-            //this._wsSPC = new WebServiceController<eSPCWebService.eSPCWebService>().Create();
+            this._wsSPC = new WebServiceController<eSPCWebService.eSPCWebService>().Create();
             this._mlthandler = MultiLanguageHandler.getInstance();
 
             this._Initialization = new Initialization();

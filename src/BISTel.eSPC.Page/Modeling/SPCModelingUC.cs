@@ -4738,6 +4738,18 @@ namespace BISTel.eSPC.Page.Modeling
                 }
             }
 
+            //spc-1361
+            for (int i = 0; i < llstConfigurationInfo.Count; i++)
+            {
+                key = llstConfigurationInfo.GetKey(i).ToString();
+
+                if (_arrColRule.Contains(key) && llstConfigurationInfo[key].ToString() == Definition.YES)
+                {
+                    changedItems += "Rule,";
+                    break;
+                }
+            }
+
             for (int i = 0; i < llstConfigurationInfo.Count; i++)
             {
                 key = llstConfigurationInfo.GetKey(i).ToString();

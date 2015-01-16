@@ -244,7 +244,7 @@ namespace BISTel.eSPC.Condition.Controls.ComboTree
                     dtSPCModel.Columns.Add("SPC MODEL LIST");
 
                     DataRow dr = dtSPCModel.NewRow();
-                    dr[Definition.CONDITION_SEARCH_KEY_VALUEDATA] = ComponentCondition.GetInstance().GetValue("ESPC_" + Definition.CONDITION_SEARCH_KEY_MODEL_CONFIG_RAWID);
+                    dr[Definition.CONDITION_SEARCH_KEY_VALUEDATA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_MODEL_CONFIG_RAWID);
                     dr[Definition.CONDITION_SEARCH_KEY_DISPLAYDATA] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_SPCMODEL);
                     dr[Definition.CONDITION_SEARCH_KEY_CHECKED] = "T";
                     dr[Definition.CONDITION_KEY_LOCATION_RAWID] = ComponentCondition.GetInstance().GetValue(Definition.CONDITION_SEARCH_KEY_LINE_RAWID);

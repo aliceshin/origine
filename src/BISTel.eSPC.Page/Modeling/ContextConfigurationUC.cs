@@ -1315,6 +1315,9 @@ namespace BISTel.eSPC.Page.Modeling
                     //this.gbFilter.Visible = false;
                     this.bsprContext.ActiveSheet.Columns[(int)SPCModelContextSpread.GROUP_YN].Visible = false;
 
+                    //SPC-1367, KBLee, subConfig에서 Exclude List 보이지 않게 하기
+                    this.bsprContext.ActiveSheet.Columns[(int)SPCModelContextSpread.EXCLUDE_LIST].Visible = false;
+
                     break;
 
                 case ConfigMode.MODIFY:

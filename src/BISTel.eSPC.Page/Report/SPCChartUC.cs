@@ -1100,6 +1100,18 @@ namespace BISTel.eSPC.Page.Report
                     else
                         this.mLine = null;
 
+                    if (llstCondition[Definition.DynamicCondition_Search_key.AREA] != null)
+                    {
+                        dt = (DataTable)llstCondition[Definition.DynamicCondition_Search_key.AREA];
+                        this.mAreaRawID = DCUtil.GetValueData(dt);
+                        this.mArea = DataUtil.GetDisplayData(dt);
+                        mChartVariable.AREA = this.mArea;
+                        ComponentCondition.GetInstance().Set(Definition.CONDITION_SEARCH_KEY_AREA, Definition.CONDITION_SEARCH_KEY_AREA, mArea);
+                        ComponentCondition.GetInstance().Set(Definition.CONDITION_SEARCH_KEY_AREA_RAWID, Definition.CONDITION_SEARCH_KEY_AREA_RAWID, mAreaRawID);
+                    }
+                    else
+                        this.mArea = null;
+
                     if (llstCondition[Definition.DynamicCondition_Search_key.EQPMODEL] != null)
                     {
                         dt = (DataTable)llstCondition[Definition.DynamicCondition_Search_key.EQPMODEL];
@@ -1107,7 +1119,7 @@ namespace BISTel.eSPC.Page.Report
                         ComponentCondition.GetInstance().Set(Definition.CONDITION_SEARCH_KEY_EQPMODEL, Definition.CONDITION_SEARCH_KEY_EQPMODEL, mEQPModel);
                     }
                     else
-                        this.mLine = null;
+                        this.mEQPModel = null;
 
                     if (llstCondition[Definition.DynamicCondition_Search_key.SPCMODEL] != null)
                     {
@@ -1120,7 +1132,8 @@ namespace BISTel.eSPC.Page.Report
                         ComponentCondition.GetInstance().Set(Definition.CONDITION_SEARCH_KEY_SPCMODEL, Definition.CONDITION_SEARCH_KEY_SPCMODEL, mChartVariable.SPC_MODEL);
                     }
 
-                    if (!base.ApplyAuthory(this.bbtnListChart, this.mSite, this.mFab, this.mLine, DataUtil.GetConditionKeyData(dt, Definition.DynamicCondition_Condition_key.DISPLAYDATA)))
+                    //if (!base.ApplyAuthory(this.bbtnListChart, this.mSite, this.mFab, this.mLine, DataUtil.GetConditionKeyData(dt, Definition.DynamicCondition_Condition_key.DISPLAYDATA)))
+                    if (!base.ApplyAuthory(this.bbtnListChart, this.mSite, this.mFab, this.mLine, this.mArea))
                     {
                         MSGHandler.DisplayMessage(MSGType.Warning, MSGHandler.GetMessage("GENERAL_NOT_ENOUGHT_SUFFICIENT"), null, null, true);
                         this.InitializePage();

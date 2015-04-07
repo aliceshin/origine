@@ -29,7 +29,9 @@ namespace BISTel.eSPC.Page.Compare
         ArrayList _arrColOption;
         ArrayList _arrColAutoCalc;
         ArrayList _arrColRule;
-        ArrayList _arrColLimit; 
+        ArrayList _arrColLimit;
+
+        int a;
 
         internal SPCModelCompareResultController()
         {

@@ -1,0 +1,3677 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BISTel.PeakPerformance.Statistics.Application</name>
+    </assembly>
+    <members>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application.Common.Stat">
+            Stat class
+            
+            modified at 2006. 6. 27 오후 7:41:01
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.Common.Stat._lambda">
+            weight for ewma statistic
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.Common.Stat._data">
+            storage data
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.Common.Stat._count">
+            counting variable for observations
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.Common.Stat._max">
+            max statistic
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.Common.Stat._min">
+            min statistic
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.Common.Stat._sum">
+            sum statistic
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.Common.Stat._squaredSum">
+            squaredsum statistic
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.Common.Stat._ewma">
+            ewma statistic
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Common.Stat.#ctor(System.Double[])">
+            Constructor
+            
+            @param x
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Common.Stat.#ctor(System.Double[],System.Double)">
+            Constructor
+            
+            @param x
+            @param lambda
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Common.Stat.#ctor(BISTel.PeakPerformance.Statistics.Algorithm.Mathematics.Vector)">
+            Constructor
+            
+            @param x
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Common.Stat.#ctor(BISTel.PeakPerformance.Statistics.Algorithm.Mathematics.Vector,System.Double)">
+            Constructor
+            
+            @param x
+            @param lambda
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Common.Stat.update(System.Double)">
+            Update for new data x
+            
+            @param x
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Common.Stat.updateBatch(System.Double[])">
+            Update for new data x
+            
+            @param x
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Common.Stat.mean">
+            Get mean
+            
+            @return mean value
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Common.Stat.var">
+            Get variation(s ^ 2)
+            
+            @return var value
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Common.Stat.varP">
+            Get variation(σ ^ 2)
+            
+            @return varP value
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Common.Stat.std">
+            Get standard deviation(s)
+            
+            @return std value
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Common.Stat.stdP">
+            Get standard deviation(σ)
+            
+            @return stdP value
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Common.Stat.ewma">
+            Get ewma statistic
+            
+            @return ewma value
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application.ControlChart.CChart">
+            CChart class
+            
+            c(Number of nonconformities) control chart
+            
+            modified at 2006. 07. 24 오후 8:11:43
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.CChart.curve(System.Int32[])">
+            Calculate CChart data for samples
+            
+            @param nValues
+            @return CPoint[]
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application.ControlChart.CChart.CPoint">
+            CPoint class
+            
+            CChart point object
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.CChart.CPoint.cPoint">
+            CChart point
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.CChart.CPoint.lcl">
+            control limits
+            
+            @serial lower control limit
+            @serial upper control limit
+            @serial center point
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.CChart.CPoint.ucl">
+            control limits
+            
+            @serial lower control limit
+            @serial upper control limit
+            @serial center point
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.CChart.CPoint.cl">
+            control limits
+            
+            @serial lower control limit
+            @serial upper control limit
+            @serial center point
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.CChart.CPoint.getCPoint">
+            get cPoint
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.CChart.CPoint.setCPoint(System.Double)">
+            set cPoint
+            
+            
+            
+            @param point
+                       (double)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.CChart.CPoint.getCL">
+            get CL
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.CChart.CPoint.setCL(System.Double)">
+            set CL
+            
+            
+            
+            @param cl
+                       (double)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.CChart.CPoint.getUCL">
+            get UCL
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.CChart.CPoint.setUCL(System.Double)">
+            set UCL
+            
+            
+            
+            @param ucl
+                       (double)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.CChart.CPoint.getLCL">
+            get LCL
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.CChart.CPoint.setLCL(System.Double)">
+            set LCL
+            
+            
+            
+            @param lcl
+                       (double)
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application.ControlChart.CusumChart">
+            CusumChart class
+            
+            CUmulative SUMmation control chart
+            
+            modified at 2006. 6. 27 오후 7:23:36
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.CusumChart.h">
+            Cusum internal factors
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.CusumChart.k">
+            Cusum internal factors
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.CusumChart.curve(System.Double[],System.Double)">
+            Calculate CusumChart data for samples
+            
+            @param valueBars
+            @param targetValue
+            @return CusumPoint[]
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.CusumChart.curve(System.Double[][],System.Double)">
+            Calculate CusumChart data for samples
+            
+            @param values
+            @param targetValue
+            @return CusumPoint[]
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.CusumChart.curve(System.Double[],System.Double,System.Double,System.Double)">
+            Calculate CusumChart data for samples
+            
+            @param valueBars
+            @param targetValue
+            @param h
+            @param k
+            @return CusumPoint[]
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.CusumChart.curve(System.Double[][],System.Double,System.Double,System.Double)">
+            Calculate CusumChart data for samples
+            
+            @param values
+            @param targetValue
+            @param h
+            @param k
+            @return CusumPoint[]
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application.ControlChart.CusumChart.CusumPoint">
+            CusumPoint class
+            
+            CusumChart data
+            
+            modified at 2006. 6. 27 오후 7:24:02
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.CusumChart.CusumPoint.cusumPoint">
+            CusumChart point
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.CusumChart.CusumPoint.controlSignalLow">
+            Control signals
+            
+            @serial lower control signal
+            @serial upper control signal
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.CusumChart.CusumPoint.controlSignalHigh">
+            Control signals
+            
+            @serial lower control signal
+            @serial upper control signal
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.CusumChart.CusumPoint.getCusumPoint">
+            get cusumPoint
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.CusumChart.CusumPoint.getControlSignalHigh">
+            get controlSignalHi
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.CusumChart.CusumPoint.getControlSignalLow">
+            get controlSignalLo
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.CusumChart.CusumPoint.setCusumPoint(System.Double)">
+            set cusumPoint
+            
+            
+            
+            @param cusumPoint
+                       (double)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.CusumChart.CusumPoint.setControlSignalHigh(System.Double)">
+            set controlSignalHi
+            
+            
+            
+            @param controlSignalHi
+                       (double)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.CusumChart.CusumPoint.setControlSignalLow(System.Double)">
+            set controlSignalLo
+            
+            
+            
+            @param controlSignalLo
+                       (double)
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application.ControlChart.EllipseChart">
+            Control Ellipse Chart
+            
+            Chart for 2 variables
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.EllipseChart.curve(System.Double[],System.Double[],System.Double,System.Double,System.String,System.Double,System.String,System.Double,System.String,System.Double)">
+            get ellipse data the major axis is sqrt(eigen value1) * sqrt( p(n-1) /
+            n(n-p) * F values the minor axis is sqrt(eigen value2) * sqrt( p(n-1) /
+            n(n-p) * F values the theta is the atan value of eigen vector1 default
+            confidence level is 0.95
+            
+            @param score1
+                       array of score1
+            @param score2
+                       array of score2
+            @param eigenValue1
+            			  eigenvalue1
+            @param eigenValue2
+            			  eigenvalue2
+            @param confidenceLevel
+            			  confidenceLevel
+            @return EllipsePoint object
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.EllipseChart.curve(System.Double[],System.Double[],System.Double,System.Double,System.Double,System.String,System.Double,System.String,System.Double,System.String,System.Double)">
+            get ellipse data the major axis is sqrt(eigen value1) * sqrt( p(n-1) /
+            n(n-p) * F values the minor axis is sqrt(eigen value2) * sqrt( p(n-1) /
+            n(n-p) * F values the theta is the atan value of eigen vector1 default
+            confidence level is 0.95
+            
+            @param score1
+                       array of score1
+            @param score2
+                       array of score2
+            @param eigenValue1
+            			  eigenvalue1
+            @param eigenValue2
+            			  eigenvalue2
+            @param trainedSampleCount
+                       # of training sample
+            @param confidenceLevel
+            			  confidenceLevel
+            @return EllipsePoint object
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application.ControlChart.EllipseChart.EllipsePoint">
+            EllipsePoint object CL is confidence level of control chart
+            
+            mean is mean of data1, data2 Xaxis is Length of Xaxis Yaxis is
+            Length of Yaxis theta is the angle of Xaxis
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.EllipseChart.EllipsePoint._controlLimitConfidenceLevel">
+            the control limit confidence level (ex 0.95, 0.99, etc..)
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.EllipseChart.EllipsePoint._specLimitConfidenceLevel">
+            the spec limit confidence level (ex 0.95, 0.99, etc..)
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.EllipseChart.EllipsePoint._hardLimitConfidenceLevel">
+            the spec limit confidence level (ex 0.95, 0.99, etc..)
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.EllipseChart.EllipsePoint._xAxisControl">
+            ellipse controlLimit Axes
+            
+            @serial x-axis
+            @serial y-axis
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.EllipseChart.EllipsePoint._yAxisControl">
+            ellipse controlLimit Axes
+            
+            @serial x-axis
+            @serial y-axis
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.EllipseChart.EllipsePoint._xAxisSpec">
+            ellipse specLimit Axes
+            
+            @serial x-axis
+            @serial y-axis
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.EllipseChart.EllipsePoint._yAxisSpec">
+            ellipse specLimit Axes
+            
+            @serial x-axis
+            @serial y-axis
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.EllipseChart.EllipsePoint._xAxisHard">
+            ellipse hardLimit Axes
+            
+            @serial x-axis
+            @serial y-axis
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.EllipseChart.EllipsePoint._yAxisHard">
+            ellipse hardLimit Axes
+            
+            @serial x-axis
+            @serial y-axis
+        </member>
+        <!-- Badly formed XML comment ignored for member "F:BISTel.PeakPerformance.Statistics.Application.ControlChart.EllipseChart.EllipsePoint._xMin" -->
+        <!-- Badly formed XML comment ignored for member "F:BISTel.PeakPerformance.Statistics.Application.ControlChart.EllipseChart.EllipsePoint._xMax" -->
+        <!-- Badly formed XML comment ignored for member "F:BISTel.PeakPerformance.Statistics.Application.ControlChart.EllipseChart.EllipsePoint._yMin" -->
+        <!-- Badly formed XML comment ignored for member "F:BISTel.PeakPerformance.Statistics.Application.ControlChart.EllipseChart.EllipsePoint._yMax" -->
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.EllipseChart.EllipsePoint._mean">
+            mean of datas , center of control ellipse
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.EllipseChart.EllipsePoint.getControlLimitConfidenceLevel">
+            get the current control limit confidence level
+            
+            @return confidence level
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.EllipseChart.EllipsePoint.getSpecLimitConfidenceLevel">
+            get the current spec limit confidence level
+            
+            @return confidence level
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.EllipseChart.EllipsePoint.getHardLimitConfidenceLevel">
+            get the current hard limit confidence level
+            
+            @return confidence level
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.EllipseChart.EllipsePoint.getXAxisControl">
+            get the major axis of ellipse control line
+            
+            @return the Length of major axis
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.EllipseChart.EllipsePoint.getXAxisSpec">
+            get the major axis of ellipse spec line
+            
+            @return the Length of major axis
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.EllipseChart.EllipsePoint.getXAxisHard">
+            get the major axis of ellipse hard line
+            
+            @return the Length of major axis
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.EllipseChart.EllipsePoint.getMean">
+            return the mean of two datas
+            
+            @return mean of datas
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.EllipseChart.EllipsePoint.getYAxisControl">
+            get the minor axis of ellipse control line
+            
+            @return the Length of minor axis
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.EllipseChart.EllipsePoint.getYAxisSpec">
+            get the minor axis of ellipse spec line
+            
+            @return the Length of minor axis
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.EllipseChart.EllipsePoint.getYAxisHard">
+            get the minor axis of ellipse hard line
+            
+            @return the Length of minor axis
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.EllipseChart.EllipsePoint.setControlLimitConfidenceLevel(System.Double)">
+            set the control limit confidence level
+            
+            @param confidenceLevel
+                       level (ex 0.95, 0.99, etc..)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.EllipseChart.EllipsePoint.setSpecLimitConfidenceLevel(System.Double)">
+            set the spec limit confidence level
+            
+            @param confidenceLevel
+                       level (ex 0.95, 0.99, etc..)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.EllipseChart.EllipsePoint.setHardLimitConfidenceLevel(System.Double)">
+            set the hard limit confidence level
+            
+            @param confidenceLevel
+                       level (ex 0.95, 0.99, etc..)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.EllipseChart.EllipsePoint.setXAxisControl(System.Double)">
+            set the major axis of ellipse control line
+            
+            @param Xaxis
+                       the Length of major axis
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.EllipseChart.EllipsePoint.setXAxisSpec(System.Double)">
+            set the major axis of ellipse spec line
+            
+            @param Xaxis
+                       the Length of major axis
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.EllipseChart.EllipsePoint.setXAxisHard(System.Double)">
+            set the major axis of ellipse hard line
+            
+            @param Xaxis
+                       the Length of major axis
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.EllipseChart.EllipsePoint.setMean(System.Double[])">
+            set the mean value
+            
+            @param Mean
+                       mean of datas
+            
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.EllipseChart.EllipsePoint.setYAxisControl(System.Double)">
+            set the mior axis of ellipse control line
+            
+            @param Yaxis
+                       the Length of minor axis
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.EllipseChart.EllipsePoint.setYAxisSpec(System.Double)">
+            set the mior axis of ellipse Spec line
+            
+            @param Yaxis
+                       the Length of minor axis
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.EllipseChart.EllipsePoint.setYAxisHard(System.Double)">
+            set the mior axis of ellipse hard line
+            
+            @param Yaxis
+                       the Length of minor axis
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.EllipseChart.EllipsePoint.setInControl(System.Boolean[])">
+            set the hotelling t2 incontrol index
+            
+            @param inControl
+                       the array of t2 incontrol index
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.EllipseChart.EllipsePoint.getInControl">
+            get the hotelling t2 incontrol index
+            
+            
+             @return the array of t2 incontrol index
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.EllipseChart.EllipsePoint.setInSpec(System.Boolean[])">
+            set the hotelling t2 inspec index
+            
+            @param inSpec
+                       the array of t2 inspec index
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.EllipseChart.EllipsePoint.getInSpec">
+            get the hotelling t2 inspec index
+            
+            
+             @return the array of t2 inspec index
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.EllipseChart.EllipsePoint.setInHard(System.Boolean[])">
+            set the hotelling t2 inhard index
+            
+            @param inHard
+                       the array of t2 inhard index
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.EllipseChart.EllipsePoint.getInHard">
+            get the hotelling t2 inhard index
+            
+            
+             @return the array of t2 inhard index
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.EllipseChart.EllipsePoint.getXMin">
+            get the min x value of x-scores
+            
+            @return the min value of x
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.EllipseChart.EllipsePoint.setXMin(System.Double)">
+            set the min x value of x - scores
+            
+            @param xMin
+                       the min value of x
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.EllipseChart.EllipsePoint.getXMax">
+            get the max x value of x-scores
+            
+            @return the max value of x
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.EllipseChart.EllipsePoint.setXMax(System.Double)">
+            set the max x value of x - scores
+            
+            @param xMax
+                       the max value of x
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.EllipseChart.EllipsePoint.getYMin">
+            get the min y value of y-scores
+            
+            @return the min value of y
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.EllipseChart.EllipsePoint.setYMin(System.Double)">
+            set the min y value of y - scores
+            
+            @param xMin
+                       the min value of y
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.EllipseChart.EllipsePoint.getYMax">
+            get the max y value of y-scores
+            
+            @return the max value of y
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.EllipseChart.EllipsePoint.setYMax(System.Double)">
+            set the max y value of y - scores
+            
+            @param xMax
+                       the max value of y
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.EllipseChart.EllipsePoint.getUCL">
+            get the upper control line of hotelling t2
+            
+            @return ucl value
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.EllipseChart.EllipsePoint.getUSL">
+            get the upper spec line of hotelling t2
+            
+            @return usl value
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.EllipseChart.EllipsePoint.getUHL">
+            get the upper hard line of hotelling t2
+            
+            @return uhl value
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.EllipseChart.EllipsePoint.setUCL(System.Double)">
+            get the upper control line of hotelling t2
+            
+            @param ucl
+                       ucl value
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.EllipseChart.EllipsePoint.setUSL(System.Double)">
+            get the upper spec line of hotelling t2
+            
+            @param usl
+                       usl value
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.EllipseChart.EllipsePoint.setUHL(System.Double)">
+            get the upper hard line of hotelling t2
+            
+            @param uhl
+                       uhl value
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application.ControlChart.EWMAChart">
+            EWMAChart class
+            
+            
+            
+            modified at 2006. 6. 27 오후 8:44:45
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.EWMAChart.lambda">
+            weight for EWMA control chart
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.EWMAChart.curve(System.Double[],System.Double)">
+            Calculate EWMAChart data for samples
+            
+            @param values
+            @param lambda
+            @return EWMAPoint[]
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.EWMAChart.curve(System.Double[][],System.Double)">
+            Calculate EWMAChart data for samples
+            
+            @param values
+            @param lambda
+            @return EWMAPoint[]
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.EWMAChart.curve(System.Double[],System.Double,System.Double)">
+            Calculate EWMAChart data for samples
+            
+            @param values
+            @param lambda
+            @param std
+            @return EWMAPoint[]
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.EWMAChart.curve(System.Double[],System.Double,System.Double,System.Double)">
+            Calculate EWMAChart data for samples
+            	 
+            @param values
+            @param lambda
+            @param targetValue
+            @param std
+            @return EWMAPoint[]
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.EWMAChart.curve(System.Double[][],System.Double,System.Double)">
+            Calculate EWMAChart data for samples
+            
+            @param values
+            @param lambda
+            @param std
+            @return EWMAPoint[]
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application.ControlChart.EWMAChart.EWMAPoint">
+            EWMAPoint class
+            
+            modified at 2006. 6. 28 오후 9:28:11
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.EWMAChart.EWMAPoint.ewmaPoint">
+            EWMAChart point
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.EWMAChart.EWMAPoint.lcl">
+            control limits
+            
+            @serial lower control limit
+            @serial upper control limit
+            @serial center line
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.EWMAChart.EWMAPoint.ucl">
+            control limits
+            
+            @serial lower control limit
+            @serial upper control limit
+            @serial center line
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.EWMAChart.EWMAPoint.cl">
+            control limits
+            
+            @serial lower control limit
+            @serial upper control limit
+            @serial center line
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.EWMAChart.EWMAPoint.getEWMAPoint">
+            get ewmaPoint
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.EWMAChart.EWMAPoint.getCL">
+            get cl
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.EWMAChart.EWMAPoint.getLCL">
+            get lcl
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.EWMAChart.EWMAPoint.getUCL">
+            get ucl
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.EWMAChart.EWMAPoint.setEWMAPoint(System.Double)">
+            set ewmaPoint
+            
+            
+            
+            @param ewmaPoint
+                       (double)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.EWMAChart.EWMAPoint.setCL(System.Double)">
+            set cl
+            
+            
+            
+            @param cl
+                       (double)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.EWMAChart.EWMAPoint.setLCL(System.Double)">
+            set lcl
+            
+            
+            
+            @param lcl
+                       (double)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.EWMAChart.EWMAPoint.setUCL(System.Double)">
+            set ucl
+            
+            
+            
+            @param ucl
+                       (double)
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application.ControlChart.MAChart">
+            MAChart class
+            
+            Moving Average control chart
+            
+            modified at 2006. 6. 29 오후 8:40:15
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.MAChart.curve(System.Double[],System.Int32)">
+            Calculate MAChart data for samples
+            
+            @param values
+            @param span
+            @return MAPoint[]
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.MAChart.curve(System.Double[],System.Int32,System.Double)">
+            Calculate MAChart data for samples
+            
+            @param values
+            @param span
+            @param std
+            @return MAPoint[]
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.MAChart.curve(System.Double[][],System.Int32)">
+            Calculate MAChart data for samples
+            
+            @param values
+            @param span
+            @return MAPoint[]
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.MAChart.curve(System.Double[][],System.Int32,System.Double)">
+            Calculate MAChart data for samples
+            
+            @param values
+            @param span
+            @param std
+            @return MAPoint[]
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application.ControlChart.MAChart.MAPoint">
+            MAPoint class
+            
+            MAChart data
+            
+            modified at 2006. 6. 29 오후 9:44:29
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.MAChart.MAPoint.maPoint">
+            MAChart point
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.MAChart.MAPoint.lcl">
+            control limits
+            
+            @serial lower control limit
+            @serial upper control limit
+            @serial center line
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.MAChart.MAPoint.ucl">
+            control limits
+            
+            @serial lower control limit
+            @serial upper control limit
+            @serial center line
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.MAChart.MAPoint.cl">
+            control limits
+            
+            @serial lower control limit
+            @serial upper control limit
+            @serial center line
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.MAChart.MAPoint.getCL">
+            get CL
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.MAChart.MAPoint.setCL(System.Double)">
+            set CL
+            
+            
+            
+            @param cl
+                       (double)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.MAChart.MAPoint.getLCL">
+            get lcl
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.MAChart.MAPoint.getMAPoint">
+            get maPoint
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.MAChart.MAPoint.getUCL">
+            get ucl
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.MAChart.MAPoint.setLCL(System.Double)">
+            set lcl
+            
+            
+            
+            @param lcl
+                       (double)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.MAChart.MAPoint.setMAPoint(System.Double)">
+            set maPoint
+            
+            
+            
+            @param maPoint
+                       (double)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.MAChart.MAPoint.setUCL(System.Double)">
+            set ucl
+            
+            
+            
+            @param ucl
+                       (double)
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application.ControlChart.MCEWMAChart">
+            MEWMA class
+            
+            multivariate ewma(exponentially weighted moving average) control chart class
+            
+            modified at 2006. 07. 25 오전 10:44:25
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.MCEWMAChart.curve(System.Double[],System.Double)">
+            Calculate MEWMAChart data for samples
+            
+            @param vectors
+            @param lambda
+            @param ucl
+            @return MEWMAPoint[]
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application.ControlChart.MCEWMAChart.MCEWMAPoint">
+            MEWMAPoint class
+            
+            MEWMAChart point
+            
+            modified at 2006. 07. 31 오후 5:13:02
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.MCEWMAChart.MCEWMAPoint.mcewmaPoint">
+            MEWMA point
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.MCEWMAChart.MCEWMAPoint.z">
+            MEWMA data
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.MCEWMAChart.MCEWMAPoint.lcl">
+            control limits
+            
+            @serial lower control limit
+            @serial upper control limit
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.MCEWMAChart.MCEWMAPoint.ucl">
+            control limits
+            
+            @serial lower control limit
+            @serial upper control limit
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.MCEWMAChart.MCEWMAPoint.getLCL">
+            get lcl
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.MCEWMAChart.MCEWMAPoint.setLCL(System.Double)">
+            set lcl
+            
+            
+            
+            @param lcl
+                       (double)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.MCEWMAChart.MCEWMAPoint.getMCEWMAPoint">
+            get mewmaPoint
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.MCEWMAChart.MCEWMAPoint.setMCEWMAPoint(System.Double)">
+            set mewmaPoint
+            
+            
+            
+            @param mewmaPoint
+                       (double)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.MCEWMAChart.MCEWMAPoint.getUCL">
+            get ucl
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.MCEWMAChart.MCEWMAPoint.setUCL(System.Double)">
+            set ucl
+            
+            
+            
+            @param ucl
+                       (double)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.MCEWMAChart.MCEWMAPoint.getZ">
+            get z
+            
+            
+            
+            @return double[]
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.MCEWMAChart.MCEWMAPoint.setZ(System.Double)">
+            set z
+            
+            
+            
+            @param z
+                       (double[])
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application.ControlChart.MEWMAChart">
+            MEWMA class
+            
+            multivariate ewma(exponentially weighted moving average) control chart class
+            
+            modified at 2006. 07. 25 오전 10:44:25
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.MEWMAChart.curve(System.Double[][],System.Double,System.Double)">
+            Calculate MEWMAChart data for samples
+            
+            @param vectors
+            @param lambda
+            @param ucl
+            @return MEWMAPoint[]
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application.ControlChart.MEWMAChart.MEWMAPoint">
+            MEWMAPoint class
+            
+            MEWMAChart point
+            
+            modified at 2006. 07. 31 오후 5:13:02
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.MEWMAChart.MEWMAPoint.mewmaPoint">
+            MEWMA point
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.MEWMAChart.MEWMAPoint.z">
+            MEWMA data
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.MEWMAChart.MEWMAPoint.lcl">
+            control limits
+            
+            @serial lower control limit
+            @serial upper control limit
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.MEWMAChart.MEWMAPoint.ucl">
+            control limits
+            
+            @serial lower control limit
+            @serial upper control limit
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.MEWMAChart.MEWMAPoint.getLCL">
+            get lcl
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.MEWMAChart.MEWMAPoint.setLCL(System.Double)">
+            set lcl
+            
+            
+            
+            @param lcl
+                       (double)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.MEWMAChart.MEWMAPoint.getMEWMAPoint">
+            get mewmaPoint
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.MEWMAChart.MEWMAPoint.setMEWMAPoint(System.Double)">
+            set mewmaPoint
+            
+            
+            
+            @param mewmaPoint
+                       (double)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.MEWMAChart.MEWMAPoint.getUCL">
+            get ucl
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.MEWMAChart.MEWMAPoint.setUCL(System.Double)">
+            set ucl
+            
+            
+            
+            @param ucl
+                       (double)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.MEWMAChart.MEWMAPoint.getZ">
+            get z
+            
+            
+            
+            @return double[]
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.MEWMAChart.MEWMAPoint.setZ(System.Double[])">
+            set z
+            
+            
+            
+            @param z
+                       (double[])
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application.ControlChart.MRChart">
+            MRChart class
+            
+            Moving Range control chart ( samplesize = 1 )
+            
+            modified at 2006. 07. 24 오후 8:12:04
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.MRChart.curve(System.Double[])">
+            Calculate MRChart data for samples
+            
+            @param values
+            @return MRPoint[]
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application.ControlChart.MRChart.MRPoint">
+            MRPoint class
+            
+            MRChart point
+            
+            modified at 2006. 07. 31 오후 5:47:25
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.MRChart.MRPoint.mrPoint">
+            MRChart data
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.MRChart.MRPoint.mr">
+            MRChart data
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.MRChart.MRPoint.lcl">
+            control limits
+            
+            @serial lower control limit
+            @serial upper control limit
+            @serial center line
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.MRChart.MRPoint.ucl">
+            control limits
+            
+            @serial lower control limit
+            @serial upper control limit
+            @serial center line
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.MRChart.MRPoint.cl">
+            control limits
+            
+            @serial lower control limit
+            @serial upper control limit
+            @serial center line
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.MRChart.MRPoint.mrCL">
+            control limits
+            
+            @serial lower control limit
+            @serial upper control limit
+            @serial center line
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.MRChart.MRPoint.mrUCL">
+            control limits
+            
+            @serial lower control limit
+            @serial upper control limit
+            @serial center line
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.MRChart.MRPoint.getCL">
+            get CL
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.MRChart.MRPoint.getMRCL">
+            get mrCL
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.MRChart.MRPoint.setCL(System.Double)">
+            set CL
+            
+            
+            
+            @param cl
+                       (double)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.MRChart.MRPoint.setMRCL(System.Double)">
+            set mrCL
+            
+            
+            
+            @param mrCL
+                       (double)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.MRChart.MRPoint.getLCL">
+            get LCL
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.MRChart.MRPoint.setLCL(System.Double)">
+            set LCL
+            
+            
+            
+            @param lcl
+                       (double)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.MRChart.MRPoint.getMRPoint">
+            get mrPoint
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.MRChart.MRPoint.getMR">
+            get mr
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.MRChart.MRPoint.getMRUCL">
+            get mrPoint
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.MRChart.MRPoint.setMRPoint(System.Double)">
+            set mrPoint
+            
+            
+            
+            @param mrPoint
+                       (double)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.MRChart.MRPoint.setMR(System.Double)">
+            set mr
+            
+            
+            
+            @param mr
+                       (double)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.MRChart.MRPoint.setMRUCL(System.Double)">
+            set mrPoint
+            
+            
+            
+            @param mrPoint
+                       (double)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.MRChart.MRPoint.getUCL">
+            get UCL
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.MRChart.MRPoint.setUCL(System.Double)">
+            set UCL
+            
+            
+            
+            @param ucl
+                       (double)
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application.ControlChart.NormalDistributionChart">
+            NormalDistributionChart class
+            
+            NormalDistribution control chart
+            
+            modified at 2006. 6. 29 오후 8:40:59
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application.ControlChart.NPChart">
+            NPChart class
+            
+            NP(Number of nonconforming) control chart
+            
+            modified at 2006. 07. 24 오후 8:11:35
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.NPChart.NPPoint.lcl">
+            control limits
+            
+            @serial lower control limit
+            @serial upper control limit
+            @serial center line
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.NPChart.NPPoint.ucl">
+            control limits
+            
+            @serial lower control limit
+            @serial upper control limit
+            @serial center line
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.NPChart.NPPoint.cl">
+            control limits
+            
+            @serial lower control limit
+            @serial upper control limit
+            @serial center line
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.NPChart.NPPoint.getCL">
+            get CL
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.NPChart.NPPoint.setCL(System.Double)">
+            set CL
+            
+            
+            
+            @param cl
+                       (double)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.NPChart.NPPoint.getLCL">
+            get LCL
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.NPChart.NPPoint.setLCL(System.Double)">
+            set LCL
+            
+            
+            
+            @param lcl
+                       (double)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.NPChart.NPPoint.getNPPoint">
+            get npPoint
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.NPChart.NPPoint.setNPPoint(System.Double)">
+            set npPoint
+            
+            
+            
+            @param npPoint
+                       (double)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.NPChart.NPPoint.getPPoint">
+            get pPoint
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.NPChart.NPPoint.setPPoint(System.Double)">
+            set pPoint
+            
+            
+            
+            @param pPoint
+                       (double)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.NPChart.NPPoint.getUCL">
+            get UCL
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.NPChart.NPPoint.setUCL(System.Double)">
+            set UCL
+            
+            
+            
+            @param ucl
+                       (double)
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application.ControlChart.PChart">
+            PChart class
+            
+            P(Proportion nonconforming) control chart
+            
+            modified at 2006. 07. 24 오후 7:52:30
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.PChart.curve(System.Int32[],System.Int32)">
+            Calculate PChart data for samples
+            
+            @param nValues
+            @param sampleSize
+            @return PPoint[]
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.PChart.curve(System.Int32[],System.Int32[])">
+            Calculate PChart data for samples
+            
+            @param nValues
+            @param sampleSizes
+            @return PPoint[]
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.PChart.PPoint.pPoint">
+            PChart point
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.PChart.PPoint.lcl">
+            control limits
+            
+            @serial lower control limit
+            @serial upper control limit
+            @serial center line
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.PChart.PPoint.ucl">
+            control limits
+            
+            @serial lower control limit
+            @serial upper control limit
+            @serial center line
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.PChart.PPoint.cl">
+            control limits
+            
+            @serial lower control limit
+            @serial upper control limit
+            @serial center line
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.PChart.PPoint.getCL">
+            get CL
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.PChart.PPoint.setCL(System.Double)">
+            set CL
+            
+            
+            
+            @param cl
+                       (double)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.PChart.PPoint.getLCL">
+            get LCL
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.PChart.PPoint.setLCL(System.Double)">
+            set LCL
+            
+            
+            
+            @param lcl
+                       (double)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.PChart.PPoint.getPPoint">
+            get pPoint
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.PChart.PPoint.setPPoint(System.Double)">
+            set pPoint
+            
+            
+            
+            @param point
+                       (double)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.PChart.PPoint.getUCL">
+            get UCL
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.PChart.PPoint.setUCL(System.Double)">
+            set UCL
+            
+            
+            
+            @param ucl
+                       (double)
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application.ControlChart.RotatedEllipseChart">
+            Control Ellipse Chart
+            
+            Chart for 2 variables
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.RotatedEllipseChart.curve(System.Double[],System.Double[],System.String)">
+            get ellipse data the major axis is sqrt(eigen value1) * sqrt( p(n-1) /
+            n(n-p) * F values the minor axis is sqrt(eigen value2) * sqrt( p(n-1) /
+            n(n-p) * F values the theta is the atan value of eigen vector1 default
+            confidence level is 0.95
+            
+            @param data1
+                       array of data1
+            @param data2
+                       array of data2
+            @param coc
+            			  Selection Variable COVARIANCE or CORRELATION ( cf. PCA.COVARIANCE / PCA.CORRELATION )
+            @return EllipsePoint object
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.RotatedEllipseChart.curve(System.Double[],System.Double[],System.Double,System.String)">
+            get ellipse data the major axis is sqrt(eigen value1) * sqrt( p(n-1) /
+            n(n-p) * F values the minor axis is sqrt(eigen value2) * sqrt( p(n-1) /
+            n(n-p) * F values the theta is the atan value of eigen vector1 default
+            confidence level is 0.95
+            
+            @param data1
+                       array of data1
+            @param data2
+                       array of data2
+            @param confidenceLevel
+                       confidence level
+            @param coc
+            			  Selection Variable COVARIANCE or CORRELATION ( cf. PCA.COVARIANCE / PCA.CORRELATION )
+            @return EllipsePoint object
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.RotatedEllipseChart.curve(System.Double[],System.Double[],System.Double[],System.Double[],System.Double[][],System.Double[],System.Double,System.String)">
+            get ellipse data the major axis is sqrt(eigen value1) * sqrt( p(n-1) /
+            n(n-p) * F values the minor axis is sqrt(eigen value2) * sqrt( p(n-1) /
+            n(n-p) * F values the theta is the atan value of eigen vector1 default
+            confidence level is 0.95
+            
+            @param data1
+                       array of data1
+            @param data2
+                       array of data2
+            @param confidenceLevel
+                       confidence level
+            @param coc
+            			  Selection Variable COVARIANCE or CORRELATION ( cf. PCA.COVARIANCE / PCA.CORRELATION )
+            @return EllipsePoint object
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application.ControlChart.RotatedEllipseChart.EllipsePoint">
+            EllipsePoint object CL is confidence level of control chart
+            
+            mean is mean of data1, data2 Xaxis is Length of Xaxis Yaxis is
+            Length of Yaxis theta is the angle of Xaxis
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.RotatedEllipseChart.EllipsePoint._confidenceLevel">
+            the confidence level (ex 0.95, 0.99, etc..)
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.RotatedEllipseChart.EllipsePoint._xAxis">
+            ellipse axis
+            
+            @serial x-axis
+            @serial y-axis
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.RotatedEllipseChart.EllipsePoint._yAxis">
+            ellipse axis
+            
+            @serial x-axis
+            @serial y-axis
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.RotatedEllipseChart.EllipsePoint._mean">
+            mean of datas , center of control ellipse
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.RotatedEllipseChart.EllipsePoint._theta">
+            the angle of major axis and horizontal axis
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.RotatedEllipseChart.EllipsePoint._eigValues">
+            get the current confidence level
+            
+            @return confidence level
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.RotatedEllipseChart.EllipsePoint.getXAxis">
+            get the major axis of ellipse control line
+            
+            @return the Length of major axis
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.RotatedEllipseChart.EllipsePoint.getMean">
+            return the mean of two datas
+            
+            @return mean of datas
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.RotatedEllipseChart.EllipsePoint.getYAxis">
+            get the minor axis of ellipse control line
+            
+            @return the Length of minor axis
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.RotatedEllipseChart.EllipsePoint.getTheta">
+            get the angle between major axis of ellipse control line and
+            horizontal axis
+            
+            @return the angle in radian
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.RotatedEllipseChart.EllipsePoint.setConfidenceLevel(System.Double)">
+            set the confidence level
+            
+            @param confidenceLevel
+                       level (ex 0.95, 0.99, etc..)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.RotatedEllipseChart.EllipsePoint.setXAxis(System.Double)">
+            set the major axis of ellipse control line
+            
+            @param Xaxis
+                       the Length of major axis
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.RotatedEllipseChart.EllipsePoint.setMean(System.Double[])">
+            set the mean value
+            
+            @param Mean
+                       mean of datas
+            
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.RotatedEllipseChart.EllipsePoint.setYAxis(System.Double)">
+            set the mior axis of ellipse control line
+            
+            @param Yaxis
+                       the Length of minor axis
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.RotatedEllipseChart.EllipsePoint.setTheta(System.Double)">
+            set the angle between major axis of ellipse control line and
+            horizontal axis
+            
+            @param Theta
+                       the angle in radian
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.RotatedEllipseChart.EllipsePoint.setincontrol(System.Int32[])">
+            set the hotelling t2 incontrol index
+            
+            @param incontrolindex
+                       the array of t2 incontrol index
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.RotatedEllipseChart.EllipsePoint.getincontrol">
+            get the hotelling t2 incontrol index
+            
+            
+             @return the array of t2 incontrol index
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application.ControlChart.T2Chart">
+            t2 Chart object ucl upper control limit t2 t2 value from HotellingT2 class CL
+            confidence level
+            
+            @author Administrator
+            
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.T2Chart.curve(System.Double[][],System.Double[],System.Double[][],System.String,System.Double,System.String,System.Double,System.String,System.Double)">
+            get t2 chart data
+            
+            @param data
+                       raw data to get t2 chart
+            @param CL
+                       confidence level
+            @return t2Point object
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.T2Chart.curve(BISTel.PeakPerformance.Statistics.Algorithm.Mathematics.Matrix,System.String,System.Double,System.String,System.Double,System.String,System.Double)">
+            get t2 chart data
+            
+            @param data
+                       raw data to get t2 chart
+            @param confidenceLevel
+                       confidence level
+            @return t2Point object
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.T2Chart.T2Point.getControlLimitConfidenceLevel">
+            get the control limit confidental level of hotelling t2 chart
+            
+            @return confidence level value
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.T2Chart.T2Point.setControlLimitConfidenceLevel(System.Double)">
+            set the control limit confidental level of hotelling t2 chart
+            
+            @param confidenceLevel
+                       confidence level value
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.T2Chart.T2Point.getSpecLimitConfidenceLevel">
+            get the spec limit confidental level of hotelling t2 chart
+            
+            @return confidence level value
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.T2Chart.T2Point.setSpecLimitConfidenceLevel(System.Double)">
+            set the spec limit confidental level of hotelling t2 chart
+            
+            @param confidenceLevel
+                       confidence level value
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.T2Chart.T2Point.getHardLimitConfidenceLevel">
+            get the hard limit confidental level of hotelling t2 chart
+            
+            @return confidence level value
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.T2Chart.T2Point.setHardLimitConfidenceLevel(System.Double)">
+            set the hard limit confidental level of hotelling t2 chart
+            
+            @param confidenceLevel
+                       confidence level value
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.T2Chart.T2Point.setT2(System.Double[])">
+            set the hotelling t2 value
+            
+            @param T2
+                       the array of t2 values
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.T2Chart.T2Point.getT2">
+            get hotelling t2 value t2 = transpose(x - mean) * inverse(cov) * ( x -
+            mean)
+            
+            @return
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.T2Chart.T2Point.setInControl(System.Boolean[])">
+            set the hotelling t2 incontrol index
+            
+            @param incontrol
+                       the array of t2 incontrol index
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.T2Chart.T2Point.setInSpec(System.Boolean[])">
+            set the hotelling t2 inspec index
+            
+            @param inSpec
+                       the array of t2 inSpec index
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.T2Chart.T2Point.setInHard(System.Boolean[])">
+            set the hotelling t2 inHard index
+            
+            @param inHard
+                       the array of t2 inHard index
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.T2Chart.T2Point.getInControl">
+            get the hotelling t2 incontrol index
+            
+            
+             @return the array of t2 incontrol index
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.T2Chart.T2Point.getInSpec">
+            get the hotelling t2 inspec index
+            
+            
+             @return the array of t2 inspec index
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.T2Chart.T2Point.getInHard">
+            get the hotelling t2 inHard index
+            
+            
+             @return the array of t2 inHard index
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.T2Chart.T2Point.getUCL">
+            get the upper control line of hotelling t2
+            
+            @return ucl value
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.T2Chart.T2Point.getUSL">
+            get the upper spec line of hotelling t2
+            
+            @return usl value
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.T2Chart.T2Point.getUHL">
+            get the upper hard line of hotelling t2
+            
+            @return uhl value
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.T2Chart.T2Point.setUCL(System.Double)">
+            get the upper control line of hotelling t2
+            
+            @param ucl
+                       ucl value
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.T2Chart.T2Point.setUSL(System.Double)">
+            get the upper spec line of hotelling t2
+            
+            @param usl
+                       usl value
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.T2Chart.T2Point.setUHL(System.Double)">
+            get the upper hard line of hotelling t2
+            
+            @param uhl
+                       uhl value
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application.ControlChart.UChart">
+            UChart class
+            
+            u(Nonconformities per unit) control chart
+            
+            modified at 2006. 07. 24 오후 8:11:48
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.UChart.curve(System.Int32[],System.Int32[])">
+            Calculate UChart data for samples
+            
+            @param nValues
+            @param sampleSizes
+            @return UPoint[]
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.UChart.UPoint.uPoint">
+            UChart point
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.UChart.UPoint.lcl">
+            control limits
+            
+            @serial lower control limit
+            @serial upper control limit
+            @serial center line
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.UChart.UPoint.ucl">
+            control limits
+            
+            @serial lower control limit
+            @serial upper control limit
+            @serial center line
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.UChart.UPoint.cl">
+            control limits
+            
+            @serial lower control limit
+            @serial upper control limit
+            @serial center line
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.UChart.UPoint.getCL">
+            get CL
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.UChart.UPoint.setCL(System.Double)">
+            set CL
+            
+            
+            
+            @param cl
+                       (double)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.UChart.UPoint.getLCL">
+            get LCL
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.UChart.UPoint.setLCL(System.Double)">
+            set LCL
+            
+            
+            
+            @param lcl
+                       (double)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.UChart.UPoint.getUCL">
+            get UCL
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.UChart.UPoint.setUCL(System.Double)">
+            set UCL
+            
+            
+            
+            @param ucl
+                       (double)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.UChart.UPoint.getUPoint">
+            get uPoint
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.UChart.UPoint.setUPoint(System.Double)">
+            set uPoint
+            
+            
+            
+            @param point
+                       (double)
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application.ControlChart.XBarChart">
+            XBarChart class
+            
+            XBar control chart
+            
+            modified at 2006. 6. 30 오후 2:30:13
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.XBarChart.curve(System.Double[][])">
+            Calculate XBarChart data
+            
+            @param values
+            @return XBarPoint[]
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application.ControlChart.XBarChart.RPoint">
+            RPoint class
+            
+            RChart data that related XBar control chart
+            
+            modified at 2006. 07. 31 오후 5:28:50
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.XBarChart.RPoint.rPoint">
+            RChart point
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.XBarChart.RPoint.lcl">
+            control limits
+            
+            @serial lower control limit
+            @serial upper control limit
+            @serial center line
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.XBarChart.RPoint.ucl">
+            control limits
+            
+            @serial lower control limit
+            @serial upper control limit
+            @serial center line
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.XBarChart.RPoint.cl">
+            control limits
+            
+            @serial lower control limit
+            @serial upper control limit
+            @serial center line
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.XBarChart.RPoint.getCL">
+            get CL
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.XBarChart.RPoint.setCL(System.Double)">
+            set CL
+            
+            
+            
+            @param cl
+                       (double)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.XBarChart.RPoint.getLCL">
+            get LCL
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.XBarChart.RPoint.setLCL(System.Double)">
+            set LCL
+            
+            
+            
+            @param lcl
+                       (double)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.XBarChart.RPoint.getRPoint">
+            get rPoint
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.XBarChart.RPoint.setRPoint(System.Double)">
+            set rPoint
+            
+            
+            
+            @param point
+                       (double)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.XBarChart.RPoint.getUCL">
+            get UCL
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.XBarChart.RPoint.setUCL(System.Double)">
+            set UCL
+            
+            
+            
+            @param ucl
+                       (double)
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application.ControlChart.XBarChart.SPoint">
+            SPoint class
+            
+            SChart data that related XBar control chart
+            
+            modified at 2006. 07. 31 오후 5:30:32
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.XBarChart.SPoint.sPoint">
+            SChart point
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.XBarChart.SPoint.lcl">
+            control limits
+            
+            @serial lower control limit
+            @serial upper control limit
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.XBarChart.SPoint.ucl">
+            control limits
+            
+            @serial lower control limit
+            @serial upper control limit
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.XBarChart.SPoint.cl">
+            control limits
+            
+            @serial lower control limit
+            @serial upper control limit
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.XBarChart.SPoint.getCL">
+            get CL
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.XBarChart.SPoint.setCL(System.Double)">
+            set CL
+            
+            
+            
+            @param cl
+                       (double)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.XBarChart.SPoint.getLCL">
+            get LCL
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.XBarChart.SPoint.setLCL(System.Double)">
+            set LCL
+            
+            
+            
+            @param lcl
+                       (double)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.XBarChart.SPoint.getSPoint">
+            get sPoint
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.XBarChart.SPoint.setSPoint(System.Double)">
+            set sPoint
+            
+            
+            
+            @param point
+                       (double)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.XBarChart.SPoint.getUCL">
+            get UCL
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.XBarChart.SPoint.setUCL(System.Double)">
+            set UCL
+            
+            
+            
+            @param ucl
+                       (double)
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application.ControlChart.XBarChart.XBarPoint">
+            XBarPoint class
+            
+            XBarChart data
+            
+            modified at 2006. 6. 30 오후 2:32:01
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.XBarChart.XBarPoint.xBarPoint">
+            XBar chart point
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.XBarChart.XBarPoint.CL">
+            XBar chart center line
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.XBarChart.XBarPoint.rLCL">
+            control limits using range
+            
+            @serial lower control limit
+            @serial upper control limit
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.XBarChart.XBarPoint.rUCL">
+            control limits using range
+            
+            @serial lower control limit
+            @serial upper control limit
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.XBarChart.XBarPoint.sLCL">
+            control limits using std
+            
+            @serial lower control limit
+            @serial upper control limit
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.XBarChart.XBarPoint.sUCL">
+            control limits using std
+            
+            @serial lower control limit
+            @serial upper control limit
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.XBarChart.XBarPoint.rPoint">
+            related RChart data
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.ControlChart.XBarChart.XBarPoint.sPoint">
+            related SChart data
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.XBarChart.XBarPoint.getCL">
+            get CL
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.XBarChart.XBarPoint.getRLCL">
+            get rLCL
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.XBarChart.XBarPoint.getRUCL">
+            get rUCL
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.XBarChart.XBarPoint.getSLCL">
+            get sLCL
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.XBarChart.XBarPoint.getSUCL">
+            get sUCL
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.XBarChart.XBarPoint.getXBarPoint">
+            get xBarPoint
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.XBarChart.XBarPoint.getRPoint">
+            get rPoint
+            
+            
+            
+            @return XBarChart.RPoint
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.XBarChart.XBarPoint.setRPoint(BISTel.PeakPerformance.Statistics.Application.ControlChart.XBarChart.RPoint)">
+            set rPoint
+            
+            
+            
+            @param point
+                       (XBarChart.RPoint)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.XBarChart.XBarPoint.getSPoint">
+            get sPoint
+            
+            
+            
+            @return XBarChart.SPoint
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.ControlChart.XBarChart.XBarPoint.setSPoint(BISTel.PeakPerformance.Statistics.Application.ControlChart.XBarChart.SPoint)">
+            set sPoint
+            
+            
+            
+            @param point
+                       (XBarChart.SPoint)
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application_CSharp.DataProcessing.DataPreprocessing">
+            <summary>
+            data preprocessing class
+            </summary>
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application_CSharp.DataProcessing.DataPreprocessing.ConvertNominalToDouble(System.String[])">
+            <summary>
+            convert nominal data to double type data
+            </summary>
+            <param name="data">nominal data array</param>
+            <returns></returns>
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application_CSharp.DataProcessing.DataPreprocessing.GetCol(System.Int32,System.Object[][])">
+            <summary>
+            get column base data
+            </summary>
+            <param name="col">column number</param>
+            <param name="data">returns columns array</param>
+            <returns></returns>
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application_CSharp.DataProcessing.DataPreprocessing.ConvertDoubleType(BISTel.PeakPerformance.Statistics.Application.Model.Parameter[],System.Object[][])">
+            <summary>
+            convert nominal data to double data
+            </summary>
+            <param name="parameter">converting parameter</param>
+            <param name="data">data array</param>
+            <returns>converted double data</returns>
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application_CSharp.DataProcessing.DataPreprocessing.GetTypeList(System.String[])">
+            <summary>
+            get data type list
+            </summary>
+            <param name="data">data array</param>
+            <returns>type list string array</returns>
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application_CSharp.DataProcessing.DataPreprocessing.getDataPartitionTable(System.Int32,System.Double,System.Int32)">
+            <summary>
+            get data partition signal
+            </summary>
+            <param name="dataLength">data Length</param>
+            <param name="partitionRatio">partition ratio</param>
+            <param name="randomSeed">partition random seed number</param>
+            <returns></returns>
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application.Model.AbstractWrapper">
+            Summary description for AbstractWrapper.
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application.Model.IWrapper">
+            Summary description for IWrapper.
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application.Model.MSPC.AbstractPCAWrapper">
+            Summary description for AbstractPCAWrapper.
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.MSPC.AbstractPCAWrapper.run(System.Object,System.Double[]@)">
+            <summary>
+            execute run with score values
+            </summary>
+            <param name="inputData"></param>
+            <param name="score"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.MSPC.AbstractPCAWrapper.runBatch(System.Object,System.Double[][]@)">
+            <summary>
+            execute runbatch with score values
+            </summary>
+            <param name="inputData"></param>
+            <param name="scoreses"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.MSPC.AbstractPCAWrapper.getCorrelationCoefficient(System.Double[],System.Double[])">
+            <summary>
+            </summary>
+            <param name="x"></param>
+            <param name="y"></param>
+            <returns></returns>
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application.Model.MSPC.AbstractPLSWrapper">
+            AbstractPLSWrapper의 요약 설명입니다.
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application.Model.MSPC.AbstractT2Wrapper">
+            Summary description for AbstractT2Wrapper.
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application.Model.MSPC.PCAConfig">
+            Summary description for PCAConfig.
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application.Model.MSPC.PCAWrapper">
+            Summary description for PCAWrapper.
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application.Model.MSPC.PLSConfig">
+            PLSConfig의 요약 설명입니다.
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.Model.MSPC.PLSConfig.isTrainingData">
+            <summary>
+            1 : training data, 0 : validation Data
+            </summary>
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application.Model.MSPC.PLSHDS">
+            PLSHDS의 요약 설명입니다.
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.Model.MSPC.PLSHDS.dInput">
+            <summary>
+            neural network input data (converted double data)
+            </summary>
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.Model.MSPC.PLSHDS.dOutput">
+            <summary>
+            neural network output data (converted double data)
+            </summary>
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application.Model.MSPC.PLSWrapper">
+            PLSWrapper의 요약 설명입니다.
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application.Model.MSPC.T2Config">
+            T2UCL class
+            
+            
+            
+            modified at 2006. 12. 07
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.Model.MSPC.T2Config._controlLimitConfidenceLevel">
+            Distrubiton Constant for UCL
+            
+            @serial CHISQUARE	Chi-Square Distribution
+            @serial F			F Distribution
+            @serial Beta			Beta Distribution
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.Model.MSPC.T2Config._specLimitConfidenceLevel">
+            Distrubiton Constant for USL
+            
+            @serial CHISQUARE	Chi-Square Distribution
+            @serial F			F Distribution
+            @serial Beta			Beta Distribution
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.Model.MSPC.T2Config._hardLimitConfidenceLevel">
+            Distrubiton Constant for UHL
+            
+            @serial CHISQUARE	Chi-Square Distribution
+            @serial F			F Distribution
+            @serial Beta			Beta Distribution
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.MSPC.T2Config.getControlLimitConfidenceLevel">
+            get control limit confidenceLevel
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.MSPC.T2Config.setControlLimitConfidenceLevel(System.Double)">
+            set control limit confidenceLevel
+            
+            
+            
+            @param level (double)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.MSPC.T2Config.getControlLimitDistribution">
+            get control limit distribution
+            
+            
+            
+            @return string
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.MSPC.T2Config.setControlLimitDistribution(System.String)">
+            set control limit distribution
+            
+            
+            
+            @param distribution (string)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.MSPC.T2Config.getSpecLimitConfidenceLevel">
+            get spec limit confidenceLevel
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.MSPC.T2Config.setSpecLimitConfidenceLevel(System.Double)">
+            set spec limit confidenceLevel
+            
+            
+            
+            @param level (double)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.MSPC.T2Config.getSpecLimitDistribution">
+            get spec limit distribution
+            
+            
+            
+            @return string
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.MSPC.T2Config.setSpecLimitDistribution(System.String)">
+            set spec limit distribution
+            
+            
+            
+            @param distribution (string)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.MSPC.T2Config.getHardLimitConfidenceLevel">
+            get hard limit confidenceLevel
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.MSPC.T2Config.setHardLimitConfidenceLevel(System.Double)">
+            set hard limit confidenceLevel
+            
+            
+            
+            @param level (double)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.MSPC.T2Config.getHardLimitDistribution">
+            get hard limit distribution
+            
+            
+            
+            @return string
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.MSPC.T2Config.setHardLimitDistribution(System.String)">
+            set hard limit distribution
+            
+            
+            
+            @param distribution (string)
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application.Model.MSPC.T2Object">
+            T2Object class
+            
+            
+            
+            modified at 2006. 12. 11
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application.Model.MSPC.T2Wrapper">
+            Summary description for PCAWrapper.
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.AbstractConjugateGradientWrapper">
+            <summary>
+            Abstract Conjugate Gradient Network Wrapper
+            </summary>
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.AbstractConjugateGradientWrapper._modelType">
+            <summary>
+            Model Type
+            </summary>
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.AbstractConjugateGradientWrapper._config">
+            <summary>
+            CG Config
+            </summary>
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.AbstractConjugateGradientWrapper._cg">
+            <summary>
+            Conjugate Gradient Algorithm Class
+            </summary>
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.AbstractConjugateGradientWrapper._nominalTypeList">
+            <summary>
+            Nominal Type List
+            </summary>
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.AbstractConjugateGradientWrapper._validationError">
+            <summary>
+            neural network validation error array
+            </summary>
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.AbstractConjugateGradientWrapper._trainingError">
+            <summary>
+            neural network training error array
+            </summary>
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.AbstractConjugateGradientWrapper._dataSet">
+            <summary>
+            Neuralnetwork history data set
+            </summary>
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.AbstractConjugateGradientWrapper.InitializeEvent">
+            <summary>
+            Initialize event
+            </summary>
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.AbstractConjugateGradientWrapper.setConfig(BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.ConjugateGradientConfig)">
+            <summary>
+            set CG Net configuration
+            </summary>
+            <param name="cgc">ConjugateGradientConfig object</param>
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.AbstractConjugateGradientWrapper.run(System.Object)">
+            <summary>
+            * @see BISTel.PeakPerformance.Statistics.Application.Model.IWrapper#setHistoricalData(java.lang.object)
+            </summary>
+            <param name="inputData"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.AbstractConjugateGradientWrapper.run(System.Double[])">
+            <summary>
+            predict function using neural network
+            </summary>
+            <param name="inputData">input data double array</param>
+            <returns>result data double array</returns>
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.AbstractConjugateGradientWrapper.runBatch(System.Object)">
+            <summary>
+            Activate Neural Network using Batch Data
+            </summary>
+            <param name="inputData">double[][] Value</param>
+            <returns>double[][] Result</returns>
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.AbstractConjugateGradientWrapper.setHistoricalData(System.Object)">
+            <summary>
+            Setting CG Net training data
+            </summary>
+            <param name="hds">NeuralNetworkHistoryDataSet object</param>
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.AbstractConjugateGradientWrapper.train">
+            <summary>
+            * @see BISTel.PeakPerformance.Statistics.Application.Model.IWrapper#setHistoricalData(java.lang.object)
+            </summary>
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.ConjugateGradientConfig">
+            <summary>
+            Conjugate Gradient Configuration Class
+            </summary>
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.ConjugateGradientConfig.scale_tol">
+            <summary>
+            Divide into delta to determine tolerace for linear search (default : 20)
+            </summary>
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.ConjugateGradientConfig.alpha">
+            <summary>
+            Scale factor which determines sufficient reduction in perf (default : 0.001)
+            </summary>
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.ConjugateGradientConfig.beta">
+            <summary>
+            Scale factor which determines sufficiently large step size (default : 0.1)
+            </summary>
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.ConjugateGradientConfig.gamma">
+            <summary>
+            Parameter to avoid small reductions in performance (default : 0.1)
+            </summary>
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.ConjugateGradientConfig.scale">
+            <summary>
+            scale parameter
+            </summary>
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.ConjugateGradientConfig.delta">
+            <summary>
+            Initial step size
+            </summary>
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.ConjugateGradientConfig.tol">
+            <summary>
+            Tolerance on search
+            </summary>
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.ConjugateGradientConfig.iteration">
+            <summary>
+            Neural Network Maximum Iteration Count
+            </summary>
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.ConjugateGradientConfig.isTrainingData">
+            <summary>
+            1 : training data, 0 : validation Data
+            </summary>
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.ConjugateGradientConfig.nominalTypeList">
+            <summary>
+            nominal data type list
+            </summary>
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.ConjugateGradientConfig.inputMean">
+            <summary>
+            input data mean
+            </summary>
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.ConjugateGradientConfig.inputStd">
+            <summary>
+            input data standard deviation
+            </summary>
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.ConjugateGradientConfig.outputMean">
+            <summary>
+            output data mean
+            </summary>
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.ConjugateGradientConfig.outputStd">
+            <summary>
+            output data standard deviation
+            </summary>
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.ConjugateGradientConfig.nor_scale">
+            <summary>
+            data scailing range
+            </summary>
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.ConjugateGradientConfig.trainingRatio">
+            <summary>
+            Training Dataset Ratio
+            </summary>
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.ConjugateGradientConfig.dataPartitionSeed">
+            <summary>
+            data partitioning random seed number
+            </summary>
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.ConjugateGradientConfig.initialWeightSeedNumber">
+            <summary>
+            neural network initial weight seed number
+            </summary>
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.ConjugateGradientConfig.isValidationErrorStop">
+            true : stop,  false : non stop
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.ConjugateGradientConfig.isViewingTrainingError">
+            <summary>
+            viewing validation and training error  true : viewing, false : invisible
+            </summary>
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.ConjugateGradientConfig.layerData">
+            <summary>
+            neural network layer structure
+            </summary>
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.ConjugateGradientConfig.AddLayerData(BISTel.PeakPerformance.Statistics.Algorithm_CSharp.App.NeuralNetwork.LayerData)">
+            <summary>
+            add layer function
+            </summary>
+            <param name="data">layer data</param>
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.ConjugateGradientConfig.ResetLayerData">
+            <summary>
+            reset layer data
+            </summary>
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.ConjugateGradientConfig.#ctor">
+            <summary>
+            constructor
+            </summary>
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.ConjugateGradientWrapper">
+            <summary>
+            Conjugate Gradienct Network Wrapper
+            </summary>
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.ConjugateGradientWrapper.getModelData">
+            <summary>
+            @see BISTel.PeakPerformance.Statistics.Application.Model.IWrapper#setHistoricalData(java.lang.object)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.ConjugateGradientWrapper.setModelData(System.String)">
+            <summary>
+            @see BISTel.PeakPerformance.Statistics.Application.Model.IWrapper#setHistoricalData(java.lang.object)
+            </summary>
+            <param name="modelData"></param>
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.ConjugateGradientWrapper.#ctor">
+            <summary>
+            생성자
+            </summary>
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.ConjugateGradientWrapper.#ctor(System.Collections.ArrayList,System.Collections.ArrayList)">
+            <summary>
+            
+            </summary>
+            <param name="LayerData">Layer Data ArrayList</param>
+            <param name="WeightData">Weight Data ArrayList</param>
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.ConjugateGradientWrapper.#ctor(System.Collections.ArrayList,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="LayerData">Layer Data</param>
+            <param name="InitialWeigtSeedNumber">Initial Weight Random Seed Number</param>
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.NeuralNetworkHistoryDataSet">
+            <summary>
+            NeuralNetwork history dataset class
+            </summary>
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.NeuralNetworkHistoryDataSet.dInput">
+            <summary>
+            neural network input data (converted double data)
+            </summary>
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.NeuralNetworkHistoryDataSet.dOutput">
+            <summary>
+            neural network output data (converted double data)
+            </summary>
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.NeuralNetworkHistoryDataSet._dTrainingInputData">
+            <summary>
+            seperated training input data array
+            </summary>
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.NeuralNetworkHistoryDataSet._dTrainingOuputData">
+            <summary>
+            seperated training output data array
+            </summary>
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.NeuralNetworkHistoryDataSet._dValidationInputData">
+            <summary>
+            seperated validation input data array
+            </summary>
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.NeuralNetworkHistoryDataSet._dValidationOutputData">
+            <summary>
+            seperated validation output data array
+            </summary>
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.NeuralNetworkHistoryDataSet.#ctor(System.Object[][],System.Object[][])">
+            <summary>
+            
+            </summary>
+            <param name="InputData">input data</param>
+            <param name="TargetData">target data</param>
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.NeuralNetworkHistoryDataSet.#ctor(System.Object[][],System.Object[][],System.Double)">
+            <summary>
+            
+            </summary>
+            <param name="input">input</param>
+            <param name="output">target</param>
+            <param name="trainingRatio">training dataset</param>
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.NeuralNetworkHistoryDataSet.DataPreProcessing(BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.ConjugateGradientConfig,BISTel.PeakPerformance.Statistics.Application.Model.Parameter[])">
+            <summary>
+            Data Preprocessing Function
+            </summary>
+            <param name="config">current neural network config</param>
+            <param name="parameters">parameter list that contains history data</param>
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.NeuralNetworkHistoryDataSet.NomalizeData(BISTel.PeakPerformance.Statistics.Application_CSharp.Model.NeuralNetwork.ConjugateGradientConfig)">
+            <summary>
+            normalize history data
+            </summary>
+            <param name="config">neural network configuration</param>
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application.Model.Parameter">
+            Summary description for Parameter.
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.Model.Parameter.NOMINAL">
+            Parameter Type Constant
+            
+            @serial NOMINAL
+            @serial ORDINAL
+            @serisl DECIMAL
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.Model.Parameter.INPUT">
+            Parameter I/O Type Constant
+            
+            @serial INPUT
+            @serial OUTPUT
+            @serisl OTHER
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.AbstractGoldenTunnelPMWrapper">
+            <summary>
+            Summary description for AbstractGoldenTunnelPMWrapper.
+            </summary>
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.AbstractGoldenTunnelPMWrapper.getGoldenTunnelConfig">
+            get tunnel options
+            
+            
+            
+            @return GoldenTunnelConfig
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.AbstractGoldenTunnelPMWrapper.setGoldenTunnelConfig(BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.GoldenTunnelConfig)">
+            set tunnel options
+            
+            
+            
+            @param tunnelOptions (GoldenTunnelConfig)
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.GoldenTunnelConfig">
+            <summary>
+            Summary description for GoldenTunnelConfig.
+            </summary>
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.GoldenTunnelConfig.getControlLimitCoefficients">
+            get ControlLimitCoefficients
+            
+            
+            
+            @return double[]
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.GoldenTunnelConfig.setControlLimitCoefficients(System.Double[])">
+            set ControlLimitCoefficients
+            
+            
+            
+            @param limitCoefficients (double[])
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.GoldenTunnelConfig.setControlLimitCoefficients(System.Double,System.Double)">
+            set ControlLimitCoefficients
+            
+            
+            
+            @param upperLimitCoefficient (double)
+            @param lowerLimitCoefficient (double)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.GoldenTunnelConfig.getControlLimitOption">
+            get ControlLimitOption
+            
+            
+            
+            @return string
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.GoldenTunnelConfig.setControlLimitOption(System.String)">
+            set ControlLimitOption
+            
+            
+            
+            @param limitOption (string)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.GoldenTunnelConfig.getRegularizationOption">
+            get RegularizationOption
+            
+            
+            
+            @return string
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.GoldenTunnelConfig.setRegularizationOption(System.String)">
+            set RegularizationOption
+            
+            
+            
+            @param option (string)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.GoldenTunnelConfig.getSmoothingOption">
+            get SmoothingOption
+            
+            
+            
+            @return string
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.GoldenTunnelConfig.setSmoothingOption(System.String)">
+            set SmoothingOption
+            
+            
+            
+            @param option (string)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.GoldenTunnelConfig.getSpecLimitCoefficients">
+            get SpecLimitCoefficients
+            
+            
+            
+            @return double[]
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.GoldenTunnelConfig.setSpecLimitCoefficients(System.Double[])">
+            set SpecLimitCoefficients
+            
+            
+            
+            @param limitCoefficients (double[])
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.GoldenTunnelConfig.setSpecLimitCoefficients(System.Double,System.Double)">
+            set SpecLimitCoefficients
+            
+            
+            
+            @param upperLimitCoefficient (double)
+            @param lowerLimitCoefficient (double)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.GoldenTunnelConfig.getSpecLimitOption">
+            get SpecLimitOption
+            
+            
+            
+            @return string
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.GoldenTunnelConfig.setSpecLimitOption(System.String)">
+            set SpecLimitOption
+            
+            
+            
+            @param limitOption (string)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.GoldenTunnelConfig.getHardLimitCoefficients">
+            get HardLimitCoefficients
+            
+            
+            
+            @return double[]
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.GoldenTunnelConfig.setHardLimitCoefficients(System.Double[])">
+            set HardLimitCoefficients
+            
+            
+            
+            @param limitCoefficients (double[])
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.GoldenTunnelConfig.setHardLimitCoefficients(System.Double,System.Double)">
+            set HardLimitCoefficients
+            
+            
+            
+            @param upperLimitCoefficient (double)
+            @param lowerLimitCoefficient (double)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.GoldenTunnelConfig.getHardLimitOption">
+            get HardLimitOption
+            
+            
+            
+            @return string
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.GoldenTunnelConfig.setHardLimitOption(System.String)">
+            set SpecLimitOption
+            
+            
+            
+            @param limitOption (string)
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.GoldenTunnelPM">
+            <summary>
+            Summary description for GoldenTunnelPatternMatching.
+            </summary>
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.GoldenTunnelPM.#ctor(BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.PatternData[][])">
+            Constructor
+            
+            n * m(m =[Time,  
+            
+            @param hds
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.GoldenTunnelPM.#ctor(BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.PatternData[][],BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.GoldenTunnelConfig)">
+            Constructor
+            
+            @param hds
+            @param config
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.GoldenTunnelPM.getGoldenTunnelConfig">
+            get GoldenTunnelConfig
+            
+            
+            
+            @return GoldenTunnelConfig
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.GoldenTunnelPM.setGoldenTunnelConfig(BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.GoldenTunnelConfig)">
+            set GoldenTunnelConfig
+            
+            
+            
+            @param config (tunnelConfig)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.GoldenTunnelPM.addHistoricalData(BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.PatternData[])">
+             set historical data
+             
+             @param patternData 
+             @return void
+             @throws 
+            		
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.GoldenTunnelPM.train">
+             train
+             
+             @return 
+             @return TunnelData
+             @throws 
+            
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.GoldenTunnelPM.makeMatchingPoint(BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.TunnelData.TunnelPoint,BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.TunnelData.TunnelPoint,System.Double,System.Double)">
+            **
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.GoldenTunnelPM.run(BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.PatternData)">
+             run
+             
+             @param patternData
+             @return 
+             @return MatchingPoint
+             @throws 
+            		
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.GoldenTunnelPM.runBatch(BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.PatternData[])">
+             run batch
+             
+             @param patternData
+             @return 
+             @return MatchingPoint[]
+             @throws 
+            		
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.GoldenTunnelPM.setHDS(BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.PatternData[][])">
+            set historical data
+            
+            
+            
+            @param _hds (PatternData[][])
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.GoldenTunnelPM.setTunnelData(BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.TunnelData)">
+            set tunnel data
+            
+            @param tunnelData (TunnelData)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.GoldenTunnelPM.getTunnelData">
+            get tunnel data
+            
+            @return TunnelData
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.GoldenTunnelPMWrapper">
+            <summary>
+            Summary description for GoldenTunnelPMWrapper.
+            </summary>
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.MatchingPoint">
+            <summary>
+            Summary description for MatchingPoint.
+            </summary>
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.MatchingPoint.isInControl">
+            get inControl
+            
+            
+            
+            @return bool
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.MatchingPoint.setInControl(System.Boolean)">
+            set inControl
+            
+            
+            
+            @param control (bool)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.MatchingPoint.getLCL">
+            get Lower Control Limit
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.MatchingPoint.setLCL(System.Double)">
+            set Lower Control Limit
+            
+            
+            
+            @param lcl (double)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.MatchingPoint.getUCL">
+            get Upper Control Limit
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.MatchingPoint.setUCL(System.Double)">
+            set Upper Control Limit
+            
+            
+            
+            @param ucl (double)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.MatchingPoint.getValue">
+            get value
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.MatchingPoint.setValue(System.Double)">
+            set value
+            
+            
+            
+            @param value (double)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.MatchingPoint.isInSpec">
+            get inSpec
+            
+            
+            
+            @return bool
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.MatchingPoint.setInSpec(System.Boolean)">
+            set inSpec
+            
+            
+            
+            @param spec (bool)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.MatchingPoint.getLSL">
+            get Lower Spec Limit
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.MatchingPoint.setLSL(System.Double)">
+            set Lower Spec Limit
+            
+            
+            
+            @param lsl (double)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.MatchingPoint.getUSL">
+            get Upper Spec Limit
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.MatchingPoint.setUSL(System.Double)">
+            set Upper Spec Limit
+            
+            
+            
+            @param usl (double)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.MatchingPoint.isInHard">
+            get inHard
+            
+            
+            
+            @return bool
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.MatchingPoint.setInHard(System.Boolean)">
+            set inHard
+            
+            
+            
+            @param hard (bool)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.MatchingPoint.getLHL">
+            get Lower Hard Limit
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.MatchingPoint.setLHL(System.Double)">
+            set Lower Hard Limit
+            
+            
+            
+            @param lhl (double)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.MatchingPoint.getUHL">
+            get Upper Hard Limit
+            
+            
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.MatchingPoint.setUHL(System.Double)">
+            set Upper Hard Limit
+            
+            
+            
+            @param uhl (double)
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.PatternData">
+            <summary>
+            Pattern Data class
+            </summary>
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.PatternData._globalTime">
+            global time information
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.PatternData._value">
+            data information
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.PatternData._step">
+            step information
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.PatternData._stepTime">
+            step time information
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.PatternData.#ctor(System.Int64,System.Double)">
+            Constructor
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.PatternData.#ctor(System.Int64,System.Double,System.Int64,System.String)">
+            Constructor
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.PatternData.getGlobalTime">
+            get global time
+            
+            @return long
+            @throws
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.PatternData.setGlobalTime(System.Int64)">
+            set global time
+            
+            @param globalTime
+            @throws
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.PatternData.getValue">
+            get value
+            
+            @return double
+            @throws
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.PatternData.setValue(System.Double)">
+            set value
+            
+            @param value
+            @return void
+            @throws
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.PatternData.getStepTime">
+            get stepTime
+            
+            
+            
+            @return long
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.PatternData.setStepTime(System.Int64)">
+            set stepTime
+            
+            
+            
+            @param stepTime (long)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.PatternData.getStep">
+            get step
+            
+            
+            
+            @return int
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.PatternData.setStep(System.String)">
+            set step
+            
+            
+            
+            @param step (int)
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.PatternOverlapData">
+            <summary>
+            Summary description for PatternOverlapData.
+            </summary>
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.PatternOverlapData.PatternOverlapPoint.getValues">
+            get values
+            
+            @return double[]
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.PatternOverlapData.PatternOverlapPoint.setValues(System.Double[])">
+            set values
+            
+            @param values
+                       (double[])
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.PatternOverlapData.PatternOverlapPoint.getGlobalTime">
+            get global time
+            
+            @return long
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.PatternOverlapData.PatternOverlapPoint.setGlobalTime(System.Int64)">
+            set global time
+            
+            @param globalTime
+                       (long)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.PatternOverlapData.PatternOverlapPoint.getStep">
+            get step
+            
+            
+            
+            @return int
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.PatternOverlapData.PatternOverlapPoint.setStep(System.Int32)">
+            set step
+            
+            
+            
+            @param step (int)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.PatternOverlapData.PatternOverlapPoint.getStepTime">
+            get step time
+            
+            
+            
+            @return long
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.PatternOverlapData.PatternOverlapPoint.setStepTime(System.Int64)">
+            set step Time
+            
+            
+            
+            @param step time (long)
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.TunnelData">
+            <summary>
+            Summary description for TunnelData.
+            </summary>
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.TunnelData.getTunnelPoints">
+            get tunnel points
+            
+            @return TunnelData.TunnelPoint[]
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.TunnelData.setTunnelPoints(BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.TunnelData.TunnelPoint[])">
+            set tunnel points
+            
+            @param tunnelPoints
+                       (TunnelData.TunnelPoint[])
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.TunnelData.TunnelPoint.getMean">
+            get Mean
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.TunnelData.TunnelPoint.setMean(System.Double)">
+            set Mean
+            
+            @param mean
+                       (double)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.TunnelData.TunnelPoint.getLCL">
+            get Lower Control Limit
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.TunnelData.TunnelPoint.setLCL(System.Double)">
+            set Lower Control Limit
+            
+            @param lcl
+                       (double)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.TunnelData.TunnelPoint.getGlobalTime">
+            get global time
+            
+            @return long
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.TunnelData.TunnelPoint.setGlobalTime(System.Int64)">
+            set global time
+            
+            @param globalTime
+                       (long)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.TunnelData.TunnelPoint.getUCL">
+            get Upper Control Limit
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.TunnelData.TunnelPoint.setUCL(System.Double)">
+            set Upper Control Limit
+            
+            @param ucl
+                       (double)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.TunnelData.TunnelPoint.getLSL">
+            get Lower Spec Limit
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.TunnelData.TunnelPoint.setLSL(System.Double)">
+            set Lower Spec Limit
+            
+            @param lsl
+                       (double)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.TunnelData.TunnelPoint.getUSL">
+            get Upper Spec Limit
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.TunnelData.TunnelPoint.setUSL(System.Double)">
+            set Upper Spec Limit
+            
+            @param usl
+                       (double)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.TunnelData.TunnelPoint.getStep">
+            get step
+            
+            
+            
+            @return int
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.TunnelData.TunnelPoint.setStep(System.Int32)">
+            set step
+            
+            
+            
+            @param step (int)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.TunnelData.TunnelPoint.getStepTime">
+            get step Time
+            
+            
+            
+            @return long
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.TunnelData.TunnelPoint.setStepTime(System.Int64)">
+            set step Time
+            
+            
+            
+            @param stepTime (long)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.TunnelData.TunnelPoint.getLHL">
+            get Lower Hard Limit
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.TunnelData.TunnelPoint.setLHL(System.Double)">
+            set Lower Hard Limit
+            
+            @param lhl
+                       (double)
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.TunnelData.TunnelPoint.getUHL">
+            get Upper Hard Limit
+            
+            @return double
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.PatternMatching.TunnelData.TunnelPoint.setUHL(System.Double)">
+            set Upper Hard Limit
+            
+            @param uhl
+                       (double)
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application.Model.Regression.AbstractRegressionWrapper">
+            AbstractRegressionWrapper의 요약 설명입니다.
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application.Model.Regression.RegressionHistoryDataSet">
+            RegressionHistoryDataSet의 요약 설명입니다.
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application.Model.Regression.RegressionWrapper">
+            RegressionWrapper의 요약 설명입니다.
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application.Model.SystemIndex.DataQualityIndex">
+            
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.Model.SystemIndex.DataQualityIndex._mean">
+            Mean of Model System
+            
+            @serial Mean of Model System
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.Model.SystemIndex.DataQualityIndex._sigma">
+            sigma of Model System
+            
+            @serial sigma of Model System
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.SystemIndex.DataQualityIndex.#ctor(System.Double[])">
+            
+            Construct a Data Quality Index.
+            
+            @param HDS
+                  Data interval array of Historical data set
+            	 
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.SystemIndex.DataQualityIndex.#ctor(System.Double,System.Double)">
+            
+            Construct a Data Quality Index.
+            
+            @param HDS
+                  Data interval mean of Historical data set
+            	 
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.SystemIndex.DataQualityIndex.getDataQualityIndex(System.Double)">
+            Get the line to inform the condition which is safe
+            
+            @return the line to inform the condition which is safe
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application.Model.SystemIndex.ParameterHealthIndex">
+            Summary description for ParameterHealthIndex.
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application.Model.SystemIndex.SystemHealthIndex">
+            System Health Index is to grasp condition of system with one value.
+            In order to grasp an accumulation of system we used the EWMA and MA.
+            
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.Model.SystemIndex.SystemHealthIndex.HDS">
+            Historical Data Set
+            
+            @serial Historical Data Set
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.Model.SystemIndex.SystemHealthIndex.CL">
+            Mean of Model System
+            
+            @serial Mean of Model System
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.Model.SystemIndex.SystemHealthIndex.UCL">
+            UCL of Mean of Model System
+            
+            @serial UCL of Mean of Model System
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.Model.SystemIndex.SystemHealthIndex.HDS_CL">
+            Mean of Historical Data Set
+            
+            @serial Mean of Historical Data Set
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.Model.SystemIndex.SystemHealthIndex.HDS_UCL">
+            UCL of Historical Data Set
+            
+            @serial UCL of Historical Data Set
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.Model.SystemIndex.SystemHealthIndex.HDS_point">
+            point of Historical Data Set
+            
+            @serial point of Historical Data Set
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.Model.SystemIndex.SystemHealthIndex.span">
+            span of Moving average
+            
+            @serial span of Moving average
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.Model.SystemIndex.SystemHealthIndex.Lamda">
+            Lamda of EWMA
+            
+            @serial Lamda of EWMA
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.SystemIndex.SystemHealthIndex.#ctor(System.Double[],System.Int32)">
+            
+            Construct a System Health Index by MA.
+            
+            @param HDS
+                  T2's array of Historical data set
+            
+            @param span
+                  span of Moving average
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.SystemIndex.SystemHealthIndex.#ctor(System.Double[],System.Double)">
+            
+            Construct a System Health Index by EWMA.
+            
+            @param HDS
+                  T2's array of Historical data set
+            
+            @param lamda
+                  Lamda of EWMA
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.SystemIndex.SystemHealthIndex.#ctor(System.Double,System.Double,System.Double)">
+            
+            Detect a System Health Index by EWMA.
+            
+            @param CL
+                  Mean of decided model
+            
+            @param UCL
+                  UCL of decided model
+            
+            @param lamda
+                  Lamda of EWMA
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.SystemIndex.SystemHealthIndex.#ctor(System.Double,System.Double,System.Int32)">
+            
+            Detect a System Health Index by MA.
+            
+            @param CL
+                  Mean of decided model
+            
+            @param UCL
+                  UCL of decided model
+            
+            @param span
+                  span of Moving average
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.SystemIndex.SystemHealthIndex.getHDS_UCL">
+            Get UCL of HDS
+            
+            @return array of HDS's UCL
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.SystemIndex.SystemHealthIndex.getHDS_CL">
+            Get CL of HDS
+            
+            @return array of HDS's CL
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.SystemIndex.SystemHealthIndex.getHDS_point">
+            Get point of HDS
+            
+            @return array of point of HDS
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.SystemIndex.SystemHealthIndex.getHDS">
+            Get HDS
+            
+            @return array of HDS
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.SystemIndex.SystemHealthIndex.getEWMAIndexpoint(System.Double,System.Double)">
+            Get Health index point which is calculated with the EWMA
+            
+            @return Health index point which is calculated with the EWMA
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:BISTel.PeakPerformance.Statistics.Application.Model.SystemIndex.SystemHealthIndex.getMAIndexpoint(System.Double,System.Double,System.Double)" -->
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.SystemIndex.SystemHealthIndex.getMAIndexpoint(System.Double[],System.Int32)">
+            Get Health index point which is calculated with the MA, if row >= span
+            
+            @return Health index point which is calculated with the MA
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.SystemIndex.SystemHealthIndex.getRedline">
+            Get the line to inform the condition which is dangerous
+            
+            @return the line to inform the condition which is dangerous
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.SystemIndex.SystemHealthIndex.getYellowline">
+            Get the line to inform an warnnig condition
+            
+            @return the line to inform an warnnig condition
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.SystemIndex.SystemHealthIndex.getGreenline">
+            Get the line to inform the condition which is safe
+            
+            @return the line to inform the condition which is safe
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.SystemIndex.SystemHealthIndex.getIndexpoint(System.Double)">
+            Get the line to inform the condition which is safe
+            
+            @return the line to inform the condition which is safe
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.Validation.CrossValidation.adjust(System.Double[],System.Int32,System.Int32,System.Int32[])">
+            internal sorting sub function
+            
+            @param x
+            @param i
+            @param n
+            @param out indices
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Model.Validation.CrossValidation.sort(System.Double[],System.Int32[])">
+            internal sorting funcion
+            
+            @param data
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application.Model.Validation.CrossValidation.CVMethod">
+            CV Method
+             - None
+             - KFold
+             - Holdout
+             - LeaveOneOut
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.Test.ChisquareTestResult.chisquareValue">
+            <summary>
+            chi-square value
+            </summary>
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.Test.ChisquareTestResult.pvalue">
+            <summary>
+            p-value
+            </summary>
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.Test.ChisquareTestResult.expected">
+            <summary>
+            a double array contaning expected value
+            </summary>
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.Test.ChisquareTestResult.observed">
+            <summary>
+            a double array contaning observed value
+            </summary>
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.Test.ChisquareTestResult.alpha">
+            <summary>
+            significance level
+            </summary>
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.Test.ChisquareTestResult.degreeoffreedom">
+            <summary>
+            degree of freedom
+            </summary>
+        </member>
+        <member name="F:BISTel.PeakPerformance.Statistics.Application.Test.ChisquareTestResult.isAccectable">
+            <summary>
+            is accectable (true : accectable false : not accectable)
+            </summary>
+        </member>
+        <member name="T:BISTel.PeakPerformance.Statistics.Application.Test.ChisquareTest">
+            <summary>
+            Perform the chi-square test
+            </summary>
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Test.ChisquareTest.getChisquareResult(System.Double,System.Double[],System.Double[])">
+            <summary>
+            Excute the chi-square test using expected and observed value
+            </summary>
+            <param name="alpha">significance leve;</param>
+            <param name="expected">A double array containing the expected value </param>
+            <param name="observed">A double array containing the observed value</param>
+            <returns>returns a chi-square result</returns>
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Test.ChisquareTest.getChisquareResult(System.Double,System.Double[],System.Double[],System.Int32)">
+            <summary>
+            Excute the chi-square test using expected and observed value
+            </summary>
+            <param name="alpha">significance leve</param>
+            <param name="expected">A double array containing the expected value </param>
+            <param name="observed">A double array containing the observed value</param>
+            <param name="degreeoffreedom">degree of freedom</param>
+            <returns>returns a chi-square result</returns>
+        </member>
+        <member name="M:BISTel.PeakPerformance.Statistics.Application.Test.ChisquareTest.getChisquareResult(System.Double[],System.Double[])">
+            <summary>
+            Excute the chi-square test using expected and observed value
+            </summary>
+            <param name="expected">A double array containing the expected value </param>
+            <param name="observed">A double array containing the observed value</param>
+            <returns>returns a chi-square result</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:BISTel.PeakPerformance.Statistics.Application.Test.ChisquareTest.getChisquareValue(System.Double,System.Double)" -->
+        <!-- Badly formed XML comment ignored for member "M:BISTel.PeakPerformance.Statistics.Application.Test.ChisquareTest.getChisquareValue(System.Double[],System.Double[])" -->
+        <member name="T:BISTel.PeakPerformance.Statistics.Application.XML.XMLUtil">
+            XMLUtil class
+            
+            
+            
+            modified at 2006. 12. 06
+        </member>
+    </members>
+</doc>
